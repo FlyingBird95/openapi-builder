@@ -2,7 +2,10 @@
 
 `OpenAPI Generator <https://flyingbird95.github.io/openapi_generator>`_
 =====================================
-A Flask blueprint for automatically adding OpenAPI documentation to your Flask app.
+A Flask_ extension for automatically adding OpenAPI_ documentation to your Flask app.
+
+.. _Flask: https://flask.palletsprojects.com/
+.. _OpenAPI: https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md
 
 Quick start
 -----------
