@@ -2,7 +2,7 @@
 
 OpenAPI Generator
 ==========================
-A Flask blueprint for automatically adding swagger documentation to your Flask app
+A Flask blueprint for automatically adding OpenAPI documentation to your Flask app.
 
 Quick start
 -----------
@@ -13,8 +13,21 @@ Quick start
 Features
 --------
 
+
+Contributing
+------------
+
+Contributions are welcome! If you can see a way to improve this package:
+
+- Do click the fork button
+- Make your changes and make a pull request.
+
+Or to report a bug or request something new, make an issue.
+
+
 Development
 -----------
+This section describes development standards for this project.
 
 Black
 ~~~~~
@@ -28,13 +41,13 @@ The format used by Black makes code review faster by producing the smaller diffs
 
 Black's output is always stable.
 For a given block of code, a fixed version of black will always produce the same output.
-However, you should note that different versions of black will produce different outputs.
-If you want to upgrade to a newer version of black, you must change the version everywhere it is specified:
+However, it should be noted that different versions of black will produce different outputs.
+Black is configured here:
 
-- requirements-dev.txt, `L1 <https://github.com/scottclowe/python-template-repo/blob/master/requirements-dev.txt#L1>`__
-- .pre-commit-config.yaml, `L14 <https://github.com/scottclowe/python-template-repo/blob/master/.pre-commit-config.yaml#L14>`__,
-  `L28 <https://github.com/scottclowe/python-template-repo/blob/master/.pre-commit-config.yaml#L28>`__, and
-  `L47 <https://github.com/scottclowe/python-template-repo/blob/master/.pre-commit-config.yaml#L47>`__
+- requirements-dev.txt, `L1 <https://github.com/flyingbird95/openapi_generator/blob/master/requirements-dev.txt#L1>`__
+- .pre-commit-config.yaml, `L14 <https://github.com/flyingbird95/openapi_generator/blob/master/.pre-commit-config.yaml#L14>`__,
+  `L28 <https://github.com/flyingbird95/openapi_generator/blob/master/.pre-commit-config.yaml#L28>`__, and
+  `L47 <https://github.com/flyingbird95/openapi_generator/blob/master/.pre-commit-config.yaml#L47>`__
 
 .. _black: https://github.com/psf/black
 
@@ -42,8 +55,8 @@ If you want to upgrade to a newer version of black, you must change the version 
 pre-commit
 ~~~~~~~~~~
 
-The template repository comes with a pre-commit_ stack.
-This is a set of git hooks which are executed every time you make a commit.
+This repository comes with a pre-commit_ stack.
+This is a set of git hooks which are executed every time a commit is made.
 The hooks catch errors as they occur, and will automatically fix some of these errors.
 
 To set up the pre-commit hooks, run the following code from within the repo directory::
@@ -51,12 +64,12 @@ To set up the pre-commit hooks, run the following code from within the repo dire
     pip install -r requirements-dev.txt
     pre-commit install
 
-Whenever you try to commit code which is flagged by the pre-commit hooks, the commit will not go through.
-Some of the pre-commit hooks (such as black_, isort_) will automatically modify your code to fix the issues.
-When this happens, you'll have to stage the changes made by the commit hooks and then try your commit again.
-Other pre-commit hooks will not modify your code and will just tell you about issues which you'll then have to manually fix.
+Whenever trying to commit code which is flagged by the pre-commit hooks, the commit will not go through.
+Some of the pre-commit hooks (such as black_, isort_) will automatically modify the code to fix the issues.
+When this happens, you'll have to stage the changes made by the commit hooks and then commit again.
+Other pre-commit hooks will not modify the code and will just tell you about issues which you'll then have to manually fix.
 
-You can also manually run the pre-commit stack on all the files at any time::
+To run the pre-commit stack on all the files at any time::
 
     pre-commit run --all-files
 
@@ -78,7 +91,7 @@ The pre-commit stack which comes with the template is highly opinionated, and in
 
 - setup-cfg-fmt_ is used to format any setup.cfg files.
 
-- Several `hooks from pre-commit <pre-commit-hooks_>`_ are used to screen for non-language specific git issues, such as incomplete git merges, overly large files being commited to the repo, bugged JSON and YAML files.
+- Several `hooks from pre-commit <pre-commit-hooks_>`_ are used to screen for non-language specific git issues, such as incomplete git merges, overly large files being committed to the repo, bugged JSON and YAML files.
   JSON files are also prettified automatically to have standardised indentation.
   Entries in requirements.txt files are automatically sorted alphabetically.
 
@@ -108,24 +121,18 @@ It is set up to work well out of the box, with several features added in.
 GitHub Pages
 ^^^^^^^^^^^^
 
-If your repository is publicly available, the docs workflow will automatically deploy your documentation to `GitHub Pages`_.
-To enable the documentation, go to the ``Settings > Pages`` pane for your repository and set Source to be the ``gh-pages`` branch (root directory).
-Your automatically compiled documentation will then be publicly available at https://flyingbird95.github.io/openapi_generator/.
+Documentation is deployed to `GitHub Pages`_ and is available at https://flyingbird95.github.io/openapi_generator/.
 
-Since GitHub pages are always publicly available, the workflow will check whether your repository is public or private, and will not deploy the documentation to gh-pages if your repository is private.
-
-The gh-pages documentation is refreshed every time there is a push to your default branch.
+The gh-pages documentation is refreshed every time there is a push to the master branch.
 
 Note that only one copy of the documentation is served (the latest version).
-For more mature projects, you may wish to host the documentation readthedocs_ instead, which supports hosting documentation for multiple package versions simultaneously.
 
 .. _GitHub Pages: https://pages.github.com/
-.. _readthedocs: https://readthedocs.org/
 
 Building locally
 ^^^^^^^^^^^^^^^^
 
-You can build the web documentation locally with::
+The web documentation can be built locally with::
 
    make -C docs html
 
@@ -133,7 +140,7 @@ And view the documentation like so::
 
    sensible-browser docs/_build/html/index.html
 
-Or you can build pdf documentation::
+Or build the pdf documentation::
 
    make -C docs latexpdf
 
@@ -147,22 +154,18 @@ On Windows, this becomes::
 Other documentation features
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-- Your README.rst will become part of the generated documentation (via a link file ``docs/source/readme.rst``).
-  Note that the first line of README.rst is not included in the documentation, since this is expected to contain badges which you want to render on GitHub, but not include in your documentation pages.
+- The README.rst will become part of the generated documentation (via a link file ``docs/source/readme.rst``).
+  Note that the first line of README.rst is not included in the documentation, since this is expected to contain badges which we render on GitHub, but not include in the documentation pages.
 
-- If you prefer, you can use a README.md file written in GitHub-Flavored Markdown instead of README.rst.
-  This will automatically be handled and incorporate into the generated documentation (via a generated file ``docs/source/readme.rst``).
-  As with a README.rst file, the first line of README.md is not included in the documentation, since this is expected to contain badges which you want to render on GitHub, but not include in your documentation pages.
-
-- Your docstrings to your modules, functions, classes and methods will be used to build a set of API documentation using autodoc_.
+- The docstrings in all modules, functions, classes and methods will be used to build a set of API documentation using autodoc_.
   Our ``docs/conf.py`` is also set up to automatically call autodoc whenever it is run, and the output files which it generates are on the gitignore list.
-  This means you will automatically generate a fresh API description which exactly matches your current docstrings every time you generate the documentation.
+  This means it will automatically generate a fresh API description which exactly matches the current docstrings every time the documentation is generated.
 
 - Docstrings can be formatted in plain reST_, or using the `numpy format`_ (recommended), or `Google format`_.
-  Support for numpy and Google formats is through the napoleon_ extension (which we have enabled by default).
+  Support for numpy and Google formats is through the napoleon_ extension (which is enabled by default).
 
-- You can reference functions in the python core and common packages and they will automatically be hyperlinked to the appropriate documentation in your own documentation.
-  This is done using intersphinx_ mappings, which you can see (and can add to) at the bottom of the ``docs/conf.py`` file.
+- The reference functions in the python core and common packages and they will automatically be hyperlinked to the appropriate documentation in the documentation.
+  This is done using intersphinx_ mappings, which can be seen at the bottom of the ``docs/conf.py`` file.
 
 - The documentation theme is sphinx-book-theme_.
   Alternative themes can be found at sphinx-themes.org_, sphinxthemes.com_, and writethedocs_.
@@ -184,7 +187,7 @@ Consolidated metadata
 ~~~~~~~~~~~~~~~~~~~~~
 
 Package metadata is consolidated into one place, the file ``openapi_generator/__meta__.py``.
-You only have to write the metadata once in this centralised location, and everything else (packaging, documentation, etc) picks it up from there.
+This is done to only write the metadata once in this centralised location, and everything else (packaging, documentation, etc) picks it up from there.
 This is similar to `single-sourcing the package version`_, but for all metadata.
 
 This information is available to end-users with ``import openapi_generator; print(openapi_generator.__meta__)``.
@@ -197,9 +200,9 @@ The version information is also accessible at ``openapi_generator.__version__``,
 setup.py
 ~~~~~~~~
 
-The ``setup.py`` script is used to build and install your package.
+The ``setup.py`` script is used to build and install the package.
 
-Your package can be installed from source with::
+The package can be installed from source with::
 
     pip install .
 
@@ -207,7 +210,7 @@ or alternatively with::
 
     python setup.py install
 
-But do remember that as a developer, you should install your package in editable mode, using either::
+But do remember that as a developer, the package should be installed in editable mode, using either::
 
     pip install --editable .
 
@@ -215,7 +218,7 @@ or::
 
     python setup.py develop
 
-which will mean changes to the source will affect your installed package immediately without you having to reinstall it.
+which will mean changes to the source will affect the installed package immediately without having to reinstall it.
 
 By default, when the package is installed only the main requirements, listed in ``requirements.txt`` will be installed with it.
 Requirements listed in ``requirements-dev.txt``, ``requirements-docs.txt``, and ``requirements-test.txt`` are optional extras.
@@ -228,7 +231,7 @@ etc.
 Any additional files named ``requirements-EXTRANAME.txt`` will also be collected automatically and made available with the corresponding name ``EXTRANAME``.
 Another extra named ``all`` captures all of these optional dependencies.
 
-Your README file is automatically included in the metadata when you use setup.py build wheels for PyPI.
+The README file is automatically included in the metadata when setup.py build wheels for PyPI.
 The rest of the metadata comes from ``openapi_generator/__meta__.py``.
 
 Our template setup.py file is based on the `example from setuptools documentation <setuptools-setup.py_>`_, and the comprehensive example from `Kenneth Reitz <kennethreitz/setup.py_>`_ (released under `MIT License <https://github.com/kennethreitz/setup.py/blob/master/LICENSE>`__), with further features added.
@@ -248,7 +251,7 @@ Five workflows are included:
 
 docs
     The docs workflow ensures the documentation builds correctly, and presents any errors and warnings nicely as annotations.
-    If your repository is public, publicly available html documentation is automatically deployed to the gh-pages branch and https://flyingbird95.github.io/openapi_generator/.
+    The available html documentation is automatically deployed to the gh-pages branch and https://flyingbird95.github.io/openapi_generator/.
 
 pre-commit
     Runs the pre-commit stack.
@@ -256,21 +259,17 @@ pre-commit
 
 lint
     Checks the code uses the black_ style and tests for flake8_ errors.
-    If you are using the pre-commit hooks, the lint workflow is superfluous and can be deleted.
+    Note that the lint workflow is superfluous, due to the pre-commit hooks.
 
 test
-    Runs the unit tests, and pushes coverage reports to Codecov_.
-    You'll need to sign up at Codecov_ with your GitHub account in order for this integration to work.
+    Runs the pytest, and pushes coverage reports to Codecov_.
 
 release candidate tests
     The release candidate tests workflow runs the unit tests on more Python versions and operating systems than the regular test workflow.
     This runs on all tags, plus pushes and PRs to branches named like "v1.2.x", etc.
-    Wheels are built for all the tested systems, and stored as artifacts for your convenience when shipping a new distribution.
+    Wheels are built for all the tested systems, and stored as artifacts for convenience when shipping a new distribution.
 
-If you enable the ``publish`` job on the release candidate tests workflow, you can also push built release candidates to the `Test PyPI <testpypi_>`_ server.
-For this to work, you'll also need to add your Test `PyPI API token <pypi-api-token_>`_ to your `GitHub secrets <github-secrets_>`_.
-Checkout the `pypa/gh-action-pypi-publish <pypi-publish_>`_ GitHub action, and `PyPI's guide on distributing from CI <ci-packaging_>`_ for more information on this.
-With minimal tweaks, this job can be changed to push to PyPI for real, but be careful with this since releases on PyPI can not easily be yanked.
+When the ``publish`` job is enabled on the release candidate tests workflow, it can also push built release candidates to the `Test PyPI <testpypi_>`_ server.
 
 .. _Codecov: https://codecov.io/
 .. _ci-packaging: https://packaging.python.org/guides/publishing-package-distribution-releases-using-github-actions-ci-cd-workflows/
@@ -280,40 +279,14 @@ With minimal tweaks, this job can be changed to push to PyPI for real, but be ca
 .. _testpypi: https://test.pypi.org/
 
 
-Other CI/CD options
-~~~~~~~~~~~~~~~~~~~
-
-Alternative CI/CD services are also available for running tests.
-
-- `Travis CI <https://travis-ci.org/>`_ offers a free trial service.
-
-- `Circle CI <https://circleci.com>`_ is another option with a limited `free option <https://circleci.com/pricing/#build-linux>`_.
-
-- `Appveyor <https://www.appveyor.com>`_ useful for testing on Windows.
-  This offers an alternative to GitHub Actions if you need to `build Windows wheel files to submit to PyPI <https://github.com/ogrisel/python-appveyor-demo>`_.
-
-- `Jenkins <https://jenkins.io/>`_ is useful if you want to run your CI test suite locally or on your own private server instead of in the cloud.
-
-
-Contributing
-------------
-
-Contributions are welcome! If you can see a way to improve this template:
-
-- Do click the fork button
-- Make your changes and make a pull request.
-
-Or to report a bug or request something new, make an issue.
-
-
 .. highlight:: python
 
 
-.. |GHA tests| image:: https://github.com/scottclowe/python-template-repo/workflows/tests/badge.svg
-   :target: https://github.com/scottclowe/python-template-repo/actions?query=workflow%3Atests
+.. |GHA tests| image:: https://github.com/flyingbird95/openapi_generator/workflows/tests/badge.svg
+   :target: https://github.com/flyingbird95/openapi_generator/actions?query=workflow%3Atests
    :alt: GHA Status
-.. |Codecov report| image:: https://codecov.io/github/scottclowe/python-template-repo/coverage.svg?branch=master
-   :target: https://codecov.io/github/scottclowe/python-template-repo?branch=master
+.. |Codecov report| image:: https://codecov.io/github/flyingbird95/openapi_generator/coverage.svg?branch=master
+   :target: https://codecov.io/github/flyingbird95/openapi_generator?branch=master
    :alt: Coverage
 .. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
    :target: https://github.com/pre-commit/pre-commit
