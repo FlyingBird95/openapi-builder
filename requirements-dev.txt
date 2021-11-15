@@ -1,0 +1,2 @@
+black==21.7b0; python_version>='3.9'
+pre-commit
