@@ -1,0 +1,520 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>OpenAPI Generator &#8212; openapi_generator 0.1.0 documentation</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet">
+  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" href="_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/rtd_sphinx_search.min.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/js/rtd_sphinx_search.min.js"></script>
+    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="source/packages/modules.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="#">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">openapi_generator 0.1.0 documentation</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <p class="caption">
+ <span class="caption-text">
+  Contents:
+ </span>
+</p>
+<ul class="nav bd-sidenav">
+ <li class="toctree-l1 has-children">
+  <a class="reference internal" href="source/packages/modules.html">
+   API Reference
+  </a>
+  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
+  <label for="toctree-checkbox-1">
+   <i class="fas fa-chevron-down">
+   </i>
+  </label>
+  <ul>
+   <li class="toctree-l2 has-children">
+    <a class="reference internal" href="source/packages/openapi_generator.html">
+     openapi_generator package
+    </a>
+    <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
+    <label for="toctree-checkbox-2">
+     <i class="fas fa-chevron-down">
+     </i>
+    </label>
+    <ul>
+     <li class="toctree-l3">
+      <a class="reference internal" href="source/packages/openapi_generator.module.html">
+       openapi_generator.module module
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="source/changelog.html">
+   Changelog
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="py-modindex.html">
+   Module Index
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="genindex.html">
+   Index
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Theme by the <a href="https://ebp.jupyterbook.org">Executable Book Project</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/index.rst.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#quick-start">
+   Quick start
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#features">
+   Features
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#contributing">
+   Contributing
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#development">
+   Development
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#black">
+     Black
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pre-commit">
+     pre-commit
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#automated-documentation">
+     Automated documentation
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#github-pages">
+       GitHub Pages
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#building-locally">
+       Building locally
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#other-documentation-features">
+       Other documentation features
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#consolidated-metadata">
+     Consolidated metadata
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#setup-py">
+     setup.py
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#github-actions-workflows">
+     GitHub Actions Workflows
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="openapi-generator">
+<h1>OpenAPI Generator<a class="headerlink" href="#openapi-generator" title="Permalink to this headline">¶</a></h1>
+<p>A Flask blueprint for automatically adding OpenAPI documentation to your Flask app.</p>
+<div class="section" id="quick-start">
+<h2>Quick start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="features">
+<h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="contributing">
+<h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h2>
+<p>Contributions are welcome! If you can see a way to improve this package:</p>
+<ul class="simple">
+<li><p>Do click the fork button</p></li>
+<li><p>Make your changes and make a pull request.</p></li>
+</ul>
+<p>Or to report a bug or request something new, make an issue.</p>
+</div>
+<div class="section" id="development">
+<h2>Development<a class="headerlink" href="#development" title="Permalink to this headline">¶</a></h2>
+<p>This section describes development standards for this project.</p>
+<div class="section" id="black">
+<h3>Black<a class="headerlink" href="#black" title="Permalink to this headline">¶</a></h3>
+<p><a class="reference external" href="https://github.com/psf/black">Black</a> is an uncompromising Python code formatter.
+By using it, you cede control over minutiae of hand-formatting.
+But in return, you no longer have to worry about formatting your code correctly, since black will handle it.
+Blackened code looks the same for all authors, ensuring consistent code formatting within your project.</p>
+<p>The format used by Black makes code review faster by producing the smaller diffs.</p>
+<p>Black’s output is always stable.
+For a given block of code, a fixed version of black will always produce the same output.
+However, it should be noted that different versions of black will produce different outputs.
+Black is configured here:</p>
+<ul class="simple">
+<li><p>requirements-dev.txt, <a class="reference external" href="https://github.com/flyingbird95/openapi_generator/blob/master/requirements-dev.txt#L1">L1</a></p></li>
+<li><p>.pre-commit-config.yaml, <a class="reference external" href="https://github.com/flyingbird95/openapi_generator/blob/master/.pre-commit-config.yaml#L14">L14</a>,
+<a class="reference external" href="https://github.com/flyingbird95/openapi_generator/blob/master/.pre-commit-config.yaml#L28">L28</a>, and
+<a class="reference external" href="https://github.com/flyingbird95/openapi_generator/blob/master/.pre-commit-config.yaml#L47">L47</a></p></li>
+</ul>
+</div>
+<div class="section" id="pre-commit">
+<h3>pre-commit<a class="headerlink" href="#pre-commit" title="Permalink to this headline">¶</a></h3>
+<p>This repository comes with a <a class="reference external" href="https://pre-commit.com/">pre-commit</a> stack.
+This is a set of git hooks which are executed every time a commit is made.
+The hooks catch errors as they occur, and will automatically fix some of these errors.</p>
+<p>To set up the pre-commit hooks, run the following code from within the repo directory:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install -r requirements-dev.txt
+pre-commit install
+</pre></div>
+</div>
+<p>Whenever trying to commit code which is flagged by the pre-commit hooks, the commit will not go through.
+Some of the pre-commit hooks (such as <a class="reference external" href="https://github.com/psf/black">black</a>, <a class="reference external" href="https://github.com/timothycrosley/isort">isort</a>) will automatically modify the code to fix the issues.
+When this happens, you’ll have to stage the changes made by the commit hooks and then commit again.
+Other pre-commit hooks will not modify the code and will just tell you about issues which you’ll then have to manually fix.</p>
+<p>To run the pre-commit stack on all the files at any time:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pre-commit run --all-files
+</pre></div>
+</div>
+<p>To force a commit to go through without passing the pre-commit hooks use the <code class="docutils literal notranslate"><span class="pre">--no-verify</span></code> flag:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git commit --no-verify
+</pre></div>
+</div>
+<p>The pre-commit stack which comes with the template is highly opinionated, and includes the following operations:</p>
+<ul class="simple">
+<li><p>Code is reformatted to use the <a class="reference external" href="https://github.com/psf/black">black</a> style.
+Any code inside docstrings will be formatted to black using <a class="reference external" href="https://github.com/asottile/blacken-docs">blackendocs</a>.
+All code cells in Jupyter notebooks are also formatted to black using <a class="reference external" href="https://github.com/dfm/black_nbconvert">black_nbconvert</a>.</p></li>
+<li><p>All Jupyter notebooks are cleared using <a class="reference external" href="https://github.com/kynan/nbstripout">nbstripout</a>.</p></li>
+<li><p>Imports are automatically sorted using <a class="reference external" href="https://github.com/timothycrosley/isort">isort</a>.</p></li>
+<li><p><a class="reference external" href="https://gitlab.com/pycqa/flake8">flake8</a> is run to check for conformity to the python style guide <a class="reference external" href="https://www.python.org/dev/peps/pep-0008/">PEP-8</a>, along with several other formatting issues.</p></li>
+<li><p><a class="reference external" href="https://github.com/asottile/setup-cfg-fmt">setup-cfg-fmt</a> is used to format any setup.cfg files.</p></li>
+<li><p>Several <a class="reference external" href="https://github.com/pre-commit/pre-commit-hooks">hooks from pre-commit</a> are used to screen for non-language specific git issues, such as incomplete git merges, overly large files being committed to the repo, bugged JSON and YAML files.
+JSON files are also prettified automatically to have standardised indentation.
+Entries in requirements.txt files are automatically sorted alphabetically.</p></li>
+<li><p>Several <a class="reference external" href="https://github.com/pre-commit/pygrep-hooks">hooks from pre-commit specific to python</a> are used to screen for rST formatting issues, and ensure noqa flags always specify an error code to ignore.</p></li>
+</ul>
+<p>Once it is set up, the pre-commit stack will run locally on every commit.
+The pre-commit stack will also run on github with one of the action workflows, which ensures PRs are checked without having to rely on contributors to enable the pre-commit locally.</p>
+</div>
+<div class="section" id="automated-documentation">
+<h3>Automated documentation<a class="headerlink" href="#automated-documentation" title="Permalink to this headline">¶</a></h3>
+<p>The script <code class="docutils literal notranslate"><span class="pre">docs/conf.py</span></code> is based on the <a class="reference external" href="https://www.sphinx-doc.org/">Sphinx</a> default configuration.
+It is set up to work well out of the box, with several features added in.</p>
+<div class="section" id="github-pages">
+<h4>GitHub Pages<a class="headerlink" href="#github-pages" title="Permalink to this headline">¶</a></h4>
+<p>Documentation is deployed to <a class="reference external" href="https://pages.github.com/">GitHub Pages</a> and is available at <a class="reference external" href="https://flyingbird95.github.io/openapi_generator/">https://flyingbird95.github.io/openapi_generator/</a>.</p>
+<p>The gh-pages documentation is refreshed every time there is a push to the master branch.</p>
+<p>Note that only one copy of the documentation is served (the latest version).</p>
+</div>
+<div class="section" id="building-locally">
+<h4>Building locally<a class="headerlink" href="#building-locally" title="Permalink to this headline">¶</a></h4>
+<p>The web documentation can be built locally with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make -C docs html
+</pre></div>
+</div>
+<p>And view the documentation like so:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sensible-browser docs/_build/html/index.html
+</pre></div>
+</div>
+<p>Or build the pdf documentation:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make -C docs latexpdf
+</pre></div>
+</div>
+<p>On Windows, this becomes:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> docs
+make html
+make latexpdf
+<span class="nb">cd</span> ..
+</pre></div>
+</div>
+</div>
+<div class="section" id="other-documentation-features">
+<h4>Other documentation features<a class="headerlink" href="#other-documentation-features" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li><p>The README.rst will become part of the generated documentation (via a link file <code class="docutils literal notranslate"><span class="pre">docs/source/readme.rst</span></code>).
+Note that the first line of README.rst is not included in the documentation, since this is expected to contain badges which we render on GitHub, but not include in the documentation pages.</p></li>
+<li><p>The docstrings in all modules, functions, classes and methods will be used to build a set of API documentation using <a class="reference external" href="http://www.sphinx-doc.org/en/master/usage/extensions/autodoc.html">autodoc</a>.
+Our <code class="docutils literal notranslate"><span class="pre">docs/conf.py</span></code> is also set up to automatically call autodoc whenever it is run, and the output files which it generates are on the gitignore list.
+This means it will automatically generate a fresh API description which exactly matches the current docstrings every time the documentation is generated.</p></li>
+<li><p>Docstrings can be formatted in plain <a class="reference external" href="http://docutils.sourceforge.net/rst.html">reST</a>, or using the <a class="reference external" href="https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_numpy.html#example-numpy-style-python-docstrings">numpy format</a> (recommended), or <a class="reference external" href="https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html#example-google">Google format</a>.
+Support for numpy and Google formats is through the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/extensions/napoleon.html">napoleon</a> extension (which is enabled by default).</p></li>
+<li><p>The reference functions in the python core and common packages and they will automatically be hyperlinked to the appropriate documentation in the documentation.
+This is done using <a class="reference external" href="http://www.sphinx-doc.org/en/master/usage/extensions/intersphinx.html">intersphinx</a> mappings, which can be seen at the bottom of the <code class="docutils literal notranslate"><span class="pre">docs/conf.py</span></code> file.</p></li>
+<li><p>The documentation theme is <a class="reference external" href="https://sphinx-book-theme.readthedocs.io/">sphinx-book-theme</a>.
+Alternative themes can be found at <a class="reference external" href="https://sphinx-themes.org">sphinx-themes.org</a>, <a class="reference external" href="https://sphinxthemes.com/">sphinxthemes.com</a>, and <a class="reference external" href="https://www.writethedocs.org/guide/tools/sphinx-themes/">writethedocs</a>.</p></li>
+</ul>
+</div>
+</div>
+<div class="section" id="consolidated-metadata">
+<h3>Consolidated metadata<a class="headerlink" href="#consolidated-metadata" title="Permalink to this headline">¶</a></h3>
+<p>Package metadata is consolidated into one place, the file <code class="docutils literal notranslate"><span class="pre">openapi_generator/__meta__.py</span></code>.
+This is done to only write the metadata once in this centralised location, and everything else (packaging, documentation, etc) picks it up from there.
+This is similar to <a class="reference external" href="https://packaging.python.org/guides/single-sourcing-package-version/">single-sourcing the package version</a>, but for all metadata.</p>
+<p>This information is available to end-users with <code class="docutils literal notranslate"><span class="pre">import</span> <span class="pre">openapi_generator;</span> <span class="pre">print(openapi_generator.__meta__)</span></code>.
+The version information is also accessible at <code class="docutils literal notranslate"><span class="pre">openapi_generator.__version__</span></code>, as per <a class="reference external" href="https://www.python.org/dev/peps/pep-0396/#specification">PEP-396</a>.</p>
+</div>
+<div class="section" id="setup-py">
+<h3>setup.py<a class="headerlink" href="#setup-py" title="Permalink to this headline">¶</a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> script is used to build and install the package.</p>
+<p>The package can be installed from source with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install .
+</pre></div>
+</div>
+<p>or alternatively with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python setup.py install
+</pre></div>
+</div>
+<p>But do remember that as a developer, the package should be installed in editable mode, using either:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install --editable .
+</pre></div>
+</div>
+<p>or:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python setup.py develop
+</pre></div>
+</div>
+<p>which will mean changes to the source will affect the installed package immediately without having to reinstall it.</p>
+<p>By default, when the package is installed only the main requirements, listed in <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code> will be installed with it.
+Requirements listed in <code class="docutils literal notranslate"><span class="pre">requirements-dev.txt</span></code>, <code class="docutils literal notranslate"><span class="pre">requirements-docs.txt</span></code>, and <code class="docutils literal notranslate"><span class="pre">requirements-test.txt</span></code> are optional extras.
+The <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> script is configured to include these as extras named <code class="docutils literal notranslate"><span class="pre">dev</span></code>, <code class="docutils literal notranslate"><span class="pre">docs</span></code>, and <code class="docutils literal notranslate"><span class="pre">test</span></code>.
+They can be installed along with:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install .<span class="o">[</span>dev<span class="o">]</span>
+</pre></div>
+</div>
+<p>etc.
+Any additional files named <code class="docutils literal notranslate"><span class="pre">requirements-EXTRANAME.txt</span></code> will also be collected automatically and made available with the corresponding name <code class="docutils literal notranslate"><span class="pre">EXTRANAME</span></code>.
+Another extra named <code class="docutils literal notranslate"><span class="pre">all</span></code> captures all of these optional dependencies.</p>
+<p>The README file is automatically included in the metadata when setup.py build wheels for PyPI.
+The rest of the metadata comes from <code class="docutils literal notranslate"><span class="pre">openapi_generator/__meta__.py</span></code>.</p>
+<p>Our template setup.py file is based on the <a class="reference external" href="https://setuptools.readthedocs.io/en/latest/setuptools.html#basic-use">example from setuptools documentation</a>, and the comprehensive example from <a class="reference external" href="https://github.com/kennethreitz/setup.py">Kenneth Reitz</a> (released under <a class="reference external" href="https://github.com/kennethreitz/setup.py/blob/master/LICENSE">MIT License</a>), with further features added.</p>
+</div>
+<div class="section" id="github-actions-workflows">
+<h3>GitHub Actions Workflows<a class="headerlink" href="#github-actions-workflows" title="Permalink to this headline">¶</a></h3>
+<p>GitHub features the ability to run various workflows whenever code is pushed to the repo or a pull request is opened.
+This is one service of several services that can be used to continually run the unit tests and ensure changes can be integrated together without issue.
+It is also useful to ensure that style guides are adhered to</p>
+<p>Five workflows are included:</p>
+<dl class="simple">
+<dt>docs</dt><dd><p>The docs workflow ensures the documentation builds correctly, and presents any errors and warnings nicely as annotations.
+The available html documentation is automatically deployed to the gh-pages branch and <a class="reference external" href="https://flyingbird95.github.io/openapi_generator/">https://flyingbird95.github.io/openapi_generator/</a>.</p>
+</dd>
+<dt>pre-commit</dt><dd><p>Runs the pre-commit stack.
+Ensures all contributions are compliant, even if a contributor has not set up pre-commit on their local machine.</p>
+</dd>
+<dt>lint</dt><dd><p>Checks the code uses the <a class="reference external" href="https://github.com/psf/black">black</a> style and tests for <a class="reference external" href="https://gitlab.com/pycqa/flake8">flake8</a> errors.
+Note that the lint workflow is superfluous, due to the pre-commit hooks.</p>
+</dd>
+<dt>test</dt><dd><p>Runs the pytest, and pushes coverage reports to <a class="reference external" href="https://codecov.io/">Codecov</a>.</p>
+</dd>
+<dt>release candidate tests</dt><dd><p>The release candidate tests workflow runs the unit tests on more Python versions and operating systems than the regular test workflow.
+This runs on all tags, plus pushes and PRs to branches named like “v1.2.x”, etc.
+Wheels are built for all the tested systems, and stored as artifacts for convenience when shipping a new distribution.</p>
+</dd>
+</dl>
+<p>When the <code class="docutils literal notranslate"><span class="pre">publish</span></code> job is enabled on the release candidate tests workflow, it can also push built release candidates to the <a class="reference external" href="https://test.pypi.org/">Test PyPI</a> server.</p>
+<div class="toctree-wrapper compound">
+<p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="source/packages/modules.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="source/packages/openapi_generator.html">openapi_generator package</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="source/changelog.html">Changelog</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="source/changelog.html#version-0-1-0">Version 0.1.0</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="py-modindex.html">Module Index</a></li>
+<li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+
+              </div>
+              
+        
+            <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+    <a class='right-next' id="next-link" href="source/packages/modules.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">API Reference</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
+</div>
+        
+        </div>
+    </div>
+    <footer class="footer">
+    <div class="container">
+      <p>
+        
+          By Patrick Vogel<br/>
+        
+            &copy; Copyright 2021, Patrick Vogel.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>

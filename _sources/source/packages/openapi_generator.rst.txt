@@ -1,0 +1,14 @@
+openapi\_generator package
+==========================
+
+.. automodule:: openapi_generator
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+.. toctree::
+
+   openapi_generator.module
