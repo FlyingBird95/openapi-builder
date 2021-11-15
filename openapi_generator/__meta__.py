@@ -1,6 +1,6 @@
 name = "openapi_generator"
 path = name.lower().replace("-", "_").replace(" ", "_")
-# Your version number should follow https://python.org/dev/peps/pep-0440 and
+# The version number should follow https://python.org/dev/peps/pep-0440 and
 # https://semver.org
 version = "0.1.0"
 author = "Patrick Vogel"
