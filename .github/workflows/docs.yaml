@@ -3,10 +3,10 @@
 # Ensures that the docs can be built with sphinx.
 # - On every push and PR, checks the HTML documentation builds on linux.
 # - On every PR and tag, checks the documentation builds as a PDF on linux.
-# - If your repository is public, on pushes to the default branch (i.e. either
-#   master or main), the HTML documentation is pushed to the gh-pages branch,
-#   which is automatically rendered at the publicly accessible url
-#   https://USER.github.io/PACKAGE/
+# - On pushes to the default branch (i.e. master), the HTML documentation
+#   is pushed to the gh-pages branch, which is automatically rendered at
+#   the publicly accessible url
+#   https://flyingbird95.github.io/openapi_generator/
 
 name: docs
 

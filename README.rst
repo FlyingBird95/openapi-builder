@@ -9,216 +9,12 @@ Quick start
 
 .. highlight:: bash
 
-When creating a new repository from this template, these are the steps to follow:
-
-#. *Don't click the fork button.*
-   The fork button is for making a new template based in this one, not for using the template to make a new repository.
-
-#.
-    #.  **New GitHub repository**.
-
-        You can create a new repository on GitHub from this template by clicking the `Use this template <https://github.com/scottclowe/python-template-repo/generate>`_ button.
-
-        *Need to support Python 2.7?*
-        Make sure to check the "Include all branches" option while creating the new repository.
-
-        Then clone your new repository to your local system [pseudocode]::
-
-          git clone git@github.com:your-org/your-repo.git
-          cd your-repo
-
-        *If you need to support Python 2.7*, now move the reference for your default branch (master/main) to point to the python2.7 branch head::
-
-          git reset --hard origin/python2.7
-          git push -f
-
-        You can now delete the python2.7 branch from your remote.
-
-    #.  **New repository not on GitHub**.
-
-        Alternatively, if your new repository is not going to be on GitHub, you can download `this repo as a zip <https://github.com/scottclowe/python-template-repo/archive/master.zip>`_ and work from there.
-
-        *Need to support Python 2.7?*
-        Download the `python2.7 branch as a zip <https://github.com/scottclowe/python-template-repo/archive/refs/heads/python2.7.zip>`_ instead.
-
-        Either way, you should note that this zip does not include the .gitignore and .gitattributes files (because GitHub automatically omits them, which is usually helpful but is not for our purposes).
-        Thus you will also need to download the `.gitignore <https://raw.githubusercontent.com/scottclowe/python-template-repo/master/.gitignore>`__ and `.gitattributes <https://raw.githubusercontent.com/scottclowe/python-template-repo/master/.gitattributes>`__ files.
-
-        The following shell commands can be used for this purpose on \*nix systems::
-
-          git init your_repo_name
-          cd your_repo_name
-          wget https://github.com/scottclowe/python-template-repo/archive/master.zip
-          unzip master.zip
-          mv -n python-template-repo-master/* python-template-repo-master/.[!.]* .
-          rm -r python-template-repo-master/
-          rm master.zip
-          wget https://raw.githubusercontent.com/scottclowe/python-template-repo/master/.gitignore
-          wget https://raw.githubusercontent.com/scottclowe/python-template-repo/master/.gitattributes
-          git add .
-          git commit -m "Initial commit"
-          git rm LICENSE
-
-        Note that we are doing the move with ``mv -n``, which will prevent the template repository from clobbering your own files (in case you already made a README.rst file, for instance).
-
-        You'll need to instruct your new local repository to synchronise with the remote ``your_repo_url``::
-
-          git remote set-url origin your_repo_url
-          git push -u origin master
-
-#.  Remove the dummy files ``package_name/module.py`` and ``package_name/tests/test_module.py``::
-
-        rm package_name/module.py
-        rm package_name/tests/test_module.py
-
-    If you prefer, you can keep them around as samples, but should note that they require numpy.
-
-#.  Depending on your needs, some of the files may be superfluous to you.
-    You can remove any superfluous files, as follows.
-
-    - *No GitHub Actions!*
-      Delete the .github directory::
-
-        rm -r .github/
-
-    - *No unit testing!*
-      Run the following commands to delete unit testing files::
-
-        rm -rf package_name/tests/
-        rm -f .github/workflows/test*.yaml
-        rm -f .codecov.yml
-        rm -f .coveragerc
-        rm -f requirements-test.txt
-
-#.  Delete the LICENSE file and replace it with a LICENSE file of your own choosing.
-    If the code is intended to be freely available for anyone to use, use an `open source license <https://choosealicense.com/>`_, such as `MIT License <https://choosealicense.com/licenses/mit/>`__ or `GPLv3 <https://choosealicense.com/licenses/gpl-3.0/>`__.
-    If you don't want your code to be used by anyone else, add a LICENSE file which just says:
-
-    .. code-block:: none
-
-        Copyright (c) YEAR, YOUR NAME
-
-        All right reserved.
-
-    Note that if you don't include a LICENSE file, you will still have copyright over your own code (this copyright is automatically granted), and your code will be private source (technically nobody else will be permitted to use it, even if you make your code publicly available).
-
-#.  Edit the file ``package_name/__meta__.py`` to contain your author and repo details.
-
-    name
-        The name as it will/would be on PyPI (users will do ``pip install new_name_here``).
-        It is `recommended <PEP-8_>`__ to use a name all lowercase, runtogetherwords but if separators are needed hyphens are preferred over underscores.
-
-    path
-        The path to the package. What you will rename the directory ``package_name``.
-        `Should be <PEP-8_>`__ the same as ``name``, but now hyphens are disallowed and should be swapped for underscores.
-        By default, this is automatically inferred from ``name``.
-
-    license
-        Should be the name of the license you just picked and put in the LICENSE file (e.g. ``MIT`` or ``GPLv3``).
-
-    Other fields to enter should be self-explanatory.
-
-#. Rename the directory ``package_name`` to be the ``path`` variable you just added to ``__meta__.py``.::
-
-      PACKAGE_NAME=your_actual_package_name
-      mv package_name "$PACKAGE_NAME"
-
-#.  Change references to ``package_name`` to your path variable:
-
-    This can be done with the sed command::
-
-        PACKAGE_NAME=your_actual_package_name
-        sed -i "s/package_name/$PACKAGE_NAME/" setup.py \
-            docs/conf.py \
-            docs/index.rst \
-            CHANGELOG.rst \
-            .github/workflows/test*.yaml
-
-    Which will make changes in the following places.
-
-    .. highlight:: python
-
-    - In ``setup.py``, `L69 <https://github.com/scottclowe/python-template-repo/blob/master/setup.py#L69>`__::
-
-        exec(read('package_name/__meta__.py'), meta)
-
-    - In ``docs/conf.py``, `L23 <https://github.com/scottclowe/python-template-repo/blob/master/docs/conf.py#L23>`__::
-
-        from package_name import __meta__ as meta  # noqa: E402
-
-    - In ``docs/index.rst``, `L1 <https://github.com/scottclowe/python-template-repo/blob/master/docs/index.rst#L1>`__::
-
-        package_name documentation
-
-    - In ``.github/workflows/test.yaml``, `L78 <https://github.com/scottclowe/python-template-repo/blob/master/.github/workflows/test.yaml#L78>`__, and ``.github/workflows/test-release-candidate.yaml``, `L90 <https://github.com/scottclowe/python-template-repo/blob/master/.github/workflows/test-release-candidate.yaml#L90>`__::
-
-        python -m pytest --cov=package_name --cov-report term --cov-report xml --cov-config .coveragerc --junitxml=testresults.xml
-
-    .. highlight:: bash
-
-#.  Swap out the contents of ``requirements.txt`` for your project's current requirements.
-    If you don't have any requirements yet, delete the contents of ``requirements.txt``.
-
-#.  Swap out the contents of ``README.rst`` with an inital description of your project.
-    If you are keeping all the badges, make sure to change the URLs from ``scottclowe/python-template-repo`` to ``your_username/your_repo``.
-    If you prefer, you can use markdown instead of rST.
-
-#.  Commit and push your changes::
-
-      git commit -am "Initialise project from template repository"
-      git push
-
-When it comes time to make your first release, make sure you update the placeholder entry in CHANGELOG.rst to contain the correct details.
-You'll need to change ``YYYY-MM-DD`` to the actual release date, and change the URL to point to your release.
-
 
 Features
 --------
 
-.gitignore
-~~~~~~~~~~
-
-A `.gitignore`_ file is used specify untracked files which Git should ignore and not try to commit.
-
-Our template's .gitignore file is based on the `GitHub defaults <default-gitignores_>`_.
-We use the default `Python .gitignore`_, `Windows .gitignore`_, `Linux .gitignore`_, and `Mac OSX .gitignore`_ concatenated together.
-(Released under `CC0-1.0 <https://github.com/github/gitignore/blob/master/LICENSE>`__.)
-
-The Python .gitignore specifications prevent compiled files, packaging and sphinx artifacts, test outputs, etc, from being accidentally committed.
-Even though you may develop on one OS, you might find a helpful contributor working on a different OS suddenly issues you a new PR, hence we include the gitignore for all OSes.
-This makes both their life and yours easier by ignoring their temporary files before they even start working on the project.
-
-.. _.gitignore: https://git-scm.com/docs/gitignore
-.. _default-gitignores: https://github.com/github/gitignore
-.. _Python .gitignore: https://github.com/github/gitignore/blob/master/Python.gitignore
-.. _Windows .gitignore: https://github.com/github/gitignore/blob/master/Global/Windows.gitignore
-.. _Linux .gitignore: https://github.com/github/gitignore/blob/master/Global/Linux.gitignore
-.. _Mac OSX .gitignore: https://github.com/github/gitignore/blob/master/Global/macOS.gitignore
-
-
-.gitattributes
-~~~~~~~~~~~~~~
-
-The most important reason to include a `.gitattributes`_ file is to ensure that line endings are normalised, no matter which OS the developer is using.
-This is largely achieved by the line::
-
-    * text=auto
-
-which `ensures <gitattributes-text_>`__ that all files Git decides contain text have their line endings normalized to LF on checkin.
-This can cause problems if Git misdiagnoses a file as text when it is not, so we overwrite automatic detection based on file endings for some several common file endings.
-
-Aside from this, we also gitattributes to tell git what kind of diff to generate.
-
-Our template .gitattributes file is based on the `defaults from Alexander Karatarakis <alexkaratarakis/gitattributes_>`__.
-We use the `Common .gitattributes`_ and `Python .gitattributes`_ concatenated together.
-(Released under `MIT License <https://github.com/alexkaratarakis/gitattributes/blob/master/LICENSE.md>`__.)
-
-.. _.gitattributes: https://git-scm.com/docs/gitattributes
-.. _gitattributes-text: https://git-scm.com/docs/gitattributes#_text
-.. _alexkaratarakis/gitattributes: https://github.com/alexkaratarakis/gitattributes
-.. _Common .gitattributes: https://github.com/alexkaratarakis/gitattributes/blob/master/Common.gitattributes
-.. _Python .gitattributes: https://github.com/alexkaratarakis/gitattributes/blob/master/Python.gitattributes
-
+Development
+-----------
 
 Black
 ~~~~~
@@ -314,7 +110,7 @@ GitHub Pages
 
 If your repository is publicly available, the docs workflow will automatically deploy your documentation to `GitHub Pages`_.
 To enable the documentation, go to the ``Settings > Pages`` pane for your repository and set Source to be the ``gh-pages`` branch (root directory).
-Your automatically compiled documentation will then be publicly available at https://USER.github.io/PACKAGE/.
+Your automatically compiled documentation will then be publicly available at https://flyingbird95.github.io/openapi_generator/.
 
 Since GitHub pages are always publicly available, the workflow will check whether your repository is public or private, and will not deploy the documentation to gh-pages if your repository is private.
 
@@ -387,12 +183,12 @@ Other documentation features
 Consolidated metadata
 ~~~~~~~~~~~~~~~~~~~~~
 
-Package metadata is consolidated into one place, the file ``package_name/__meta__.py``.
+Package metadata is consolidated into one place, the file ``openapi_generator/__meta__.py``.
 You only have to write the metadata once in this centralised location, and everything else (packaging, documentation, etc) picks it up from there.
 This is similar to `single-sourcing the package version`_, but for all metadata.
 
-This information is available to end-users with ``import package_name; print(package_name.__meta__)``.
-The version information is also accessible at ``package_name.__version__``, as per PEP-396_.
+This information is available to end-users with ``import openapi_generator; print(openapi_generator.__meta__)``.
+The version information is also accessible at ``openapi_generator.__version__``, as per PEP-396_.
 
 .. _PEP-396: https://www.python.org/dev/peps/pep-0396/#specification
 .. _single-sourcing the package version: https://packaging.python.org/guides/single-sourcing-package-version/
@@ -433,20 +229,12 @@ Any additional files named ``requirements-EXTRANAME.txt`` will also be collected
 Another extra named ``all`` captures all of these optional dependencies.
 
 Your README file is automatically included in the metadata when you use setup.py build wheels for PyPI.
-The rest of the metadata comes from ``package_name/__meta__.py``.
+The rest of the metadata comes from ``openapi_generator/__meta__.py``.
 
 Our template setup.py file is based on the `example from setuptools documentation <setuptools-setup.py_>`_, and the comprehensive example from `Kenneth Reitz <kennethreitz/setup.py_>`_ (released under `MIT License <https://github.com/kennethreitz/setup.py/blob/master/LICENSE>`__), with further features added.
 
 .. _kennethreitz/setup.py: https://github.com/kennethreitz/setup.py
 .. _setuptools-setup.py: https://setuptools.readthedocs.io/en/latest/setuptools.html#basic-use
-
-
-Unit tests
-~~~~~~~~~~
-
-The file ``package_name/tests/base_test.py`` provides a class for unit testing which provides easy access to all the numpy testing in one place (so you don't need to import a stack of testing functions in every test file, just import the ``BaseTestClass`` instead).
-
-If you aren't using doing numeric tests, you can delete this from the ``package_name/tests/base_test.py`` file.
 
 
 GitHub Actions Workflows
@@ -460,7 +248,7 @@ Five workflows are included:
 
 docs
     The docs workflow ensures the documentation builds correctly, and presents any errors and warnings nicely as annotations.
-    If your repository is public, publicly available html documentation is automatically deployed to the gh-pages branch and https://USER.github.io/PACKAGE/.
+    If your repository is public, publicly available html documentation is automatically deployed to the gh-pages branch and https://flyingbird95.github.io/openapi_generator/.
 
 pre-commit
     Runs the pre-commit stack.
