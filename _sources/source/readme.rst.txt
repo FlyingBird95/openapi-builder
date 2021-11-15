@@ -1,7 +1,7 @@
-|GHA tests| |Codecov report| |pre-commit| |black|
+|GHA tests| |Documentation| |Codecov report| |pre-commit| |black|
 
-OpenAPI Generator
-==========================
+`OpenAPI Generator <https://flyingbird95.github.io/openapi_generator>`_
+=====================================
 A Flask blueprint for automatically adding OpenAPI documentation to your Flask app.
 
 Quick start
@@ -285,6 +285,9 @@ When the ``publish`` job is enabled on the release candidate tests workflow, it 
 .. |GHA tests| image:: https://github.com/flyingbird95/openapi_generator/workflows/tests/badge.svg
    :target: https://github.com/flyingbird95/openapi_generator/actions?query=workflow%3Atests
    :alt: GHA Status
+.. |Documentation| image:: https://github.com/flyingbird95/openapi_generator/workflows/docs/badge.svg
+   :target: https://flyingbird95.github.io/openapi_generator/index.html
+   :alt: Documentation
 .. |Codecov report| image:: https://codecov.io/github/flyingbird95/openapi_generator/coverage.svg?branch=master
    :target: https://codecov.io/github/flyingbird95/openapi_generator?branch=master
    :alt: Coverage
