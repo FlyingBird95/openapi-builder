@@ -2,7 +2,7 @@
 
 OpenAPI Generator
 ==========================
-A Flask blueprint for automatically adding swagger documentation to your Flask app
+A Flask blueprint for automatically adding OpenAPI documentation to your Flask app.
 
 Quick start
 -----------
@@ -12,6 +12,18 @@ Quick start
 
 Features
 --------
+
+
+Contributing
+------------
+
+Contributions are welcome! If you can see a way to improve this package:
+
+- Do click the fork button
+- Make your changes and make a pull request.
+
+Or to report a bug or request something new, make an issue.
+
 
 Development
 -----------
@@ -293,17 +305,6 @@ Alternative CI/CD services are also available for running tests.
   This offers an alternative to GitHub Actions if you need to `build Windows wheel files to submit to PyPI <https://github.com/ogrisel/python-appveyor-demo>`_.
 
 - `Jenkins <https://jenkins.io/>`_ is useful if you want to run your CI test suite locally or on your own private server instead of in the cloud.
-
-
-Contributing
-------------
-
-Contributions are welcome! If you can see a way to improve this template:
-
-- Do click the fork button
-- Make your changes and make a pull request.
-
-Or to report a bug or request something new, make an issue.
 
 
 .. highlight:: python
