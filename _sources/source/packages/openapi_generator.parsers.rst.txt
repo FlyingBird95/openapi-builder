@@ -1,0 +1,14 @@
+openapi\_generator.parsers package
+==================================
+
+.. automodule:: openapi_generator.parsers
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+.. toctree::
+
+   openapi_generator.parsers.docstring

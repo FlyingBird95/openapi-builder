@@ -1,0 +1,15 @@
+openapi\_generator.processors package
+=====================================
+
+.. automodule:: openapi_generator.processors
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+.. toctree::
+
+   openapi_generator.processors.base
+   openapi_generator.processors.marshmallow

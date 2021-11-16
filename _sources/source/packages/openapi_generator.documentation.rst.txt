@@ -1,0 +1,7 @@
+openapi\_generator.documentation module
+=======================================
+
+.. automodule:: openapi_generator.documentation
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,0 +1,7 @@
+openapi\_generator.processors.base module
+=========================================
+
+.. automodule:: openapi_generator.processors.base
+   :members:
+   :undoc-members:
+   :show-inheritance:

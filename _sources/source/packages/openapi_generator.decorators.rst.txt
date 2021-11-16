@@ -1,0 +1,7 @@
+openapi\_generator.decorators module
+====================================
+
+.. automodule:: openapi_generator.decorators
+   :members:
+   :undoc-members:
+   :show-inheritance:

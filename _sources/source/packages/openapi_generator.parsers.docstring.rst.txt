@@ -1,0 +1,7 @@
+openapi\_generator.parsers.docstring module
+===========================================
+
+.. automodule:: openapi_generator.parsers.docstring
+   :members:
+   :undoc-members:
+   :show-inheritance:
