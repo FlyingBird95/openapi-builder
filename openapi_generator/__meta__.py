@@ -7,4 +7,4 @@ author = "Patrick Vogel"
 author_email = "patrickvogel@live.nl"
 description = ""
 url = "https://github.com/FlyingBird95/openapi_generator"
-license = "MIT"  # See https://choosealicense.com
+license = "MIT"
