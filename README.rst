@@ -280,8 +280,6 @@ When the ``publish`` job is enabled on the release candidate tests workflow, it 
 .. _testpypi: https://test.pypi.org/
 
 
-.. highlight:: python
-
 
 .. |GHA tests| image:: https://github.com/flyingbird95/openapi_builder/workflows/tests/badge.svg
    :target: https://github.com/flyingbird95/openapi_builder/actions?query=workflow%3Atests
