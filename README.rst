@@ -1,7 +1,7 @@
 |GHA tests| |Documentation| |Codecov report| |pre-commit| |black|
 
 `OpenAPI Builder <https://flyingbird95.github.io/openapi_builder>`_
-==================================================================
+===================================================================
 A Flask_ extension for automatically adding OpenAPI_ documentation to your Flask app.
 
 .. _Flask: https://flask.palletsprojects.com/
