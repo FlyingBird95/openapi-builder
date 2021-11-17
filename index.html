@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>OpenAPI Builder &#8212; openapi_builder 0.1.0 documentation</title>
+    <title>OpenAPI Builder &#8212; openapi_builder 0.1.1 documentation</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -60,7 +60,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">openapi_builder 0.1.0 documentation</h1>
+      <h1 class="site-logo" id="site-title">openapi_builder 0.1.1 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -368,8 +368,8 @@ Black is configured here:</p>
 This is a set of git hooks which are executed every time a commit is made.
 The hooks catch errors as they occur, and will automatically fix some of these errors.</p>
 <p>To set up the pre-commit hooks, run the following code from within the repo directory:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install -r requirements-dev.txt
-pre-commit install
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">-</span><span class="n">dev</span><span class="o">.</span><span class="n">txt</span>
+<span class="n">pre</span><span class="o">-</span><span class="n">commit</span> <span class="n">install</span>
 </pre></div>
 </div>
 <p>Whenever trying to commit code which is flagged by the pre-commit hooks, the commit will not go through.
@@ -377,11 +377,11 @@ Some of the pre-commit hooks (such as <a class="reference external" href="https:
 When this happens, you’ll have to stage the changes made by the commit hooks and then commit again.
 Other pre-commit hooks will not modify the code and will just tell you about issues which you’ll then have to manually fix.</p>
 <p>To run the pre-commit stack on all the files at any time:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pre-commit run --all-files
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pre</span><span class="o">-</span><span class="n">commit</span> <span class="n">run</span> <span class="o">--</span><span class="nb">all</span><span class="o">-</span><span class="n">files</span>
 </pre></div>
 </div>
 <p>To force a commit to go through without passing the pre-commit hooks use the <code class="docutils literal notranslate"><span class="pre">--no-verify</span></code> flag:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git commit --no-verify
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">commit</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">verify</span>
 </pre></div>
 </div>
 <p>The pre-commit stack which comes with the template is highly opinionated, and includes the following operations:</p>
@@ -414,22 +414,22 @@ It is set up to work well out of the box, with several features added in.</p>
 <div class="section" id="building-locally">
 <h4>Building locally<a class="headerlink" href="#building-locally" title="Permalink to this headline">¶</a></h4>
 <p>The web documentation can be built locally with:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make -C docs html
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="o">-</span><span class="n">C</span> <span class="n">docs</span> <span class="n">html</span>
 </pre></div>
 </div>
 <p>And view the documentation like so:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sensible-browser docs/_build/html/index.html
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">sensible</span><span class="o">-</span><span class="n">browser</span> <span class="n">docs</span><span class="o">/</span><span class="n">_build</span><span class="o">/</span><span class="n">html</span><span class="o">/</span><span class="n">index</span><span class="o">.</span><span class="n">html</span>
 </pre></div>
 </div>
 <p>Or build the pdf documentation:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make -C docs latexpdf
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">make</span> <span class="o">-</span><span class="n">C</span> <span class="n">docs</span> <span class="n">latexpdf</span>
 </pre></div>
 </div>
 <p>On Windows, this becomes:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> docs
-make html
-make latexpdf
-<span class="nb">cd</span> ..
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="n">docs</span>
+<span class="n">make</span> <span class="n">html</span>
+<span class="n">make</span> <span class="n">latexpdf</span>
+<span class="n">cd</span> <span class="o">..</span>
 </pre></div>
 </div>
 </div>
@@ -462,19 +462,19 @@ The version information is also accessible at <code class="docutils literal notr
 <h3>setup.py<a class="headerlink" href="#setup-py" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> script is used to build and install the package.</p>
 <p>The package can be installed from source with:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install .
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">.</span>
 </pre></div>
 </div>
 <p>or alternatively with:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python setup.py install
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
 </pre></div>
 </div>
 <p>But do remember that as a developer, the package should be installed in editable mode, using either:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install --editable .
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">editable</span> <span class="o">.</span>
 </pre></div>
 </div>
 <p>or:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python setup.py develop
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">develop</span>
 </pre></div>
 </div>
 <p>which will mean changes to the source will affect the installed package immediately without having to reinstall it.</p>
@@ -482,7 +482,7 @@ The version information is also accessible at <code class="docutils literal notr
 Requirements listed in <code class="docutils literal notranslate"><span class="pre">requirements-dev.txt</span></code>, <code class="docutils literal notranslate"><span class="pre">requirements-docs.txt</span></code>, and <code class="docutils literal notranslate"><span class="pre">requirements-test.txt</span></code> are optional extras.
 The <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> script is configured to include these as extras named <code class="docutils literal notranslate"><span class="pre">dev</span></code>, <code class="docutils literal notranslate"><span class="pre">docs</span></code>, and <code class="docutils literal notranslate"><span class="pre">test</span></code>.
 They can be installed along with:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install .<span class="o">[</span>dev<span class="o">]</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="o">.</span><span class="p">[</span><span class="n">dev</span><span class="p">]</span>
 </pre></div>
 </div>
 <p>etc.
