@@ -10,8 +10,6 @@ A Flask_ extension for automatically adding OpenAPI_ documentation to your Flask
 Quick start
 -----------
 
-.. highlight:: bash
-
 
 Features
 --------
