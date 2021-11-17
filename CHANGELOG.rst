@@ -16,5 +16,9 @@ Version `0.1.0 <https://github.com/FlyingBird95/openapi_builder/tree/v0.1.0>`__
 
 First release date: 2021-11-17.
 Added setup for:
-- publishing
--
+- Continuous integration (automated tests)
+- Continuous delivery (publishing to PyPI)
+- Automatically formatting (black and isort)
+- Checking formatting errors (flake8)
+- Automatic documentation integration and delivery
+- Initial code
