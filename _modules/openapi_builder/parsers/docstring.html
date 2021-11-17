@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>openapi_generator.parsers.docstring &#8212; openapi_generator 0.1.0 documentation</title>
+    <title>openapi_builder.parsers.docstring &#8212; openapi_builder 0.1.0 documentation</title>
     
   <link href="../../../_static/css/theme.css" rel="stylesheet">
   <link href="../../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -59,7 +59,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">openapi_generator 0.1.0 documentation</h1>
+      <h1 class="site-logo" id="site-title">openapi_builder 0.1.0 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
@@ -84,8 +84,8 @@
   </label>
   <ul>
    <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../../../source/packages/openapi_generator.html">
-     openapi_generator package
+    <a class="reference internal" href="../../../source/packages/openapi_builder.html">
+     openapi_builder package
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
     <label for="toctree-checkbox-2">
@@ -94,8 +94,8 @@
     </label>
     <ul>
      <li class="toctree-l3 has-children">
-      <a class="reference internal" href="../../../source/packages/openapi_generator.parsers.html">
-       openapi_generator.parsers package
+      <a class="reference internal" href="../../../source/packages/openapi_builder.parsers.html">
+       openapi_builder.parsers package
       </a>
       <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
       <label for="toctree-checkbox-3">
@@ -104,15 +104,15 @@
       </label>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="../../../source/packages/openapi_generator.parsers.docstring.html">
-         openapi_generator.parsers.docstring module
+        <a class="reference internal" href="../../../source/packages/openapi_builder.parsers.docstring.html">
+         openapi_builder.parsers.docstring module
         </a>
        </li>
       </ul>
      </li>
      <li class="toctree-l3 has-children">
-      <a class="reference internal" href="../../../source/packages/openapi_generator.processors.html">
-       openapi_generator.processors package
+      <a class="reference internal" href="../../../source/packages/openapi_builder.processors.html">
+       openapi_builder.processors package
       </a>
       <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
       <label for="toctree-checkbox-4">
@@ -121,35 +121,35 @@
       </label>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="../../../source/packages/openapi_generator.processors.base.html">
-         openapi_generator.processors.base module
+        <a class="reference internal" href="../../../source/packages/openapi_builder.processors.base.html">
+         openapi_builder.processors.base module
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../../../source/packages/openapi_generator.processors.marshmallow.html">
-         openapi_generator.processors.marshmallow module
+        <a class="reference internal" href="../../../source/packages/openapi_builder.processors.marshmallow.html">
+         openapi_builder.processors.marshmallow module
         </a>
        </li>
       </ul>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../../../source/packages/openapi_generator.builder.html">
-       openapi_generator.builder module
+      <a class="reference internal" href="../../../source/packages/openapi_builder.builder.html">
+       openapi_builder.builder module
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../../../source/packages/openapi_generator.decorators.html">
-       openapi_generator.decorators module
+      <a class="reference internal" href="../../../source/packages/openapi_builder.decorators.html">
+       openapi_builder.decorators module
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../../../source/packages/openapi_generator.documentation.html">
-       openapi_generator.documentation module
+      <a class="reference internal" href="../../../source/packages/openapi_builder.documentation.html">
+       openapi_builder.documentation module
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../../../source/packages/openapi_generator.specification.html">
-       openapi_generator.specification module
+      <a class="reference internal" href="../../../source/packages/openapi_builder.specification.html">
+       openapi_builder.specification module
       </a>
      </li>
     </ul>
@@ -228,26 +228,26 @@
         
               <div>
                 
-  <h1>Source code for openapi_generator.parsers.docstring</h1><div class="highlight"><pre>
+  <h1>Source code for openapi_builder.parsers.docstring</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">ast</span>
 <span class="kn">import</span> <span class="nn">inspect</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
 
-<div class="viewcode-block" id="DocStringParser"><a class="viewcode-back" href="../../../source/packages/openapi_generator.parsers.docstring.html#openapi_generator.parsers.docstring.DocStringParser">[docs]</a><span class="k">class</span> <span class="nc">DocStringParser</span><span class="p">:</span>
+<div class="viewcode-block" id="DocStringParser"><a class="viewcode-back" href="../../../source/packages/openapi_builder.parsers.docstring.html#openapi_builder.parsers.docstring.DocStringParser">[docs]</a><span class="k">class</span> <span class="nc">DocStringParser</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">module</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">module</span> <span class="o">=</span> <span class="n">module</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span> <span class="o">=</span> <span class="n">prefix</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">import_names</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
 
-<div class="viewcode-block" id="DocStringParser.from_class"><a class="viewcode-back" href="../../../source/packages/openapi_generator.parsers.docstring.html#openapi_generator.parsers.docstring.DocStringParser.from_class">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="DocStringParser.from_class"><a class="viewcode-back" href="../../../source/packages/openapi_builder.parsers.docstring.html#openapi_builder.parsers.docstring.DocStringParser.from_class">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_class</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">class_to_process</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">filename</span> <span class="o">=</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getfile</span><span class="p">(</span><span class="n">class_to_process</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">from_file</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">filename</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="DocStringParser.from_file"><a class="viewcode-back" href="../../../source/packages/openapi_generator.parsers.docstring.html#openapi_generator.parsers.docstring.DocStringParser.from_file">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="DocStringParser.from_file"><a class="viewcode-back" href="../../../source/packages/openapi_builder.parsers.docstring.html#openapi_builder.parsers.docstring.DocStringParser.from_file">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_file</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">filename</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">filename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">filename</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.py&quot;</span>  <span class="c1"># convert .pyc to .py</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
@@ -255,7 +255,7 @@
 
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">module</span><span class="o">=</span><span class="n">ast</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">file_contents</span><span class="p">),</span> <span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="DocStringParser.get_name"><a class="viewcode-back" href="../../../source/packages/openapi_generator.parsers.docstring.html#openapi_generator.parsers.docstring.DocStringParser.get_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
+<div class="viewcode-block" id="DocStringParser.get_name"><a class="viewcode-back" href="../../../source/packages/openapi_builder.parsers.docstring.html#openapi_builder.parsers.docstring.DocStringParser.get_name">[docs]</a>    <span class="k">def</span> <span class="nf">get_name</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
         <span class="n">prefix</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">prefix</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{self.prefix}</span><span class="s2">.&quot;</span>
 
         <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">):</span>
@@ -263,7 +263,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">prefix</span> <span class="o">+</span> <span class="n">node</span><span class="o">.</span><span class="n">id</span></div>
 
-<div class="viewcode-block" id="DocStringParser.parse"><a class="viewcode-back" href="../../../source/packages/openapi_generator.parsers.docstring.html#openapi_generator.parsers.docstring.DocStringParser.parse">[docs]</a>    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DocStringParser.parse"><a class="viewcode-back" href="../../../source/packages/openapi_builder.parsers.docstring.html#openapi_builder.parsers.docstring.DocStringParser.parse">[docs]</a>    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">node</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">body</span><span class="p">):</span>
             <span class="n">next_node</span> <span class="o">=</span> <span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">module</span><span class="o">.</span><span class="n">body</span><span class="p">[</span><span class="n">index</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>

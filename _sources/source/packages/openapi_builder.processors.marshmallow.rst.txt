@@ -1,0 +1,7 @@
+openapi\_builder.processors.marshmallow module
+==============================================
+
+.. automodule:: openapi_builder.processors.marshmallow
+   :members:
+   :undoc-members:
+   :show-inheritance:

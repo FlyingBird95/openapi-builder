@@ -4,4 +4,4 @@ API Reference
 .. toctree::
    :maxdepth: 4
 
-   openapi_generator
+   openapi_builder

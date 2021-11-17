@@ -1,7 +1,7 @@
-openapi\_generator.processors.base module
+openapi\_builder.parsers.docstring module
 =========================================
 
-.. automodule:: openapi_generator.processors.base
+.. automodule:: openapi_builder.parsers.docstring
    :members:
    :undoc-members:
    :show-inheritance:

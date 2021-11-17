@@ -1,0 +1,7 @@
+openapi\_builder.decorators module
+==================================
+
+.. automodule:: openapi_builder.decorators
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -1,7 +1,0 @@
-openapi\_generator.processors.marshmallow module
-================================================
-
-.. automodule:: openapi_generator.processors.marshmallow
-   :members:
-   :undoc-members:
-   :show-inheritance:

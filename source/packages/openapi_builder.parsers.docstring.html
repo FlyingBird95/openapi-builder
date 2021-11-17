@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>openapi_generator.documentation module &#8212; openapi_generator 0.1.0 documentation</title>
+    <title>openapi_builder.parsers.docstring module &#8212; openapi_builder 0.1.0 documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -36,8 +36,8 @@
     <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="openapi_generator.specification module" href="openapi_generator.specification.html" />
-    <link rel="prev" title="openapi_generator.decorators module" href="openapi_generator.decorators.html" />
+    <link rel="next" title="openapi_builder.processors package" href="openapi_builder.processors.html" />
+    <link rel="prev" title="openapi_builder.parsers package" href="openapi_builder.parsers.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -61,7 +61,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">openapi_generator 0.1.0 documentation</h1>
+      <h1 class="site-logo" id="site-title">openapi_builder 0.1.0 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -86,8 +86,8 @@
   </label>
   <ul class="current">
    <li class="toctree-l2 current active has-children">
-    <a class="reference internal" href="openapi_generator.html">
-     openapi_generator package
+    <a class="reference internal" href="openapi_builder.html">
+     openapi_builder package
     </a>
     <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
     <label for="toctree-checkbox-2">
@@ -95,26 +95,26 @@
      </i>
     </label>
     <ul class="current">
-     <li class="toctree-l3 has-children">
-      <a class="reference internal" href="openapi_generator.parsers.html">
-       openapi_generator.parsers package
+     <li class="toctree-l3 current active has-children">
+      <a class="reference internal" href="openapi_builder.parsers.html">
+       openapi_builder.parsers package
       </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
+      <input checked="" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
       <label for="toctree-checkbox-3">
        <i class="fas fa-chevron-down">
        </i>
       </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="openapi_generator.parsers.docstring.html">
-         openapi_generator.parsers.docstring module
+      <ul class="current">
+       <li class="toctree-l4 current active">
+        <a class="current reference internal" href="#">
+         openapi_builder.parsers.docstring module
         </a>
        </li>
       </ul>
      </li>
      <li class="toctree-l3 has-children">
-      <a class="reference internal" href="openapi_generator.processors.html">
-       openapi_generator.processors package
+      <a class="reference internal" href="openapi_builder.processors.html">
+       openapi_builder.processors package
       </a>
       <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
       <label for="toctree-checkbox-4">
@@ -123,35 +123,35 @@
       </label>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="openapi_generator.processors.base.html">
-         openapi_generator.processors.base module
+        <a class="reference internal" href="openapi_builder.processors.base.html">
+         openapi_builder.processors.base module
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="openapi_generator.processors.marshmallow.html">
-         openapi_generator.processors.marshmallow module
+        <a class="reference internal" href="openapi_builder.processors.marshmallow.html">
+         openapi_builder.processors.marshmallow module
         </a>
        </li>
       </ul>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="openapi_generator.builder.html">
-       openapi_generator.builder module
+      <a class="reference internal" href="openapi_builder.builder.html">
+       openapi_builder.builder module
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="openapi_generator.decorators.html">
-       openapi_generator.decorators module
-      </a>
-     </li>
-     <li class="toctree-l3 current active">
-      <a class="current reference internal" href="#">
-       openapi_generator.documentation module
+      <a class="reference internal" href="openapi_builder.decorators.html">
+       openapi_builder.decorators module
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="openapi_generator.specification.html">
-       openapi_generator.specification module
+      <a class="reference internal" href="openapi_builder.documentation.html">
+       openapi_builder.documentation module
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="openapi_builder.specification.html">
+       openapi_builder.specification module
       </a>
      </li>
     </ul>
@@ -214,7 +214,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/source/packages/openapi_generator.documentation.rst.txt"><button type="button"
+        <a class="dropdown-buttons" href="../../_sources/source/packages/openapi_builder.parsers.docstring.rst.txt"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.rst</button></a>
         <!-- Download PDF via print -->
@@ -247,12 +247,32 @@
         
               <div>
                 
-  <div class="section" id="module-openapi_generator.documentation">
-<span id="openapi-generator-documentation-module"></span><h1>openapi_generator.documentation module<a class="headerlink" href="#module-openapi_generator.documentation" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-openapi_builder.parsers.docstring">
+<span id="openapi-builder-parsers-docstring-module"></span><h1>openapi_builder.parsers.docstring module<a class="headerlink" href="#module-openapi_builder.parsers.docstring" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
-<dt id="openapi_generator.documentation.SwaggerDocumentation">
-<em class="property">class </em><code class="sig-prename descclassname">openapi_generator.documentation.</code><code class="sig-name descname">SwaggerDocumentation</code><span class="sig-paren">(</span><em class="sig-param">responses: Optional[Dict[Union[str, int], Any]] = None, input_schema: Optional[Any] = None, parameters: Optional[List[openapi_generator.specification.Parameter]] = None, summary: Optional[str] = None, description: Optional[str] = None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_generator/documentation.html#SwaggerDocumentation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_generator.documentation.SwaggerDocumentation" title="Permalink to this definition">¶</a></dt>
+<dt id="openapi_builder.parsers.docstring.DocStringParser">
+<em class="property">class </em><code class="sig-prename descclassname">openapi_builder.parsers.docstring.</code><code class="sig-name descname">DocStringParser</code><span class="sig-paren">(</span><em class="sig-param">module</em>, <em class="sig-param">prefix=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/parsers/docstring.html#DocStringParser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.parsers.docstring.DocStringParser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt id="openapi_builder.parsers.docstring.DocStringParser.from_class">
+<em class="property">classmethod </em><code class="sig-name descname">from_class</code><span class="sig-paren">(</span><em class="sig-param">class_to_process</em>, <em class="sig-param">prefix=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/parsers/docstring.html#DocStringParser.from_class"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.parsers.docstring.DocStringParser.from_class" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="openapi_builder.parsers.docstring.DocStringParser.from_file">
+<em class="property">classmethod </em><code class="sig-name descname">from_file</code><span class="sig-paren">(</span><em class="sig-param">filename</em>, <em class="sig-param">prefix=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/parsers/docstring.html#DocStringParser.from_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.parsers.docstring.DocStringParser.from_file" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="openapi_builder.parsers.docstring.DocStringParser.get_name">
+<code class="sig-name descname">get_name</code><span class="sig-paren">(</span><em class="sig-param">node</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/parsers/docstring.html#DocStringParser.get_name"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.parsers.docstring.DocStringParser.get_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="openapi_builder.parsers.docstring.DocStringParser.parse">
+<code class="sig-name descname">parse</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/parsers/docstring.html#DocStringParser.parse"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.parsers.docstring.DocStringParser.parse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </dd></dl>
 
 </div>
@@ -263,17 +283,17 @@
         
             <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="openapi_generator.decorators.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="openapi_builder.parsers.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">openapi_generator.decorators module</p>
+            <p class="prev-next-title">openapi_builder.parsers package</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="openapi_generator.specification.html" title="next page">
+    <a class='right-next' id="next-link" href="openapi_builder.processors.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">openapi_generator.specification module</p>
+        <p class="prev-next-title">openapi_builder.processors package</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

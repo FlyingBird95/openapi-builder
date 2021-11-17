@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>openapi_generator.specification &#8212; openapi_generator 0.1.0 documentation</title>
+    <title>openapi_builder.specification &#8212; openapi_builder 0.1.0 documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -59,7 +59,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">openapi_generator 0.1.0 documentation</h1>
+      <h1 class="site-logo" id="site-title">openapi_builder 0.1.0 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -84,8 +84,8 @@
   </label>
   <ul>
    <li class="toctree-l2 has-children">
-    <a class="reference internal" href="../../source/packages/openapi_generator.html">
-     openapi_generator package
+    <a class="reference internal" href="../../source/packages/openapi_builder.html">
+     openapi_builder package
     </a>
     <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
     <label for="toctree-checkbox-2">
@@ -94,8 +94,8 @@
     </label>
     <ul>
      <li class="toctree-l3 has-children">
-      <a class="reference internal" href="../../source/packages/openapi_generator.parsers.html">
-       openapi_generator.parsers package
+      <a class="reference internal" href="../../source/packages/openapi_builder.parsers.html">
+       openapi_builder.parsers package
       </a>
       <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
       <label for="toctree-checkbox-3">
@@ -104,15 +104,15 @@
       </label>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="../../source/packages/openapi_generator.parsers.docstring.html">
-         openapi_generator.parsers.docstring module
+        <a class="reference internal" href="../../source/packages/openapi_builder.parsers.docstring.html">
+         openapi_builder.parsers.docstring module
         </a>
        </li>
       </ul>
      </li>
      <li class="toctree-l3 has-children">
-      <a class="reference internal" href="../../source/packages/openapi_generator.processors.html">
-       openapi_generator.processors package
+      <a class="reference internal" href="../../source/packages/openapi_builder.processors.html">
+       openapi_builder.processors package
       </a>
       <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
       <label for="toctree-checkbox-4">
@@ -121,35 +121,35 @@
       </label>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="../../source/packages/openapi_generator.processors.base.html">
-         openapi_generator.processors.base module
+        <a class="reference internal" href="../../source/packages/openapi_builder.processors.base.html">
+         openapi_builder.processors.base module
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../../source/packages/openapi_generator.processors.marshmallow.html">
-         openapi_generator.processors.marshmallow module
+        <a class="reference internal" href="../../source/packages/openapi_builder.processors.marshmallow.html">
+         openapi_builder.processors.marshmallow module
         </a>
        </li>
       </ul>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../../source/packages/openapi_generator.builder.html">
-       openapi_generator.builder module
+      <a class="reference internal" href="../../source/packages/openapi_builder.builder.html">
+       openapi_builder.builder module
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../../source/packages/openapi_generator.decorators.html">
-       openapi_generator.decorators module
+      <a class="reference internal" href="../../source/packages/openapi_builder.decorators.html">
+       openapi_builder.decorators module
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../../source/packages/openapi_generator.documentation.html">
-       openapi_generator.documentation module
+      <a class="reference internal" href="../../source/packages/openapi_builder.documentation.html">
+       openapi_builder.documentation module
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="../../source/packages/openapi_generator.specification.html">
-       openapi_generator.specification module
+      <a class="reference internal" href="../../source/packages/openapi_builder.specification.html">
+       openapi_builder.specification module
       </a>
      </li>
     </ul>
@@ -228,7 +228,7 @@
         
               <div>
                 
-  <h1>Source code for openapi_generator.specification</h1><div class="highlight"><pre>
+  <h1>Source code for openapi_builder.specification</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Contains all Open API specifications.</span>
 
 <span class="sd">This is described on this page:</span>
@@ -237,7 +237,7 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
 
-<div class="viewcode-block" id="OpenAPI"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.OpenAPI">[docs]</a><span class="k">class</span> <span class="nc">OpenAPI</span><span class="p">:</span>
+<div class="viewcode-block" id="OpenAPI"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.OpenAPI">[docs]</a><span class="k">class</span> <span class="nc">OpenAPI</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Root document object of the OpenAPI document.</span>
 
 <span class="sd">    Open API root object as described here:</span>
@@ -298,7 +298,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">external_docs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ExternalDocumentation</span><span class="p">]</span> <span class="o">=</span> <span class="n">external_docs</span>
         <span class="sd">&quot;&quot;&quot;Additional external documentation.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="OpenAPI.get_value"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.OpenAPI.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="OpenAPI.get_value"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.OpenAPI.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">value</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;openapi&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">openapi</span><span class="p">,</span>
             <span class="s2">&quot;info&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">get_value</span><span class="p">(),</span>
@@ -309,7 +309,7 @@
         <span class="k">return</span> <span class="n">value</span></div></div>
 
 
-<div class="viewcode-block" id="Info"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Info">[docs]</a><span class="k">class</span> <span class="nc">Info</span><span class="p">:</span>
+<div class="viewcode-block" id="Info"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Info">[docs]</a><span class="k">class</span> <span class="nc">Info</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;The object provides metadata about the API.</span>
 
 <span class="sd">    The metadata MAY be used by the clients if needed, and MAY be presented in editing</span>
@@ -365,7 +365,7 @@
         <span class="sd">&quot;&quot;&quot;REQUIRED. The version of the OpenAPI document (which is distinct from the</span>
 <span class="sd">        OpenAPI Specification version or the API implementation version).&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Info.get_value"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Info.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Info.get_value"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Info.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">value</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
             <span class="s2">&quot;version&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">version</span><span class="p">,</span>
@@ -383,7 +383,7 @@
         <span class="k">return</span> <span class="n">value</span></div></div>
 
 
-<div class="viewcode-block" id="Contact"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Contact">[docs]</a><span class="k">class</span> <span class="nc">Contact</span><span class="p">:</span>
+<div class="viewcode-block" id="Contact"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Contact">[docs]</a><span class="k">class</span> <span class="nc">Contact</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Contact information for the exposed API.</span>
 
 <span class="sd">    Open API contact object as described here:</span>
@@ -414,7 +414,7 @@
         <span class="sd">&quot;&quot;&quot;The email address of the contact person/organization. MUST be in the format</span>
 <span class="sd">        of an email address.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Contact.get_value"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Contact.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Contact.get_value"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Contact.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">value</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -427,7 +427,7 @@
         <span class="k">return</span> <span class="n">value</span></div></div>
 
 
-<div class="viewcode-block" id="License"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.License">[docs]</a><span class="k">class</span> <span class="nc">License</span><span class="p">:</span>
+<div class="viewcode-block" id="License"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.License">[docs]</a><span class="k">class</span> <span class="nc">License</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;License information for the exposed API.</span>
 
 <span class="sd">    Open API license object as described here:</span>
@@ -447,7 +447,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">url</span>
         <span class="sd">&quot;&quot;&quot;A URL to the license used for the API. MUST be in the format of a URL.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="License.get_value"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.License.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="License.get_value"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.License.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">value</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -456,7 +456,7 @@
         <span class="k">return</span> <span class="n">value</span></div></div>
 
 
-<div class="viewcode-block" id="Server"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Server">[docs]</a><span class="k">class</span> <span class="nc">Server</span><span class="p">:</span>
+<div class="viewcode-block" id="Server"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Server">[docs]</a><span class="k">class</span> <span class="nc">Server</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;An object representing a Server.</span>
 
 <span class="sd">    Open API server object as described here:</span>
@@ -508,7 +508,7 @@
         <span class="sd">&quot;&quot;&quot;A map between a variable name and its value. The value is used for</span>
 <span class="sd">        substitution in the server&#39;s URL template.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Server.get_value"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Server.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Server.get_value"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Server.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">value</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">,</span>
         <span class="p">}</span>
@@ -524,7 +524,7 @@
         <span class="k">return</span> <span class="n">value</span></div></div>
 
 
-<div class="viewcode-block" id="ServerVariable"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.ServerVariable">[docs]</a><span class="k">class</span> <span class="nc">ServerVariable</span><span class="p">:</span>
+<div class="viewcode-block" id="ServerVariable"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.ServerVariable">[docs]</a><span class="k">class</span> <span class="nc">ServerVariable</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;An object representing a Server Variable for server URL template substitution.</span>
 
 <span class="sd">    Open API server variable object as described here:</span>
@@ -549,7 +549,7 @@
         <span class="sd">&quot;&quot;&quot;An optional description for the server variable. CommonMark syntax MAY be</span>
 <span class="sd">        used for rich text representation.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="ServerVariable.get_value"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.ServerVariable.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ServerVariable.get_value"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.ServerVariable.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">value</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;default&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">default</span><span class="p">}</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">enum</span><span class="p">:</span>
@@ -560,7 +560,7 @@
         <span class="k">return</span> <span class="n">value</span></div></div>
 
 
-<div class="viewcode-block" id="Components"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Components">[docs]</a><span class="k">class</span> <span class="nc">Components</span><span class="p">:</span>
+<div class="viewcode-block" id="Components"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Components">[docs]</a><span class="k">class</span> <span class="nc">Components</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Holds a set of reusable objects for different aspects of the OAS.</span>
 
 <span class="sd">    All objects defined within the components object will have no effect on the API</span>
@@ -629,7 +629,7 @@
         <span class="p">)</span>
         <span class="sd">&quot;&quot;&quot;An object to hold reusable Callback Objects.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Components.get_value"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Components.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Components.get_value"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Components.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">value</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">schemas</span><span class="p">:</span>
@@ -672,7 +672,7 @@
         <span class="k">return</span> <span class="n">value</span></div></div>
 
 
-<div class="viewcode-block" id="Paths"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Paths">[docs]</a><span class="k">class</span> <span class="nc">Paths</span><span class="p">:</span>
+<div class="viewcode-block" id="Paths"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Paths">[docs]</a><span class="k">class</span> <span class="nc">Paths</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Holds the relative paths to the individual endpoints and their operations.</span>
 
 <span class="sd">    The path is appended to the URL from the Server Object in order to construct the</span>
@@ -718,12 +718,12 @@
 <span class="sd">        are identical. In case of ambiguous matching, it&#39;s up to the tooling to decide</span>
 <span class="sd">        which one to use.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Paths.get_value"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Paths.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Paths.get_value"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Paths.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">value</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
         <span class="k">return</span> <span class="n">value</span></div></div>
 
 
-<div class="viewcode-block" id="PathItem"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.PathItem">[docs]</a><span class="k">class</span> <span class="nc">PathItem</span><span class="p">:</span>
+<div class="viewcode-block" id="PathItem"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.PathItem">[docs]</a><span class="k">class</span> <span class="nc">PathItem</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Describes the operations available on a single path.</span>
 
 <span class="sd">    A Paths Item MAY be empty, due to ACL constraints. The path itself is still</span>
@@ -801,7 +801,7 @@
 <span class="sd">        can use the Reference Object to link to parameters that are defined at the</span>
 <span class="sd">        OpenAPI Object&#39;s components/parameters.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="PathItem.get_value"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.PathItem.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="PathItem.get_value"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.PathItem.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">value</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -836,7 +836,7 @@
         <span class="k">return</span> <span class="n">value</span></div></div>
 
 
-<div class="viewcode-block" id="Operation"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Operation">[docs]</a><span class="k">class</span> <span class="nc">Operation</span><span class="p">:</span>
+<div class="viewcode-block" id="Operation"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Operation">[docs]</a><span class="k">class</span> <span class="nc">Operation</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Describes a single API operation on a path.</span>
 
 <span class="sd">    Open API operation object as described here:</span>
@@ -926,7 +926,7 @@
 <span class="sd">        server object is specified at the Paths Item Object or Root level, it will be</span>
 <span class="sd">        overridden by this value.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Operation.get_value"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Operation.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Operation.get_value"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Operation.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">value</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">tags</span><span class="p">:</span>
@@ -964,7 +964,7 @@
         <span class="k">return</span> <span class="n">value</span></div></div>
 
 
-<div class="viewcode-block" id="ExternalDocumentation"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.ExternalDocumentation">[docs]</a><span class="k">class</span> <span class="nc">ExternalDocumentation</span><span class="p">:</span>
+<div class="viewcode-block" id="ExternalDocumentation"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.ExternalDocumentation">[docs]</a><span class="k">class</span> <span class="nc">ExternalDocumentation</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Allows referencing an external resource for extended documentation.</span>
 
 <span class="sd">    Open API external docs object as described here:</span>
@@ -986,7 +986,7 @@
         <span class="sd">&quot;&quot;&quot;REQUIRED. The URL for the target documentation. Value MUST be in the format</span>
 <span class="sd">        of a URL.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="ExternalDocumentation.get_value"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.ExternalDocumentation.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ExternalDocumentation.get_value"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.ExternalDocumentation.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">value</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">}</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -995,7 +995,7 @@
         <span class="k">return</span> <span class="n">value</span></div></div>
 
 
-<div class="viewcode-block" id="Parameter"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Parameter">[docs]</a><span class="k">class</span> <span class="nc">Parameter</span><span class="p">:</span>
+<div class="viewcode-block" id="Parameter"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Parameter">[docs]</a><span class="k">class</span> <span class="nc">Parameter</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Describes a single operation parameter.</span>
 
 <span class="sd">    A unique parameter is defined by a combination of a name and location (in_).</span>
@@ -1064,7 +1064,7 @@
 <span class="sd">        the value of allowEmptyValue SHALL be ignored. Use of this property is NOT</span>
 <span class="sd">        RECOMMENDED, as it is likely to be removed in a later revision.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Parameter.get_value"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Parameter.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Parameter.get_value"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Parameter.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">value</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;in&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">in_</span><span class="p">,</span> <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1079,7 +1079,7 @@
         <span class="k">return</span> <span class="n">value</span></div></div>
 
 
-<div class="viewcode-block" id="RequestBody"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.RequestBody">[docs]</a><span class="k">class</span> <span class="nc">RequestBody</span><span class="p">:</span>
+<div class="viewcode-block" id="RequestBody"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.RequestBody">[docs]</a><span class="k">class</span> <span class="nc">RequestBody</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Describes a single request body.</span>
 
 <span class="sd">    Open API request body object as described here:</span>
@@ -1105,7 +1105,7 @@
         <span class="sd">&quot;&quot;&quot;Determines if the request body is required in the request. Defaults to</span>
 <span class="sd">        false.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="RequestBody.get_value"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.RequestBody.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="RequestBody.get_value"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.RequestBody.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">value</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;content&quot;</span><span class="p">:</span> <span class="p">{</span>
                 <span class="n">key</span><span class="p">:</span> <span class="n">media_type</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">media_type</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
@@ -1120,7 +1120,7 @@
         <span class="k">return</span> <span class="n">value</span></div></div>
 
 
-<div class="viewcode-block" id="MediaType"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.MediaType">[docs]</a><span class="k">class</span> <span class="nc">MediaType</span><span class="p">:</span>
+<div class="viewcode-block" id="MediaType"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.MediaType">[docs]</a><span class="k">class</span> <span class="nc">MediaType</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Provides schema and examples for the media type identified by its key.</span>
 
 <span class="sd">    Open API media type object as described here:</span>
@@ -1157,7 +1157,7 @@
 <span class="sd">        SHALL only apply to requestBody objects when the media type is multipart or</span>
 <span class="sd">        application/x-www-form-urlencoded.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="MediaType.get_value"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.MediaType.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="MediaType.get_value"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.MediaType.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">value</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">schema</span><span class="p">:</span>
@@ -1177,7 +1177,7 @@
         <span class="k">return</span> <span class="n">value</span></div></div>
 
 
-<div class="viewcode-block" id="Encoding"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Encoding">[docs]</a><span class="k">class</span> <span class="nc">Encoding</span><span class="p">:</span>
+<div class="viewcode-block" id="Encoding"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Encoding">[docs]</a><span class="k">class</span> <span class="nc">Encoding</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;A single encoding definition applied to a single schema property.</span>
 
 <span class="sd">    Open API encoding object as described here:</span>
@@ -1229,7 +1229,7 @@
 <span class="sd">        The default value is false. This property SHALL be ignored if the request body</span>
 <span class="sd">        media type is not application/x-www-form-urlencoded.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Encoding.get_value"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Encoding.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Encoding.get_value"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Encoding.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">value</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">content_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1248,7 +1248,7 @@
         <span class="k">return</span> <span class="n">value</span></div></div>
 
 
-<div class="viewcode-block" id="Responses"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Responses">[docs]</a><span class="k">class</span> <span class="nc">Responses</span><span class="p">:</span>
+<div class="viewcode-block" id="Responses"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Responses">[docs]</a><span class="k">class</span> <span class="nc">Responses</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;A container for the expected responses of an operation.</span>
 
 <span class="sd">    The container maps a HTTP response code to the expected response. The documentation</span>
@@ -1295,12 +1295,12 @@
 <span class="sd">        Object can link to a response that the OpenAPI Object&#39;s components/responses</span>
 <span class="sd">        section defines.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Responses.get_value"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Responses.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Responses.get_value"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Responses.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">value</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">value</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
         <span class="k">return</span> <span class="n">value</span></div></div>
 
 
-<div class="viewcode-block" id="Response"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Response">[docs]</a><span class="k">class</span> <span class="nc">Response</span><span class="p">:</span>
+<div class="viewcode-block" id="Response"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Response">[docs]</a><span class="k">class</span> <span class="nc">Response</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Describes a single response from an API Operation.</span>
 
 <span class="sd">    This response is including design-time, static links to operations based on the</span>
@@ -1356,7 +1356,7 @@
 <span class="sd">        the map is a short name for the link, following the naming constraints of the</span>
 <span class="sd">        names for Component Objects.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Response.get_value"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Response.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Response.get_value"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Response.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">value</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;description&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">description</span><span class="p">}</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">:</span>
@@ -1373,7 +1373,7 @@
         <span class="k">return</span> <span class="n">value</span></div></div>
 
 
-<div class="viewcode-block" id="Callback"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Callback">[docs]</a><span class="k">class</span> <span class="nc">Callback</span><span class="p">:</span>
+<div class="viewcode-block" id="Callback"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Callback">[docs]</a><span class="k">class</span> <span class="nc">Callback</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;A map of possible out-of band callbacks related to the parent operation.</span>
 
 <span class="sd">    Each value in the map is a Paths Item Object that describes a set of requests that</span>
@@ -1390,12 +1390,12 @@
         <span class="sd">&quot;&quot;&quot;A Paths Item Object used to define a callback request and expected</span>
 <span class="sd">        responses.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Callback.get_value"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Callback.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Callback.get_value"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Callback.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">value</span> <span class="o">=</span> <span class="p">{</span><span class="n">key</span><span class="p">:</span> <span class="n">path_item</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span> <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">path_item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
         <span class="k">return</span> <span class="n">value</span></div></div>
 
 
-<div class="viewcode-block" id="Example"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Example">[docs]</a><span class="k">class</span> <span class="nc">Example</span><span class="p">:</span>
+<div class="viewcode-block" id="Example"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Example">[docs]</a><span class="k">class</span> <span class="nc">Example</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Open API example object.</span>
 
 <span class="sd">     As described here:</span>
@@ -1427,7 +1427,7 @@
 <span class="sd">        reference examples that cannot easily be included in JSON or YAML documents.</span>
 <span class="sd">        The value field and externalValue field are mutually exclusive.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Example.get_value"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Example.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Example.get_value"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Example.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">value</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">summary</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1442,7 +1442,7 @@
         <span class="k">return</span> <span class="n">value</span></div></div>
 
 
-<div class="viewcode-block" id="Link"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Link">[docs]</a><span class="k">class</span> <span class="nc">Link</span><span class="p">:</span>
+<div class="viewcode-block" id="Link"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Link">[docs]</a><span class="k">class</span> <span class="nc">Link</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;The Link object represents a possible design-time link for a response.</span>
 
 <span class="sd">    The presence of a link does not guarantee the caller&#39;s ability to successfully</span>
@@ -1491,7 +1491,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">server</span><span class="p">:</span> <span class="n">Server</span> <span class="o">=</span> <span class="n">server</span>
         <span class="sd">&quot;&quot;&quot;A server object to be used by the target operation.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Link.get_value"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Link.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Link.get_value"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Link.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">value</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">operation_ref</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1510,7 +1510,7 @@
         <span class="k">return</span> <span class="n">value</span></div></div>
 
 
-<div class="viewcode-block" id="Header"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Header">[docs]</a><span class="k">class</span> <span class="nc">Header</span><span class="p">:</span>
+<div class="viewcode-block" id="Header"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Header">[docs]</a><span class="k">class</span> <span class="nc">Header</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;The Header Object.</span>
 
 <span class="sd">    It follows the structure of the Parameter Object with the following changes:</span>
@@ -1558,7 +1558,7 @@
 <span class="sd">        allowEmptyValue SHALL be ignored. Use of this property is NOT RECOMMENDED, as</span>
 <span class="sd">        it is likely to be removed in a later revision.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Header.get_value"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Header.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Header.get_value"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Header.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">value</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1573,7 +1573,7 @@
         <span class="k">return</span> <span class="n">value</span></div></div>
 
 
-<div class="viewcode-block" id="Tag"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Tag">[docs]</a><span class="k">class</span> <span class="nc">Tag</span><span class="p">:</span>
+<div class="viewcode-block" id="Tag"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Tag">[docs]</a><span class="k">class</span> <span class="nc">Tag</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Adds metadata to a single tag that is used by the Operation Object.</span>
 
 <span class="sd">    It is not mandatory to have a Tag Object per tag defined in the Operation Object</span>
@@ -1605,7 +1605,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">external_docs</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">ExternalDocumentation</span><span class="p">]</span> <span class="o">=</span> <span class="n">external_docs</span>
         <span class="sd">&quot;&quot;&quot;Additional external documentation for this tag.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Tag.get_value"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Tag.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Tag.get_value"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Tag.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">value</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">}</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1616,7 +1616,7 @@
         <span class="k">return</span> <span class="n">value</span></div></div>
 
 
-<div class="viewcode-block" id="Reference"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Reference">[docs]</a><span class="k">class</span> <span class="nc">Reference</span><span class="p">:</span>
+<div class="viewcode-block" id="Reference"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Reference">[docs]</a><span class="k">class</span> <span class="nc">Reference</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;A simple object to allow referencing other components in the specification.</span>
 
 <span class="sd">    The Reference may refer to something internally and externally. The Reference</span>
@@ -1637,17 +1637,17 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">ref</span>
         <span class="sd">&quot;&quot;&quot;REQUIRED. The reference string.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Reference.from_schema"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Reference.from_schema">[docs]</a>    <span class="nd">@classmethod</span>
+<div class="viewcode-block" id="Reference.from_schema"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Reference.from_schema">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_schema</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">schema_name</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">ref</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;#/components/schemas/</span><span class="si">{schema_name}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Reference.get_value"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Reference.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Reference.get_value"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Reference.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">value</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;$ref&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">}</span>
 
         <span class="k">return</span> <span class="n">value</span></div></div>
 
 
-<div class="viewcode-block" id="Schema"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Schema">[docs]</a><span class="k">class</span> <span class="nc">Schema</span><span class="p">:</span>
+<div class="viewcode-block" id="Schema"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Schema">[docs]</a><span class="k">class</span> <span class="nc">Schema</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;The Schema Object allows the definition of input and output data types.</span>
 
 <span class="sd">    These types can be objects, but also primitives and arrays.</span>
@@ -1718,7 +1718,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">format</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="nb">format</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">default</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">default</span>
 
-<div class="viewcode-block" id="Schema.get_value"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Schema.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Schema.get_value"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Schema.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">value</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1781,7 +1781,7 @@
         <span class="k">return</span> <span class="n">value</span></div></div>
 
 
-<div class="viewcode-block" id="Discriminator"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Discriminator">[docs]</a><span class="k">class</span> <span class="nc">Discriminator</span><span class="p">:</span>
+<div class="viewcode-block" id="Discriminator"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Discriminator">[docs]</a><span class="k">class</span> <span class="nc">Discriminator</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;The Descriminator object.</span>
 
 <span class="sd">    When request bodies or response payloads may be one of a number of different</span>
@@ -1803,7 +1803,7 @@
         <span class="sd">&quot;&quot;&quot;An object to hold mappings between payload values and schema names or</span>
 <span class="sd">        references.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Discriminator.get_value"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.Discriminator.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Discriminator.get_value"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Discriminator.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">value</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;propertyName&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">property_name</span><span class="p">}</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">mapping</span><span class="p">:</span>
@@ -1812,7 +1812,7 @@
         <span class="k">return</span> <span class="n">value</span></div></div>
 
 
-<div class="viewcode-block" id="SecurityScheme"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.SecurityScheme">[docs]</a><span class="k">class</span> <span class="nc">SecurityScheme</span><span class="p">:</span>
+<div class="viewcode-block" id="SecurityScheme"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.SecurityScheme">[docs]</a><span class="k">class</span> <span class="nc">SecurityScheme</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Defines a security scheme that can be used by the operations.</span>
 
 <span class="sd">    Supported schemes are HTTP authentication, an API key (either as a header, a cookie</span>
@@ -1868,7 +1868,7 @@
         <span class="sd">&quot;&quot;&quot;REQUIRED. OpenId Connect URL to discover OAuth2 configuration values. This</span>
 <span class="sd">        MUST be in the form of a URL.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="SecurityScheme.get_value"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.SecurityScheme.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SecurityScheme.get_value"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.SecurityScheme.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">value</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">type</span><span class="p">,</span>
             <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
@@ -1886,7 +1886,7 @@
         <span class="k">return</span> <span class="n">value</span></div></div>
 
 
-<div class="viewcode-block" id="OAuthFlows"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.OAuthFlows">[docs]</a><span class="k">class</span> <span class="nc">OAuthFlows</span><span class="p">:</span>
+<div class="viewcode-block" id="OAuthFlows"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.OAuthFlows">[docs]</a><span class="k">class</span> <span class="nc">OAuthFlows</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Allows configuration of the supported OAuth Flows.</span>
 
 <span class="sd">    Open API OAuth flows object as described here:</span>
@@ -1914,7 +1914,7 @@
         <span class="sd">&quot;&quot;&quot;Configuration for the OAuth Authorization Code flow. Previously called</span>
 <span class="sd">        accessCode in OpenAPI 2.0.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="OAuthFlows.get_value"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.OAuthFlows.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="OAuthFlows.get_value"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.OAuthFlows.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">value</span> <span class="o">=</span> <span class="p">{}</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">implicit</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
@@ -1929,7 +1929,7 @@
         <span class="k">return</span> <span class="n">value</span></div></div>
 
 
-<div class="viewcode-block" id="OAuthFlow"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.OAuthFlow">[docs]</a><span class="k">class</span> <span class="nc">OAuthFlow</span><span class="p">:</span>
+<div class="viewcode-block" id="OAuthFlow"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.OAuthFlow">[docs]</a><span class="k">class</span> <span class="nc">OAuthFlow</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Configuration details for a supported OAuth Flow.</span>
 
 <span class="sd">    Open API OAuth flow object as described here:</span>
@@ -1959,7 +1959,7 @@
         <span class="sd">&quot;&quot;&quot;REQUIRED. The available scopes for the OAuth2 security scheme. A map between</span>
 <span class="sd">        the scope name and a short description for it. The map MAY be empty.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="OAuthFlow.get_value"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.OAuthFlow.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="OAuthFlow.get_value"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.OAuthFlow.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">value</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s2">&quot;authorizationUrl&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">authorization_url</span><span class="p">,</span>
             <span class="s2">&quot;tokenUrl&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">token_url</span><span class="p">,</span>
@@ -1972,7 +1972,7 @@
         <span class="k">return</span> <span class="n">value</span></div></div>
 
 
-<div class="viewcode-block" id="SecurityRequirement"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.SecurityRequirement">[docs]</a><span class="k">class</span> <span class="nc">SecurityRequirement</span><span class="p">:</span>
+<div class="viewcode-block" id="SecurityRequirement"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.SecurityRequirement">[docs]</a><span class="k">class</span> <span class="nc">SecurityRequirement</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Lists the required security schemes to execute this operation.</span>
 
 <span class="sd">    The name used for each property MUST correspond to a security scheme declared in</span>
@@ -1991,7 +1991,7 @@
 <span class="sd">        not require a specified scope. For other security scheme types, the array MUST</span>
 <span class="sd">        be empty.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="SecurityRequirement.get_value"><a class="viewcode-back" href="../../source/packages/openapi_generator.specification.html#openapi_generator.specification.SecurityRequirement.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="SecurityRequirement.get_value"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.SecurityRequirement.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span></div></div>
 </pre></div>
 

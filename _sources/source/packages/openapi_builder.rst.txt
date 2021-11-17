@@ -1,0 +1,25 @@
+openapi\_builder package
+========================
+
+.. automodule:: openapi_builder
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Subpackages
+-----------
+
+.. toctree::
+
+   openapi_builder.parsers
+   openapi_builder.processors
+
+Submodules
+----------
+
+.. toctree::
+
+   openapi_builder.builder
+   openapi_builder.decorators
+   openapi_builder.documentation
+   openapi_builder.specification

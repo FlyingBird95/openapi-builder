@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>openapi_generator.processors.base module &#8212; openapi_generator 0.1.0 documentation</title>
+    <title>openapi_builder.decorators module &#8212; openapi_builder 0.1.0 documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -36,8 +36,8 @@
     <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="openapi_generator.processors.marshmallow module" href="openapi_generator.processors.marshmallow.html" />
-    <link rel="prev" title="openapi_generator.processors package" href="openapi_generator.processors.html" />
+    <link rel="next" title="openapi_builder.documentation module" href="openapi_builder.documentation.html" />
+    <link rel="prev" title="openapi_builder.builder module" href="openapi_builder.builder.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -61,7 +61,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">openapi_generator 0.1.0 documentation</h1>
+      <h1 class="site-logo" id="site-title">openapi_builder 0.1.0 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -86,8 +86,8 @@
   </label>
   <ul class="current">
    <li class="toctree-l2 current active has-children">
-    <a class="reference internal" href="openapi_generator.html">
-     openapi_generator package
+    <a class="reference internal" href="openapi_builder.html">
+     openapi_builder package
     </a>
     <input checked="" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
     <label for="toctree-checkbox-2">
@@ -96,8 +96,8 @@
     </label>
     <ul class="current">
      <li class="toctree-l3 has-children">
-      <a class="reference internal" href="openapi_generator.parsers.html">
-       openapi_generator.parsers package
+      <a class="reference internal" href="openapi_builder.parsers.html">
+       openapi_builder.parsers package
       </a>
       <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
       <label for="toctree-checkbox-3">
@@ -106,52 +106,52 @@
       </label>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="openapi_generator.parsers.docstring.html">
-         openapi_generator.parsers.docstring module
+        <a class="reference internal" href="openapi_builder.parsers.docstring.html">
+         openapi_builder.parsers.docstring module
         </a>
        </li>
       </ul>
      </li>
-     <li class="toctree-l3 current active has-children">
-      <a class="reference internal" href="openapi_generator.processors.html">
-       openapi_generator.processors package
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="openapi_builder.processors.html">
+       openapi_builder.processors package
       </a>
-      <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+      <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
       <label for="toctree-checkbox-4">
        <i class="fas fa-chevron-down">
        </i>
       </label>
-      <ul class="current">
-       <li class="toctree-l4 current active">
-        <a class="current reference internal" href="#">
-         openapi_generator.processors.base module
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="openapi_builder.processors.base.html">
+         openapi_builder.processors.base module
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="openapi_generator.processors.marshmallow.html">
-         openapi_generator.processors.marshmallow module
+        <a class="reference internal" href="openapi_builder.processors.marshmallow.html">
+         openapi_builder.processors.marshmallow module
         </a>
        </li>
       </ul>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="openapi_generator.builder.html">
-       openapi_generator.builder module
+      <a class="reference internal" href="openapi_builder.builder.html">
+       openapi_builder.builder module
+      </a>
+     </li>
+     <li class="toctree-l3 current active">
+      <a class="current reference internal" href="#">
+       openapi_builder.decorators module
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="openapi_generator.decorators.html">
-       openapi_generator.decorators module
+      <a class="reference internal" href="openapi_builder.documentation.html">
+       openapi_builder.documentation module
       </a>
      </li>
      <li class="toctree-l3">
-      <a class="reference internal" href="openapi_generator.documentation.html">
-       openapi_generator.documentation module
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="openapi_generator.specification.html">
-       openapi_generator.specification module
+      <a class="reference internal" href="openapi_builder.specification.html">
+       openapi_builder.specification module
       </a>
      </li>
     </ul>
@@ -214,7 +214,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/source/packages/openapi_generator.processors.base.rst.txt"><button type="button"
+        <a class="dropdown-buttons" href="../../_sources/source/packages/openapi_builder.decorators.rst.txt"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.rst</button></a>
         <!-- Download PDF via print -->
@@ -247,8 +247,13 @@
         
               <div>
                 
-  <div class="section" id="openapi-generator-processors-base-module">
-<h1>openapi_generator.processors.base module<a class="headerlink" href="#openapi-generator-processors-base-module" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-openapi_builder.decorators">
+<span id="openapi-builder-decorators-module"></span><h1>openapi_builder.decorators module<a class="headerlink" href="#module-openapi_builder.decorators" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="openapi_builder.decorators.add_documentation">
+<code class="sig-prename descclassname">openapi_builder.decorators.</code><code class="sig-name descname">add_documentation</code><span class="sig-paren">(</span><em class="sig-param">responses: Optional[Dict[Union[str, int], Any]] = None, input_schema: Optional[Any] = None, parameters: Optional[List[openapi_builder.specification.Parameter]] = None, summary: Optional[str] = None, description: Optional[str] = None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/decorators.html#add_documentation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.decorators.add_documentation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 
 
@@ -257,17 +262,17 @@
         
             <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="openapi_generator.processors.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="openapi_builder.builder.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">openapi_generator.processors package</p>
+            <p class="prev-next-title">openapi_builder.builder module</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="openapi_generator.processors.marshmallow.html" title="next page">
+    <a class='right-next' id="next-link" href="openapi_builder.documentation.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">openapi_generator.processors.marshmallow module</p>
+        <p class="prev-next-title">openapi_builder.documentation module</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
