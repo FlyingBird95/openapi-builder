@@ -2,12 +2,12 @@ from typing import TYPE_CHECKING, Union
 
 import marshmallow
 
-from openapi_generator.parsers.docstring import DocStringParser
-from openapi_generator.processors.base import Processor
-from openapi_generator.specification import Reference, Schema
+from openapi_builder.parsers.docstring import DocStringParser
+from openapi_builder.processors.base import Processor
+from openapi_builder.specification import Reference, Schema
 
 if TYPE_CHECKING:
-    from openapi_generator.builder import SwaggerBuilder
+    from openapi_builder.builder import SwaggerBuilder
 
 
 class EmailProcessor(Processor):

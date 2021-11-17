@@ -51,7 +51,7 @@ if extras_require:
 # are installed.
 # https://packaging.python.org/guides/single-sourcing-package-version/
 meta = {}
-exec(read("openapi_generator/__meta__.py"), meta)
+exec(read("openapi_builder/__meta__.py"), meta)
 
 
 readme = "README.rst"
