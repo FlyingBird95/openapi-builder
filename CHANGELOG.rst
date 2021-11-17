@@ -11,8 +11,14 @@ The format is based on `Keep a Changelog`_, and this project adheres to `Semanti
 Categories for changes are: Added, Changed, Deprecated, Removed, Fixed, Security.
 
 
-Version `0.1.0 <https://github.com/FlyingBird95/openapi_builder/tree/0.1.0>`__
+Version `0.1.0 <https://github.com/FlyingBird95/openapi_builder/tree/v0.1.0>`__
 --------------------------------------------------------------------------------
 
-Release date: 2021-12-01.
-Initial release (to be released).
+First release date: 2021-11-17.
+Added setup for:
+- Continuous integration (automated tests)
+- Continuous delivery (publishing to PyPI)
+- Automatically formatting (black and isort)
+- Checking formatting errors (flake8)
+- Automatic documentation integration and delivery
+- Initial code

@@ -1,7 +1,7 @@
 |GHA tests| |Documentation| |Codecov report| |pre-commit| |black|
 
 `OpenAPI Builder <https://flyingbird95.github.io/openapi_builder>`_
-==================================================================
+===================================================================
 A Flask_ extension for automatically adding OpenAPI_ documentation to your Flask app.
 
 .. _Flask: https://flask.palletsprojects.com/
@@ -9,8 +9,6 @@ A Flask_ extension for automatically adding OpenAPI_ documentation to your Flask
 
 Quick start
 -----------
-
-.. highlight:: bash
 
 
 Features
@@ -281,8 +279,6 @@ When the ``publish`` job is enabled on the release candidate tests workflow, it 
 .. _pypi-publish: https://github.com/pypa/gh-action-pypi-publish
 .. _testpypi: https://test.pypi.org/
 
-
-.. highlight:: python
 
 
 .. |GHA tests| image:: https://github.com/flyingbird95/openapi_builder/workflows/tests/badge.svg
