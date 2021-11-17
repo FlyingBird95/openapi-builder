@@ -1,6 +1,6 @@
 from typing import Any, Dict, List, Optional, Union
 
-from openapi_generator.specification import Parameter
+from openapi_builder.specification import Parameter
 
 
 class SwaggerDocumentation:

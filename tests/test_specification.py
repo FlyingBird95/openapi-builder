@@ -1,4 +1,4 @@
-from openapi_generator.specification import Contact
+from openapi_builder.specification import Contact
 
 
 def test_contact_serialization():

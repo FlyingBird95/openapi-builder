@@ -1,7 +1,7 @@
 |GHA tests| |Documentation| |Codecov report| |pre-commit| |black|
 
-`OpenAPI Generator <https://flyingbird95.github.io/openapi_generator>`_
-=====================================
+`OpenAPI Builder <https://flyingbird95.github.io/openapi_builder>`_
+==================================================================
 A Flask_ extension for automatically adding OpenAPI_ documentation to your Flask app.
 
 .. _Flask: https://flask.palletsprojects.com/
@@ -47,10 +47,10 @@ For a given block of code, a fixed version of black will always produce the same
 However, it should be noted that different versions of black will produce different outputs.
 Black is configured here:
 
-- requirements-dev.txt, `L1 <https://github.com/flyingbird95/openapi_generator/blob/master/requirements-dev.txt#L1>`__
-- .pre-commit-config.yaml, `L14 <https://github.com/flyingbird95/openapi_generator/blob/master/.pre-commit-config.yaml#L14>`__,
-  `L28 <https://github.com/flyingbird95/openapi_generator/blob/master/.pre-commit-config.yaml#L28>`__, and
-  `L47 <https://github.com/flyingbird95/openapi_generator/blob/master/.pre-commit-config.yaml#L47>`__
+- requirements-dev.txt, `L1 <https://github.com/flyingbird95/openapi_builder/blob/master/requirements-dev.txt#L1>`__
+- .pre-commit-config.yaml, `L14 <https://github.com/flyingbird95/openapi_builder/blob/master/.pre-commit-config.yaml#L14>`__,
+  `L28 <https://github.com/flyingbird95/openapi_builder/blob/master/.pre-commit-config.yaml#L28>`__, and
+  `L47 <https://github.com/flyingbird95/openapi_builder/blob/master/.pre-commit-config.yaml#L47>`__
 
 .. _black: https://github.com/psf/black
 
@@ -124,7 +124,7 @@ It is set up to work well out of the box, with several features added in.
 GitHub Pages
 ^^^^^^^^^^^^
 
-Documentation is deployed to `GitHub Pages`_ and is available at https://flyingbird95.github.io/openapi_generator/.
+Documentation is deployed to `GitHub Pages`_ and is available at https://flyingbird95.github.io/openapi_builder/.
 
 The gh-pages documentation is refreshed every time there is a push to the master branch.
 
@@ -189,12 +189,12 @@ Other documentation features
 Consolidated metadata
 ~~~~~~~~~~~~~~~~~~~~~
 
-Package metadata is consolidated into one place, the file ``openapi_generator/__meta__.py``.
+Package metadata is consolidated into one place, the file ``openapi_builder/__meta__.py``.
 This is done to only write the metadata once in this centralised location, and everything else (packaging, documentation, etc) picks it up from there.
 This is similar to `single-sourcing the package version`_, but for all metadata.
 
-This information is available to end-users with ``import openapi_generator; print(openapi_generator.__meta__)``.
-The version information is also accessible at ``openapi_generator.__version__``, as per PEP-396_.
+This information is available to end-users with ``import openapi_builder; print(openapi_builder.__meta__)``.
+The version information is also accessible at ``openapi_builder.__version__``, as per PEP-396_.
 
 .. _PEP-396: https://www.python.org/dev/peps/pep-0396/#specification
 .. _single-sourcing the package version: https://packaging.python.org/guides/single-sourcing-package-version/
@@ -235,7 +235,7 @@ Any additional files named ``requirements-EXTRANAME.txt`` will also be collected
 Another extra named ``all`` captures all of these optional dependencies.
 
 The README file is automatically included in the metadata when setup.py build wheels for PyPI.
-The rest of the metadata comes from ``openapi_generator/__meta__.py``.
+The rest of the metadata comes from ``openapi_builder/__meta__.py``.
 
 Our template setup.py file is based on the `example from setuptools documentation <setuptools-setup.py_>`_, and the comprehensive example from `Kenneth Reitz <kennethreitz/setup.py_>`_ (released under `MIT License <https://github.com/kennethreitz/setup.py/blob/master/LICENSE>`__), with further features added.
 
@@ -254,7 +254,7 @@ Five workflows are included:
 
 docs
     The docs workflow ensures the documentation builds correctly, and presents any errors and warnings nicely as annotations.
-    The available html documentation is automatically deployed to the gh-pages branch and https://flyingbird95.github.io/openapi_generator/.
+    The available html documentation is automatically deployed to the gh-pages branch and https://flyingbird95.github.io/openapi_builder/.
 
 pre-commit
     Runs the pre-commit stack.
@@ -285,14 +285,14 @@ When the ``publish`` job is enabled on the release candidate tests workflow, it 
 .. highlight:: python
 
 
-.. |GHA tests| image:: https://github.com/flyingbird95/openapi_generator/workflows/tests/badge.svg
-   :target: https://github.com/flyingbird95/openapi_generator/actions?query=workflow%3Atests
+.. |GHA tests| image:: https://github.com/flyingbird95/openapi_builder/workflows/tests/badge.svg
+   :target: https://github.com/flyingbird95/openapi_builder/actions?query=workflow%3Atests
    :alt: GHA Status
-.. |Documentation| image:: https://github.com/flyingbird95/openapi_generator/workflows/docs/badge.svg
-   :target: https://flyingbird95.github.io/openapi_generator/index.html
+.. |Documentation| image:: https://github.com/flyingbird95/openapi_builder/workflows/docs/badge.svg
+   :target: https://flyingbird95.github.io/openapi_builder/index.html
    :alt: Documentation
-.. |Codecov report| image:: https://codecov.io/github/flyingbird95/openapi_generator/coverage.svg?branch=master
-   :target: https://codecov.io/github/flyingbird95/openapi_generator?branch=master
+.. |Codecov report| image:: https://codecov.io/github/flyingbird95/openapi_builder/coverage.svg?branch=master
+   :target: https://codecov.io/github/flyingbird95/openapi_builder?branch=master
    :alt: Coverage
 .. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
    :target: https://github.com/pre-commit/pre-commit

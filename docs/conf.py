@@ -24,7 +24,7 @@ REPO_DIRECTORY = os.path.dirname(DOCS_DIRECTORY)
 sys.path.insert(0, DOCS_DIRECTORY)
 sys.path.insert(0, REPO_DIRECTORY)
 
-from openapi_generator import __meta__ as meta  # noqa: E402 isort:skip
+from openapi_builder import __meta__ as meta  # noqa: E402 isort:skip
 
 
 # -- Project information -----------------------------------------------------

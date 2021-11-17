@@ -2,9 +2,9 @@ from typing import Optional
 
 from flask import current_app
 
-from openapi_generator.documentation import SwaggerDocumentation
-from openapi_generator.processors.marshmallow import register_marshmallow_processors
-from openapi_generator.specification import (
+from openapi_builder.documentation import SwaggerDocumentation
+from openapi_builder.processors.marshmallow import register_marshmallow_processors
+from openapi_builder.specification import (
     Info,
     MediaType,
     OpenAPI,

@@ -1,5 +1,5 @@
-from openapi_generator.builder import SwaggerBuilder
-from openapi_generator.specification import Schema
+from openapi_builder.builder import SwaggerBuilder
+from openapi_builder.specification import Schema
 
 
 class Processor:

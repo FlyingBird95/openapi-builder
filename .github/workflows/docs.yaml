@@ -6,7 +6,7 @@
 # - On pushes to the default branch (i.e. master), the HTML documentation
 #   is pushed to the gh-pages branch, which is automatically rendered at
 #   the publicly accessible url
-#   https://flyingbird95.github.io/openapi_generator/
+#   https://flyingbird95.github.io/openapi_builder/
 
 name: docs
 
