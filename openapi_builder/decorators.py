@@ -1,3 +1,4 @@
+import functools
 from typing import Any, Dict, List, Optional, Union
 
 from openapi_builder.documentation import SwaggerDocumentation
@@ -11,6 +12,7 @@ def add_documentation(
     summary: Optional[str] = None,
     description: Optional[str] = None,
 ):
+    @functools.wraps
     def inner(func):
         func.__swagger_doc__ = SwaggerDocumentation(
             responses=responses,
