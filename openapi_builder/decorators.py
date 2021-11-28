@@ -1,4 +1,4 @@
-import functools
+from http import HTTPStatus
 from typing import Any, Dict, List, Optional, Union
 
 from openapi_builder.documentation import SwaggerDocumentation
@@ -6,13 +6,12 @@ from openapi_builder.specification import Parameter
 
 
 def add_documentation(
-    responses: Optional[Dict[Union[str, int], Any]] = None,
+    responses: Optional[Dict[Union[HTTPStatus, int], Any]] = None,
     input_schema: Optional[Any] = None,
     parameters: Optional[List[Parameter]] = None,
     summary: Optional[str] = None,
     description: Optional[str] = None,
 ):
-    @functools.wraps
     def inner(func):
         func.__swagger_doc__ = SwaggerDocumentation(
             responses=responses,

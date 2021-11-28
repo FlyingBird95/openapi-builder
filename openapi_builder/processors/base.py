@@ -1,5 +1,9 @@
-from openapi_builder.builder import SwaggerBuilder
+import typing
+
 from openapi_builder.specification import Schema
+
+if typing.TYPE_CHECKING:
+    from openapi_builder import OpenAPIBuilder
 
 
 class Processor:
@@ -9,5 +13,5 @@ class Processor:
     """Specification of the class that it processes."""
 
     @staticmethod
-    def process(value, builder: "SwaggerBuilder") -> Schema:
+    def process(value, builder: "OpenAPIBuilder") -> Schema:
         raise NotImplementedError
