@@ -4,7 +4,6 @@ from typing import Optional
 from flask import current_app
 
 from openapi_builder.documentation import SwaggerDocumentation
-from openapi_builder.processors.marshmallow import register_marshmallow_processors
 from openapi_builder.specification import (
     Info,
     MediaType,
@@ -51,6 +50,10 @@ class OpenAPIBuilder:
             options if options is not None else DocumentationOptions()
         )
         if self.options.include_marshmallow_processors:
+            from openapi_builder.processors.marshmallow import (
+                register_marshmallow_processors,
+            )
+
             register_marshmallow_processors(self)
 
     def get_value(self):

@@ -21,11 +21,11 @@ jobs:
         user: __token__
         password: ${{ secrets.TEST_PYPI_API_TOKEN }}
         repository_url: https://test.pypi.org/legacy/
-        skip_existing: true  # uploading multiple times with the same version fails, but now we ignore it
+        skip_existing: true  # uploading multiple times with the same version fails, but this ignores it
 
-    # Only on a tagged commit push to PyPI
+    # Only on a commit to the master branch push to PyPI
     - name: Publish distribution 📦 to PyPI
-      # if: startsWith(github.ref, 'refs/tags/')
+      if: github.ref == 'refs/heads/master'
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
         user: __token__

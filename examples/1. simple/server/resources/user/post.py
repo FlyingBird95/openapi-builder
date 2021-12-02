@@ -34,4 +34,4 @@ def post():
         email=data["email"],
     )
     user.save()
-    return UserSchema().dumps(user)
+    return UserSchema().dumps(user), HTTPStatus.CREATED
