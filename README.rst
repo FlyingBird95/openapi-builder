@@ -67,8 +67,8 @@ First, the documentation UI is served with the following endpoint (based on the 
     def docs_index():
         """Get index page."""
         config = {
-            "app_name": "Swagger UI",
-            "dom_id": "#swagger-ui",
+            "app_name": "Open API UI",
+            "dom_id": "#openapi-ui",
             "url": url_for("docs_configuration"),
             "layout": "StandaloneLayout",
             "deepLinking": True,
@@ -88,7 +88,7 @@ Second, the documentation configuration needs to be generated. This can be achie
     import json
 
     from flask import Flask, jsonify
-    from swagger_builder import OpenAPIBuilder, DocumentationOptions
+    from openapi_builder import OpenAPIBuilder, DocumentationOptions
 
     app = Flask(__name__)  # use the same app as used for the UI.
 

@@ -50,10 +50,8 @@ class DocStringParser:
                         sys.modules[module_name].__file__
                     )
                     super_class_parser.parse()
-                    for (
-                        key,
-                        docstring,
-                    ) in super_class_parser.result.items():  # e.g. key='ClassA.attr_a'
+                    for key, docstring in super_class_parser.result.items():
+                        # e.g. key='ClassA.attr_a'
                         if key.startswith(f"{real_class_name}."):  # 'ClassA.'
                             attribute_name = key.split(".")[-1]  # e.g. 'attr_a'
                             own_class_name = f"{node.name}.{attribute_name}"

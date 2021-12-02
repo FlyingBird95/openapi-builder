@@ -4,7 +4,7 @@ from typing import Any, Dict, List, Optional, Union
 from openapi_builder.specification import Parameter
 
 
-class SwaggerDocumentation:
+class Documentation:
     def __init__(
         self,
         responses: Optional[Dict[Union[HTTPStatus, int], Any]] = None,
