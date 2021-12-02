@@ -1,1 +1,0 @@
-/Users/patrick/git/openapi_generator/README.rst

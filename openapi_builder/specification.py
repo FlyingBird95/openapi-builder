@@ -794,6 +794,7 @@ class Parameter:
         in_: str,
         name: str,
         description: Optional[str] = None,
+        schema: Optional[Union["Schema", "Reference"]] = None,
         required=True,
         deprecated=False,
         allow_empty_value=False,
@@ -817,6 +818,9 @@ class Parameter:
         """A brief description of the parameter. This could contain examples of use.
         CommonMark syntax MAY be used for rich text representation."""
 
+        self.schema: Optional[Union["Schema", "Reference"]] = schema
+        """The schema defining the type used for the parameter."""
+
         self.required: bool = required
         """Determines whether this parameter is mandatory. If the parameter location
         is "path", this property is REQUIRED and its value MUST be true. Otherwise, the
@@ -838,6 +842,8 @@ class Parameter:
 
         if self.description is not None:
             value["description"] = self.description
+        if self.schema is not None:
+            value["schema"] = self.schema.get_value()
         if self.required is True:
             value["required"] = self.required
         if self.deprecated is True:
