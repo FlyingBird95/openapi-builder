@@ -1,4 +1,3 @@
-import marshmallow.fields
 from marshmallow import Schema, fields
 
 
@@ -31,17 +30,11 @@ class UpdateUser(Schema):
     """Password."""
 
 
-class CustomType(marshmallow.fields.Field):
-    """Custum type."""
-
-
 class UserSchema(Schema):
     """User response schema."""
 
     id = fields.Integer()
     """ID."""
-
-    custom_type = CustomType()
 
     email = fields.Email()
     """Email."""
