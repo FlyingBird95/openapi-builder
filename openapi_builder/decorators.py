@@ -1,7 +1,7 @@
 from http import HTTPStatus
 from typing import Any, Dict, List, Optional, Union
 
-from openapi_builder.documentation import SwaggerDocumentation
+from openapi_builder.documentation import Documentation
 from openapi_builder.specification import Parameter
 
 
@@ -13,7 +13,7 @@ def add_documentation(
     description: Optional[str] = None,
 ):
     def inner(func):
-        func.__swagger_doc__ = SwaggerDocumentation(
+        func.__open_api_doc__ = Documentation(
             responses=responses,
             input_schema=input_schema,
             parameters=parameters,

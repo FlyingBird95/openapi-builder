@@ -3,7 +3,7 @@ import typing
 from openapi_builder.specification import Schema
 
 if typing.TYPE_CHECKING:
-    from openapi_builder import OpenAPIBuilder
+    from openapi_builder.builder import OpenAPIBuilder
 
 
 class Processor:

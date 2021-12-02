@@ -44,70 +44,30 @@ so, your external users can read them. For a working example, see `this folder <
 
 .. _this-folder: https://github.com/FlyingBird95/openapi_builder/tree/master/examples/
 
-Exposing the documentation
+Initialising the extension
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
-You'll need to expose the generated documentation. This is done via two endpoints. The first endpoint serves the
-documentation UI, and the second endpoint serves the documentation configuration. This configuration is a JSON-formatted
-block of data, that contains the specification of all your schemas. This is what OpenAPI Builder can generate for you.
-
-First, the documentation UI is served with the following endpoint (based on the `swagger-codegen page <swagger_>`_).
-
-
-.. _swagger: https://github.com/swagger-api/swagger-codegen
+The extension can be initialized using the following snippet:
 
 .. code:: python
 
-    import json
-    from flask import Flask, render_template, url_for
+    from flask import Flask
+    from openapi_builder import OpenApiDocumentation
 
     app = Flask(__name__)
 
+    # option 1: initialize directly
+    documentation = OpenApiDocumentation(app=app)
 
-    @app.route("/documentation")
-    def docs_index():
-        """Get index page."""
-        config = {
-            "app_name": "Swagger UI",
-            "dom_id": "#swagger-ui",
-            "url": url_for("docs_configuration"),
-            "layout": "StandaloneLayout",
-            "deepLinking": True,
-        }
-        return render_template("docs.html", config_json=json.dumps(config))
+    # option 2: add the app later.
+    documentation = OpenApiDocumentation()
+    documentation.init_app(app)
 
-As you can see, this endpoint serves a `docs.html <html_docs_>`_ file, with some configuration options. An example of a
-`docs.html <html_docs_>`_ file can be found in the example.
+The generated documentation is automatically exposed at http://localhost:5000/documentation. If you
+don't want this, you can disable it in the options. The included documentation UI is taken from
+the `swagger-codegen page <swagger_>`_.
 
-.. _html_docs: https://github.com/FlyingBird95/openapi_builder/example/
+.. _swagger: https://github.com/swagger-api/swagger-codegen
 
-Second, the documentation configuration needs to be generated. This can be achieved using the following endpoint.
-
-
-.. code:: python
-
-    import json
-
-    from flask import Flask, jsonify
-    from swagger_builder import OpenAPIBuilder, DocumentationOptions
-
-    app = Flask(__name__)  # use the same app as used for the UI.
-
-    builder = OpenAPIBuilder(
-        title="Example REST API documentation",
-        version="1.0.0",
-        options=DocumentationOptions(
-            include_options_response=False,
-            include_head_response=False,
-            server_url="/",
-        ),
-    )
-
-
-    @app.route("/documentation-configuration")
-    def configuration():
-        """Get OpenAPI specification configuration."""
-        builder.iterate_endpoints()
-        return jsonify(builder.get_value())
 
 Adding resources
 ~~~~~~~~~~~~~~~~

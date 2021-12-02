@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING, Union
 import marshmallow
 
 from openapi_builder.parsers.docstring import DocStringParser
-from openapi_builder.processors.base import Processor
+from openapi_builder.processors import Processor
 from openapi_builder.specification import Reference, Schema
 
 if TYPE_CHECKING:
@@ -99,7 +99,9 @@ class SchemaMetaProcessor(Processor):
             description=parser.result.get(schema_name),
             properties=properties,
         )
-        builder.specification.components.schemas[schema_name] = schema
+        builder.open_api_documentation.specification.components.schemas[
+            schema_name
+        ] = schema
         return Reference.from_schema(schema_name=schema_name)
 
 
@@ -115,7 +117,9 @@ class SchemaProcessor(Processor):
         }
 
         schema = Schema(type="object", properties=properties)
-        builder.specification.components.schemas[schema_name] = schema
+        builder.open_api_documentation.specification.components.schemas[
+            schema_name
+        ] = schema
         return Reference.from_schema(schema_name=schema_name)
 
 
