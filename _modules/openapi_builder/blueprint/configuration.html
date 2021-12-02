@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>openapi_builder.processors.base &#8212; openapi_builder 0.1.4 documentation</title>
+    <title>openapi_builder.blueprint.configuration &#8212; openapi_builder 0.1.4 documentation</title>
     
   <link href="../../../_static/css/theme.css" rel="stylesheet">
   <link href="../../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -265,24 +265,16 @@
         
               <div>
                 
-  <h1>Source code for openapi_builder.processors.base</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">typing</span>
+  <h1>Source code for openapi_builder.blueprint.configuration</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">current_app</span><span class="p">,</span> <span class="n">jsonify</span>
 
-<span class="kn">from</span> <span class="nn">openapi_builder.specification</span> <span class="kn">import</span> <span class="n">Schema</span>
-
-<span class="k">if</span> <span class="n">typing</span><span class="o">.</span><span class="n">TYPE_CHECKING</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">openapi_builder.builder</span> <span class="kn">import</span> <span class="n">OpenAPIBuilder</span>
+<span class="kn">from</span> <span class="nn">.blueprint</span> <span class="kn">import</span> <span class="n">openapi_documentation</span>
 
 
-<div class="viewcode-block" id="Processor"><a class="viewcode-back" href="../../../source/packages/openapi_builder.processors.base.html#openapi_builder.processors.Processor">[docs]</a><span class="k">class</span> <span class="nc">Processor</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Processor for a certain class that returns a schema.&quot;&quot;&quot;</span>
-
-    <span class="n">processes_class</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="sd">&quot;&quot;&quot;Specification of the class that it processes.&quot;&quot;&quot;</span>
-
-<div class="viewcode-block" id="Processor.process"><a class="viewcode-back" href="../../../source/packages/openapi_builder.processors.base.html#openapi_builder.processors.Processor.process">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">builder</span><span class="p">:</span> <span class="s2">&quot;OpenAPIBuilder&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Schema</span><span class="p">:</span>
-        <span class="k">raise</span> <span class="ne">NotImplementedError</span></div></div>
+<div class="viewcode-block" id="configuration"><a class="viewcode-back" href="../../../source/packages/openapi_builder.blueprint.configuration.html#openapi_builder.blueprint.configuration.configuration">[docs]</a><span class="nd">@openapi_documentation</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/configuration&quot;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;GET&quot;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">configuration</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;Get Open API configuration.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">current_app</span><span class="o">.</span><span class="n">extensions</span><span class="p">[</span><span class="s2">&quot;__open_api_doc__&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">get_configuration</span><span class="p">())</span></div>
 </pre></div>
 
               </div>

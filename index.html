@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>OpenAPI Builder &#8212; openapi_builder 0.1.3 documentation</title>
+    <title>OpenAPI Builder &#8212; openapi_builder 0.1.4 documentation</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -60,7 +60,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">openapi_builder 0.1.3 documentation</h1>
+      <h1 class="site-logo" id="site-title">openapi_builder 0.1.4 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -95,11 +95,38 @@
     </label>
     <ul>
      <li class="toctree-l3 has-children">
-      <a class="reference internal" href="source/packages/openapi_builder.parsers.html">
-       openapi_builder.parsers package
+      <a class="reference internal" href="source/packages/openapi_builder.blueprint.html">
+       openapi_builder.blueprint package
       </a>
       <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
       <label for="toctree-checkbox-3">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="source/packages/openapi_builder.blueprint.blueprint.html">
+         openapi_builder.blueprint.blueprint module
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="source/packages/openapi_builder.blueprint.configuration.html">
+         openapi_builder.blueprint.configuration module
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="source/packages/openapi_builder.blueprint.get.html">
+         openapi_builder.blueprint.get module
+        </a>
+       </li>
+      </ul>
+     </li>
+     <li class="toctree-l3 has-children">
+      <a class="reference internal" href="source/packages/openapi_builder.parsers.html">
+       openapi_builder.parsers package
+      </a>
+      <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+      <label for="toctree-checkbox-4">
        <i class="fas fa-chevron-down">
        </i>
       </label>
@@ -115,8 +142,8 @@
       <a class="reference internal" href="source/packages/openapi_builder.processors.html">
        openapi_builder.processors package
       </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-      <label for="toctree-checkbox-4">
+      <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+      <label for="toctree-checkbox-5">
        <i class="fas fa-chevron-down">
        </i>
       </label>
@@ -149,8 +176,18 @@
       </a>
      </li>
      <li class="toctree-l3">
+      <a class="reference internal" href="source/packages/openapi_builder.exceptions.html">
+       openapi_builder.exceptions module
+      </a>
+     </li>
+     <li class="toctree-l3">
       <a class="reference internal" href="source/packages/openapi_builder.specification.html">
        openapi_builder.specification module
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="source/packages/openapi_builder.util.html">
+       openapi_builder.util module
       </a>
      </li>
     </ul>
@@ -254,8 +291,8 @@
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#exposing-the-documentation">
-     Exposing the documentation
+    <a class="reference internal nav-link" href="#initialising-the-extension">
+     Initialising the extension
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
@@ -365,59 +402,25 @@ documentation.</p></li>
 </div>
 <p>After installation, it’s time to build the documentation for the resources in your Flask application, and expose them
 so, your external users can read them. For a working example, see <a class="reference external" href="https://github.com/FlyingBird95/openapi_builder/tree/master/examples/">this folder</a>.</p>
-<div class="section" id="exposing-the-documentation">
-<h3>Exposing the documentation<a class="headerlink" href="#exposing-the-documentation" title="Permalink to this headline">¶</a></h3>
-<p>You’ll need to expose the generated documentation. This is done via two endpoints. The first endpoint serves the
-documentation UI, and the second endpoint serves the documentation configuration. This configuration is a JSON-formatted
-block of data, that contains the specification of all your schemas. This is what OpenAPI Builder can generate for you.</p>
-<p>First, the documentation UI is served with the following endpoint (based on the <a class="reference external" href="https://github.com/swagger-api/swagger-codegen">swagger-codegen page</a>).</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">render_template</span><span class="p">,</span> <span class="n">url_for</span>
+<div class="section" id="initialising-the-extension">
+<h3>Initialising the extension<a class="headerlink" href="#initialising-the-extension" title="Permalink to this headline">¶</a></h3>
+<p>The extension can be initialized using the following snippet:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span>
+<span class="kn">from</span> <span class="nn">openapi_builder</span> <span class="kn">import</span> <span class="n">OpenApiDocumentation</span>
 
 <span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
 
+<span class="c1"># option 1: initialize directly</span>
+<span class="n">documentation</span> <span class="o">=</span> <span class="n">OpenApiDocumentation</span><span class="p">(</span><span class="n">app</span><span class="o">=</span><span class="n">app</span><span class="p">)</span>
 
-<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/documentation&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">docs_index</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;Get index page.&quot;&quot;&quot;</span>
-    <span class="n">config</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;app_name&quot;</span><span class="p">:</span> <span class="s2">&quot;Swagger UI&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;dom_id&quot;</span><span class="p">:</span> <span class="s2">&quot;#swagger-ui&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;url&quot;</span><span class="p">:</span> <span class="n">url_for</span><span class="p">(</span><span class="s2">&quot;docs_configuration&quot;</span><span class="p">),</span>
-        <span class="s2">&quot;layout&quot;</span><span class="p">:</span> <span class="s2">&quot;StandaloneLayout&quot;</span><span class="p">,</span>
-        <span class="s2">&quot;deepLinking&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-    <span class="p">}</span>
-    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;docs.html&quot;</span><span class="p">,</span> <span class="n">config_json</span><span class="o">=</span><span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">config</span><span class="p">))</span>
+<span class="c1"># option 2: add the app later.</span>
+<span class="n">documentation</span> <span class="o">=</span> <span class="n">OpenApiDocumentation</span><span class="p">()</span>
+<span class="n">documentation</span><span class="o">.</span><span class="n">init_app</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>As you can see, this endpoint serves a <a class="reference external" href="https://github.com/FlyingBird95/openapi_builder/example/">docs.html</a> file, with some configuration options. An example of a
-<a class="reference external" href="https://github.com/FlyingBird95/openapi_builder/example/">docs.html</a> file can be found in the example.</p>
-<p>Second, the documentation configuration needs to be generated. This can be achieved using the following endpoint.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">json</span>
-
-<span class="kn">from</span> <span class="nn">flask</span> <span class="kn">import</span> <span class="n">Flask</span><span class="p">,</span> <span class="n">jsonify</span>
-<span class="kn">from</span> <span class="nn">swagger_builder</span> <span class="kn">import</span> <span class="n">OpenAPIBuilder</span><span class="p">,</span> <span class="n">DocumentationOptions</span>
-
-<span class="n">app</span> <span class="o">=</span> <span class="n">Flask</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>  <span class="c1"># use the same app as used for the UI.</span>
-
-<span class="n">builder</span> <span class="o">=</span> <span class="n">OpenAPIBuilder</span><span class="p">(</span>
-    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Example REST API documentation&quot;</span><span class="p">,</span>
-    <span class="n">version</span><span class="o">=</span><span class="s2">&quot;1.0.0&quot;</span><span class="p">,</span>
-    <span class="n">options</span><span class="o">=</span><span class="n">DocumentationOptions</span><span class="p">(</span>
-        <span class="n">include_options_response</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">include_head_response</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-        <span class="n">server_url</span><span class="o">=</span><span class="s2">&quot;/&quot;</span><span class="p">,</span>
-    <span class="p">),</span>
-<span class="p">)</span>
-
-
-<span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/documentation-configuration&quot;</span><span class="p">)</span>
-<span class="k">def</span> <span class="nf">configuration</span><span class="p">():</span>
-    <span class="sd">&quot;&quot;&quot;Get OpenAPI specification configuration.&quot;&quot;&quot;</span>
-    <span class="n">builder</span><span class="o">.</span><span class="n">iterate_endpoints</span><span class="p">()</span>
-    <span class="k">return</span> <span class="n">jsonify</span><span class="p">(</span><span class="n">builder</span><span class="o">.</span><span class="n">get_value</span><span class="p">())</span>
-</pre></div>
-</div>
+<p>The generated documentation is automatically exposed at <a class="reference external" href="http://localhost:5000/documentation">http://localhost:5000/documentation</a>. If you
+don’t want this, you can disable it in the options. The included documentation UI is taken from
+the <a class="reference external" href="https://github.com/swagger-api/swagger-codegen">swagger-codegen page</a>.</p>
 </div>
 <div class="section" id="adding-resources">
 <h3>Adding resources<a class="headerlink" href="#adding-resources" title="Permalink to this headline">¶</a></h3>

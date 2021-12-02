@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>openapi_builder.decorators module &#8212; openapi_builder 0.1.4 documentation</title>
+    <title>openapi_builder.exceptions module &#8212; openapi_builder 0.1.4 documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -36,8 +36,8 @@
     <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="openapi_builder.documentation module" href="openapi_builder.documentation.html" />
-    <link rel="prev" title="openapi_builder.builder module" href="openapi_builder.builder.html" />
+    <link rel="next" title="openapi_builder.specification module" href="openapi_builder.specification.html" />
+    <link rel="prev" title="openapi_builder.documentation module" href="openapi_builder.documentation.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -166,8 +166,8 @@
        openapi_builder.builder module
       </a>
      </li>
-     <li class="toctree-l3 current active">
-      <a class="current reference internal" href="#">
+     <li class="toctree-l3">
+      <a class="reference internal" href="openapi_builder.decorators.html">
        openapi_builder.decorators module
       </a>
      </li>
@@ -176,8 +176,8 @@
        openapi_builder.documentation module
       </a>
      </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="openapi_builder.exceptions.html">
+     <li class="toctree-l3 current active">
+      <a class="current reference internal" href="#">
        openapi_builder.exceptions module
       </a>
      </li>
@@ -251,7 +251,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/source/packages/openapi_builder.decorators.rst.txt"><button type="button"
+        <a class="dropdown-buttons" href="../../_sources/source/packages/openapi_builder.exceptions.rst.txt"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.rst</button></a>
         <!-- Download PDF via print -->
@@ -284,12 +284,21 @@
         
               <div>
                 
-  <div class="section" id="module-openapi_builder.decorators">
-<span id="openapi-builder-decorators-module"></span><h1>openapi_builder.decorators module<a class="headerlink" href="#module-openapi_builder.decorators" title="Permalink to this headline">¶</a></h1>
-<dl class="function">
-<dt id="openapi_builder.decorators.add_documentation">
-<code class="sig-prename descclassname">openapi_builder.decorators.</code><code class="sig-name descname">add_documentation</code><span class="sig-paren">(</span><em class="sig-param">responses: Optional[Dict[Union[http.HTTPStatus, int], Any]] = None, input_schema: Optional[Any] = None, parameters: Optional[List[openapi_builder.specification.Parameter]] = None, summary: Optional[str] = None, description: Optional[str] = None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/decorators.html#add_documentation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.decorators.add_documentation" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+  <div class="section" id="module-openapi_builder.exceptions">
+<span id="openapi-builder-exceptions-module"></span><h1>openapi_builder.exceptions module<a class="headerlink" href="#module-openapi_builder.exceptions" title="Permalink to this headline">¶</a></h1>
+<dl class="exception">
+<dt id="openapi_builder.exceptions.MissingProcessor">
+<em class="property">exception </em><code class="sig-prename descclassname">openapi_builder.exceptions.</code><code class="sig-name descname">MissingProcessor</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/exceptions.html#MissingProcessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.exceptions.MissingProcessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#openapi_builder.exceptions.OpenApiException" title="openapi_builder.exceptions.OpenApiException"><code class="xref py py-class docutils literal notranslate"><span class="pre">openapi_builder.exceptions.OpenApiException</span></code></a></p>
+<p>Missing processor for the given class.</p>
+</dd></dl>
+
+<dl class="exception">
+<dt id="openapi_builder.exceptions.OpenApiException">
+<em class="property">exception </em><code class="sig-prename descclassname">openapi_builder.exceptions.</code><code class="sig-name descname">OpenApiException</code><a class="reference internal" href="../../_modules/openapi_builder/exceptions.html#OpenApiException"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.exceptions.OpenApiException" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/exceptions.html#Exception" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></a></p>
+<p>Base Exception.</p>
+</dd></dl>
 
 </div>
 
@@ -299,17 +308,17 @@
         
             <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="openapi_builder.builder.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="openapi_builder.documentation.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">openapi_builder.builder module</p>
+            <p class="prev-next-title">openapi_builder.documentation module</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="openapi_builder.documentation.html" title="next page">
+    <a class='right-next' id="next-link" href="openapi_builder.specification.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">openapi_builder.documentation module</p>
+        <p class="prev-next-title">openapi_builder.specification module</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

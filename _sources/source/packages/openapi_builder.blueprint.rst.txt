@@ -1,0 +1,16 @@
+openapi\_builder.blueprint package
+==================================
+
+.. automodule:: openapi_builder.blueprint
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+.. toctree::
+
+   openapi_builder.blueprint.blueprint
+   openapi_builder.blueprint.configuration
+   openapi_builder.blueprint.get
