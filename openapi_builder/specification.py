@@ -278,9 +278,7 @@ class Server:
         substitution in the server's URL template."""
 
     def get_value(self):
-        value = {
-            "url": self.url,
-        }
+        value = {"url": self.url}
 
         if self.description is not None:
             value["description"] = self.description

@@ -3,7 +3,7 @@ from typing import Optional
 
 from flask import current_app
 
-from openapi_builder.documentation import SwaggerDocumentation
+from openapi_builder.documentation import Documentation
 from openapi_builder.specification import (
     Info,
     MediaType,
@@ -50,6 +50,7 @@ class OpenAPIBuilder:
             options if options is not None else DocumentationOptions()
         )
         if self.options.include_marshmallow_processors:
+            # Keep import below to support packages without marshmallow.
             from openapi_builder.processors.marshmallow import (
                 register_marshmallow_processors,
             )
@@ -76,7 +77,7 @@ class OpenAPIBuilder:
     def iterate_endpoints(self):
         for rule in current_app.url_map._rules:
             view_func = current_app.view_functions[rule.endpoint]
-            config: SwaggerDocumentation = getattr(view_func, "__swagger_doc__", None)
+            config: Documentation = getattr(view_func, "__open_api_doc__", None)
             if config is None:
                 # endpoint has no documentation configuration -> skip
                 continue
