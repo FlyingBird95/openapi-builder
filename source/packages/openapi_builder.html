@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>openapi_builder package &#8212; openapi_builder 0.1.1 documentation</title>
+    <title>openapi_builder package &#8212; openapi_builder 0.1.3 documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -61,7 +61,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">openapi_builder 0.1.1 documentation</h1>
+      <h1 class="site-logo" id="site-title">openapi_builder 0.1.3 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -267,6 +267,52 @@
                 
   <div class="section" id="module-openapi_builder">
 <span id="openapi-builder-package"></span><h1>openapi_builder package<a class="headerlink" href="#module-openapi_builder" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="openapi_builder.add_documentation">
+<code class="sig-prename descclassname">openapi_builder.</code><code class="sig-name descname">add_documentation</code><span class="sig-paren">(</span><em class="sig-param">responses: Optional[Dict[Union[http.HTTPStatus, int], Any]] = None, input_schema: Optional[Any] = None, parameters: Optional[List[openapi_builder.specification.Parameter]] = None, summary: Optional[str] = None, description: Optional[str] = None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/decorators.html#add_documentation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.add_documentation" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="openapi_builder.DocumentationOptions">
+<em class="property">class </em><code class="sig-prename descclassname">openapi_builder.</code><code class="sig-name descname">DocumentationOptions</code><span class="sig-paren">(</span><em class="sig-param">include_head_response: bool = True</em>, <em class="sig-param">include_options_response: bool = True</em>, <em class="sig-param">server_url: str = '/'</em>, <em class="sig-param">include_marshmallow_processors: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/builder.html#DocumentationOptions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.DocumentationOptions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="openapi_builder.OpenAPIBuilder">
+<em class="property">class </em><code class="sig-prename descclassname">openapi_builder.</code><code class="sig-name descname">OpenAPIBuilder</code><span class="sig-paren">(</span><em class="sig-param">title: str</em>, <em class="sig-param">version: str</em>, <em class="sig-param">options: Optional[openapi_builder.builder.DocumentationOptions] = None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/builder.html#OpenAPIBuilder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.OpenAPIBuilder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>OpenAPI builder for generating the documentation.</p>
+<dl class="method">
+<dt id="openapi_builder.OpenAPIBuilder.get_value">
+<code class="sig-name descname">get_value</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/builder.html#OpenAPIBuilder.get_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.OpenAPIBuilder.get_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="openapi_builder.OpenAPIBuilder.iterate_endpoints">
+<code class="sig-name descname">iterate_endpoints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/builder.html#OpenAPIBuilder.iterate_endpoints"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.OpenAPIBuilder.iterate_endpoints" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="openapi_builder.OpenAPIBuilder.openapi_endpoint_name_from_rule">
+<em class="property">static </em><code class="sig-name descname">openapi_endpoint_name_from_rule</code><span class="sig-paren">(</span><em class="sig-param">rule</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/builder.html#OpenAPIBuilder.openapi_endpoint_name_from_rule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.OpenAPIBuilder.openapi_endpoint_name_from_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Utility function to generate the Open API endpoint name.</p>
+<p>It replace ‘/users/&lt;user_id&gt;’ with the OpenAPI standard: ‘/users/{user_id}’.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="openapi_builder.OpenAPIBuilder.parse_openapi_arguments">
+<em class="property">static </em><code class="sig-name descname">parse_openapi_arguments</code><span class="sig-paren">(</span><em class="sig-param">rule</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/builder.html#OpenAPIBuilder.parse_openapi_arguments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.OpenAPIBuilder.parse_openapi_arguments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parsers parameter objects.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="openapi_builder.OpenAPIBuilder.process">
+<code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/builder.html#OpenAPIBuilder.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.OpenAPIBuilder.process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 <div class="section" id="subpackages">
 <h2>Subpackages<a class="headerlink" href="#subpackages" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">

@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>openapi_builder.processors.marshmallow module &#8212; openapi_builder 0.1.1 documentation</title>
+    <title>openapi_builder.processors.marshmallow module &#8212; openapi_builder 0.1.3 documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -61,7 +61,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">openapi_builder 0.1.1 documentation</h1>
+      <h1 class="site-logo" id="site-title">openapi_builder 0.1.3 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -247,8 +247,200 @@
         
               <div>
                 
-  <div class="section" id="openapi-builder-processors-marshmallow-module">
-<h1>openapi_builder.processors.marshmallow module<a class="headerlink" href="#openapi-builder-processors-marshmallow-module" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-openapi_builder.processors.marshmallow">
+<span id="openapi-builder-processors-marshmallow-module"></span><h1>openapi_builder.processors.marshmallow module<a class="headerlink" href="#module-openapi_builder.processors.marshmallow" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="openapi_builder.processors.marshmallow.BooleanProcessor">
+<em class="property">class </em><code class="sig-prename descclassname">openapi_builder.processors.marshmallow.</code><code class="sig-name descname">BooleanProcessor</code><a class="reference internal" href="../../_modules/openapi_builder/processors/marshmallow.html#BooleanProcessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.processors.marshmallow.BooleanProcessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="openapi_builder.processors.base.html#openapi_builder.processors.base.Processor" title="openapi_builder.processors.base.Processor"><code class="xref py py-class docutils literal notranslate"><span class="pre">openapi_builder.processors.base.Processor</span></code></a></p>
+<dl class="method">
+<dt id="openapi_builder.processors.marshmallow.BooleanProcessor.process">
+<em class="property">static </em><code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param">value</em>, <em class="sig-param">builder: OpenAPIBuilder</em><span class="sig-paren">)</span> &#x2192; openapi_builder.specification.Schema<a class="reference internal" href="../../_modules/openapi_builder/processors/marshmallow.html#BooleanProcessor.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.processors.marshmallow.BooleanProcessor.process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openapi_builder.processors.marshmallow.BooleanProcessor.processes_class">
+<code class="sig-name descname">processes_class</code><a class="headerlink" href="#openapi_builder.processors.marshmallow.BooleanProcessor.processes_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">marshmallow.fields.Boolean</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openapi_builder.processors.marshmallow.DateProcessor">
+<em class="property">class </em><code class="sig-prename descclassname">openapi_builder.processors.marshmallow.</code><code class="sig-name descname">DateProcessor</code><a class="reference internal" href="../../_modules/openapi_builder/processors/marshmallow.html#DateProcessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.processors.marshmallow.DateProcessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="openapi_builder.processors.base.html#openapi_builder.processors.base.Processor" title="openapi_builder.processors.base.Processor"><code class="xref py py-class docutils literal notranslate"><span class="pre">openapi_builder.processors.base.Processor</span></code></a></p>
+<dl class="method">
+<dt id="openapi_builder.processors.marshmallow.DateProcessor.process">
+<em class="property">static </em><code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param">value</em>, <em class="sig-param">builder: OpenAPIBuilder</em><span class="sig-paren">)</span> &#x2192; openapi_builder.specification.Schema<a class="reference internal" href="../../_modules/openapi_builder/processors/marshmallow.html#DateProcessor.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.processors.marshmallow.DateProcessor.process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openapi_builder.processors.marshmallow.DateProcessor.processes_class">
+<code class="sig-name descname">processes_class</code><a class="headerlink" href="#openapi_builder.processors.marshmallow.DateProcessor.processes_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">marshmallow.fields.Date</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openapi_builder.processors.marshmallow.DateTimeProcessor">
+<em class="property">class </em><code class="sig-prename descclassname">openapi_builder.processors.marshmallow.</code><code class="sig-name descname">DateTimeProcessor</code><a class="reference internal" href="../../_modules/openapi_builder/processors/marshmallow.html#DateTimeProcessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.processors.marshmallow.DateTimeProcessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="openapi_builder.processors.base.html#openapi_builder.processors.base.Processor" title="openapi_builder.processors.base.Processor"><code class="xref py py-class docutils literal notranslate"><span class="pre">openapi_builder.processors.base.Processor</span></code></a></p>
+<dl class="method">
+<dt id="openapi_builder.processors.marshmallow.DateTimeProcessor.process">
+<em class="property">static </em><code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param">value</em>, <em class="sig-param">builder: OpenAPIBuilder</em><span class="sig-paren">)</span> &#x2192; openapi_builder.specification.Schema<a class="reference internal" href="../../_modules/openapi_builder/processors/marshmallow.html#DateTimeProcessor.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.processors.marshmallow.DateTimeProcessor.process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openapi_builder.processors.marshmallow.DateTimeProcessor.processes_class">
+<code class="sig-name descname">processes_class</code><a class="headerlink" href="#openapi_builder.processors.marshmallow.DateTimeProcessor.processes_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">marshmallow.fields.DateTime</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openapi_builder.processors.marshmallow.DictProcessor">
+<em class="property">class </em><code class="sig-prename descclassname">openapi_builder.processors.marshmallow.</code><code class="sig-name descname">DictProcessor</code><a class="reference internal" href="../../_modules/openapi_builder/processors/marshmallow.html#DictProcessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.processors.marshmallow.DictProcessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="openapi_builder.processors.base.html#openapi_builder.processors.base.Processor" title="openapi_builder.processors.base.Processor"><code class="xref py py-class docutils literal notranslate"><span class="pre">openapi_builder.processors.base.Processor</span></code></a></p>
+<dl class="method">
+<dt id="openapi_builder.processors.marshmallow.DictProcessor.process">
+<em class="property">static </em><code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param">value</em>, <em class="sig-param">builder: OpenAPIBuilder</em><span class="sig-paren">)</span> &#x2192; openapi_builder.specification.Schema<a class="reference internal" href="../../_modules/openapi_builder/processors/marshmallow.html#DictProcessor.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.processors.marshmallow.DictProcessor.process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openapi_builder.processors.marshmallow.DictProcessor.processes_class">
+<code class="sig-name descname">processes_class</code><a class="headerlink" href="#openapi_builder.processors.marshmallow.DictProcessor.processes_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">marshmallow.fields.Dict</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openapi_builder.processors.marshmallow.EmailProcessor">
+<em class="property">class </em><code class="sig-prename descclassname">openapi_builder.processors.marshmallow.</code><code class="sig-name descname">EmailProcessor</code><a class="reference internal" href="../../_modules/openapi_builder/processors/marshmallow.html#EmailProcessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.processors.marshmallow.EmailProcessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="openapi_builder.processors.base.html#openapi_builder.processors.base.Processor" title="openapi_builder.processors.base.Processor"><code class="xref py py-class docutils literal notranslate"><span class="pre">openapi_builder.processors.base.Processor</span></code></a></p>
+<dl class="method">
+<dt id="openapi_builder.processors.marshmallow.EmailProcessor.process">
+<em class="property">static </em><code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param">value</em>, <em class="sig-param">builder: OpenAPIBuilder</em><span class="sig-paren">)</span> &#x2192; openapi_builder.specification.Schema<a class="reference internal" href="../../_modules/openapi_builder/processors/marshmallow.html#EmailProcessor.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.processors.marshmallow.EmailProcessor.process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openapi_builder.processors.marshmallow.EmailProcessor.processes_class">
+<code class="sig-name descname">processes_class</code><a class="headerlink" href="#openapi_builder.processors.marshmallow.EmailProcessor.processes_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">marshmallow.fields.Email</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openapi_builder.processors.marshmallow.ListProcessor">
+<em class="property">class </em><code class="sig-prename descclassname">openapi_builder.processors.marshmallow.</code><code class="sig-name descname">ListProcessor</code><a class="reference internal" href="../../_modules/openapi_builder/processors/marshmallow.html#ListProcessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.processors.marshmallow.ListProcessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="openapi_builder.processors.base.html#openapi_builder.processors.base.Processor" title="openapi_builder.processors.base.Processor"><code class="xref py py-class docutils literal notranslate"><span class="pre">openapi_builder.processors.base.Processor</span></code></a></p>
+<dl class="method">
+<dt id="openapi_builder.processors.marshmallow.ListProcessor.process">
+<em class="property">static </em><code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param">value</em>, <em class="sig-param">builder: OpenAPIBuilder</em><span class="sig-paren">)</span> &#x2192; openapi_builder.specification.Schema<a class="reference internal" href="../../_modules/openapi_builder/processors/marshmallow.html#ListProcessor.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.processors.marshmallow.ListProcessor.process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openapi_builder.processors.marshmallow.ListProcessor.processes_class">
+<code class="sig-name descname">processes_class</code><a class="headerlink" href="#openapi_builder.processors.marshmallow.ListProcessor.processes_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">marshmallow.fields.List</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openapi_builder.processors.marshmallow.NestedProcessor">
+<em class="property">class </em><code class="sig-prename descclassname">openapi_builder.processors.marshmallow.</code><code class="sig-name descname">NestedProcessor</code><a class="reference internal" href="../../_modules/openapi_builder/processors/marshmallow.html#NestedProcessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.processors.marshmallow.NestedProcessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="openapi_builder.processors.base.html#openapi_builder.processors.base.Processor" title="openapi_builder.processors.base.Processor"><code class="xref py py-class docutils literal notranslate"><span class="pre">openapi_builder.processors.base.Processor</span></code></a></p>
+<dl class="method">
+<dt id="openapi_builder.processors.marshmallow.NestedProcessor.process">
+<em class="property">static </em><code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param">value</em>, <em class="sig-param">builder: OpenAPIBuilder</em><span class="sig-paren">)</span> &#x2192; Union[openapi_builder.specification.Schema, openapi_builder.specification.Reference]<a class="reference internal" href="../../_modules/openapi_builder/processors/marshmallow.html#NestedProcessor.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.processors.marshmallow.NestedProcessor.process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openapi_builder.processors.marshmallow.NestedProcessor.processes_class">
+<code class="sig-name descname">processes_class</code><a class="headerlink" href="#openapi_builder.processors.marshmallow.NestedProcessor.processes_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">marshmallow.fields.Nested</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openapi_builder.processors.marshmallow.NumberProcessor">
+<em class="property">class </em><code class="sig-prename descclassname">openapi_builder.processors.marshmallow.</code><code class="sig-name descname">NumberProcessor</code><a class="reference internal" href="../../_modules/openapi_builder/processors/marshmallow.html#NumberProcessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.processors.marshmallow.NumberProcessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="openapi_builder.processors.base.html#openapi_builder.processors.base.Processor" title="openapi_builder.processors.base.Processor"><code class="xref py py-class docutils literal notranslate"><span class="pre">openapi_builder.processors.base.Processor</span></code></a></p>
+<dl class="method">
+<dt id="openapi_builder.processors.marshmallow.NumberProcessor.process">
+<em class="property">static </em><code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param">value</em>, <em class="sig-param">builder: OpenAPIBuilder</em><span class="sig-paren">)</span> &#x2192; openapi_builder.specification.Schema<a class="reference internal" href="../../_modules/openapi_builder/processors/marshmallow.html#NumberProcessor.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.processors.marshmallow.NumberProcessor.process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openapi_builder.processors.marshmallow.NumberProcessor.processes_class">
+<code class="sig-name descname">processes_class</code><a class="headerlink" href="#openapi_builder.processors.marshmallow.NumberProcessor.processes_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">marshmallow.fields.Number</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openapi_builder.processors.marshmallow.SchemaMetaProcessor">
+<em class="property">class </em><code class="sig-prename descclassname">openapi_builder.processors.marshmallow.</code><code class="sig-name descname">SchemaMetaProcessor</code><a class="reference internal" href="../../_modules/openapi_builder/processors/marshmallow.html#SchemaMetaProcessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.processors.marshmallow.SchemaMetaProcessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="openapi_builder.processors.base.html#openapi_builder.processors.base.Processor" title="openapi_builder.processors.base.Processor"><code class="xref py py-class docutils literal notranslate"><span class="pre">openapi_builder.processors.base.Processor</span></code></a></p>
+<dl class="method">
+<dt id="openapi_builder.processors.marshmallow.SchemaMetaProcessor.process">
+<em class="property">static </em><code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param">value</em>, <em class="sig-param">builder: OpenAPIBuilder</em><span class="sig-paren">)</span> &#x2192; openapi_builder.specification.Schema<a class="reference internal" href="../../_modules/openapi_builder/processors/marshmallow.html#SchemaMetaProcessor.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.processors.marshmallow.SchemaMetaProcessor.process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openapi_builder.processors.marshmallow.SchemaMetaProcessor.processes_class">
+<code class="sig-name descname">processes_class</code><a class="headerlink" href="#openapi_builder.processors.marshmallow.SchemaMetaProcessor.processes_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">marshmallow.schema.SchemaMeta</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openapi_builder.processors.marshmallow.SchemaProcessor">
+<em class="property">class </em><code class="sig-prename descclassname">openapi_builder.processors.marshmallow.</code><code class="sig-name descname">SchemaProcessor</code><a class="reference internal" href="../../_modules/openapi_builder/processors/marshmallow.html#SchemaProcessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.processors.marshmallow.SchemaProcessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="openapi_builder.processors.base.html#openapi_builder.processors.base.Processor" title="openapi_builder.processors.base.Processor"><code class="xref py py-class docutils literal notranslate"><span class="pre">openapi_builder.processors.base.Processor</span></code></a></p>
+<dl class="method">
+<dt id="openapi_builder.processors.marshmallow.SchemaProcessor.process">
+<em class="property">static </em><code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param">value</em>, <em class="sig-param">builder: OpenAPIBuilder</em><span class="sig-paren">)</span> &#x2192; openapi_builder.specification.Schema<a class="reference internal" href="../../_modules/openapi_builder/processors/marshmallow.html#SchemaProcessor.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.processors.marshmallow.SchemaProcessor.process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openapi_builder.processors.marshmallow.SchemaProcessor.processes_class">
+<code class="sig-name descname">processes_class</code><a class="headerlink" href="#openapi_builder.processors.marshmallow.SchemaProcessor.processes_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">marshmallow.schema.Schema</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="openapi_builder.processors.marshmallow.StringProcessor">
+<em class="property">class </em><code class="sig-prename descclassname">openapi_builder.processors.marshmallow.</code><code class="sig-name descname">StringProcessor</code><a class="reference internal" href="../../_modules/openapi_builder/processors/marshmallow.html#StringProcessor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.processors.marshmallow.StringProcessor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="openapi_builder.processors.base.html#openapi_builder.processors.base.Processor" title="openapi_builder.processors.base.Processor"><code class="xref py py-class docutils literal notranslate"><span class="pre">openapi_builder.processors.base.Processor</span></code></a></p>
+<dl class="method">
+<dt id="openapi_builder.processors.marshmallow.StringProcessor.process">
+<em class="property">static </em><code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param">value</em>, <em class="sig-param">builder: OpenAPIBuilder</em><span class="sig-paren">)</span> &#x2192; openapi_builder.specification.Schema<a class="reference internal" href="../../_modules/openapi_builder/processors/marshmallow.html#StringProcessor.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.processors.marshmallow.StringProcessor.process" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openapi_builder.processors.marshmallow.StringProcessor.processes_class">
+<code class="sig-name descname">processes_class</code><a class="headerlink" href="#openapi_builder.processors.marshmallow.StringProcessor.processes_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">marshmallow.fields.String</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="openapi_builder.processors.marshmallow.register_marshmallow_processors">
+<code class="sig-prename descclassname">openapi_builder.processors.marshmallow.</code><code class="sig-name descname">register_marshmallow_processors</code><span class="sig-paren">(</span><em class="sig-param">root_builder</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/processors/marshmallow.html#register_marshmallow_processors"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.processors.marshmallow.register_marshmallow_processors" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 
 

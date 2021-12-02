@@ -1,4 +1,4 @@
-|GHA tests| |Documentation| |Codecov report| |pre-commit| |black|
+|GHA tests| |Documentation| |Codecov report| |pre-commit| |black| |pypi|
 
 `OpenAPI Builder <https://flyingbird95.github.io/openapi_builder>`_
 ===================================================================
@@ -7,12 +7,175 @@ A Flask_ extension for automatically adding OpenAPI_ documentation to your Flask
 .. _Flask: https://flask.palletsprojects.com/
 .. _OpenAPI: https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md
 
-Quick start
------------
-
 
 Features
 --------
+OpenAPI Builder is an extension for your RESTful Flask API to easily build OpenAPI (formerly known as Swagger)
+documentation using the `standard specification <standard_specification_>`_. It is designed to generate the documentation
+for your resources, by specifying a few simple parameters per endpoint. OpenAPI Builder is not dependent on a specific
+(de-)serialization library (such as marshmallow_ or halogen_), since its goal is abstract them. The most powerful
+feature of this package is to inspect the (de-)serialization class. Thus, extending your class will automatically
+update your documentation. This ensures that your documentation is always up to date.
+
+To summarize, the key features are:
+
+- **Generate documentation** according to the OpenAPI standard. This is the internet standard for writing RESTful API
+  documentation.
+- **Keep documentation up to date.** This is due to generating the documentation by inspecting the (de-)serialization
+  class.
+- **Reduce up to 90% development time writing documentation.** This is due to automating the repetitive work of writing
+  documentation.
+- **Abstract upon any (de-)serialization class.** It works with the parsing library of your choice.
+
+.. _standard_specification: https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md
+.. _marshmallow: https://marshmallow.readthedocs.io/en/stable/
+.. _halogen: https://halogen.readthedocs.io/en/latest/
+
+Quick start
+-----------
+Installation is simple via PIP:
+
+.. code:: bash
+
+    ~$ pip install openapi-builder
+
+After installation, it's time to build the documentation for the resources in your Flask application, and expose them
+so, your external users can read them. For a working example, see `this folder <this-folder_>`_.
+
+.. _this-folder: https://github.com/FlyingBird95/openapi_builder/tree/master/examples/
+
+Exposing the documentation
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+You'll need to expose the generated documentation. This is done via two endpoints. The first endpoint serves the
+documentation UI, and the second endpoint serves the documentation configuration. This configuration is a JSON-formatted
+block of data, that contains the specification of all your schemas. This is what OpenAPI Builder can generate for you.
+
+First, the documentation UI is served with the following endpoint (based on the `swagger-codegen page <swagger_>`_).
+
+
+.. _swagger: https://github.com/swagger-api/swagger-codegen
+
+.. code:: python
+
+    import json
+    from flask import Flask, render_template, url_for
+
+    app = Flask(__name__)
+
+
+    @app.route("/documentation")
+    def docs_index():
+        """Get index page."""
+        config = {
+            "app_name": "Swagger UI",
+            "dom_id": "#swagger-ui",
+            "url": url_for("docs_configuration"),
+            "layout": "StandaloneLayout",
+            "deepLinking": True,
+        }
+        return render_template("docs.html", config_json=json.dumps(config))
+
+As you can see, this endpoint serves a `docs.html <html_docs_>`_ file, with some configuration options. An example of a
+`docs.html <html_docs_>`_ file can be found in the example.
+
+.. _html_docs: https://github.com/FlyingBird95/openapi_builder/example/
+
+Second, the documentation configuration needs to be generated. This can be achieved using the following endpoint.
+
+
+.. code:: python
+
+    import json
+
+    from flask import Flask, jsonify
+    from swagger_builder import OpenAPIBuilder, DocumentationOptions
+
+    app = Flask(__name__)  # use the same app as used for the UI.
+
+    builder = OpenAPIBuilder(
+        title="Example REST API documentation",
+        version="1.0.0",
+        options=DocumentationOptions(
+            include_options_response=False,
+            include_head_response=False,
+            server_url="/",
+        ),
+    )
+
+
+    @app.route("/documentation-configuration")
+    def configuration():
+        """Get OpenAPI specification configuration."""
+        builder.iterate_endpoints()
+        return jsonify(builder.get_value())
+
+Adding resources
+~~~~~~~~~~~~~~~~
+After the documentation UI has been setup, it's time to add documentation for your resources. This can be achieved
+using the :code:`add_documentation` decorator. Given an example endpoint for your RESTful API, that might look like
+this:
+
+
+.. code:: python
+
+    from flask import Flask
+    from marshmallow import Schema, fields
+
+
+    class UserSchema(Schema):
+        """User response schema."""
+
+        name = fields.Str()
+        """Name of the user."""
+
+        email = fields.Email()
+        """Email of the user."""
+
+        register_date = fields.DateTime()
+        """When the user was registered."""
+
+
+    app = Flask(__name__)  # use the same app as used for the UI.
+
+
+    @app.route("/users")
+    def users():
+        """Returns a list of users, serialized using Marshmallow."""
+        users = [
+            User(name="John", lastname="Doe", email="johndoe@gmail.com"),
+            User(name="Jane", lastname="Doe", email="janedoe@gmail.com"),
+        ]
+        return jsonify(UserSchema(many=True).dumps(users))
+
+Documentation for this resource is generated by adding the decorator.
+
+
+.. code:: python
+
+    ...
+    from http import HTTPStatus
+    from openapi_builder import add_documentation
+
+    ...
+
+
+    @app.route("/users")
+    @add_documentation(
+        responses={HTTPStatus.OK: UserSchema(many=True)},
+        summary="Returns a list of users.",
+        description="More extensive information that fully describes the endpoint.",
+    )
+    def users():
+        ...
+
+
+For a full overview of all applicable parameters, see `this configuration page <doc-page_>`_.
+
+That's all folks. You can view your documentation at http://localhost:5000/documentation, and inspect the configuration
+at: http://localhost:5000/documentation-configuration. Whenever the schema is updated by adding/removing/updating a new
+property, it is automatically reflected in the OpenAPI documentation.
+
+.. _doc-page: https://flyingbird95.github.io/openapi_builder/  # TODO: link to configuration page.
 
 
 Contributing
@@ -21,7 +184,7 @@ Contributing
 Contributions are welcome! If you can see a way to improve this package:
 
 - Do click the fork button
-- Make your changes and make a pull request.
+- Make your changes and submit a pull request.
 
 Or to report a bug or request something new, make an issue.
 
@@ -296,3 +459,6 @@ When the ``publish`` job is enabled on the release candidate tests workflow, it 
 .. |black| image:: https://img.shields.io/badge/code%20style-black-000000.svg
    :target: https://github.com/psf/black
    :alt: black
+.. |pypi| image:: https://badge.fury.io/py/openapi-builder.svg
+   :target: https://badge.fury.io/py/openapi-builder
+   :alt: PyPI
