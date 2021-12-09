@@ -2,11 +2,9 @@
 
 import glob
 import os
-import sys
-from shutil import rmtree
 
-from setuptools import Command, find_packages, setup
-from setuptools.command.test import test as TestCommand
+from setuptools import find_packages, setup
+from setuptools.command.test import test as test_command
 
 
 def read(fname):
@@ -47,11 +45,11 @@ long_description = read(readme)
 long_description_content_type = "text/x-rst"
 
 
-class PyTest(TestCommand):
+class PyTest(test_command):
     """Support setup.py test."""
 
     def finalize_options(self):
-        TestCommand.finalize_options(self)
+        test_command.finalize_options(self)
         self.test_args = []
         self.test_suite = True
 
@@ -61,44 +59,6 @@ class PyTest(TestCommand):
         pytest.main(self.test_args)
 
 
-class UploadCommand(Command):
-    """Support setup.py upload."""
-
-    description = "Build and publish the package."
-    user_options = []
-
-    @staticmethod
-    def status(s):
-        """Print things in bold."""
-        print("\033[1m{0}\033[0m".format(s))
-
-    def initialize_options(self):
-        pass
-
-    def finalize_options(self):
-        pass
-
-    def run(self):
-        try:
-            self.status("Removing previous builds...")
-            here = os.path.abspath(os.path.dirname(__file__))
-            rmtree(here, "dist")
-        except OSError:
-            pass
-
-        self.status("Building Source and Wheel (universal) distribution...")
-        os.system("{0} setup.py sdist bdist_wheel --universal".format(sys.executable))
-
-        self.status("Uploading the package to PyPI via Twine...")
-        os.system("twine upload dist/*")
-
-        self.status("Pushing git tags...")
-        os.system("git tag v{0}".format(meta["__version__"]))
-        os.system("git push --tags")
-
-        sys.exit()
-
-
 setup(
     # Essential details on the package and its dependencies
     name=meta["name"],
@@ -106,8 +66,7 @@ setup(
     packages=find_packages(exclude=["tests", "*.tests", "*.tests.*", "tests.*"]),
     package_dir={meta["name"]: os.path.join(".", meta["path"])},
     include_package_data=True,
-    # If any package contains *.txt or *.rst files, include them:
-    # package_data={"": ["*.txt", "*.rst"],}
+    package_data={meta["name"]: ["templates/*.html"]},
     python_requires=">=3.6",
     install_requires=install_requires,
     extras_require=extras_require,
@@ -131,10 +90,8 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
     ],
-    # Could also include keywords, download_url, project_urls, etc.
     # Custom commands
     cmdclass={
         "test": PyTest,
-        "upload": UploadCommand,
     },
 )
