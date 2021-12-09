@@ -452,8 +452,7 @@ class Paths:
     {
         "/pets": {
             "get": {
-                "description": "Returns all pets from the system that the user has
-                access to",
+                "description": "Returns all pets from the system that the user has access to",
                 "responses": {
                     "200": {
                         "description": "A list of pets.",
@@ -1413,6 +1412,22 @@ class Reference:
     @classmethod
     def from_schema(cls, schema_name):
         return cls(ref=f"#/components/schemas/{schema_name}")
+
+    @classmethod
+    def from_response(cls, response_name):
+        return cls(ref=f"#/components/responses/{response_name}")
+
+    @classmethod
+    def from_parameter(cls, parameter_name):
+        return cls(ref=f"#/components/parameters/{parameter_name}")
+
+    @classmethod
+    def from_example(cls, example_name):
+        return cls(ref=f"#/components/examples/{example_name}")
+
+    @classmethod
+    def from_security_scheme(cls, security_scheme_name):
+        return cls(ref=f"#/components/securitySchemes/{security_scheme_name}")
 
     def get_value(self):
         value = {"$ref": self.ref}

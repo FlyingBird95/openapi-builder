@@ -10,19 +10,7 @@ from setuptools.command.test import test as TestCommand
 
 
 def read(fname):
-    """
-    Read the contents of a file.
-
-    Parameters
-    ----------
-    fname : str
-        Path to file.
-
-    Returns
-    -------
-    str
-        File contents.
-    """
+    """Read the contents of a file."""
     with open(os.path.join(os.path.dirname(__file__), fname)) as f:
         return f.read()
 
