@@ -105,6 +105,7 @@ setup(
     version=meta["version"],
     packages=find_packages(exclude=["tests", "*.tests", "*.tests.*", "tests.*"]),
     package_dir={meta["name"]: os.path.join(".", meta["path"])},
+    include_package_data=True,
     # If any package contains *.txt or *.rst files, include them:
     # package_data={"": ["*.txt", "*.rst"],}
     python_requires=">=3.6",
