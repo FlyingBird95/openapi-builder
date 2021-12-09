@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>openapi_builder.builder module &#8212; openapi_builder 0.1.6 documentation</title>
+    <title>openapi_builder.builder module &#8212; openapi_builder 0.2.0 documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -61,7 +61,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">openapi_builder 0.1.6 documentation</h1>
+      <h1 class="site-logo" id="site-title">openapi_builder 0.2.0 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -319,8 +319,20 @@ Flask application.</p>
 
 <dl class="method">
 <dt id="openapi_builder.builder.OpenAPIBuilder.process">
-<code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/builder.html#OpenAPIBuilder.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.builder.OpenAPIBuilder.process" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param">value: Any</em>, <em class="sig-param">name: Optional[str] = None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/builder.html#OpenAPIBuilder.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.builder.OpenAPIBuilder.process" title="Permalink to this definition">¶</a></dt>
 <dd><p>Processes an instance, and returns a schema, or reference to that schema.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="openapi_builder.builder.OpenAPIBuilder.process_rule">
+<code class="sig-name descname">process_rule</code><span class="sig-paren">(</span><em class="sig-param">rule: werkzeug.routing.Rule</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/builder.html#OpenAPIBuilder.process_rule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.builder.OpenAPIBuilder.process_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Processes a Werkzeug rule.</p>
+<p>The function must be called within the use_documentation_config-context manager.
+Usage:
+&gt;&gt;&gt; builder = OpenAPIBuilder()
+&gt;&gt;&gt; config = Documentation()  # retrieved from the &#64;add_documentation decorator.
+&gt;&gt;&gt; with builder.use_documentation_config():
+&gt;&gt;&gt;   builder.process_rule(rule)</p>
 </dd></dl>
 
 <dl class="method">
@@ -333,6 +345,12 @@ Flask application.</p>
 <dt id="openapi_builder.builder.OpenAPIBuilder.schemas">
 <em class="property">property </em><code class="sig-name descname">schemas</code><a class="headerlink" href="#openapi_builder.builder.OpenAPIBuilder.schemas" title="Permalink to this definition">¶</a></dt>
 <dd><p>Helper property to return the schemas.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="openapi_builder.builder.OpenAPIBuilder.use_documentation_config">
+<code class="sig-name descname">use_documentation_config</code><span class="sig-paren">(</span><em class="sig-param">documentation_config: openapi_builder.documentation.Documentation</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/builder.html#OpenAPIBuilder.use_documentation_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.builder.OpenAPIBuilder.use_documentation_config" title="Permalink to this definition">¶</a></dt>
+<dd><p>Context manager for function that need to be executed with a documentation_config.</p>
 </dd></dl>
 
 </dd></dl>

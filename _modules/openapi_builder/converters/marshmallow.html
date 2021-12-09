@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>openapi_builder.converters.marshmallow &#8212; openapi_builder 0.1.6 documentation</title>
+    <title>openapi_builder.converters.marshmallow &#8212; openapi_builder 0.2.0 documentation</title>
     
   <link href="../../../_static/css/theme.css" rel="stylesheet">
   <link href="../../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -59,7 +59,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">openapi_builder 0.1.6 documentation</h1>
+      <h1 class="site-logo" id="site-title">openapi_builder 0.2.0 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
@@ -389,7 +389,7 @@
 <div class="viewcode-block" id="SchemaConverter.convert"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.SchemaConverter.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Schema</span><span class="p">:</span>
         <span class="n">schema_name</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>  <span class="c1"># class name</span>
         <span class="n">properties</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">key</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">prop</span><span class="p">)</span>
+            <span class="n">key</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">prop</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{schema_name}</span><span class="s2">.</span><span class="si">{key}</span><span class="s2">&quot;</span><span class="p">)</span>
             <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">prop</span> <span class="ow">in</span> <span class="n">value</span><span class="o">.</span><span class="n">_declared_fields</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
         <span class="p">}</span>
 

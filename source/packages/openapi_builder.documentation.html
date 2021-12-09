@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>openapi_builder.documentation module &#8212; openapi_builder 0.1.6 documentation</title>
+    <title>openapi_builder.documentation module &#8212; openapi_builder 0.2.0 documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -61,7 +61,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">openapi_builder 0.1.6 documentation</h1>
+      <h1 class="site-logo" id="site-title">openapi_builder 0.2.0 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -288,8 +288,12 @@
 <span id="openapi-builder-documentation-module"></span><h1>openapi_builder.documentation module<a class="headerlink" href="#module-openapi_builder.documentation" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="openapi_builder.documentation.Documentation">
-<em class="property">class </em><code class="sig-prename descclassname">openapi_builder.documentation.</code><code class="sig-name descname">Documentation</code><span class="sig-paren">(</span><em class="sig-param">responses: Optional[Dict[Union[http.HTTPStatus, int], Any]] = None, input_schema: Optional[Any] = None, parameters: Optional[List[openapi_builder.specification.Parameter]] = None, summary: Optional[str] = None, description: Optional[str] = None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/documentation.html#Documentation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.documentation.Documentation" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">openapi_builder.documentation.</code><code class="sig-name descname">Documentation</code><span class="sig-paren">(</span><em class="sig-param">responses: Optional[Dict[Union[http.HTTPStatus, int], Any]], input_schema: Optional[Any], parameters: Optional[List[openapi_builder.specification.Parameter]], summary: Optional[str], description: Optional[str], custom_converters: Optional[Dict[str, openapi_builder.specification.Schema]]</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/documentation.html#Documentation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.documentation.Documentation" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Class for storing documentation configuration.</p>
+<p>The preferred way to add documentation for and endpoint is via the decorator, since the default
+values are defined in the decorator.</p>
+<p>See <cite>openapi_builder.decorators.add_documentation</cite> for more info.</p>
 </dd></dl>
 
 </div>

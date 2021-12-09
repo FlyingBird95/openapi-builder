@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>openapi_builder.decorators &#8212; openapi_builder 0.1.6 documentation</title>
+    <title>openapi_builder.decorators &#8212; openapi_builder 0.2.0 documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -59,7 +59,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">openapi_builder 0.1.6 documentation</h1>
+      <h1 class="site-logo" id="site-title">openapi_builder 0.2.0 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -270,7 +270,7 @@
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">from</span> <span class="nn">openapi_builder.documentation</span> <span class="kn">import</span> <span class="n">Documentation</span>
-<span class="kn">from</span> <span class="nn">openapi_builder.specification</span> <span class="kn">import</span> <span class="n">Parameter</span>
+<span class="kn">from</span> <span class="nn">openapi_builder.specification</span> <span class="kn">import</span> <span class="n">Parameter</span><span class="p">,</span> <span class="n">Schema</span>
 
 
 <div class="viewcode-block" id="add_documentation"><a class="viewcode-back" href="../../source/packages/openapi_builder.decorators.html#openapi_builder.add_documentation">[docs]</a><span class="k">def</span> <span class="nf">add_documentation</span><span class="p">(</span>
@@ -279,7 +279,55 @@
     <span class="n">parameters</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Parameter</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">summary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">description</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">custom_converters</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Schema</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 <span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Adds documentation options for a given Flask endpoint.</span>
+
+<span class="sd">    Usage:</span>
+<span class="sd">    &gt;&gt;&gt; from flask import Flask</span>
+<span class="sd">    &gt;&gt;&gt; app = Flask(__name__)</span>
+
+<span class="sd">    &gt;&gt;&gt; @app.route(&quot;/endpoint&quot;)</span>
+<span class="sd">    &gt;&gt;&gt; @add_documentation(...)</span>
+<span class="sd">    &gt;&gt;&gt; def endpoint():</span>
+<span class="sd">    &gt;&gt;&gt;      ...</span>
+
+
+<span class="sd">    The parameters are:</span>
+<span class="sd">    :param responses: optional dictionary of http-status code to a given response. A converter</span>
+<span class="sd">    must be registered for the all response classes (and attributes in this class). e.g.:</span>
+<span class="sd">    &gt;&gt;&gt; responses = {HTTPStatus.OK: SerializesSchema(many=True)}</span>
+
+<span class="sd">    :param input_schema: optional schema for deserializing. A converter must be registered for the</span>
+<span class="sd">    class (and all attributes in the class). e.g.:</span>
+<span class="sd">    &gt;&gt;&gt; input_schema = DeserializedSchema()</span>
+
+<span class="sd">    :param parameters: optional list of Paremeter objects. e.g.:</span>
+<span class="sd">    &gt;&gt;&gt; parameters = [Parameter(in_=&quot;query&quot;)]</span>
+
+<span class="sd">    :param summary: optional summary for the endpoint. e.g.:</span>
+<span class="sd">    &gt;&gt;&gt; summary = &quot;A short summary of what the endpoint does.&quot;</span>
+
+<span class="sd">    :param description: optional description for the endpoint, usally a bit longer e.g.:</span>
+<span class="sd">    &gt;&gt;&gt; summary = &quot;A concise description of what the endpoint does, describing the meaning of &quot; +</span>
+<span class="sd">    &gt;&gt;&gt; &quot;parameters and return attributes.&quot;</span>
+
+<span class="sd">    :param custom_converters: optional dictionary for describing custom attributes within a</span>
+<span class="sd">    serialization class. e.g. given the following class:</span>
+
+<span class="sd">    &gt;&gt;&gt; import marshmallow</span>
+
+<span class="sd">    &gt;&gt;&gt; class CustomSchema(marshmallow.Schema):</span>
+<span class="sd">    &gt;&gt;&gt;      @marshmallow.fields.Function</span>
+<span class="sd">    &gt;&gt;&gt;      def list_of_strings(self):</span>
+<span class="sd">    &gt;&gt;&gt;          return [&quot;abc&quot;, &quot;def&quot;]</span>
+
+<span class="sd">    Since &#39;list_of_strings&#39; cannot be serialized, a custom converter can be added:</span>
+<span class="sd">    &gt;&gt;&gt; custom_converters = {</span>
+<span class="sd">    &gt;&gt;&gt;     &quot;CustomSchema.list_of_strings&quot;: Schema(type=&quot;array&quot;, items=Schema(type=&quot;string&quot;)),</span>
+<span class="sd">    &gt;&gt;&gt; }</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="nf">inner</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
         <span class="n">func</span><span class="o">.</span><span class="n">__open_api_doc__</span> <span class="o">=</span> <span class="n">Documentation</span><span class="p">(</span>
             <span class="n">responses</span><span class="o">=</span><span class="n">responses</span><span class="p">,</span>
@@ -287,6 +335,7 @@
             <span class="n">parameters</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span>
             <span class="n">summary</span><span class="o">=</span><span class="n">summary</span><span class="p">,</span>
             <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span>
+            <span class="n">custom_converters</span><span class="o">=</span><span class="n">custom_converters</span><span class="p">,</span>
         <span class="p">)</span>
         <span class="k">return</span> <span class="n">func</span>
 

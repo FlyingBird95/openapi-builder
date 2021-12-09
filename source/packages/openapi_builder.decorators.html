@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>openapi_builder.decorators module &#8212; openapi_builder 0.1.6 documentation</title>
+    <title>openapi_builder.decorators module &#8212; openapi_builder 0.2.0 documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -61,7 +61,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">openapi_builder 0.1.6 documentation</h1>
+      <h1 class="site-logo" id="site-title">openapi_builder 0.2.0 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -288,8 +288,73 @@
 <span id="openapi-builder-decorators-module"></span><h1>openapi_builder.decorators module<a class="headerlink" href="#module-openapi_builder.decorators" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="openapi_builder.decorators.add_documentation">
-<code class="sig-prename descclassname">openapi_builder.decorators.</code><code class="sig-name descname">add_documentation</code><span class="sig-paren">(</span><em class="sig-param">responses: Optional[Dict[Union[http.HTTPStatus, int], Any]] = None, input_schema: Optional[Any] = None, parameters: Optional[List[openapi_builder.specification.Parameter]] = None, summary: Optional[str] = None, description: Optional[str] = None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/decorators.html#add_documentation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.decorators.add_documentation" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<code class="sig-prename descclassname">openapi_builder.decorators.</code><code class="sig-name descname">add_documentation</code><span class="sig-paren">(</span><em class="sig-param">responses: Optional[Dict[Union[http.HTTPStatus, int], Any]] = None, input_schema: Optional[Any] = None, parameters: Optional[List[openapi_builder.specification.Parameter]] = None, summary: Optional[str] = None, description: Optional[str] = None, custom_converters: Optional[Dict[str, openapi_builder.specification.Schema]] = None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/decorators.html#add_documentation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.decorators.add_documentation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds documentation options for a given Flask endpoint.</p>
+<p>Usage:
+&gt;&gt;&gt; from flask import Flask
+&gt;&gt;&gt; app = Flask(__name__)</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s2">&quot;/endpoint&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@add_documentation</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span> <span class="nf">endpoint</span><span class="p">():</span>
+<span class="gp">&gt;&gt;&gt; </span>     <span class="o">...</span>
+</pre></div>
+</div>
+<p>The parameters are:
+:param responses: optional dictionary of http-status code to a given response. A converter
+must be registered for the all response classes (and attributes in this class). e.g.:
+&gt;&gt;&gt; responses = {HTTPStatus.OK: SerializesSchema(many=True)}</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>input_schema</strong> – optional schema for deserializing. A converter must be registered for the</p>
+</dd>
+</dl>
+<p>class (and all attributes in the class). e.g.:
+&gt;&gt;&gt; input_schema = DeserializedSchema()</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>parameters</strong> – optional list of Paremeter objects. e.g.:</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">parameters</span> <span class="o">=</span> <span class="p">[</span><span class="n">Parameter</span><span class="p">(</span><span class="n">in_</span><span class="o">=</span><span class="s2">&quot;query&quot;</span><span class="p">)]</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>summary</strong> – optional summary for the endpoint. e.g.:</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">summary</span> <span class="o">=</span> <span class="s2">&quot;A short summary of what the endpoint does.&quot;</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>description</strong> – optional description for the endpoint, usally a bit longer e.g.:</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">summary</span> <span class="o">=</span> <span class="s2">&quot;A concise description of what the endpoint does, describing the meaning of &quot;</span> <span class="o">+</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s2">&quot;parameters and return attributes.&quot;</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>custom_converters</strong> – optional dictionary for describing custom attributes within a</p>
+</dd>
+</dl>
+<p>serialization class. e.g. given the following class:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">marshmallow</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">CustomSchema</span><span class="p">(</span><span class="n">marshmallow</span><span class="o">.</span><span class="n">Schema</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>     <span class="nd">@marshmallow</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">Function</span>
+<span class="gp">&gt;&gt;&gt; </span>     <span class="k">def</span> <span class="nf">list_of_strings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="gp">&gt;&gt;&gt; </span>         <span class="k">return</span> <span class="p">[</span><span class="s2">&quot;abc&quot;</span><span class="p">,</span> <span class="s2">&quot;def&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Since ‘list_of_strings’ cannot be serialized, a custom converter can be added:
+&gt;&gt;&gt; custom_converters = {
+&gt;&gt;&gt;     “CustomSchema.list_of_strings”: Schema(type=”array”, items=Schema(type=”string”)),
+&gt;&gt;&gt; }</p>
+</dd></dl>
 
 </div>
 

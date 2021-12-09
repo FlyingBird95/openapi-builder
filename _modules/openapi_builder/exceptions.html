@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>openapi_builder.exceptions &#8212; openapi_builder 0.1.6 documentation</title>
+    <title>openapi_builder.exceptions &#8212; openapi_builder 0.2.0 documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -59,7 +59,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">openapi_builder 0.1.6 documentation</h1>
+      <h1 class="site-logo" id="site-title">openapi_builder 0.2.0 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -289,6 +289,16 @@
 <span class="s1">        &quot;&quot;&quot;Converts an instance of </span><span class="si">{class_name}</span><span class="s1"> and return a Reference or Schema.&quot;&quot;&quot;</span>
 <span class="s1">&#39;&#39;&#39;</span>
 
+<span class="n">MISSING_CONFIG_CONTEXT</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">You&#39;re not allowed to call this function outside the use_documentation_config context manager.</span>
+<span class="s2">Please call the function in the following manner:</span>
+
+<span class="s2">&gt;&gt;&gt; builder = OpenAPIBuilder()</span>
+<span class="s2">&gt;&gt;&gt; config = Documentation()  # retrieved from the @add_documentation decorator.</span>
+<span class="s2">&gt;&gt;&gt; with builder.use_documentation_config():</span>
+<span class="s2">&gt;&gt;&gt;     builder.your_function()</span>
+<span class="s2">&quot;&quot;&quot;</span>
+
 
 <div class="viewcode-block" id="OpenApiException"><a class="viewcode-back" href="../../source/packages/openapi_builder.exceptions.html#openapi_builder.exceptions.OpenApiException">[docs]</a><span class="k">class</span> <span class="nc">OpenApiException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Base Exception.&quot;&quot;&quot;</span></div>
@@ -302,6 +312,16 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">MISSING_PROCESSOR_MESSAGE</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">class_name</span><span class="o">=</span><span class="n">to_camelcase</span><span class="p">(</span><span class="n">class_name</span><span class="p">))</span>
         <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="MissingConfigContext"><a class="viewcode-back" href="../../source/packages/openapi_builder.exceptions.html#openapi_builder.exceptions.MissingConfigContext">[docs]</a><span class="k">class</span> <span class="nc">MissingConfigContext</span><span class="p">(</span><span class="n">OpenApiException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Missing config context.</span>
+
+<span class="sd">    The function must be called inside the &#39;use_documentation_config&#39; context manager.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">MISSING_CONFIG_CONTEXT</span><span class="p">)</span></div>
 </pre></div>
 
               </div>
