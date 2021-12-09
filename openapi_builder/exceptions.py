@@ -1,25 +1,24 @@
 from openapi_builder.util import to_camelcase
 
 MISSING_PROCESSOR_MESSAGE = '''
-You're missing a processor for class {class_name}.
-You can use the snippet below to generate a processor for it. Don't forget to register it!
+You're missing a converter for class {class_name}.
+You can use the snippet below to generate a converter for it. Don't forget to register it!
 
 
 from typing import Union
 
 from openapi_builder.builder import OpenAPIBuilder
-from openapi_builder.processors import Processor
+from openapi_builder.converts import Converter
 from openapi_builder.specification import Reference, Schema
 
-class {class_name}Processor(Processor):
-    """Processor for a certain class that returns a schema."""
+class {class_name}Converter(Converter):
+    """Converter for a certain class that returns a openapi_builder.specification.Schema."""
 
-    processes_class = {class_name}
-    """Specification of the class that it processes."""
+    converts_class = {class_name}
+    """Specification of the class that it converts."""
 
-    @staticmethod
-    def process(value: {class_name}, builder: OpenAPIBuilder) -> Union[Reference, Schema]:
-        """Processes an instance of {class_name} and return a Reference or Schema."""
+    def convert(value: {class_name}) -> Union[Reference, Schema]:
+        """Converts an instance of {class_name} and return a Reference or Schema."""
 '''
 
 
@@ -27,8 +26,8 @@ class OpenApiException(Exception):
     """Base Exception."""
 
 
-class MissingProcessor(OpenApiException):
-    """Missing processor for the given class."""
+class MissingConverter(OpenApiException):
+    """Missing converter for the given class or instance."""
 
     def __init__(self, value):
         class_name = value.__class__.__name__

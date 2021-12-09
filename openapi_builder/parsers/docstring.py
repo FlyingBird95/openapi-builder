@@ -5,6 +5,18 @@ import sys
 
 
 class DocStringParser:
+    """Parses a python file and returns the docstring.
+
+    This class can be instantiated from a given class, or from a given filename.
+
+    Usage:
+    >>> parser = DocStringParser.from_class(Class)
+    >>> parser.parse()
+
+    Retrieving the results:
+    >>> parser.result
+    """
+
     def __init__(self, module, prefix=None):
         self.module = module
         self.prefix = prefix

@@ -1,4 +1,4 @@
-|GHA tests| |Documentation| |Codecov report| |pre-commit| |black| |pypi|
+|GHA tests| |Documentation| |Codecov report| |pre-commit| |black| |pypi| |downloads|
 
 `OpenAPI Builder <https://flyingbird95.github.io/openapi_builder>`_
 ===================================================================
@@ -422,3 +422,6 @@ When the ``publish`` job is enabled on the release candidate tests workflow, it 
 .. |pypi| image:: https://badge.fury.io/py/openapi-builder.svg
    :target: https://badge.fury.io/py/openapi-builder
    :alt: PyPI
+.. |downloads| image:: http://pepy.tech/badge/openapi-builder
+   :target: http://pepy.tech/count/flask-monitoringdashboard
+   :alt: Downloads
