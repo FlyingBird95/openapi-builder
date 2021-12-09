@@ -54,3 +54,11 @@ class ErrorSchema(Schema):
 
     message = fields.String()
     """The error message."""
+
+
+class FunctionSchema(Schema):
+    """Test schema for showing how a custom field can be serialized."""
+
+    @fields.Function
+    def list_of_strings(self):
+        return ["abc", "def"]

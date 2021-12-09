@@ -10,6 +10,15 @@ The format is based on `Keep a Changelog`_, and this project adheres to `Semanti
 
 Categories for changes are: Added, Changed, Deprecated, Removed, Fixed, Security.
 
+Version `0.2.0 <https://github.com/FlyingBird95/openapi_builder/tree/v0.2.0>`__
+--------------------------------------------------------------------------------
+
+Introduced the following features:
+- Changed interface to support the standard :code:`init_app` notation.
+- Improved marshmallow support.
+- Added :code:`custom_converters` option to :code:`add_documentation`.
+- Added example.
+- Added documentation.
 
 Version `0.1.0 <https://github.com/FlyingBird95/openapi_builder/tree/v0.1.0>`__
 --------------------------------------------------------------------------------
