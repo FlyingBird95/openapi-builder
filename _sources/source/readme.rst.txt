@@ -423,5 +423,5 @@ When the ``publish`` job is enabled on the release candidate tests workflow, it 
    :target: https://badge.fury.io/py/openapi-builder
    :alt: PyPI
 .. |downloads| image:: http://pepy.tech/badge/openapi-builder
-   :target: http://pepy.tech/count/flask-monitoringdashboard
+   :target: https://pepy.tech/project/openapi-builder
    :alt: Downloads
