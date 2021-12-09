@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>openapi_builder package &#8212; openapi_builder 0.1.4 documentation</title>
+    <title>openapi_builder package &#8212; openapi_builder 0.1.5 documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -61,7 +61,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">openapi_builder 0.1.4 documentation</h1>
+      <h1 class="site-logo" id="site-title">openapi_builder 0.1.5 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -123,8 +123,8 @@
       </ul>
      </li>
      <li class="toctree-l3 has-children">
-      <a class="reference internal" href="openapi_builder.parsers.html">
-       openapi_builder.parsers package
+      <a class="reference internal" href="openapi_builder.converters.html">
+       openapi_builder.converters package
       </a>
       <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
       <label for="toctree-checkbox-4">
@@ -133,15 +133,20 @@
       </label>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="openapi_builder.parsers.docstring.html">
-         openapi_builder.parsers.docstring module
+        <a class="reference internal" href="openapi_builder.converters.base.html">
+         openapi_builder.converters.base module
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="openapi_builder.converters.marshmallow.html">
+         openapi_builder.converters.marshmallow module
         </a>
        </li>
       </ul>
      </li>
      <li class="toctree-l3 has-children">
-      <a class="reference internal" href="openapi_builder.processors.html">
-       openapi_builder.processors package
+      <a class="reference internal" href="openapi_builder.parsers.html">
+       openapi_builder.parsers package
       </a>
       <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
       <label for="toctree-checkbox-5">
@@ -150,13 +155,8 @@
       </label>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="openapi_builder.processors.base.html">
-         openapi_builder.processors.base module
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="openapi_builder.processors.marshmallow.html">
-         openapi_builder.processors.marshmallow module
+        <a class="reference internal" href="openapi_builder.parsers.docstring.html">
+         openapi_builder.parsers.docstring module
         </a>
        </li>
       </ul>
@@ -311,7 +311,7 @@
 
 <dl class="class">
 <dt id="openapi_builder.DocumentationOptions">
-<em class="property">class </em><code class="sig-prename descclassname">openapi_builder.</code><code class="sig-name descname">DocumentationOptions</code><span class="sig-paren">(</span><em class="sig-param">include_head_response: bool = True</em>, <em class="sig-param">include_options_response: bool = True</em>, <em class="sig-param">server_url: str = '/'</em>, <em class="sig-param">include_marshmallow_processors: bool = True</em>, <em class="sig-param">include_documentation_blueprint: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/builder.html#DocumentationOptions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.DocumentationOptions" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">openapi_builder.</code><code class="sig-name descname">DocumentationOptions</code><span class="sig-paren">(</span><em class="sig-param">include_head_response: bool = True</em>, <em class="sig-param">include_options_response: bool = True</em>, <em class="sig-param">server_url: str = '/'</em>, <em class="sig-param">include_marshmallow_converters: bool = True</em>, <em class="sig-param">include_documentation_blueprint: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/builder.html#DocumentationOptions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.DocumentationOptions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 </dd></dl>
 
@@ -380,17 +380,17 @@ configuration configuration.</p>
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="openapi_builder.converters.html">openapi_builder.converters package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="openapi_builder.converters.html#submodules">Submodules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="openapi_builder.converters.base.html">openapi_builder.converters.base module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="openapi_builder.converters.marshmallow.html">openapi_builder.converters.marshmallow module</a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="openapi_builder.parsers.html">openapi_builder.parsers package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="openapi_builder.parsers.html#submodules">Submodules</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="openapi_builder.parsers.docstring.html">openapi_builder.parsers.docstring module</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="openapi_builder.processors.html">openapi_builder.processors package</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="openapi_builder.processors.html#submodules">Submodules</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="openapi_builder.processors.base.html">openapi_builder.processors.base module</a></li>
-<li class="toctree-l3"><a class="reference internal" href="openapi_builder.processors.marshmallow.html">openapi_builder.processors.marshmallow module</a></li>
 </ul>
 </li>
 </ul>

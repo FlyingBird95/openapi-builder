@@ -1,7 +1,7 @@
-openapi\_builder.processors.base module
+openapi\_builder.converters.base module
 =======================================
 
-.. automodule:: openapi_builder.processors.base
+.. automodule:: openapi_builder.converters.base
    :members:
    :undoc-members:
    :show-inheritance:

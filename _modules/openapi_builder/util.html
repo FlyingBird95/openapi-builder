@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>openapi_builder.util &#8212; openapi_builder 0.1.4 documentation</title>
+    <title>openapi_builder.util &#8212; openapi_builder 0.1.5 documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -59,7 +59,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">openapi_builder 0.1.4 documentation</h1>
+      <h1 class="site-logo" id="site-title">openapi_builder 0.1.5 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -121,8 +121,8 @@
       </ul>
      </li>
      <li class="toctree-l3 has-children">
-      <a class="reference internal" href="../../source/packages/openapi_builder.parsers.html">
-       openapi_builder.parsers package
+      <a class="reference internal" href="../../source/packages/openapi_builder.converters.html">
+       openapi_builder.converters package
       </a>
       <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
       <label for="toctree-checkbox-4">
@@ -131,15 +131,20 @@
       </label>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="../../source/packages/openapi_builder.parsers.docstring.html">
-         openapi_builder.parsers.docstring module
+        <a class="reference internal" href="../../source/packages/openapi_builder.converters.base.html">
+         openapi_builder.converters.base module
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../source/packages/openapi_builder.converters.marshmallow.html">
+         openapi_builder.converters.marshmallow module
         </a>
        </li>
       </ul>
      </li>
      <li class="toctree-l3 has-children">
-      <a class="reference internal" href="../../source/packages/openapi_builder.processors.html">
-       openapi_builder.processors package
+      <a class="reference internal" href="../../source/packages/openapi_builder.parsers.html">
+       openapi_builder.parsers package
       </a>
       <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
       <label for="toctree-checkbox-5">
@@ -148,13 +153,8 @@
       </label>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="../../source/packages/openapi_builder.processors.base.html">
-         openapi_builder.processors.base module
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../../source/packages/openapi_builder.processors.marshmallow.html">
-         openapi_builder.processors.marshmallow module
+        <a class="reference internal" href="../../source/packages/openapi_builder.parsers.docstring.html">
+         openapi_builder.parsers.docstring module
         </a>
        </li>
       </ul>
@@ -266,10 +266,41 @@
               <div>
                 
   <h1>Source code for openapi_builder.util</h1><div class="highlight"><pre>
-<div class="viewcode-block" id="to_camelcase"><a class="viewcode-back" href="../../source/packages/openapi_builder.util.html#openapi_builder.util.to_camelcase">[docs]</a><span></span><span class="k">def</span> <span class="nf">to_camelcase</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+<span></span><span class="kn">import</span> <span class="nn">re</span>
+
+<span class="kn">from</span> <span class="nn">openapi_builder.specification</span> <span class="kn">import</span> <span class="n">Parameter</span><span class="p">,</span> <span class="n">Schema</span>
+
+
+<div class="viewcode-block" id="to_camelcase"><a class="viewcode-back" href="../../source/packages/openapi_builder.util.html#openapi_builder.util.to_camelcase">[docs]</a><span class="k">def</span> <span class="nf">to_camelcase</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Converts a snake_case string into CamelCase.&quot;&quot;&quot;</span>
     <span class="n">parts</span> <span class="o">=</span> <span class="nb">iter</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">))</span>
     <span class="k">return</span> <span class="nb">next</span><span class="p">(</span><span class="n">parts</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">title</span><span class="p">()</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">parts</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="openapi_endpoint_name_from_rule"><a class="viewcode-back" href="../../source/packages/openapi_builder.util.html#openapi_builder.util.openapi_endpoint_name_from_rule">[docs]</a><span class="k">def</span> <span class="nf">openapi_endpoint_name_from_rule</span><span class="p">(</span><span class="n">rule</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Utility function to generate the Open API endpoint name.</span>
+
+<span class="sd">    It replace &#39;/users/&lt;user_id&gt;&#39; with the OpenAPI standard: &#39;/users/{user_id}&#39;.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">rule</span><span class="o">.</span><span class="n">rule</span>
+
+    <span class="k">for</span> <span class="n">argument</span> <span class="ow">in</span> <span class="n">rule</span><span class="o">.</span><span class="n">arguments</span><span class="p">:</span>
+        <span class="n">openapi_name</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;{{</span><span class="si">{argument}</span><span class="s2">}}&quot;</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">fr</span><span class="s2">&quot;&lt;[a-zA-Z:]*</span><span class="si">{argument}</span><span class="s2">&gt;&quot;</span><span class="p">,</span> <span class="n">openapi_name</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">name</span></div>
+
+
+<div class="viewcode-block" id="parse_openapi_arguments"><a class="viewcode-back" href="../../source/packages/openapi_builder.util.html#openapi_builder.util.parse_openapi_arguments">[docs]</a><span class="k">def</span> <span class="nf">parse_openapi_arguments</span><span class="p">(</span><span class="n">rule</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Parsers parameter objects.&quot;&quot;&quot;</span>
+    <span class="n">parameters</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">argument</span> <span class="ow">in</span> <span class="n">rule</span><span class="o">.</span><span class="n">arguments</span><span class="p">:</span>
+        <span class="n">schema</span> <span class="o">=</span> <span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;number&quot;</span><span class="p">)</span>  <span class="c1"># todo: infer type from rule.</span>
+        <span class="n">parameters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+            <span class="n">Parameter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">argument</span><span class="p">,</span> <span class="n">in_</span><span class="o">=</span><span class="s2">&quot;path&quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="n">schema</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">parameters</span></div>
 </pre></div>
 
               </div>

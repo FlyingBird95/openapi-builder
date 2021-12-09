@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Index &#8212; openapi_builder 0.1.4 documentation</title>
+    <title>Index &#8212; openapi_builder 0.1.5 documentation</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -60,7 +60,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">openapi_builder 0.1.4 documentation</h1>
+      <h1 class="site-logo" id="site-title">openapi_builder 0.1.5 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -122,8 +122,8 @@
       </ul>
      </li>
      <li class="toctree-l3 has-children">
-      <a class="reference internal" href="source/packages/openapi_builder.parsers.html">
-       openapi_builder.parsers package
+      <a class="reference internal" href="source/packages/openapi_builder.converters.html">
+       openapi_builder.converters package
       </a>
       <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
       <label for="toctree-checkbox-4">
@@ -132,15 +132,20 @@
       </label>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="source/packages/openapi_builder.parsers.docstring.html">
-         openapi_builder.parsers.docstring module
+        <a class="reference internal" href="source/packages/openapi_builder.converters.base.html">
+         openapi_builder.converters.base module
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="source/packages/openapi_builder.converters.marshmallow.html">
+         openapi_builder.converters.marshmallow module
         </a>
        </li>
       </ul>
      </li>
      <li class="toctree-l3 has-children">
-      <a class="reference internal" href="source/packages/openapi_builder.processors.html">
-       openapi_builder.processors package
+      <a class="reference internal" href="source/packages/openapi_builder.parsers.html">
+       openapi_builder.parsers package
       </a>
       <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
       <label for="toctree-checkbox-5">
@@ -149,13 +154,8 @@
       </label>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="source/packages/openapi_builder.processors.base.html">
-         openapi_builder.processors.base module
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="source/packages/openapi_builder.processors.marshmallow.html">
-         openapi_builder.processors.marshmallow module
+        <a class="reference internal" href="source/packages/openapi_builder.parsers.docstring.html">
+         openapi_builder.parsers.docstring module
         </a>
        </li>
       </ul>
@@ -328,7 +328,7 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.SecurityScheme.bearer_format">bearer_format (openapi_builder.specification.SecurityScheme attribute)</a>
 </li>
-      <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.BooleanProcessor">BooleanProcessor (class in openapi_builder.processors.marshmallow)</a>
+      <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.BooleanConverter">BooleanConverter (class in openapi_builder.converters.marshmallow)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -358,8 +358,6 @@
 </li>
       <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.OpenAPI.components">components (openapi_builder.specification.OpenAPI attribute)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/packages/openapi_builder.blueprint.configuration.html#openapi_builder.blueprint.configuration.configuration">configuration() (in module openapi_builder.blueprint.configuration)</a>
 </li>
       <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.Contact">Contact (class in openapi_builder.specification)</a>
@@ -374,15 +372,105 @@
       </ul></li>
       <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.Encoding.content_type">content_type (openapi_builder.specification.Encoding attribute)</a>
 </li>
+      <li><a href="source/packages/openapi_builder.converters.base.html#openapi_builder.converters.base.Converter.convert">convert() (openapi_builder.converters.base.Converter method)</a>
+
+      <ul>
+        <li><a href="source/packages/openapi_builder.converters.html#openapi_builder.converters.Converter.convert">(openapi_builder.converters.Converter method)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.BooleanConverter.convert">(openapi_builder.converters.marshmallow.BooleanConverter method)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.DateConverter.convert">(openapi_builder.converters.marshmallow.DateConverter method)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.DateTimeConverter.convert">(openapi_builder.converters.marshmallow.DateTimeConverter method)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.DecimalConverter.convert">(openapi_builder.converters.marshmallow.DecimalConverter method)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.DictConverter.convert">(openapi_builder.converters.marshmallow.DictConverter method)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.EmailConverter.convert">(openapi_builder.converters.marshmallow.EmailConverter method)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.FloatConverter.convert">(openapi_builder.converters.marshmallow.FloatConverter method)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.IntegerConverter.convert">(openapi_builder.converters.marshmallow.IntegerConverter method)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.ListConverter.convert">(openapi_builder.converters.marshmallow.ListConverter method)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.NestedConverter.convert">(openapi_builder.converters.marshmallow.NestedConverter method)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.NumberConverter.convert">(openapi_builder.converters.marshmallow.NumberConverter method)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.SchemaConverter.convert">(openapi_builder.converters.marshmallow.SchemaConverter method)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.SchemaMetaConverter.convert">(openapi_builder.converters.marshmallow.SchemaMetaConverter method)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.StringConverter.convert">(openapi_builder.converters.marshmallow.StringConverter method)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.TimeConverter.convert">(openapi_builder.converters.marshmallow.TimeConverter method)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.URLConverter.convert">(openapi_builder.converters.marshmallow.URLConverter method)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.UUIDConverter.convert">(openapi_builder.converters.marshmallow.UUIDConverter method)</a>
+</li>
+      </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/packages/openapi_builder.converters.html#openapi_builder.converters.Converter">Converter (class in openapi_builder.converters)</a>
+
+      <ul>
+        <li><a href="source/packages/openapi_builder.converters.base.html#openapi_builder.converters.base.Converter">(class in openapi_builder.converters.base)</a>
+</li>
+      </ul></li>
+      <li><a href="source/packages/openapi_builder.converters.base.html#openapi_builder.converters.base.Converter.converts_class">converts_class (openapi_builder.converters.base.Converter attribute)</a>
+
+      <ul>
+        <li><a href="source/packages/openapi_builder.converters.html#openapi_builder.converters.Converter.converts_class">(openapi_builder.converters.Converter attribute)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.BooleanConverter.converts_class">(openapi_builder.converters.marshmallow.BooleanConverter attribute)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.DateConverter.converts_class">(openapi_builder.converters.marshmallow.DateConverter attribute)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.DateTimeConverter.converts_class">(openapi_builder.converters.marshmallow.DateTimeConverter attribute)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.DecimalConverter.converts_class">(openapi_builder.converters.marshmallow.DecimalConverter attribute)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.DictConverter.converts_class">(openapi_builder.converters.marshmallow.DictConverter attribute)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.EmailConverter.converts_class">(openapi_builder.converters.marshmallow.EmailConverter attribute)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.FloatConverter.converts_class">(openapi_builder.converters.marshmallow.FloatConverter attribute)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.IntegerConverter.converts_class">(openapi_builder.converters.marshmallow.IntegerConverter attribute)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.ListConverter.converts_class">(openapi_builder.converters.marshmallow.ListConverter attribute)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.NestedConverter.converts_class">(openapi_builder.converters.marshmallow.NestedConverter attribute)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.NumberConverter.converts_class">(openapi_builder.converters.marshmallow.NumberConverter attribute)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.SchemaConverter.converts_class">(openapi_builder.converters.marshmallow.SchemaConverter attribute)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.SchemaMetaConverter.converts_class">(openapi_builder.converters.marshmallow.SchemaMetaConverter attribute)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.StringConverter.converts_class">(openapi_builder.converters.marshmallow.StringConverter attribute)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.TimeConverter.converts_class">(openapi_builder.converters.marshmallow.TimeConverter attribute)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.URLConverter.converts_class">(openapi_builder.converters.marshmallow.URLConverter attribute)</a>
+</li>
+        <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.UUIDConverter.converts_class">(openapi_builder.converters.marshmallow.UUIDConverter attribute)</a>
+</li>
+      </ul></li>
   </ul></td>
 </tr></table>
 
 <h2 id="D">D</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.DateProcessor">DateProcessor (class in openapi_builder.processors.marshmallow)</a>
+      <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.DateConverter">DateConverter (class in openapi_builder.converters.marshmallow)</a>
 </li>
-      <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.DateTimeProcessor">DateTimeProcessor (class in openapi_builder.processors.marshmallow)</a>
+      <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.DateTimeConverter">DateTimeConverter (class in openapi_builder.converters.marshmallow)</a>
+</li>
+      <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.DecimalConverter">DecimalConverter (class in openapi_builder.converters.marshmallow)</a>
 </li>
       <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.ServerVariable.default">default (openapi_builder.specification.ServerVariable attribute)</a>
 </li>
@@ -428,7 +516,7 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.DictProcessor">DictProcessor (class in openapi_builder.processors.marshmallow)</a>
+      <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.DictConverter">DictConverter (class in openapi_builder.converters.marshmallow)</a>
 </li>
       <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.Discriminator">Discriminator (class in openapi_builder.specification)</a>
 </li>
@@ -450,7 +538,7 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.Contact.email">email (openapi_builder.specification.Contact attribute)</a>
 </li>
-      <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.EmailProcessor">EmailProcessor (class in openapi_builder.processors.marshmallow)</a>
+      <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.EmailConverter">EmailConverter (class in openapi_builder.converters.marshmallow)</a>
 </li>
       <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.Encoding">Encoding (class in openapi_builder.specification)</a>
 </li>
@@ -490,15 +578,25 @@
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.FloatConverter">FloatConverter (class in openapi_builder.converters.marshmallow)</a>
+</li>
       <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.SecurityScheme.flows">flows (openapi_builder.specification.SecurityScheme attribute)</a>
 </li>
       <li><a href="source/packages/openapi_builder.parsers.docstring.html#openapi_builder.parsers.docstring.DocStringParser.from_class">from_class() (openapi_builder.parsers.docstring.DocStringParser class method)</a>
+</li>
+      <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.Reference.from_example">from_example() (openapi_builder.specification.Reference class method)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/packages/openapi_builder.parsers.docstring.html#openapi_builder.parsers.docstring.DocStringParser.from_file">from_file() (openapi_builder.parsers.docstring.DocStringParser class method)</a>
 </li>
+      <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.Reference.from_parameter">from_parameter() (openapi_builder.specification.Reference class method)</a>
+</li>
+      <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.Reference.from_response">from_response() (openapi_builder.specification.Reference class method)</a>
+</li>
       <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.Reference.from_schema">from_schema() (openapi_builder.specification.Reference class method)</a>
+</li>
+      <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.Reference.from_security_scheme">from_security_scheme() (openapi_builder.specification.Reference class method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -612,10 +710,10 @@
       </ul></li>
       <li><a href="source/packages/openapi_builder.blueprint.get.html#openapi_builder.blueprint.get.index">index() (in module openapi_builder.blueprint.get)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.Info">Info (class in openapi_builder.specification)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.OpenAPI.info">info (openapi_builder.specification.OpenAPI attribute)</a>
 </li>
       <li><a href="source/packages/openapi_builder.builder.html#openapi_builder.builder.OpenApiDocumentation.init_app">init_app() (openapi_builder.builder.OpenApiDocumentation method)</a>
@@ -624,6 +722,8 @@
         <li><a href="source/packages/openapi_builder.html#openapi_builder.OpenApiDocumentation.init_app">(openapi_builder.OpenApiDocumentation method)</a>
 </li>
       </ul></li>
+      <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.IntegerConverter">IntegerConverter (class in openapi_builder.converters.marshmallow)</a>
+</li>
       <li><a href="source/packages/openapi_builder.builder.html#openapi_builder.builder.OpenAPIBuilder.iterate_endpoints">iterate_endpoints() (openapi_builder.builder.OpenAPIBuilder method)</a>
 </li>
   </ul></td>
@@ -646,7 +746,7 @@
         <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.Response.links">(openapi_builder.specification.Response attribute)</a>
 </li>
       </ul></li>
-      <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.ListProcessor">ListProcessor (class in openapi_builder.processors.marshmallow)</a>
+      <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.ListConverter">ListConverter (class in openapi_builder.converters.marshmallow)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -660,7 +760,7 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.MediaType">MediaType (class in openapi_builder.specification)</a>
 </li>
-      <li><a href="source/packages/openapi_builder.exceptions.html#openapi_builder.exceptions.MissingProcessor">MissingProcessor</a>
+      <li><a href="source/packages/openapi_builder.exceptions.html#openapi_builder.exceptions.MissingConverter">MissingConverter</a>
 </li>
   </ul></td>
 </tr></table>
@@ -682,9 +782,9 @@
       </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.NestedProcessor">NestedProcessor (class in openapi_builder.processors.marshmallow)</a>
+      <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.NestedConverter">NestedConverter (class in openapi_builder.converters.marshmallow)</a>
 </li>
-      <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.NumberProcessor">NumberProcessor (class in openapi_builder.processors.marshmallow)</a>
+      <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.NumberConverter">NumberConverter (class in openapi_builder.converters.marshmallow)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -714,29 +814,29 @@
 </li>
       <li><a href="source/packages/openapi_builder.builder.html#module-openapi_builder.builder">openapi_builder.builder (module)</a>
 </li>
+      <li><a href="source/packages/openapi_builder.converters.html#module-openapi_builder.converters">openapi_builder.converters (module)</a>
+</li>
+      <li><a href="source/packages/openapi_builder.converters.base.html#module-openapi_builder.converters.base">openapi_builder.converters.base (module)</a>
+</li>
+      <li><a href="source/packages/openapi_builder.converters.marshmallow.html#module-openapi_builder.converters.marshmallow">openapi_builder.converters.marshmallow (module)</a>
+</li>
       <li><a href="source/packages/openapi_builder.decorators.html#module-openapi_builder.decorators">openapi_builder.decorators (module)</a>
 </li>
       <li><a href="source/packages/openapi_builder.documentation.html#module-openapi_builder.documentation">openapi_builder.documentation (module)</a>
 </li>
       <li><a href="source/packages/openapi_builder.exceptions.html#module-openapi_builder.exceptions">openapi_builder.exceptions (module)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/packages/openapi_builder.parsers.html#module-openapi_builder.parsers">openapi_builder.parsers (module)</a>
 </li>
       <li><a href="source/packages/openapi_builder.parsers.docstring.html#module-openapi_builder.parsers.docstring">openapi_builder.parsers.docstring (module)</a>
-</li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="source/packages/openapi_builder.processors.html#module-openapi_builder.processors">openapi_builder.processors (module)</a>
-</li>
-      <li><a href="source/packages/openapi_builder.processors.base.html#module-openapi_builder.processors.base">openapi_builder.processors.base (module)</a>
-</li>
-      <li><a href="source/packages/openapi_builder.processors.marshmallow.html#module-openapi_builder.processors.marshmallow">openapi_builder.processors.marshmallow (module)</a>
 </li>
       <li><a href="source/packages/openapi_builder.specification.html#module-openapi_builder.specification">openapi_builder.specification (module)</a>
 </li>
       <li><a href="source/packages/openapi_builder.util.html#module-openapi_builder.util">openapi_builder.util (module)</a>
 </li>
-      <li><a href="source/packages/openapi_builder.builder.html#openapi_builder.builder.OpenAPIBuilder.openapi_endpoint_name_from_rule">openapi_endpoint_name_from_rule() (openapi_builder.builder.OpenAPIBuilder static method)</a>
+      <li><a href="source/packages/openapi_builder.util.html#openapi_builder.util.openapi_endpoint_name_from_rule">openapi_endpoint_name_from_rule() (in module openapi_builder.util)</a>
 </li>
       <li><a href="source/packages/openapi_builder.builder.html#openapi_builder.builder.OpenAPIBuilder">OpenAPIBuilder (class in openapi_builder.builder)</a>
 </li>
@@ -766,6 +866,8 @@
         <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.PathItem.options">(openapi_builder.specification.PathItem attribute)</a>
 </li>
       </ul></li>
+      <li><a href="source/packages/openapi_builder.builder.html#openapi_builder.builder.OpenAPIBuilder.options">options() (openapi_builder.builder.OpenAPIBuilder property)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -786,10 +888,12 @@
       </ul></li>
       <li><a href="source/packages/openapi_builder.parsers.docstring.html#openapi_builder.parsers.docstring.DocStringParser.parse">parse() (openapi_builder.parsers.docstring.DocStringParser method)</a>
 </li>
-      <li><a href="source/packages/openapi_builder.builder.html#openapi_builder.builder.OpenAPIBuilder.parse_openapi_arguments">parse_openapi_arguments() (openapi_builder.builder.OpenAPIBuilder static method)</a>
+      <li><a href="source/packages/openapi_builder.util.html#openapi_builder.util.parse_openapi_arguments">parse_openapi_arguments() (in module openapi_builder.util)</a>
 </li>
       <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.OAuthFlows.password">password (openapi_builder.specification.OAuthFlows attribute)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.PathItem.patch">patch (openapi_builder.specification.PathItem attribute)</a>
 </li>
       <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.PathItem">PathItem (class in openapi_builder.specification)</a>
@@ -798,74 +902,12 @@
 </li>
       <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.OpenAPI.paths">paths (openapi_builder.specification.OpenAPI attribute)</a>
 </li>
+      <li><a href="source/packages/openapi_builder.builder.html#openapi_builder.builder.OpenAPIBuilder.paths">paths() (openapi_builder.builder.OpenAPIBuilder property)</a>
+</li>
       <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.PathItem.post">post (openapi_builder.specification.PathItem attribute)</a>
 </li>
       <li><a href="source/packages/openapi_builder.builder.html#openapi_builder.builder.OpenAPIBuilder.process">process() (openapi_builder.builder.OpenAPIBuilder method)</a>
-
-      <ul>
-        <li><a href="source/packages/openapi_builder.processors.base.html#openapi_builder.processors.base.Processor.process">(openapi_builder.processors.base.Processor static method)</a>
 </li>
-        <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.BooleanProcessor.process">(openapi_builder.processors.marshmallow.BooleanProcessor static method)</a>
-</li>
-        <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.DateProcessor.process">(openapi_builder.processors.marshmallow.DateProcessor static method)</a>
-</li>
-        <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.DateTimeProcessor.process">(openapi_builder.processors.marshmallow.DateTimeProcessor static method)</a>
-</li>
-        <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.DictProcessor.process">(openapi_builder.processors.marshmallow.DictProcessor static method)</a>
-</li>
-        <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.EmailProcessor.process">(openapi_builder.processors.marshmallow.EmailProcessor static method)</a>
-</li>
-        <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.ListProcessor.process">(openapi_builder.processors.marshmallow.ListProcessor static method)</a>
-</li>
-        <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.NestedProcessor.process">(openapi_builder.processors.marshmallow.NestedProcessor static method)</a>
-</li>
-        <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.NumberProcessor.process">(openapi_builder.processors.marshmallow.NumberProcessor static method)</a>
-</li>
-        <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.SchemaMetaProcessor.process">(openapi_builder.processors.marshmallow.SchemaMetaProcessor static method)</a>
-</li>
-        <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.SchemaProcessor.process">(openapi_builder.processors.marshmallow.SchemaProcessor static method)</a>
-</li>
-        <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.StringProcessor.process">(openapi_builder.processors.marshmallow.StringProcessor static method)</a>
-</li>
-        <li><a href="source/packages/openapi_builder.processors.html#openapi_builder.processors.Processor.process">(openapi_builder.processors.Processor static method)</a>
-</li>
-      </ul></li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="source/packages/openapi_builder.processors.base.html#openapi_builder.processors.base.Processor.processes_class">processes_class (openapi_builder.processors.base.Processor attribute)</a>
-
-      <ul>
-        <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.BooleanProcessor.processes_class">(openapi_builder.processors.marshmallow.BooleanProcessor attribute)</a>
-</li>
-        <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.DateProcessor.processes_class">(openapi_builder.processors.marshmallow.DateProcessor attribute)</a>
-</li>
-        <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.DateTimeProcessor.processes_class">(openapi_builder.processors.marshmallow.DateTimeProcessor attribute)</a>
-</li>
-        <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.DictProcessor.processes_class">(openapi_builder.processors.marshmallow.DictProcessor attribute)</a>
-</li>
-        <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.EmailProcessor.processes_class">(openapi_builder.processors.marshmallow.EmailProcessor attribute)</a>
-</li>
-        <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.ListProcessor.processes_class">(openapi_builder.processors.marshmallow.ListProcessor attribute)</a>
-</li>
-        <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.NestedProcessor.processes_class">(openapi_builder.processors.marshmallow.NestedProcessor attribute)</a>
-</li>
-        <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.NumberProcessor.processes_class">(openapi_builder.processors.marshmallow.NumberProcessor attribute)</a>
-</li>
-        <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.SchemaMetaProcessor.processes_class">(openapi_builder.processors.marshmallow.SchemaMetaProcessor attribute)</a>
-</li>
-        <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.SchemaProcessor.processes_class">(openapi_builder.processors.marshmallow.SchemaProcessor attribute)</a>
-</li>
-        <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.StringProcessor.processes_class">(openapi_builder.processors.marshmallow.StringProcessor attribute)</a>
-</li>
-        <li><a href="source/packages/openapi_builder.processors.html#openapi_builder.processors.Processor.processes_class">(openapi_builder.processors.Processor attribute)</a>
-</li>
-      </ul></li>
-      <li><a href="source/packages/openapi_builder.processors.html#openapi_builder.processors.Processor">Processor (class in openapi_builder.processors)</a>
-
-      <ul>
-        <li><a href="source/packages/openapi_builder.processors.base.html#openapi_builder.processors.base.Processor">(class in openapi_builder.processors.base)</a>
-</li>
-      </ul></li>
       <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.Discriminator.property_name">property_name (openapi_builder.specification.Discriminator attribute)</a>
 </li>
       <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.PathItem.put">put (openapi_builder.specification.PathItem attribute)</a>
@@ -886,7 +928,9 @@
 </li>
       <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.OAuthFlow.refresh_url">refresh_url (openapi_builder.specification.OAuthFlow attribute)</a>
 </li>
-      <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.register_marshmallow_processors">register_marshmallow_processors() (in module openapi_builder.processors.marshmallow)</a>
+      <li><a href="source/packages/openapi_builder.builder.html#openapi_builder.builder.OpenAPIBuilder.register_converter">register_converter() (openapi_builder.builder.OpenAPIBuilder method)</a>
+</li>
+      <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.register_marshmallow_converters">register_marshmallow_converters() (in module openapi_builder.converters.marshmallow)</a>
 </li>
       <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.Components.request_bodies">request_bodies (openapi_builder.specification.Components attribute)</a>
 </li>
@@ -932,11 +976,13 @@
         <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.Parameter.schema">(openapi_builder.specification.Parameter attribute)</a>
 </li>
       </ul></li>
-      <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.SchemaMetaProcessor">SchemaMetaProcessor (class in openapi_builder.processors.marshmallow)</a>
+      <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.SchemaConverter">SchemaConverter (class in openapi_builder.converters.marshmallow)</a>
 </li>
-      <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.SchemaProcessor">SchemaProcessor (class in openapi_builder.processors.marshmallow)</a>
+      <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.SchemaMetaConverter">SchemaMetaConverter (class in openapi_builder.converters.marshmallow)</a>
 </li>
       <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.Components.schemas">schemas (openapi_builder.specification.Components attribute)</a>
+</li>
+      <li><a href="source/packages/openapi_builder.builder.html#openapi_builder.builder.OpenAPIBuilder.schemas">schemas() (openapi_builder.builder.OpenAPIBuilder property)</a>
 </li>
       <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.SecurityScheme.scheme">scheme (openapi_builder.specification.SecurityScheme attribute)</a>
 </li>
@@ -952,10 +998,10 @@
 </li>
       <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.SecurityRequirement">SecurityRequirement (class in openapi_builder.specification)</a>
 </li>
-      <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.SecurityScheme">SecurityScheme (class in openapi_builder.specification)</a>
-</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.SecurityScheme">SecurityScheme (class in openapi_builder.specification)</a>
+</li>
       <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.Server">Server (class in openapi_builder.specification)</a>
 </li>
       <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.Link.server">server (openapi_builder.specification.Link attribute)</a>
@@ -976,7 +1022,7 @@
         <li><a href="source/packages/openapi_builder.html#openapi_builder.OpenApiDocumentation.specification">(openapi_builder.OpenApiDocumentation attribute)</a>
 </li>
       </ul></li>
-      <li><a href="source/packages/openapi_builder.processors.marshmallow.html#openapi_builder.processors.marshmallow.StringProcessor">StringProcessor (class in openapi_builder.processors.marshmallow)</a>
+      <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.StringConverter">StringConverter (class in openapi_builder.converters.marshmallow)</a>
 </li>
       <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.Encoding.style">style (openapi_builder.specification.Encoding attribute)</a>
 </li>
@@ -1003,6 +1049,8 @@
 </li>
       </ul></li>
       <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.Info.terms_of_service">terms_of_service (openapi_builder.specification.Info attribute)</a>
+</li>
+      <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.TimeConverter">TimeConverter (class in openapi_builder.converters.marshmallow)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
@@ -1032,6 +1080,12 @@
         <li><a href="source/packages/openapi_builder.specification.html#openapi_builder.specification.Server.url">(openapi_builder.specification.Server attribute)</a>
 </li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.URLConverter">URLConverter (class in openapi_builder.converters.marshmallow)</a>
+</li>
+      <li><a href="source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.UUIDConverter">UUIDConverter (class in openapi_builder.converters.marshmallow)</a>
+</li>
   </ul></td>
 </tr></table>
 

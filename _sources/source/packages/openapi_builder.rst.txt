@@ -12,8 +12,8 @@ Subpackages
 .. toctree::
 
    openapi_builder.blueprint
+   openapi_builder.converters
    openapi_builder.parsers
-   openapi_builder.processors
 
 Submodules
 ----------

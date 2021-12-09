@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>openapi_builder.exceptions &#8212; openapi_builder 0.1.4 documentation</title>
+    <title>openapi_builder.exceptions &#8212; openapi_builder 0.1.5 documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -59,7 +59,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">openapi_builder 0.1.4 documentation</h1>
+      <h1 class="site-logo" id="site-title">openapi_builder 0.1.5 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -121,8 +121,8 @@
       </ul>
      </li>
      <li class="toctree-l3 has-children">
-      <a class="reference internal" href="../../source/packages/openapi_builder.parsers.html">
-       openapi_builder.parsers package
+      <a class="reference internal" href="../../source/packages/openapi_builder.converters.html">
+       openapi_builder.converters package
       </a>
       <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
       <label for="toctree-checkbox-4">
@@ -131,15 +131,20 @@
       </label>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="../../source/packages/openapi_builder.parsers.docstring.html">
-         openapi_builder.parsers.docstring module
+        <a class="reference internal" href="../../source/packages/openapi_builder.converters.base.html">
+         openapi_builder.converters.base module
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../source/packages/openapi_builder.converters.marshmallow.html">
+         openapi_builder.converters.marshmallow module
         </a>
        </li>
       </ul>
      </li>
      <li class="toctree-l3 has-children">
-      <a class="reference internal" href="../../source/packages/openapi_builder.processors.html">
-       openapi_builder.processors package
+      <a class="reference internal" href="../../source/packages/openapi_builder.parsers.html">
+       openapi_builder.parsers package
       </a>
       <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
       <label for="toctree-checkbox-5">
@@ -148,13 +153,8 @@
       </label>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="../../source/packages/openapi_builder.processors.base.html">
-         openapi_builder.processors.base module
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../../source/packages/openapi_builder.processors.marshmallow.html">
-         openapi_builder.processors.marshmallow module
+        <a class="reference internal" href="../../source/packages/openapi_builder.parsers.docstring.html">
+         openapi_builder.parsers.docstring module
         </a>
        </li>
       </ul>
@@ -269,25 +269,24 @@
 <span></span><span class="kn">from</span> <span class="nn">openapi_builder.util</span> <span class="kn">import</span> <span class="n">to_camelcase</span>
 
 <span class="n">MISSING_PROCESSOR_MESSAGE</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
-<span class="s1">You&#39;re missing a processor for class </span><span class="si">{class_name}</span><span class="s1">.</span>
-<span class="s1">You can use the snippet below to generate a processor for it. Don&#39;t forget to register it!</span>
+<span class="s1">You&#39;re missing a converter for class </span><span class="si">{class_name}</span><span class="s1">.</span>
+<span class="s1">You can use the snippet below to generate a converter for it. Don&#39;t forget to register it!</span>
 
 
 <span class="s1">from typing import Union</span>
 
 <span class="s1">from openapi_builder.builder import OpenAPIBuilder</span>
-<span class="s1">from openapi_builder.processors import Processor</span>
+<span class="s1">from openapi_builder.converts import Converter</span>
 <span class="s1">from openapi_builder.specification import Reference, Schema</span>
 
-<span class="s1">class </span><span class="si">{class_name}</span><span class="s1">Processor(Processor):</span>
-<span class="s1">    &quot;&quot;&quot;Processor for a certain class that returns a schema.&quot;&quot;&quot;</span>
+<span class="s1">class </span><span class="si">{class_name}</span><span class="s1">Converter(Converter):</span>
+<span class="s1">    &quot;&quot;&quot;Converter for a certain class that returns a openapi_builder.specification.Schema.&quot;&quot;&quot;</span>
 
-<span class="s1">    processes_class = </span><span class="si">{class_name}</span><span class="s1"></span>
-<span class="s1">    &quot;&quot;&quot;Specification of the class that it processes.&quot;&quot;&quot;</span>
+<span class="s1">    converts_class = </span><span class="si">{class_name}</span><span class="s1"></span>
+<span class="s1">    &quot;&quot;&quot;Specification of the class that it converts.&quot;&quot;&quot;</span>
 
-<span class="s1">    @staticmethod</span>
-<span class="s1">    def process(value: </span><span class="si">{class_name}</span><span class="s1">, builder: OpenAPIBuilder) -&gt; Union[Reference, Schema]:</span>
-<span class="s1">        &quot;&quot;&quot;Processes an instance of </span><span class="si">{class_name}</span><span class="s1"> and return a Reference or Schema.&quot;&quot;&quot;</span>
+<span class="s1">    def convert(value: </span><span class="si">{class_name}</span><span class="s1">) -&gt; Union[Reference, Schema]:</span>
+<span class="s1">        &quot;&quot;&quot;Converts an instance of </span><span class="si">{class_name}</span><span class="s1"> and return a Reference or Schema.&quot;&quot;&quot;</span>
 <span class="s1">&#39;&#39;&#39;</span>
 
 
@@ -295,8 +294,8 @@
     <span class="sd">&quot;&quot;&quot;Base Exception.&quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="MissingProcessor"><a class="viewcode-back" href="../../source/packages/openapi_builder.exceptions.html#openapi_builder.exceptions.MissingProcessor">[docs]</a><span class="k">class</span> <span class="nc">MissingProcessor</span><span class="p">(</span><span class="n">OpenApiException</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Missing processor for the given class.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="MissingConverter"><a class="viewcode-back" href="../../source/packages/openapi_builder.exceptions.html#openapi_builder.exceptions.MissingConverter">[docs]</a><span class="k">class</span> <span class="nc">MissingConverter</span><span class="p">(</span><span class="n">OpenApiException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Missing converter for the given class or instance.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="n">class_name</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>

@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>openapi_builder.processors.base module &#8212; openapi_builder 0.1.4 documentation</title>
+    <title>openapi_builder.converters package &#8212; openapi_builder 0.1.5 documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -36,8 +36,8 @@
     <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="openapi_builder.processors.marshmallow module" href="openapi_builder.processors.marshmallow.html" />
-    <link rel="prev" title="openapi_builder.processors package" href="openapi_builder.processors.html" />
+    <link rel="next" title="openapi_builder.converters.base module" href="openapi_builder.converters.base.html" />
+    <link rel="prev" title="openapi_builder.blueprint.get module" href="openapi_builder.blueprint.get.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -61,7 +61,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">openapi_builder 0.1.4 documentation</h1>
+      <h1 class="site-logo" id="site-title">openapi_builder 0.1.5 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -122,12 +122,34 @@
        </li>
       </ul>
      </li>
+     <li class="toctree-l3 current active has-children">
+      <a class="current reference internal" href="#">
+       openapi_builder.converters package
+      </a>
+      <input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
+      <label for="toctree-checkbox-4">
+       <i class="fas fa-chevron-down">
+       </i>
+      </label>
+      <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="openapi_builder.converters.base.html">
+         openapi_builder.converters.base module
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="openapi_builder.converters.marshmallow.html">
+         openapi_builder.converters.marshmallow module
+        </a>
+       </li>
+      </ul>
+     </li>
      <li class="toctree-l3 has-children">
       <a class="reference internal" href="openapi_builder.parsers.html">
        openapi_builder.parsers package
       </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-      <label for="toctree-checkbox-4">
+      <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
+      <label for="toctree-checkbox-5">
        <i class="fas fa-chevron-down">
        </i>
       </label>
@@ -135,28 +157,6 @@
        <li class="toctree-l4">
         <a class="reference internal" href="openapi_builder.parsers.docstring.html">
          openapi_builder.parsers.docstring module
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3 current active has-children">
-      <a class="reference internal" href="openapi_builder.processors.html">
-       openapi_builder.processors package
-      </a>
-      <input checked="" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-      <label for="toctree-checkbox-5">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul class="current">
-       <li class="toctree-l4 current active">
-        <a class="current reference internal" href="#">
-         openapi_builder.processors.base module
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="openapi_builder.processors.marshmallow.html">
-         openapi_builder.processors.marshmallow module
         </a>
        </li>
       </ul>
@@ -251,7 +251,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../../_sources/source/packages/openapi_builder.processors.base.rst.txt"><button type="button"
+        <a class="dropdown-buttons" href="../../_sources/source/packages/openapi_builder.converters.rst.txt"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.rst</button></a>
         <!-- Download PDF via print -->
@@ -276,6 +276,19 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#submodules">
+   Submodules
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -284,26 +297,35 @@
         
               <div>
                 
-  <div class="section" id="module-openapi_builder.processors.base">
-<span id="openapi-builder-processors-base-module"></span><h1>openapi_builder.processors.base module<a class="headerlink" href="#module-openapi_builder.processors.base" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-openapi_builder.converters">
+<span id="openapi-builder-converters-package"></span><h1>openapi_builder.converters package<a class="headerlink" href="#module-openapi_builder.converters" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
-<dt id="openapi_builder.processors.base.Processor">
-<em class="property">class </em><code class="sig-prename descclassname">openapi_builder.processors.base.</code><code class="sig-name descname">Processor</code><a class="reference internal" href="../../_modules/openapi_builder/processors/base.html#Processor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.processors.base.Processor" title="Permalink to this definition">¶</a></dt>
+<dt id="openapi_builder.converters.Converter">
+<em class="property">class </em><code class="sig-prename descclassname">openapi_builder.converters.</code><code class="sig-name descname">Converter</code><span class="sig-paren">(</span><em class="sig-param">builder: OpenAPIBuilder</em>, <em class="sig-param">converts_class=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/converters/base.html#Converter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.converters.Converter" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
-<p>Processor for a certain class that returns a schema.</p>
+<p>Converter for a certain class that returns a openapi_builder.specification.Schema.</p>
 <dl class="method">
-<dt id="openapi_builder.processors.base.Processor.process">
-<em class="property">static </em><code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param">value</em>, <em class="sig-param">builder: OpenAPIBuilder</em><span class="sig-paren">)</span> &#x2192; openapi_builder.specification.Schema<a class="reference internal" href="../../_modules/openapi_builder/processors/base.html#Processor.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.processors.base.Processor.process" title="Permalink to this definition">¶</a></dt>
+<dt id="openapi_builder.converters.Converter.convert">
+<code class="sig-name descname">convert</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span> &#x2192; openapi_builder.specification.Schema<a class="reference internal" href="../../_modules/openapi_builder/converters/base.html#Converter.convert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.converters.Converter.convert" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
-<dt id="openapi_builder.processors.base.Processor.processes_class">
-<code class="sig-name descname">processes_class</code><em class="property"> = None</em><a class="headerlink" href="#openapi_builder.processors.base.Processor.processes_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>Specification of the class that it processes.</p>
+<dt id="openapi_builder.converters.Converter.converts_class">
+<code class="sig-name descname">converts_class</code><em class="property"> = None</em><a class="headerlink" href="#openapi_builder.converters.Converter.converts_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>Specification of the class that it converts.</p>
 </dd></dl>
 
 </dd></dl>
 
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="openapi_builder.converters.base.html">openapi_builder.converters.base module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="openapi_builder.converters.marshmallow.html">openapi_builder.converters.marshmallow module</a></li>
+</ul>
+</div>
+</div>
 </div>
 
 
@@ -312,17 +334,17 @@
         
             <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="openapi_builder.processors.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="openapi_builder.blueprint.get.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">openapi_builder.processors package</p>
+            <p class="prev-next-title">openapi_builder.blueprint.get module</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="openapi_builder.processors.marshmallow.html" title="next page">
+    <a class='right-next' id="next-link" href="openapi_builder.converters.base.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">openapi_builder.processors.marshmallow module</p>
+        <p class="prev-next-title">openapi_builder.converters.base module</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>

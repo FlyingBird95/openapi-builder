@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>openapi_builder.specification &#8212; openapi_builder 0.1.4 documentation</title>
+    <title>openapi_builder.specification &#8212; openapi_builder 0.1.5 documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -59,7 +59,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">openapi_builder 0.1.4 documentation</h1>
+      <h1 class="site-logo" id="site-title">openapi_builder 0.1.5 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -121,8 +121,8 @@
       </ul>
      </li>
      <li class="toctree-l3 has-children">
-      <a class="reference internal" href="../../source/packages/openapi_builder.parsers.html">
-       openapi_builder.parsers package
+      <a class="reference internal" href="../../source/packages/openapi_builder.converters.html">
+       openapi_builder.converters package
       </a>
       <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
       <label for="toctree-checkbox-4">
@@ -131,15 +131,20 @@
       </label>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="../../source/packages/openapi_builder.parsers.docstring.html">
-         openapi_builder.parsers.docstring module
+        <a class="reference internal" href="../../source/packages/openapi_builder.converters.base.html">
+         openapi_builder.converters.base module
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../source/packages/openapi_builder.converters.marshmallow.html">
+         openapi_builder.converters.marshmallow module
         </a>
        </li>
       </ul>
      </li>
      <li class="toctree-l3 has-children">
-      <a class="reference internal" href="../../source/packages/openapi_builder.processors.html">
-       openapi_builder.processors package
+      <a class="reference internal" href="../../source/packages/openapi_builder.parsers.html">
+       openapi_builder.parsers package
       </a>
       <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
       <label for="toctree-checkbox-5">
@@ -148,13 +153,8 @@
       </label>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="../../source/packages/openapi_builder.processors.base.html">
-         openapi_builder.processors.base module
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../../source/packages/openapi_builder.processors.marshmallow.html">
-         openapi_builder.processors.marshmallow module
+        <a class="reference internal" href="../../source/packages/openapi_builder.parsers.docstring.html">
+         openapi_builder.parsers.docstring module
         </a>
        </li>
       </ul>
@@ -720,8 +720,7 @@
 <span class="sd">    {</span>
 <span class="sd">        &quot;/pets&quot;: {</span>
 <span class="sd">            &quot;get&quot;: {</span>
-<span class="sd">                &quot;description&quot;: &quot;Returns all pets from the system that the user has</span>
-<span class="sd">                access to&quot;,</span>
+<span class="sd">                &quot;description&quot;: &quot;Returns all pets from the system that the user has access to&quot;,</span>
 <span class="sd">                &quot;responses&quot;: {</span>
 <span class="sd">                    &quot;200&quot;: {</span>
 <span class="sd">                        &quot;description&quot;: &quot;A list of pets.&quot;,</span>
@@ -1681,6 +1680,22 @@
 <div class="viewcode-block" id="Reference.from_schema"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Reference.from_schema">[docs]</a>    <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_schema</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">schema_name</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">ref</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;#/components/schemas/</span><span class="si">{schema_name}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Reference.from_response"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Reference.from_response">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_response</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">response_name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">ref</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;#/components/responses/</span><span class="si">{response_name}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Reference.from_parameter"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Reference.from_parameter">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_parameter</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">parameter_name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">ref</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;#/components/parameters/</span><span class="si">{parameter_name}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Reference.from_example"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Reference.from_example">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_example</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">example_name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">ref</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;#/components/examples/</span><span class="si">{example_name}</span><span class="s2">&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Reference.from_security_scheme"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Reference.from_security_scheme">[docs]</a>    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_security_scheme</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">security_scheme_name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">ref</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;#/components/securitySchemes/</span><span class="si">{security_scheme_name}</span><span class="s2">&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Reference.get_value"><a class="viewcode-back" href="../../source/packages/openapi_builder.specification.html#openapi_builder.specification.Reference.get_value">[docs]</a>    <span class="k">def</span> <span class="nf">get_value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">value</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;$ref&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">ref</span><span class="p">}</span>

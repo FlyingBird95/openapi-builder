@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>openapi_builder.builder module &#8212; openapi_builder 0.1.4 documentation</title>
+    <title>openapi_builder.builder module &#8212; openapi_builder 0.1.5 documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -37,7 +37,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="openapi_builder.decorators module" href="openapi_builder.decorators.html" />
-    <link rel="prev" title="openapi_builder.processors.marshmallow module" href="openapi_builder.processors.marshmallow.html" />
+    <link rel="prev" title="openapi_builder.parsers.docstring module" href="openapi_builder.parsers.docstring.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -61,7 +61,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">openapi_builder 0.1.4 documentation</h1>
+      <h1 class="site-logo" id="site-title">openapi_builder 0.1.5 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -123,8 +123,8 @@
       </ul>
      </li>
      <li class="toctree-l3 has-children">
-      <a class="reference internal" href="openapi_builder.parsers.html">
-       openapi_builder.parsers package
+      <a class="reference internal" href="openapi_builder.converters.html">
+       openapi_builder.converters package
       </a>
       <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
       <label for="toctree-checkbox-4">
@@ -133,15 +133,20 @@
       </label>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="openapi_builder.parsers.docstring.html">
-         openapi_builder.parsers.docstring module
+        <a class="reference internal" href="openapi_builder.converters.base.html">
+         openapi_builder.converters.base module
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="openapi_builder.converters.marshmallow.html">
+         openapi_builder.converters.marshmallow module
         </a>
        </li>
       </ul>
      </li>
      <li class="toctree-l3 has-children">
-      <a class="reference internal" href="openapi_builder.processors.html">
-       openapi_builder.processors package
+      <a class="reference internal" href="openapi_builder.parsers.html">
+       openapi_builder.parsers package
       </a>
       <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
       <label for="toctree-checkbox-5">
@@ -150,13 +155,8 @@
       </label>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="openapi_builder.processors.base.html">
-         openapi_builder.processors.base module
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="openapi_builder.processors.marshmallow.html">
-         openapi_builder.processors.marshmallow module
+        <a class="reference internal" href="openapi_builder.parsers.docstring.html">
+         openapi_builder.parsers.docstring module
         </a>
        </li>
       </ul>
@@ -288,7 +288,7 @@
 <span id="openapi-builder-builder-module"></span><h1>openapi_builder.builder module<a class="headerlink" href="#module-openapi_builder.builder" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="openapi_builder.builder.DocumentationOptions">
-<em class="property">class </em><code class="sig-prename descclassname">openapi_builder.builder.</code><code class="sig-name descname">DocumentationOptions</code><span class="sig-paren">(</span><em class="sig-param">include_head_response: bool = True</em>, <em class="sig-param">include_options_response: bool = True</em>, <em class="sig-param">server_url: str = '/'</em>, <em class="sig-param">include_marshmallow_processors: bool = True</em>, <em class="sig-param">include_documentation_blueprint: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/builder.html#DocumentationOptions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.builder.DocumentationOptions" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">openapi_builder.builder.</code><code class="sig-name descname">DocumentationOptions</code><span class="sig-paren">(</span><em class="sig-param">include_head_response: bool = True</em>, <em class="sig-param">include_options_response: bool = True</em>, <em class="sig-param">server_url: str = '/'</em>, <em class="sig-param">include_marshmallow_converters: bool = True</em>, <em class="sig-param">include_documentation_blueprint: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/builder.html#DocumentationOptions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.builder.DocumentationOptions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 </dd></dl>
 
@@ -306,22 +306,33 @@ Flask application.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="openapi_builder.builder.OpenAPIBuilder.openapi_endpoint_name_from_rule">
-<em class="property">static </em><code class="sig-name descname">openapi_endpoint_name_from_rule</code><span class="sig-paren">(</span><em class="sig-param">rule</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/builder.html#OpenAPIBuilder.openapi_endpoint_name_from_rule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.builder.OpenAPIBuilder.openapi_endpoint_name_from_rule" title="Permalink to this definition">¶</a></dt>
-<dd><p>Utility function to generate the Open API endpoint name.</p>
-<p>It replace ‘/users/&lt;user_id&gt;’ with the OpenAPI standard: ‘/users/{user_id}’.</p>
+<dt id="openapi_builder.builder.OpenAPIBuilder.options">
+<em class="property">property </em><code class="sig-name descname">options</code><a class="headerlink" href="#openapi_builder.builder.OpenAPIBuilder.options" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper property to return the options.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="openapi_builder.builder.OpenAPIBuilder.parse_openapi_arguments">
-<em class="property">static </em><code class="sig-name descname">parse_openapi_arguments</code><span class="sig-paren">(</span><em class="sig-param">rule</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/builder.html#OpenAPIBuilder.parse_openapi_arguments"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.builder.OpenAPIBuilder.parse_openapi_arguments" title="Permalink to this definition">¶</a></dt>
-<dd><p>Parsers parameter objects.</p>
+<dt id="openapi_builder.builder.OpenAPIBuilder.paths">
+<em class="property">property </em><code class="sig-name descname">paths</code><a class="headerlink" href="#openapi_builder.builder.OpenAPIBuilder.paths" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper property to return the schemas.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="openapi_builder.builder.OpenAPIBuilder.process">
 <code class="sig-name descname">process</code><span class="sig-paren">(</span><em class="sig-param">value</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/builder.html#OpenAPIBuilder.process"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.builder.OpenAPIBuilder.process" title="Permalink to this definition">¶</a></dt>
 <dd><p>Processes an instance, and returns a schema, or reference to that schema.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="openapi_builder.builder.OpenAPIBuilder.register_converter">
+<code class="sig-name descname">register_converter</code><span class="sig-paren">(</span><em class="sig-param">converter</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/builder.html#OpenAPIBuilder.register_converter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.builder.OpenAPIBuilder.register_converter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register a converter for this builder.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="openapi_builder.builder.OpenAPIBuilder.schemas">
+<em class="property">property </em><code class="sig-name descname">schemas</code><a class="headerlink" href="#openapi_builder.builder.OpenAPIBuilder.schemas" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper property to return the schemas.</p>
 </dd></dl>
 
 </dd></dl>
@@ -386,11 +397,11 @@ configuration configuration.</p>
         
             <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="openapi_builder.processors.marshmallow.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="openapi_builder.parsers.docstring.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">openapi_builder.processors.marshmallow module</p>
+            <p class="prev-next-title">openapi_builder.parsers.docstring module</p>
         </div>
     </a>
     <a class='right-next' id="next-link" href="openapi_builder.decorators.html" title="next page">

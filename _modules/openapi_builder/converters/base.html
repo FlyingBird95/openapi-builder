@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>openapi_builder.processors.base &#8212; openapi_builder 0.1.4 documentation</title>
+    <title>openapi_builder.converters.base &#8212; openapi_builder 0.1.5 documentation</title>
     
   <link href="../../../_static/css/theme.css" rel="stylesheet">
   <link href="../../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -59,7 +59,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">openapi_builder 0.1.4 documentation</h1>
+      <h1 class="site-logo" id="site-title">openapi_builder 0.1.5 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
@@ -121,8 +121,8 @@
       </ul>
      </li>
      <li class="toctree-l3 has-children">
-      <a class="reference internal" href="../../../source/packages/openapi_builder.parsers.html">
-       openapi_builder.parsers package
+      <a class="reference internal" href="../../../source/packages/openapi_builder.converters.html">
+       openapi_builder.converters package
       </a>
       <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
       <label for="toctree-checkbox-4">
@@ -131,15 +131,20 @@
       </label>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="../../../source/packages/openapi_builder.parsers.docstring.html">
-         openapi_builder.parsers.docstring module
+        <a class="reference internal" href="../../../source/packages/openapi_builder.converters.base.html">
+         openapi_builder.converters.base module
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../source/packages/openapi_builder.converters.marshmallow.html">
+         openapi_builder.converters.marshmallow module
         </a>
        </li>
       </ul>
      </li>
      <li class="toctree-l3 has-children">
-      <a class="reference internal" href="../../../source/packages/openapi_builder.processors.html">
-       openapi_builder.processors package
+      <a class="reference internal" href="../../../source/packages/openapi_builder.parsers.html">
+       openapi_builder.parsers package
       </a>
       <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
       <label for="toctree-checkbox-5">
@@ -148,13 +153,8 @@
       </label>
       <ul>
        <li class="toctree-l4">
-        <a class="reference internal" href="../../../source/packages/openapi_builder.processors.base.html">
-         openapi_builder.processors.base module
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../../../source/packages/openapi_builder.processors.marshmallow.html">
-         openapi_builder.processors.marshmallow module
+        <a class="reference internal" href="../../../source/packages/openapi_builder.parsers.docstring.html">
+         openapi_builder.parsers.docstring module
         </a>
        </li>
       </ul>
@@ -265,7 +265,7 @@
         
               <div>
                 
-  <h1>Source code for openapi_builder.processors.base</h1><div class="highlight"><pre>
+  <h1>Source code for openapi_builder.converters.base</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">typing</span>
 
 <span class="kn">from</span> <span class="nn">openapi_builder.specification</span> <span class="kn">import</span> <span class="n">Schema</span>
@@ -274,14 +274,19 @@
     <span class="kn">from</span> <span class="nn">openapi_builder.builder</span> <span class="kn">import</span> <span class="n">OpenAPIBuilder</span>
 
 
-<div class="viewcode-block" id="Processor"><a class="viewcode-back" href="../../../source/packages/openapi_builder.processors.base.html#openapi_builder.processors.Processor">[docs]</a><span class="k">class</span> <span class="nc">Processor</span><span class="p">:</span>
-    <span class="sd">&quot;&quot;&quot;Processor for a certain class that returns a schema.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="Converter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.base.html#openapi_builder.converters.Converter">[docs]</a><span class="k">class</span> <span class="nc">Converter</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Converter for a certain class that returns a openapi_builder.specification.Schema.&quot;&quot;&quot;</span>
 
-    <span class="n">processes_class</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="sd">&quot;&quot;&quot;Specification of the class that it processes.&quot;&quot;&quot;</span>
+    <span class="n">converts_class</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="sd">&quot;&quot;&quot;Specification of the class that it converts.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="Processor.process"><a class="viewcode-back" href="../../../source/packages/openapi_builder.processors.base.html#openapi_builder.processors.Processor.process">[docs]</a>    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">builder</span><span class="p">:</span> <span class="s2">&quot;OpenAPIBuilder&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Schema</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">builder</span><span class="p">:</span> <span class="s2">&quot;OpenAPIBuilder&quot;</span><span class="p">,</span> <span class="n">converts_class</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">builder</span><span class="p">:</span> <span class="n">OpenAPIBuilder</span> <span class="o">=</span> <span class="n">builder</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">register_converter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">converts_class</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">converts_class</span> <span class="o">=</span> <span class="n">converts_class</span>
+
+<div class="viewcode-block" id="Converter.convert"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.base.html#openapi_builder.converters.Converter.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Schema</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span></div></div>
 </pre></div>
 
