@@ -3,7 +3,7 @@ include LICEN[CS]E*
 include pyproject.toml
 include README.rst
 include requirements*.txt
-include templates/*
+include openapi_builder/templates/*
 
 global-exclude *.py[co]
 global-exclude __pycache__
