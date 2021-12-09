@@ -121,7 +121,7 @@ class SchemaConverter(Converter):
     def convert(self, value) -> Schema:
         schema_name = value.__class__.__name__  # class name
         properties = {
-            key: self.builder.process(value=prop)
+            key: self.builder.process(value=prop, name=f"{schema_name}.{key}")
             for key, prop in value._declared_fields.items()
         }
 

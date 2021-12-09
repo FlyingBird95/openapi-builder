@@ -1,25 +1,24 @@
-import re
-from typing import List, Optional
+import contextlib
+from typing import Any, List, Optional
 
 from flask import Flask
+from werkzeug.routing import Rule
 
 from . import util
 from .blueprint.blueprint import openapi_documentation
 from .converters.base import Converter
 from .documentation import Documentation
-from .exceptions import MissingConverter
+from .exceptions import MissingConfigContext, MissingConverter
 from .specification import (
     Info,
     MediaType,
     OpenAPI,
     Operation,
-    Parameter,
     PathItem,
     Paths,
     RequestBody,
     Response,
     Responses,
-    Schema,
     Server,
 )
 
@@ -66,17 +65,17 @@ class OpenApiDocumentation:
         self.app: Optional[Flask] = app
         """After self.init_app is called, the self.app must not be None anymore."""
 
-        self.specification = OpenAPI(
-            info=Info(title=title, version=version),
-            paths=Paths(),
-            servers=[Server(url=options.server_url)],
-        )
-        """The specification that is generated using the builder."""
-
         self.options: DocumentationOptions = (
             options if options is not None else DocumentationOptions()
         )
         """Global documentation options for the builder."""
+
+        self.specification = OpenAPI(
+            info=Info(title=title, version=version),
+            paths=Paths(),
+            servers=[Server(url=self.options.server_url)],
+        )
+        """The specification that is generated using the builder."""
 
         self.builder = OpenAPIBuilder(open_api_documentation=self)
         """The builder used for iterating the endpoints. This is done in order to generate the
@@ -110,6 +109,7 @@ class OpenAPIBuilder:
     def __init__(self, open_api_documentation: OpenApiDocumentation):
         self.converters: List[Converter] = []
         self.open_api_documentation: OpenApiDocumentation = open_api_documentation
+        self.documentation_config: Optional[Documentation] = None
 
         if self.options.include_marshmallow_converters:
             # Keep import below to support packages without marshmallow.
@@ -119,8 +119,14 @@ class OpenAPIBuilder:
 
             register_marshmallow_converters(self)
 
-    def process(self, value):
+    def process(self, value: Any, name: Optional[str] = None):
         """Processes an instance, and returns a schema, or reference to that schema."""
+        if self.documentation_config is None:
+            raise MissingConfigContext()
+
+        if name in self.documentation_config.custom_converters:
+            return self.documentation_config.custom_converters[name]
+
         converter = next(
             (
                 converter
@@ -133,6 +139,13 @@ class OpenAPIBuilder:
             raise MissingConverter(value=value)
 
         return converter.convert(value=value)
+
+    @contextlib.contextmanager
+    def use_documentation_config(self, documentation_config: Documentation):
+        """Context manager for function that need to be executed with a documentation_config."""
+        self.documentation_config = documentation_config
+        yield
+        self.documentation_config = None
 
     def iterate_endpoints(self):
         """Iterates the endpoints of the Flask application to generate the documentation.
@@ -147,51 +160,70 @@ class OpenAPIBuilder:
                 # endpoint has no documentation configuration -> skip
                 continue
 
-            parameters = list(config.parameters)
-            parameters.extend(util.parse_openapi_arguments(rule))
-            endpoint_name = util.openapi_endpoint_name_from_rule(rule)
+            with self.use_documentation_config(config):
+                self.process_rule(rule)
 
-            if endpoint_name not in self.paths.values:
-                self.paths.values[endpoint_name] = PathItem(parameters=parameters)
-            path_item = self.paths.values[endpoint_name]
+    def process_rule(self, rule: Rule):
+        """Processes a Werkzeug rule.
 
-            for method in rule.methods:
-                values = {}
-                for key, schema in config.responses.items():
-                    reference = self.process(schema)
-                    values[key] = Response(
-                        description=config.description or view_func.__doc__,
-                        content={"application/json": MediaType(schema=reference)},
-                    )
+        The function must be called within the use_documentation_config-context manager.
+        Usage:
+        >>> builder = OpenAPIBuilder()
+        >>> config = Documentation()  # retrieved from the @add_documentation decorator.
+        >>> with builder.use_documentation_config():
+        >>>   builder.process_rule(rule)
+        """
+        if self.documentation_config is None:
+            raise MissingConfigContext()
 
-                if config.input_schema is not None:
-                    schema_or_reference = self.process(config.input_schema)
-                    request_body = RequestBody(
-                        description=config.description,
-                        content={
-                            "application/json": MediaType(schema=schema_or_reference)
-                        },
-                    )
-                else:
-                    request_body = None
+        view_func = self.open_api_documentation.app.view_functions[rule.endpoint]
 
-                operation = Operation(
-                    summary=config.summary,
-                    description=config.description,
-                    responses=Responses(values=values),
-                    request_body=request_body,
+        parameters = list(self.documentation_config.parameters)
+        parameters.extend(util.parse_openapi_arguments(rule))
+        endpoint_name = util.openapi_endpoint_name_from_rule(rule)
+
+        if endpoint_name not in self.paths.values:
+            self.paths.values[endpoint_name] = PathItem(parameters=parameters)
+        path_item = self.paths.values[endpoint_name]
+
+        for method in rule.methods:
+            values = {}
+            for key, schema in self.documentation_config.responses.items():
+                reference = self.process(schema)
+                values[key] = Response(
+                    description=self.documentation_config.description
+                    or view_func.__doc__,
+                    content={"application/json": MediaType(schema=reference)},
                 )
 
-                if method == "GET":
-                    path_item.get = operation
-                if method == "HEAD" and self.options.include_head_response:
-                    path_item.head = operation
-                if method == "OPTIONS" and self.options.include_options_response:
-                    path_item.options = operation
-                if method == "POST":
-                    path_item.post = operation
-                if method == "PUT":
-                    path_item.put = operation
+            if self.documentation_config.input_schema is not None:
+                schema_or_reference = self.process(
+                    self.documentation_config.input_schema
+                )
+                request_body = RequestBody(
+                    description=self.documentation_config.description,
+                    content={"application/json": MediaType(schema=schema_or_reference)},
+                )
+            else:
+                request_body = None
+
+            operation = Operation(
+                summary=self.documentation_config.summary,
+                description=self.documentation_config.description,
+                responses=Responses(values=values),
+                request_body=request_body,
+            )
+
+            if method == "GET":
+                path_item.get = operation
+            if method == "HEAD" and self.options.include_head_response:
+                path_item.head = operation
+            if method == "OPTIONS" and self.options.include_options_response:
+                path_item.options = operation
+            if method == "POST":
+                path_item.post = operation
+            if method == "PUT":
+                path_item.put = operation
 
     def register_converter(self, converter):
         """Register a converter for this builder."""
