@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>openapi_builder.builder &#8212; openapi_builder 0.2.2 documentation</title>
+    <title>openapi_builder.builder &#8212; openapi_builder 0.2.3 documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -59,7 +59,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">openapi_builder 0.2.2 documentation</h1>
+      <h1 class="site-logo" id="site-title">openapi_builder 0.2.3 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -73,6 +73,11 @@
  </span>
 </p>
 <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../configuration.html">
+   Configuration
+  </a>
+ </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../../source/packages/modules.html">
    API Reference
@@ -377,7 +382,7 @@
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">open_api_documentation</span><span class="p">:</span> <span class="n">OpenApiDocumentation</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">converters</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Converter</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">open_api_documentation</span><span class="p">:</span> <span class="n">OpenApiDocumentation</span> <span class="o">=</span> <span class="n">open_api_documentation</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">documentation_config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Documentation</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__documentation_config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Documentation</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">options</span><span class="o">.</span><span class="n">include_marshmallow_converters</span><span class="p">:</span>
             <span class="c1"># Keep import below to support packages without marshmallow.</span>
@@ -389,11 +394,11 @@
 
 <div class="viewcode-block" id="OpenAPIBuilder.process"><a class="viewcode-back" href="../../source/packages/openapi_builder.builder.html#openapi_builder.OpenAPIBuilder.process">[docs]</a>    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Processes an instance, and returns a schema, or reference to that schema.&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">documentation_config</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__documentation_config</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">MissingConfigContext</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">documentation_config</span><span class="o">.</span><span class="n">custom_converters</span><span class="p">:</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">documentation_config</span><span class="o">.</span><span class="n">custom_converters</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__documentation_config</span><span class="o">.</span><span class="n">custom_converters</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__documentation_config</span><span class="o">.</span><span class="n">custom_converters</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
 
         <span class="n">converter</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span>
             <span class="p">(</span>
@@ -411,9 +416,14 @@
 <div class="viewcode-block" id="OpenAPIBuilder.use_documentation_config"><a class="viewcode-back" href="../../source/packages/openapi_builder.builder.html#openapi_builder.OpenAPIBuilder.use_documentation_config">[docs]</a>    <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
     <span class="k">def</span> <span class="nf">use_documentation_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">documentation_config</span><span class="p">:</span> <span class="n">Documentation</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Context manager for function that need to be executed with a documentation_config.&quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">documentation_config</span> <span class="o">=</span> <span class="n">documentation_config</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">documentation_config</span><span class="p">,</span> <span class="n">Documentation</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{documentation_config}</span><span class="s2"> is not an instance of Documentation.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">__documentation_config</span> <span class="o">=</span> <span class="n">documentation_config</span>
         <span class="k">yield</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">documentation_config</span> <span class="o">=</span> <span class="kc">None</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__documentation_config</span> <span class="o">=</span> <span class="kc">None</span></div>
 
 <div class="viewcode-block" id="OpenAPIBuilder.iterate_endpoints"><a class="viewcode-back" href="../../source/packages/openapi_builder.builder.html#openapi_builder.OpenAPIBuilder.iterate_endpoints">[docs]</a>    <span class="k">def</span> <span class="nf">iterate_endpoints</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Iterates the endpoints of the Flask application to generate the documentation.</span>
@@ -438,15 +448,15 @@
 <span class="sd">        Usage:</span>
 <span class="sd">        &gt;&gt;&gt; builder = OpenAPIBuilder()</span>
 <span class="sd">        &gt;&gt;&gt; config = Documentation()  # retrieved from the @add_documentation decorator.</span>
-<span class="sd">        &gt;&gt;&gt; with builder.use_documentation_config():</span>
+<span class="sd">        &gt;&gt;&gt; with builder.use_documentation_config(config):</span>
 <span class="sd">        &gt;&gt;&gt;   builder.process_rule(rule)</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">documentation_config</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__documentation_config</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="k">raise</span> <span class="n">MissingConfigContext</span><span class="p">()</span>
 
         <span class="n">view_func</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">open_api_documentation</span><span class="o">.</span><span class="n">app</span><span class="o">.</span><span class="n">view_functions</span><span class="p">[</span><span class="n">rule</span><span class="o">.</span><span class="n">endpoint</span><span class="p">]</span>
 
-        <span class="n">parameters</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">documentation_config</span><span class="o">.</span><span class="n">parameters</span><span class="p">)</span>
+        <span class="n">parameters</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__documentation_config</span><span class="o">.</span><span class="n">parameters</span><span class="p">)</span>
         <span class="n">parameters</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">util</span><span class="o">.</span><span class="n">parse_openapi_arguments</span><span class="p">(</span><span class="n">rule</span><span class="p">))</span>
         <span class="n">endpoint_name</span> <span class="o">=</span> <span class="n">util</span><span class="o">.</span><span class="n">openapi_endpoint_name_from_rule</span><span class="p">(</span><span class="n">rule</span><span class="p">)</span>
 
@@ -456,30 +466,31 @@
 
         <span class="k">for</span> <span class="n">method</span> <span class="ow">in</span> <span class="n">rule</span><span class="o">.</span><span class="n">methods</span><span class="p">:</span>
             <span class="n">values</span> <span class="o">=</span> <span class="p">{}</span>
-            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">schema</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">documentation_config</span><span class="o">.</span><span class="n">responses</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">schema</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__documentation_config</span><span class="o">.</span><span class="n">responses</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
                 <span class="n">reference</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">schema</span><span class="p">)</span>
                 <span class="n">values</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">Response</span><span class="p">(</span>
-                    <span class="n">description</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">documentation_config</span><span class="o">.</span><span class="n">description</span>
+                    <span class="n">description</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__documentation_config</span><span class="o">.</span><span class="n">description</span>
                     <span class="ow">or</span> <span class="n">view_func</span><span class="o">.</span><span class="vm">__doc__</span><span class="p">,</span>
                     <span class="n">content</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;application/json&quot;</span><span class="p">:</span> <span class="n">MediaType</span><span class="p">(</span><span class="n">schema</span><span class="o">=</span><span class="n">reference</span><span class="p">)},</span>
                 <span class="p">)</span>
 
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">documentation_config</span><span class="o">.</span><span class="n">input_schema</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">__documentation_config</span><span class="o">.</span><span class="n">input_schema</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">schema_or_reference</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process</span><span class="p">(</span>
-                    <span class="bp">self</span><span class="o">.</span><span class="n">documentation_config</span><span class="o">.</span><span class="n">input_schema</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">__documentation_config</span><span class="o">.</span><span class="n">input_schema</span>
                 <span class="p">)</span>
                 <span class="n">request_body</span> <span class="o">=</span> <span class="n">RequestBody</span><span class="p">(</span>
-                    <span class="n">description</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">documentation_config</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
+                    <span class="n">description</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__documentation_config</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
                     <span class="n">content</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;application/json&quot;</span><span class="p">:</span> <span class="n">MediaType</span><span class="p">(</span><span class="n">schema</span><span class="o">=</span><span class="n">schema_or_reference</span><span class="p">)},</span>
                 <span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">request_body</span> <span class="o">=</span> <span class="kc">None</span>
 
             <span class="n">operation</span> <span class="o">=</span> <span class="n">Operation</span><span class="p">(</span>
-                <span class="n">summary</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">documentation_config</span><span class="o">.</span><span class="n">summary</span><span class="p">,</span>
-                <span class="n">description</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">documentation_config</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
+                <span class="n">summary</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__documentation_config</span><span class="o">.</span><span class="n">summary</span><span class="p">,</span>
+                <span class="n">description</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__documentation_config</span><span class="o">.</span><span class="n">description</span><span class="p">,</span>
                 <span class="n">responses</span><span class="o">=</span><span class="n">Responses</span><span class="p">(</span><span class="n">values</span><span class="o">=</span><span class="n">values</span><span class="p">),</span>
                 <span class="n">request_body</span><span class="o">=</span><span class="n">request_body</span><span class="p">,</span>
+                <span class="n">tags</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__documentation_config</span><span class="o">.</span><span class="n">tags</span><span class="p">,</span>
             <span class="p">)</span>
 
             <span class="k">if</span> <span class="n">method</span> <span class="o">==</span> <span class="s2">&quot;GET&quot;</span><span class="p">:</span>

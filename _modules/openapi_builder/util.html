@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>openapi_builder.util &#8212; openapi_builder 0.2.2 documentation</title>
+    <title>openapi_builder.util &#8212; openapi_builder 0.2.3 documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -59,7 +59,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">openapi_builder 0.2.2 documentation</h1>
+      <h1 class="site-logo" id="site-title">openapi_builder 0.2.3 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -73,6 +73,11 @@
  </span>
 </p>
 <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../configuration.html">
+   Configuration
+  </a>
+ </li>
  <li class="toctree-l1 has-children">
   <a class="reference internal" href="../../source/packages/modules.html">
    API Reference
@@ -296,7 +301,7 @@
     <span class="n">parameters</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="k">for</span> <span class="n">argument</span> <span class="ow">in</span> <span class="n">rule</span><span class="o">.</span><span class="n">arguments</span><span class="p">:</span>
-        <span class="n">schema</span> <span class="o">=</span> <span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;number&quot;</span><span class="p">)</span>  <span class="c1"># todo: infer type from rule.</span>
+        <span class="n">schema</span> <span class="o">=</span> <span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">)</span>  <span class="c1"># TODO: infer type from rule.</span>
         <span class="n">parameters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
             <span class="n">Parameter</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">argument</span><span class="p">,</span> <span class="n">in_</span><span class="o">=</span><span class="s2">&quot;path&quot;</span><span class="p">,</span> <span class="n">required</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">schema</span><span class="o">=</span><span class="n">schema</span><span class="p">)</span>
         <span class="p">)</span>
