@@ -39,4 +39,4 @@ def put(user_id):
     if "password" in data:
         user.password = data["password"]
 
-    return user
+    return jsonify(UserSchema().dump(user))

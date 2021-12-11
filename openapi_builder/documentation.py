@@ -21,6 +21,7 @@ class Documentation:
         summary: Optional[str],
         description: Optional[str],
         custom_converters: Optional[Dict[str, Schema]],
+        tags: Optional[List[str]],
     ):
         self.responses = (
             {str(int(k)): v for k, v in responses.items()}
@@ -34,3 +35,4 @@ class Documentation:
         self.custom_converters = (
             custom_converters if custom_converters is not None else {}
         )
+        self.tags = tags if tags is not None else []
