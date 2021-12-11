@@ -28,7 +28,7 @@ def parse_openapi_arguments(rule):
     parameters = []
 
     for argument in rule.arguments:
-        schema = Schema(type="number", format="number")  # todo: infer type from rule.
+        schema = Schema(type="string", format="string")  # TODO: infer type from rule.
         parameters.append(
             Parameter(name=argument, in_="path", required=True, schema=schema)
         )

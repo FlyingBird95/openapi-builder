@@ -37,10 +37,10 @@ Installation is simple via PIP:
 
 .. code:: bash
 
-    ~$ pip install openapi-builder
+    pip install openapi-builder
 
 After installation, it's time to build the documentation for the resources in your Flask application, and expose them
-so, your external users can read them. For a working example, see `this folder <this-folder_>`_.
+so your external users can read them. For working examples, see `this folder <this-folder_>`_.
 
 .. _this-folder: https://github.com/FlyingBird95/openapi_builder/tree/master/examples/
 
@@ -135,7 +135,7 @@ That's all folks. You can view your documentation at http://localhost:5000/docum
 at: http://localhost:5000/documentation-configuration. Whenever the schema is updated by adding/removing/updating a new
 property, it is automatically reflected in the OpenAPI documentation.
 
-.. _doc-page: https://flyingbird95.github.io/openapi_builder/  # TODO: link to configuration page.
+.. _doc-page: https://flyingbird95.github.io/openapi_builder/configuration.html
 
 
 Contributing
@@ -258,6 +258,7 @@ Building locally
 
 The web documentation can be built locally with::
 
+   pip install -r requirements-docs.txt
    make -C docs html
 
 And view the documentation like so::

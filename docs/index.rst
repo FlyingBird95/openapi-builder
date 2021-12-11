@@ -5,6 +5,8 @@
     :maxdepth: 2
     :caption: Contents:
 
+    configuration
+
     source/packages/modules
     source/changelog
     py-modindex

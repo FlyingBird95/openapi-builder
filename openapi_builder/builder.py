@@ -109,7 +109,7 @@ class OpenAPIBuilder:
     def __init__(self, open_api_documentation: OpenApiDocumentation):
         self.converters: List[Converter] = []
         self.open_api_documentation: OpenApiDocumentation = open_api_documentation
-        self.documentation_config: Optional[Documentation] = None
+        self.__documentation_config: Optional[Documentation] = None
 
         if self.options.include_marshmallow_converters:
             # Keep import below to support packages without marshmallow.
@@ -121,11 +121,11 @@ class OpenAPIBuilder:
 
     def process(self, value: Any, name: Optional[str] = None):
         """Processes an instance, and returns a schema, or reference to that schema."""
-        if self.documentation_config is None:
+        if self.__documentation_config is None:
             raise MissingConfigContext()
 
-        if name in self.documentation_config.custom_converters:
-            return self.documentation_config.custom_converters[name]
+        if name in self.__documentation_config.custom_converters:
+            return self.__documentation_config.custom_converters[name]
 
         converter = next(
             (
@@ -143,9 +143,14 @@ class OpenAPIBuilder:
     @contextlib.contextmanager
     def use_documentation_config(self, documentation_config: Documentation):
         """Context manager for function that need to be executed with a documentation_config."""
-        self.documentation_config = documentation_config
+        if not isinstance(documentation_config, Documentation):
+            raise TypeError(
+                f"{documentation_config} is not an instance of Documentation."
+            )
+
+        self.__documentation_config = documentation_config
         yield
-        self.documentation_config = None
+        self.__documentation_config = None
 
     def iterate_endpoints(self):
         """Iterates the endpoints of the Flask application to generate the documentation.
@@ -170,15 +175,15 @@ class OpenAPIBuilder:
         Usage:
         >>> builder = OpenAPIBuilder()
         >>> config = Documentation()  # retrieved from the @add_documentation decorator.
-        >>> with builder.use_documentation_config():
+        >>> with builder.use_documentation_config(config):
         >>>   builder.process_rule(rule)
         """
-        if self.documentation_config is None:
+        if self.__documentation_config is None:
             raise MissingConfigContext()
 
         view_func = self.open_api_documentation.app.view_functions[rule.endpoint]
 
-        parameters = list(self.documentation_config.parameters)
+        parameters = list(self.__documentation_config.parameters)
         parameters.extend(util.parse_openapi_arguments(rule))
         endpoint_name = util.openapi_endpoint_name_from_rule(rule)
 
@@ -188,30 +193,31 @@ class OpenAPIBuilder:
 
         for method in rule.methods:
             values = {}
-            for key, schema in self.documentation_config.responses.items():
+            for key, schema in self.__documentation_config.responses.items():
                 reference = self.process(schema)
                 values[key] = Response(
-                    description=self.documentation_config.description
+                    description=self.__documentation_config.description
                     or view_func.__doc__,
                     content={"application/json": MediaType(schema=reference)},
                 )
 
-            if self.documentation_config.input_schema is not None:
+            if self.__documentation_config.input_schema is not None:
                 schema_or_reference = self.process(
-                    self.documentation_config.input_schema
+                    self.__documentation_config.input_schema
                 )
                 request_body = RequestBody(
-                    description=self.documentation_config.description,
+                    description=self.__documentation_config.description,
                     content={"application/json": MediaType(schema=schema_or_reference)},
                 )
             else:
                 request_body = None
 
             operation = Operation(
-                summary=self.documentation_config.summary,
-                description=self.documentation_config.description,
+                summary=self.__documentation_config.summary,
+                description=self.__documentation_config.description,
                 responses=Responses(values=values),
                 request_body=request_body,
+                tags=self.__documentation_config.tags,
             )
 
             if method == "GET":
