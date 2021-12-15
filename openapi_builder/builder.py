@@ -6,6 +6,7 @@ from werkzeug.routing import Rule
 
 from . import util
 from .blueprint.blueprint import openapi_documentation
+from .constants import EXTENSION_NAME
 from .converters.base import Converter
 from .documentation import Documentation
 from .exceptions import MissingConfigContext, MissingConverter
@@ -52,7 +53,6 @@ class OpenApiDocumentation:
     >>> documentation = OpenApiDocumentation()
     >>> app = Flask(__name__)
     >>> documentation.init_app(app=app)
-
     """
 
     def __init__(
@@ -95,7 +95,7 @@ class OpenApiDocumentation:
         app.before_first_request(self.builder.iterate_endpoints)
 
         # Register the extension in the app.
-        app.extensions["__open_api_doc__"] = self
+        app.extensions[EXTENSION_NAME] = self
         self.app = app
 
     def get_configuration(self):
@@ -127,15 +127,15 @@ class OpenAPIBuilder:
         if name in self.__documentation_config.custom_converters:
             return self.__documentation_config.custom_converters[name]
 
-        converter = next(
-            (
-                converter
-                for converter in self.converters
-                if isinstance(value, converter.converts_class)
-            ),
-            None,
-        )
-        if converter is None:
+        try:
+            converter = next(
+                (
+                    converter
+                    for converter in self.converters
+                    if isinstance(value, converter.converts_class)
+                )
+            )
+        except StopIteration:
             raise MissingConverter(value=value)
 
         return converter.convert(value=value)
@@ -160,8 +160,9 @@ class OpenAPIBuilder:
         """
         for rule in self.open_api_documentation.app.url_map._rules:
             view_func = self.open_api_documentation.app.view_functions[rule.endpoint]
-            config: Documentation = getattr(view_func, "__open_api_doc__", None)
-            if config is None:
+            try:
+                config: Documentation = getattr(view_func, EXTENSION_NAME)
+            except AttributeError:
                 # endpoint has no documentation configuration -> skip
                 continue
 
