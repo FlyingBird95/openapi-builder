@@ -2,7 +2,7 @@ from typing import Union
 
 import marshmallow
 
-from openapi_builder.converters import Converter
+from openapi_builder.converters import Converter, register_converter
 from openapi_builder.specification import Reference, Schema
 
 
@@ -125,8 +125,7 @@ class SchemaConverter(Converter):
             for key, prop in value._declared_fields.items()
         }
 
-        schema = Schema(type="object", properties=properties)
-        self.builder.schemas[schema_name] = schema
+        self.builder.schemas[schema_name] = Schema(type="object", properties=properties)
         reference = Reference.from_schema(schema_name=schema_name)
         if value.many:
             return Schema(type="array", items=reference)
@@ -141,20 +140,20 @@ class DictConverter(Converter):
 
 
 def register_marshmallow_converters(builder):
-    EmailConverter(builder=builder)
-    StringConverter(builder=builder)
-    BooleanConverter(builder=builder)
-    NumberConverter(builder=builder)
-    IntegerConverter(builder=builder)
-    FloatConverter(builder=builder)
-    UUIDConverter(builder=builder)
-    DecimalConverter(builder=builder)
-    DateConverter(builder=builder)
-    DateTimeConverter(builder=builder)
-    TimeConverter(builder=builder)
-    URLConverter(builder=builder)
-    NestedConverter(builder=builder)
-    ListConverter(builder=builder)
-    SchemaConverter(builder=builder)
-    SchemaMetaConverter(builder=builder)
-    DictConverter(builder=builder)
+    register_converter(EmailConverter(builder=builder))
+    register_converter(StringConverter(builder=builder))
+    register_converter(BooleanConverter(builder=builder))
+    register_converter(NumberConverter(builder=builder))
+    register_converter(IntegerConverter(builder=builder))
+    register_converter(FloatConverter(builder=builder))
+    register_converter(UUIDConverter(builder=builder))
+    register_converter(DecimalConverter(builder=builder))
+    register_converter(DateConverter(builder=builder))
+    register_converter(DateTimeConverter(builder=builder))
+    register_converter(TimeConverter(builder=builder))
+    register_converter(URLConverter(builder=builder))
+    register_converter(NestedConverter(builder=builder))
+    register_converter(ListConverter(builder=builder))
+    register_converter(SchemaConverter(builder=builder))
+    register_converter(SchemaMetaConverter(builder=builder))
+    register_converter(DictConverter(builder=builder))
