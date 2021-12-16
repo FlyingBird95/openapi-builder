@@ -1,12 +1,12 @@
 import contextlib
-from typing import Any, List, Optional
+from typing import Any, Optional
 
 from flask import Flask
 from werkzeug.routing import Rule
 
 from . import util
 from .blueprint.blueprint import openapi_documentation
-from .converters.base import Converter
+from .converters.base import CONVERTERS
 from .documentation import Documentation
 from .exceptions import MissingConfigContext, MissingConverter
 from .specification import (
@@ -30,12 +30,14 @@ class DocumentationOptions:
         include_options_response: bool = True,
         server_url: str = "/",
         include_marshmallow_converters: bool = True,
+        include_halogen_converters: bool = False,
         include_documentation_blueprint: bool = True,
     ):
         self.include_head_response: bool = include_head_response
         self.include_options_response: bool = include_options_response
         self.server_url: str = server_url
         self.include_marshmallow_converters: bool = include_marshmallow_converters
+        self.include_halogen_converters: bool = include_halogen_converters
         self.include_documentation_blueprint: bool = include_documentation_blueprint
 
 
@@ -52,7 +54,6 @@ class OpenApiDocumentation:
     >>> documentation = OpenApiDocumentation()
     >>> app = Flask(__name__)
     >>> documentation.init_app(app=app)
-
     """
 
     def __init__(
@@ -107,7 +108,6 @@ class OpenAPIBuilder:
     """OpenAPI builder for generating the documentation."""
 
     def __init__(self, open_api_documentation: OpenApiDocumentation):
-        self.converters: List[Converter] = []
         self.open_api_documentation: OpenApiDocumentation = open_api_documentation
         self.__documentation_config: Optional[Documentation] = None
 
@@ -118,6 +118,12 @@ class OpenAPIBuilder:
             )
 
             register_marshmallow_converters(self)
+
+        if self.options.include_halogen_converters:
+            # Keep import below to support packages without halogen.
+            from openapi_builder.converters.halogen import register_halogen_converters
+
+            register_halogen_converters(self)
 
     def process(self, value: Any, name: Optional[str] = None):
         """Processes an instance, and returns a schema, or reference to that schema."""
@@ -130,7 +136,7 @@ class OpenAPIBuilder:
         converter = next(
             (
                 converter
-                for converter in self.converters
+                for converter in CONVERTERS
                 if isinstance(value, converter.converts_class)
             ),
             None,
@@ -230,10 +236,6 @@ class OpenAPIBuilder:
                 path_item.post = operation
             if method == "PUT":
                 path_item.put = operation
-
-    def register_converter(self, converter):
-        """Register a converter for this builder."""
-        self.converters.append(converter)
 
     @property
     def schemas(self):

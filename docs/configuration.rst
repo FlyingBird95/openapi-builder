@@ -104,6 +104,11 @@ following line:
      - :code:`True`
      - Whether default marshmallow converters are included in the :code:`OpenAPIBuilder`. In case a different
        serialization library than marshmallow_ is used, this value must be set to :code:`False`.
+   * - :code:`include_halogen_converters`
+     - :code:`bool`
+     - :code:`False`
+     - Whether default halogen converters are included in the :code:`OpenAPIBuilder`. In case a different
+       serialization library than halogen_ is used, this value must be set to :code:`False`.
    * - :code:`include_documentation_blueprint`
      - :code:`bool`
      - :code:`True`
@@ -112,6 +117,7 @@ following line:
        inspecting all endpoints). If a custom documentation UI is used, the value must be set to :code:`False`.
 
 .. _marshmallow: https://github.com/marshmallow-code/marshmallow
+.. _halogen: https://halogen.readthedocs.io/en/latest/
 
 Adding resources
 ~~~~~~~~~~~~~~~~
