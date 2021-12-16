@@ -1,5 +1,5 @@
 Configuration
-============
+=============
 Once you have successfully installed the :code:`openapi_builder` package, it's time to properly configure it such
 that it suits your needs. The configuration consist of the following two steps:
 
@@ -7,7 +7,7 @@ that it suits your needs. The configuration consist of the following two steps:
 - :ref:`Adding resources`
 
 Configuring the extension
-~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~
 The extension can be added to the Flask app using the following snippet.
 
 .. code:: python
