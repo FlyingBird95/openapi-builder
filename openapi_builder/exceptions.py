@@ -8,7 +8,7 @@ You can use the snippet below to generate a converter for it. Don't forget to re
 from typing import Union
 
 from openapi_builder.builder import OpenAPIBuilder
-from openapi_builder.converts import Converter
+from openapi_builder.converters import Converter
 from openapi_builder.specification import Reference, Schema
 
 class {class_name}Converter(Converter):
@@ -17,7 +17,7 @@ class {class_name}Converter(Converter):
     converts_class = {class_name}
     """Specification of the class that it converts."""
 
-    def convert(value: {class_name}) -> Union[Reference, Schema]:
+    def convert(self, value: {class_name}) -> Union[Reference, Schema]:
         """Converts an instance of {class_name} and return a Reference or Schema."""
 '''
 
