@@ -1,6 +1,7 @@
 import contextlib
-import typing
-from typing import Any, List, Optional
+import enum
+import warnings
+from typing import TYPE_CHECKING, Any, List, Optional
 
 from flask import Flask
 from werkzeug.routing import Rule
@@ -23,11 +24,15 @@ from .specification import (
     Server,
 )
 
-if typing.TYPE_CHECKING:
+if TYPE_CHECKING:
     from .converters import Converter
 
 
 class DocumentationOptions:
+    class StrictMode(enum.Enum):
+        FAIL_ON_ERROR = enum.auto()
+        SHOW_WARNINGS = enum.auto()
+
     def __init__(
         self,
         include_head_response: bool = True,
@@ -36,6 +41,7 @@ class DocumentationOptions:
         include_marshmallow_converters: bool = True,
         include_halogen_converters: bool = False,
         include_documentation_blueprint: bool = True,
+        strict_mode: StrictMode = StrictMode.SHOW_WARNINGS,
     ):
         self.include_head_response: bool = include_head_response
         self.include_options_response: bool = include_options_response
@@ -43,6 +49,7 @@ class DocumentationOptions:
         self.include_marshmallow_converters: bool = include_marshmallow_converters
         self.include_halogen_converters: bool = include_halogen_converters
         self.include_documentation_blueprint: bool = include_documentation_blueprint
+        self.strict_mode: DocumentationOptions.StrictMode = strict_mode
 
 
 class OpenApiDocumentation:
@@ -139,10 +146,16 @@ class OpenAPIBuilder:
             (converter for converter in self.converters if converter.matches(value)),
             None,
         )
-        if converter is None:
-            raise MissingConverter(value=value)
+        if converter is not None:
+            return converter.convert(value=value)
 
-        return converter.convert(value=value)
+        if self.options.strict_mode == self.options.StrictMode.FAIL_ON_ERROR:
+            raise MissingConverter(value=value)
+        elif self.options.strict_mode == self.options.StrictMode.SHOW_WARNINGS:
+            warnings.warn(f"Missing converter for: {name}")
+            return
+        else:
+            raise ValueError(f"Unknown strict mode: {self.options.strict_mode}")
 
     @contextlib.contextmanager
     def use_documentation_config(self, documentation_config: Documentation):
