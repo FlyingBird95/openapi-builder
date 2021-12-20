@@ -18,8 +18,9 @@ Introduced the following features:
 
 - **Added** tag support per endpoint
 - **Added** configuration page
-- **Added** support for halogen_
+- **Added** support for halogen_ (including example).
 - **Added** class decorator for registering converters: :code:`openapi_builder.converters.base.register_converter`.
+- **Removed** :code:`custom_converters` option to :code:`add_documentation`.
 
 .. _halogen: https://halogen.readthedocs.io/en/latest/
 

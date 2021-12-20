@@ -3,12 +3,6 @@ import re
 from openapi_builder.specification import Parameter, Schema
 
 
-def to_camelcase(s):
-    """Converts a snake_case string into CamelCase."""
-    parts = iter(s.split("_"))
-    return next(parts) + "".join(i.title() for i in parts)
-
-
 def openapi_endpoint_name_from_rule(rule):
     """Utility function to generate the Open API endpoint name.
 

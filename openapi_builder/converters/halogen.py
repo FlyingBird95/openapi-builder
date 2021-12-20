@@ -98,9 +98,17 @@ class SchemaConverter(Converter):
         schema_name = value.__name__
         properties = {}
 
-        for key, prop in value.__class_attrs__.items():
-            properties[key] = self.builder.process(
-                value=prop.attr_type, name=f"{schema_name}.{key}"
+        for prop in value.__class_attrs__.values():
+
+            if prop.compartment:
+                if prop.compartment not in properties:
+                    properties[prop.compartment] = Schema(type="object")
+                result = properties[prop.compartment].properties
+            else:
+                result = properties
+
+            result[prop.key] = self.builder.process(
+                value=prop.attr_type, name=f"{schema_name}.{prop.key}"
             )
 
         self.builder.schemas[schema_name] = Schema(type="object", properties=properties)

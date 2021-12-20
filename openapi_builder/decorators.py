@@ -11,7 +11,6 @@ def add_documentation(
     parameters: Optional[List[Parameter]] = None,
     summary: Optional[str] = None,
     description: Optional[str] = None,
-    custom_converters: Optional[Dict[str, Schema]] = None,
     tags: Optional[List[str]] = None,
 ):
     """Adds documentation options for a given Flask endpoint.
@@ -45,21 +44,6 @@ def add_documentation(
     >>> summary = "A verbose description of what the endpoint does, describing the meaning of " +
     >>> "parameters and return attributes."
 
-    :param custom_converters: optional dictionary for describing custom attributes within a
-    serialization class. e.g. given the following class:
-
-    >>> import marshmallow
-
-    >>> class CustomSchema(marshmallow.Schema):
-    >>>      @marshmallow.fields.Function
-    >>>      def list_of_strings(self):
-    >>>          return ["abc", "def"]
-
-    Since 'list_of_strings' cannot be serialized, a custom converter should be added:
-    >>> custom_converters = {
-    >>>     "CustomSchema.list_of_strings": Schema(type="array", items=Schema(type="string")),
-    >>> }
-
     :param tags: optional list of strings that represent the endpoint. e.g.:
     >>> tags = ["users"]  # a typical value is the resource name.
     """
@@ -71,7 +55,6 @@ def add_documentation(
             parameters=parameters,
             summary=summary,
             description=description,
-            custom_converters=custom_converters,
             tags=tags,
         )
         return func
