@@ -1,4 +1,6 @@
 import contextlib
+import enum
+import warnings
 from typing import Any, List, Optional
 
 from flask import Flask
@@ -7,7 +9,7 @@ from werkzeug.routing import Rule
 from . import util
 from .blueprint.blueprint import openapi_documentation
 from .constants import EXTENSION_NAME
-from .converters.base import Converter
+from .converters.base import CONVERTER_CLASSES, Converter
 from .documentation import Documentation
 from .exceptions import MissingConfigContext, MissingConverter
 from .specification import (
@@ -25,19 +27,27 @@ from .specification import (
 
 
 class DocumentationOptions:
+    class StrictMode(enum.Enum):
+        FAIL_ON_ERROR = enum.auto()
+        SHOW_WARNINGS = enum.auto()
+
     def __init__(
         self,
         include_head_response: bool = True,
         include_options_response: bool = True,
         server_url: str = "/",
         include_marshmallow_converters: bool = True,
+        include_halogen_converters: bool = False,
         include_documentation_blueprint: bool = True,
+        strict_mode: StrictMode = StrictMode.SHOW_WARNINGS,
     ):
         self.include_head_response: bool = include_head_response
         self.include_options_response: bool = include_options_response
         self.server_url: str = server_url
         self.include_marshmallow_converters: bool = include_marshmallow_converters
+        self.include_halogen_converters: bool = include_halogen_converters
         self.include_documentation_blueprint: bool = include_documentation_blueprint
+        self.strict_mode: DocumentationOptions.StrictMode = strict_mode
 
 
 class OpenApiDocumentation:
@@ -107,17 +117,20 @@ class OpenAPIBuilder:
     """OpenAPI builder for generating the documentation."""
 
     def __init__(self, open_api_documentation: OpenApiDocumentation):
-        self.converters: List[Converter] = []
         self.open_api_documentation: OpenApiDocumentation = open_api_documentation
         self.__documentation_config: Optional[Documentation] = None
 
         if self.options.include_marshmallow_converters:
             # Keep import below to support packages without marshmallow.
-            from openapi_builder.converters.marshmallow import (
-                register_marshmallow_converters,
-            )
+            import openapi_builder.converters.marshmallow  # noqa: F401
 
-            register_marshmallow_converters(self)
+        if self.options.include_halogen_converters:
+            # Keep import below to support packages without halogen.
+            import openapi_builder.converters.halogen  # noqa: F401
+
+        self.converters: List[Converter] = [
+            converter_class(builder=self) for converter_class in CONVERTER_CLASSES
+        ]
 
     def process(self, value: Any, name: Optional[str] = None):
         """Processes an instance, and returns a schema, or reference to that schema."""
@@ -129,16 +142,18 @@ class OpenAPIBuilder:
 
         try:
             converter = next(
-                (
-                    converter
-                    for converter in self.converters
-                    if isinstance(value, converter.converts_class)
-                )
+                converter for converter in self.converters if converter.matches(value)
             )
         except StopIteration:
-            raise MissingConverter(value=value)
-
-        return converter.convert(value=value)
+            if self.options.strict_mode == self.options.StrictMode.FAIL_ON_ERROR:
+                raise MissingConverter(value=value)
+            elif self.options.strict_mode == self.options.StrictMode.SHOW_WARNINGS:
+                warnings.warn(f"Missing converter for: {name}")
+                return
+            else:
+                raise ValueError(f"Unknown strict mode: {self.options.strict_mode}")
+        else:
+            return converter.convert(value=value)
 
     @contextlib.contextmanager
     def use_documentation_config(self, documentation_config: Documentation):
@@ -231,10 +246,6 @@ class OpenAPIBuilder:
                 path_item.post = operation
             if method == "PUT":
                 path_item.put = operation
-
-    def register_converter(self, converter):
-        """Register a converter for this builder."""
-        self.converters.append(converter)
 
     @property
     def schemas(self):

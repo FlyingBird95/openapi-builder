@@ -2,10 +2,11 @@ from typing import Union
 
 import marshmallow
 
-from openapi_builder.converters import Converter
+from openapi_builder.converters import Converter, register_converter
 from openapi_builder.specification import Reference, Schema
 
 
+@register_converter
 class EmailConverter(Converter):
     converts_class = marshmallow.fields.Email
 
@@ -13,6 +14,7 @@ class EmailConverter(Converter):
         return Schema(type="string", format="email")
 
 
+@register_converter
 class StringConverter(Converter):
     converts_class = marshmallow.fields.String
 
@@ -20,6 +22,7 @@ class StringConverter(Converter):
         return Schema(type="string", format="string")
 
 
+@register_converter
 class BooleanConverter(Converter):
     converts_class = marshmallow.fields.Boolean
 
@@ -27,6 +30,7 @@ class BooleanConverter(Converter):
         return Schema(type="boolean", format="boolean")
 
 
+@register_converter
 class NumberConverter(Converter):
     converts_class = marshmallow.fields.Number
 
@@ -34,6 +38,7 @@ class NumberConverter(Converter):
         return Schema(type="number", format=None)
 
 
+@register_converter
 class IntegerConverter(Converter):
     converts_class = marshmallow.fields.Integer
 
@@ -41,6 +46,7 @@ class IntegerConverter(Converter):
         return Schema(type="integer", format="int32")
 
 
+@register_converter
 class FloatConverter(Converter):
     converts_class = marshmallow.fields.Float
 
@@ -48,6 +54,7 @@ class FloatConverter(Converter):
         return Schema(type="number", format=None)
 
 
+@register_converter
 class UUIDConverter(Converter):
     converts_class = marshmallow.fields.Float
 
@@ -55,6 +62,7 @@ class UUIDConverter(Converter):
         return Schema(type="string", format="uuid")
 
 
+@register_converter
 class DecimalConverter(Converter):
     converts_class = marshmallow.fields.Decimal
 
@@ -62,6 +70,7 @@ class DecimalConverter(Converter):
         return Schema(type="number", format=None)
 
 
+@register_converter
 class DateConverter(Converter):
     converts_class = marshmallow.fields.Date
 
@@ -69,6 +78,7 @@ class DateConverter(Converter):
         return Schema(type="string", format="date")
 
 
+@register_converter
 class DateTimeConverter(Converter):
     converts_class = marshmallow.fields.DateTime
 
@@ -76,6 +86,7 @@ class DateTimeConverter(Converter):
         return Schema(type="string", format="date-time")
 
 
+@register_converter
 class TimeConverter(Converter):
     converts_class = marshmallow.fields.Time
 
@@ -83,6 +94,7 @@ class TimeConverter(Converter):
         return Schema(type="string", format="time")
 
 
+@register_converter
 class URLConverter(Converter):
     converts_class = marshmallow.fields.URL
 
@@ -90,6 +102,7 @@ class URLConverter(Converter):
         return Schema(type="string", format="URL")
 
 
+@register_converter
 class NestedConverter(Converter):
     converts_class = marshmallow.fields.Nested
 
@@ -100,6 +113,7 @@ class NestedConverter(Converter):
         return schema
 
 
+@register_converter
 class ListConverter(Converter):
     converts_class = marshmallow.fields.List
 
@@ -107,6 +121,7 @@ class ListConverter(Converter):
         return Schema(type="array", items=None)
 
 
+@register_converter
 class SchemaMetaConverter(Converter):
     converts_class = marshmallow.schema.SchemaMeta
 
@@ -115,6 +130,7 @@ class SchemaMetaConverter(Converter):
         return self.builder.process(value=value())
 
 
+@register_converter
 class SchemaConverter(Converter):
     converts_class = marshmallow.schema.Schema
 
@@ -125,36 +141,16 @@ class SchemaConverter(Converter):
             for key, prop in value._declared_fields.items()
         }
 
-        schema = Schema(type="object", properties=properties)
-        self.builder.schemas[schema_name] = schema
+        self.builder.schemas[schema_name] = Schema(type="object", properties=properties)
         reference = Reference.from_schema(schema_name=schema_name)
         if value.many:
             return Schema(type="array", items=reference)
         return reference
 
 
+@register_converter
 class DictConverter(Converter):
     converts_class = marshmallow.fields.Dict
 
     def convert(self, value) -> Schema:
         return Schema(type="object")
-
-
-def register_marshmallow_converters(builder):
-    EmailConverter(builder=builder)
-    StringConverter(builder=builder)
-    BooleanConverter(builder=builder)
-    NumberConverter(builder=builder)
-    IntegerConverter(builder=builder)
-    FloatConverter(builder=builder)
-    UUIDConverter(builder=builder)
-    DecimalConverter(builder=builder)
-    DateConverter(builder=builder)
-    DateTimeConverter(builder=builder)
-    TimeConverter(builder=builder)
-    URLConverter(builder=builder)
-    NestedConverter(builder=builder)
-    ListConverter(builder=builder)
-    SchemaConverter(builder=builder)
-    SchemaMetaConverter(builder=builder)
-    DictConverter(builder=builder)

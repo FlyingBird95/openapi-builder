@@ -5,6 +5,17 @@ from openapi_builder.specification import Schema
 if typing.TYPE_CHECKING:
     from openapi_builder.builder import OpenAPIBuilder
 
+CONVERTER_CLASSES: typing.List[typing.Type["Converter"]] = []
+
+
+def register_converter(converter_class):
+    """Decorator for registering a converter.
+
+    The Converter is instantiated on initialization of the OpenApiBuilder.
+    """
+    CONVERTER_CLASSES.append(converter_class)
+    return converter_class
+
 
 class Converter:
     """Converter for a certain class that returns a openapi_builder.specification.Schema."""
@@ -14,9 +25,12 @@ class Converter:
 
     def __init__(self, builder: "OpenAPIBuilder", converts_class=None):
         self.builder: OpenAPIBuilder = builder
-        self.builder.register_converter(self)
         if converts_class is not None:
             self.converts_class = converts_class
+
+    def matches(self, value) -> bool:
+        """Returns True if the Converter can match the specified class."""
+        return isinstance(value, self.converts_class)
 
     def convert(self, value) -> Schema:
         raise NotImplementedError
