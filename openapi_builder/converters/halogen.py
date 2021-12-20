@@ -8,11 +8,7 @@ class ListConverter(Converter):
     converts_class = halogen.types.List
 
     def convert(self, value: halogen.types.List) -> Schema:
-        try:
-            inner = next(value.value)
-        except TypeError:
-            inner = value.value[0]
-        items = self.builder.process(inner)
+        items = self.builder.process(value.item_type)
         schema = Schema(type="array", items=items)
 
         if value.allow_scalar:
@@ -81,8 +77,22 @@ class NullableConverter(Converter):
 
     def convert(self, value: halogen.types.Nullable) -> Schema:
         inner = self.builder.process(value.nested_type)
-        inner.required = False
+        inner.nullable = True
         return inner
+
+
+class SchemaConverter(Converter):
+    converts_class = halogen.schema._SchemaType
+
+    def convert(self, value) -> Schema:
+        schema_name = value.__name__
+        properties = {}
+
+        for key, prop in value.__class_attrs__.items():
+            properties[key] = self.builder.process(value=prop.attr_type, name=f"{schema_name}.{key}")
+
+        self.builder.schemas[schema_name] = Schema(type="object", properties=properties)
+        return Reference.from_schema(schema_name=schema_name)
 
 
 def register_halogen_converters(builder):
@@ -94,3 +104,4 @@ def register_halogen_converters(builder):
     register_converter(BooleanConverter(builder=builder))
     register_converter(AmountConverter(builder=builder))
     register_converter(NullableConverter(builder=builder))
+    register_converter(SchemaConverter(builder=builder))
