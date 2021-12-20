@@ -1,5 +1,3 @@
-import pytest
-
 from openapi_builder import OpenApiDocumentation
 from openapi_builder.converters.marshmallow import StringConverter
 
