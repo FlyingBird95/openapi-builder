@@ -1,9 +1,10 @@
 import halogen
 
 from openapi_builder.converters import Converter, register_converter
-from openapi_builder.specification import Schema
+from openapi_builder.specification import Reference, Schema
 
 
+@register_converter
 class ListConverter(Converter):
     converts_class = halogen.types.List
 
@@ -17,6 +18,7 @@ class ListConverter(Converter):
             return schema
 
 
+@register_converter
 class ISODateTimeConverter(Converter):
     converts_class = halogen.types.ISODateTime
 
@@ -24,6 +26,7 @@ class ISODateTimeConverter(Converter):
         return Schema(type="string", format="date-time")
 
 
+@register_converter
 class ISOUTCDateTimeConverter(Converter):
     converts_class = halogen.types.ISOUTCDateTime
 
@@ -31,6 +34,7 @@ class ISOUTCDateTimeConverter(Converter):
         return Schema(type="string", format="date-time")
 
 
+@register_converter
 class ISOUTCDateConverter(Converter):
     converts_class = halogen.types.ISOUTCDate
 
@@ -38,6 +42,7 @@ class ISOUTCDateConverter(Converter):
         return Schema(type="string", format="date")
 
 
+@register_converter
 class StringConverter(Converter):
     converts_class = halogen.types.String
 
@@ -45,6 +50,7 @@ class StringConverter(Converter):
         return Schema(type="string", format="string")
 
 
+@register_converter
 class IntConverter(Converter):
     converts_class = halogen.types.Int
 
@@ -52,6 +58,7 @@ class IntConverter(Converter):
         return Schema(type="integer")
 
 
+@register_converter
 class BooleanConverter(Converter):
     converts_class = halogen.types.Boolean
 
@@ -59,6 +66,7 @@ class BooleanConverter(Converter):
         return Schema(type="boolean")
 
 
+@register_converter
 class AmountConverter(Converter):
     converts_class = halogen.types.Amount
 
@@ -72,6 +80,7 @@ class AmountConverter(Converter):
         )
 
 
+@register_converter
 class NullableConverter(Converter):
     converts_class = halogen.types.Nullable
 
@@ -81,6 +90,7 @@ class NullableConverter(Converter):
         return inner
 
 
+@register_converter
 class SchemaConverter(Converter):
     converts_class = halogen.schema._SchemaType
 
@@ -89,19 +99,9 @@ class SchemaConverter(Converter):
         properties = {}
 
         for key, prop in value.__class_attrs__.items():
-            properties[key] = self.builder.process(value=prop.attr_type, name=f"{schema_name}.{key}")
+            properties[key] = self.builder.process(
+                value=prop.attr_type, name=f"{schema_name}.{key}"
+            )
 
         self.builder.schemas[schema_name] = Schema(type="object", properties=properties)
         return Reference.from_schema(schema_name=schema_name)
-
-
-def register_halogen_converters(builder):
-    register_converter(ListConverter(builder=builder))
-    register_converter(ISODateTimeConverter(builder=builder))
-    register_converter(ISOUTCDateTimeConverter(builder=builder))
-    register_converter(StringConverter(builder=builder))
-    register_converter(IntConverter(builder=builder))
-    register_converter(BooleanConverter(builder=builder))
-    register_converter(AmountConverter(builder=builder))
-    register_converter(NullableConverter(builder=builder))
-    register_converter(SchemaConverter(builder=builder))
