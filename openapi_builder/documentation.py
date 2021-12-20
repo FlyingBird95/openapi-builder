@@ -23,7 +23,6 @@ class Documentation:
         parameters: Optional[List[Parameter]],
         summary: Optional[str],
         description: Optional[str],
-        custom_converters: Optional[Dict[str, Schema]],
         tags: Optional[List[str]],
     ):
         self.responses = (
@@ -35,9 +34,6 @@ class Documentation:
         self.parameters = parameters if parameters is not None else []
         self.summary = summary
         self.description = description
-        self.custom_converters = (
-            custom_converters if custom_converters is not None else {}
-        )
         self.tags = tags if tags is not None else []
 
 

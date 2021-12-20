@@ -23,10 +23,8 @@ class Converter:
     converts_class = None
     """Specification of the class that it converts."""
 
-    def __init__(self, builder: "OpenAPIBuilder", converts_class=None):
+    def __init__(self, builder: "OpenAPIBuilder"):
         self.builder: OpenAPIBuilder = builder
-        if converts_class is not None:
-            self.converts_class = converts_class
 
     def matches(self, value) -> bool:
         """Returns True if the Converter can match the specified class."""

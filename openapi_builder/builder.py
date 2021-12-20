@@ -134,9 +134,6 @@ class OpenAPIBuilder:
     @documentation_context.verify_context
     def process(self, value: Any, name: Optional[str] = None):
         """Processes an instance, and returns a schema, or reference to that schema."""
-        if name in self.documentation_context.config.custom_converters:
-            return self.documentation_context.config.custom_converters[name]
-
         try:
             converter = next(
                 converter for converter in self.converters if converter.matches(value)
@@ -145,7 +142,7 @@ class OpenAPIBuilder:
             if self.options.strict_mode == self.options.StrictMode.FAIL_ON_ERROR:
                 raise MissingConverter()
             elif self.options.strict_mode == self.options.StrictMode.SHOW_WARNINGS:
-                warnings.warn(f"Missing converter for: {name}", UserWarning)
+                warnings.warn(f"Missing converter for: {value}", UserWarning)
             else:
                 raise ValueError(f"Unknown strict mode: {self.options.strict_mode}")
         else:

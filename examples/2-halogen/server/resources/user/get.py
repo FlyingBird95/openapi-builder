@@ -21,7 +21,7 @@ def get(user_id):
     user = User.from_id(user_id)
     if user is None:
         return (
-            jsonify(ErrorSchema().dump({"message": "User is not found"})),
+            jsonify(ErrorSchema.serialize({"message": "User is not found"})),
             HTTPStatus.NOT_FOUND,
         )
-    return jsonify(UserSchema().dump(user))
+    return jsonify(UserSchema.serialize(user))

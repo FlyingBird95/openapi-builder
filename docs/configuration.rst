@@ -173,13 +173,6 @@ options are applicable for passing to the function. This decorator can be import
      - :code:`Optional[str]`
      - :code:`None`
      - A verbose explanation of the operation behavior. CommonMark syntax MAY be used for rich text representation.
-   * - :code:`custom_converters`
-     - :code:`Optional[Dict[str, Schema]]`
-     - :code:`None`
-     - A dictionary for describing custom attributes within a serialization class. This is illustrated in example 2.
-       Note that the value of the dictionary must be a :code:`Schema` class. See the schema_ documentation for more info
-       about :code:`Schema`. This class can be imported using:
-       :code:`from openapi_builder.specification import Schema`.
    * - :code:`tags`
      - :code:`Optional[List[str]]`
      - :code:`None`
