@@ -14,6 +14,8 @@ def test_get_without_decorator(http, open_api_documentation):
 
 
 @pytest.mark.usefixtures("get_with_decorator")
+@pytest.mark.parametrize("documentation_options__include_head_response", [True])
+@pytest.mark.parametrize("documentation_options__include_options_response", [True])
 def test_get_with_decorator(http, open_api_documentation):
     response = http.get("/get_with_decorator")
     assert response.status_code == HTTPStatus.OK

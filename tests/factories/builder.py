@@ -8,8 +8,8 @@ class DocumentationOptionsFactory(factory.Factory):
     class Meta:
         model = DocumentationOptions
 
-    include_head_response = True
-    include_options_response = True
+    include_head_response = False
+    include_options_response = False
     server_url = "/"
     include_marshmallow_converters = True
     include_documentation_blueprint = True
