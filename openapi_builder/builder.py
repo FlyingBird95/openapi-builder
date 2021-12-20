@@ -1,14 +1,15 @@
 import contextlib
 import enum
 import warnings
-from typing import TYPE_CHECKING, Any, List, Optional
+from typing import Any, List, Optional
 
 from flask import Flask
 from werkzeug.routing import Rule
 
 from . import util
 from .blueprint.blueprint import openapi_documentation
-from .converters.base import CONVERTER_CLASSES
+from .constants import EXTENSION_NAME
+from .converters.base import CONVERTER_CLASSES, Converter
 from .documentation import Documentation
 from .exceptions import MissingConfigContext, MissingConverter
 from .specification import (
@@ -23,9 +24,6 @@ from .specification import (
     Responses,
     Server,
 )
-
-if TYPE_CHECKING:
-    from .converters import Converter
 
 
 class DocumentationOptions:
@@ -107,7 +105,7 @@ class OpenApiDocumentation:
         app.before_first_request(self.builder.iterate_endpoints)
 
         # Register the extension in the app.
-        app.extensions["__open_api_doc__"] = self
+        app.extensions[EXTENSION_NAME] = self
         self.app = app
 
     def get_configuration(self):
@@ -142,20 +140,20 @@ class OpenAPIBuilder:
         if name in self.__documentation_config.custom_converters:
             return self.__documentation_config.custom_converters[name]
 
-        converter = next(
-            (converter for converter in self.converters if converter.matches(value)),
-            None,
-        )
-        if converter is not None:
-            return converter.convert(value=value)
-
-        if self.options.strict_mode == self.options.StrictMode.FAIL_ON_ERROR:
-            raise MissingConverter(value=value)
-        elif self.options.strict_mode == self.options.StrictMode.SHOW_WARNINGS:
-            warnings.warn(f"Missing converter for: {name}")
-            return
+        try:
+            converter = next(
+                converter for converter in self.converters if converter.matches(value)
+            )
+        except StopIteration:
+            if self.options.strict_mode == self.options.StrictMode.FAIL_ON_ERROR:
+                raise MissingConverter(value=value)
+            elif self.options.strict_mode == self.options.StrictMode.SHOW_WARNINGS:
+                warnings.warn(f"Missing converter for: {name}")
+                return
+            else:
+                raise ValueError(f"Unknown strict mode: {self.options.strict_mode}")
         else:
-            raise ValueError(f"Unknown strict mode: {self.options.strict_mode}")
+            return converter.convert(value=value)
 
     @contextlib.contextmanager
     def use_documentation_config(self, documentation_config: Documentation):
@@ -177,8 +175,9 @@ class OpenAPIBuilder:
         """
         for rule in self.open_api_documentation.app.url_map._rules:
             view_func = self.open_api_documentation.app.view_functions[rule.endpoint]
-            config: Documentation = getattr(view_func, "__open_api_doc__", None)
-            if config is None:
+            try:
+                config: Documentation = getattr(view_func, EXTENSION_NAME)
+            except AttributeError:
                 # endpoint has no documentation configuration -> skip
                 continue
 
