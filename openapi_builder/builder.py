@@ -1,14 +1,14 @@
 import contextlib
 import enum
 import warnings
-from typing import Any, Optional
+from typing import TYPE_CHECKING, Any, List, Optional
 
 from flask import Flask
 from werkzeug.routing import Rule
 
 from . import util
 from .blueprint.blueprint import openapi_documentation
-from .converters.base import CONVERTERS
+from .converters.base import CONVERTER_CLASSES
 from .documentation import Documentation
 from .exceptions import MissingConfigContext, MissingConverter
 from .specification import (
@@ -23,6 +23,9 @@ from .specification import (
     Responses,
     Server,
 )
+
+if TYPE_CHECKING:
+    from .converters import Converter
 
 
 class DocumentationOptions:
@@ -121,17 +124,15 @@ class OpenAPIBuilder:
 
         if self.options.include_marshmallow_converters:
             # Keep import below to support packages without marshmallow.
-            from openapi_builder.converters.marshmallow import (
-                register_marshmallow_converters,
-            )
-
-            register_marshmallow_converters(self)
+            import openapi_builder.converters.marshmallow  # noqa: F401
 
         if self.options.include_halogen_converters:
             # Keep import below to support packages without halogen.
-            from openapi_builder.converters.halogen import register_halogen_converters
+            import openapi_builder.converters.halogen  # noqa: F401
 
-            register_halogen_converters(self)
+        self.converters: List[Converter] = [
+            converter_class(builder=self) for converter_class in CONVERTER_CLASSES
+        ]
 
     def process(self, value: Any, name: Optional[str] = None):
         """Processes an instance, and returns a schema, or reference to that schema."""
@@ -142,11 +143,7 @@ class OpenAPIBuilder:
             return self.__documentation_config.custom_converters[name]
 
         converter = next(
-            (
-                converter
-                for converter in CONVERTERS
-                if isinstance(value, converter.converts_class)
-            ),
+            (converter for converter in self.converters if converter.matches(value)),
             None,
         )
         if converter is not None:
