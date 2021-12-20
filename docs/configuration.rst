@@ -115,6 +115,12 @@ following line:
      - Whether a documentation blueprint is exposed in the Flask application. This blueprint contains two endpoints.
        One for exposing the documentation UI, and one for exposing the documentation configuration (data collected by
        inspecting all endpoints). If a custom documentation UI is used, the value must be set to :code:`False`.
+   * - :code:`strict_mode`
+     - :code:`DocumentationOptions.StrictMode`
+     - :code:`DocumentationOptions.StrictMode.SHOW_WARNINGS`
+     - Whether something unforeseen happened, should the extension crash (preferred in testing), using
+       :code:`DocumentationOptions.StrictMode.FAIL_ON_ERROR` or only print out warnings, using
+       :code:`DocumentationOptions.StrictMode.SHOW_WARNINGS`.
 
 .. _marshmallow: https://github.com/marshmallow-code/marshmallow
 .. _halogen: https://halogen.readthedocs.io/en/latest/
