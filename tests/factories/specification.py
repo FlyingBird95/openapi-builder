@@ -306,6 +306,8 @@ class SchemaFactory(factory.Factory):
     description = None
     format = None
     default = None
+    example = None
+    examples = None
 
 
 class DiscriminatorFactory(factory.Factory):

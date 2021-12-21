@@ -1508,7 +1508,7 @@ class Schema:
         self.format: Optional[str] = format
         self.default: Optional[Any] = default
         self.example: Optional[Any] = example
-        self.examples: Optional[Dict[str, Dict[str, Any]]] = examples
+        self.examples: Optional[Dict[str, Union["Example", Reference]]] = examples
 
     def get_value(self):
         value = {}
@@ -1569,10 +1569,14 @@ class Schema:
             value["format"] = self.format
         if self.default is not None:
             value["default"] = self.default
+        if self.example is not None and self.examples is not None:
+            raise ValueError("`example` and `examples` are mutually exclusive")
         if self.example is not None:
             value["example"] = self.example
         if self.examples is not None:
-            value["examples"] = self.examples
+            value["examples"] = {
+                key: example.get_value() for key, example in self.examples.items()
+            }
 
         return value
 
