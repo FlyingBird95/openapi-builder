@@ -20,6 +20,7 @@ from .specification import (
     RequestBody,
     Response,
     Responses,
+    Schema,
     Server,
 )
 from .util import openapi_endpoint_name_from_rule, parse_openapi_arguments
@@ -143,6 +144,7 @@ class OpenAPIBuilder:
                 raise MissingConverter()
             elif self.options.strict_mode == self.options.StrictMode.SHOW_WARNINGS:
                 warnings.warn(f"Missing converter for: {value}", UserWarning)
+                return Schema(example="<unknown>")
             else:
                 raise ValueError(f"Unknown strict mode: {self.options.strict_mode}")
         else:
