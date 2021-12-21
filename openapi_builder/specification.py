@@ -1473,6 +1473,8 @@ class Schema:
         description: Optional[str] = None,
         format: Optional[str] = None,
         default: Optional[Any] = None,
+        example: Optional[Any] = None,
+        examples: Optional[Dict[str, Union["Example", Reference]]] = None,
     ):
         self.title: Optional[str] = title
         self.multiple_of: Optional[int] = multiple_of
@@ -1505,6 +1507,8 @@ class Schema:
         self.description: Optional[str] = description
         self.format: Optional[str] = format
         self.default: Optional[Any] = default
+        self.example: Optional[Any] = example
+        self.examples: Optional[Dict[str, Dict[str, Any]]] = examples
 
     def get_value(self):
         value = {}
@@ -1565,6 +1569,10 @@ class Schema:
             value["format"] = self.format
         if self.default is not None:
             value["default"] = self.default
+        if self.example is not None:
+            value["example"] = self.example
+        if self.examples is not None:
+            value["examples"] = self.examples
 
         return value
 
