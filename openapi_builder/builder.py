@@ -101,6 +101,7 @@ class OpenApiDocumentation:
         if self.options.include_documentation_blueprint:
             app.register_blueprint(openapi_documentation)
 
+        app.before_first_request(self.builder.register_converters)
         app.before_first_request(self.builder.iterate_endpoints)
 
         # Register the extension in the app.
@@ -119,18 +120,7 @@ class OpenAPIBuilder:
 
     def __init__(self, open_api_documentation: OpenApiDocumentation):
         self.open_api_documentation: OpenApiDocumentation = open_api_documentation
-
-        if self.options.include_marshmallow_converters:
-            # Keep import below to support packages without marshmallow.
-            import openapi_builder.converters.marshmallow  # noqa: F401
-
-        if self.options.include_halogen_converters:
-            # Keep import below to support packages without halogen.
-            import openapi_builder.converters.halogen  # noqa: F401
-
-        self.converters: List[Converter] = [
-            converter_class(builder=self) for converter_class in CONVERTER_CLASSES
-        ]
+        self.converters: List[Converter] = []
 
     @documentation_context.verify_context
     def process(self, value: Any, name: Optional[str] = None):
@@ -150,11 +140,29 @@ class OpenAPIBuilder:
         else:
             return converter.convert(value=value)
 
+    def register_converters(self):
+        """Registers converts for the instance.
+
+        This function is executed before the first request is processed the in the corresponding
+        Flask application. Also before, OpenApiBuilder.iterate_endpoints.
+        """
+        if self.options.include_marshmallow_converters:
+            # Keep import below to support packages without marshmallow.
+            import openapi_builder.converters.marshmallow  # noqa: F401
+
+        if self.options.include_halogen_converters:
+            # Keep import below to support packages without halogen.
+            import openapi_builder.converters.halogen  # noqa: F401
+
+        self.converters = [
+            converter_class(builder=self) for converter_class in CONVERTER_CLASSES
+        ]
+
     def iterate_endpoints(self):
         """Iterates the endpoints of the Flask application to generate the documentation.
 
         This function is executed before the first request is processed in the corresponding
-        Flask application.
+        Flask application, but after OpenApiBuilder.register_converters.
         """
         for rule in self.open_api_documentation.app.url_map._rules:
             view_func = self.open_api_documentation.app.view_functions[rule.endpoint]
