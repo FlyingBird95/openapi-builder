@@ -8,6 +8,7 @@ from werkzeug.routing import Rule
 from .blueprint.blueprint import openapi_documentation
 from .constants import EXTENSION_NAME
 from .converters.base import CONVERTER_CLASSES, Converter
+from .converters.parameter.process import parse_openapi_arguments
 from .documentation import Documentation, DocumentationContext
 from .exceptions import MissingConverter
 from .specification import (
@@ -23,7 +24,7 @@ from .specification import (
     Schema,
     Server,
 )
-from .util import openapi_endpoint_name_from_rule, parse_openapi_arguments
+from .util import openapi_endpoint_name_from_rule
 
 
 class DocumentationOptions:
@@ -157,6 +158,9 @@ class OpenAPIBuilder:
         self.converters = [
             converter_class(builder=self) for converter_class in CONVERTER_CLASSES
         ]
+
+        # register parameter converters
+        import openapi_builder.converters.parameter.flask_converters  # noqa: F401
 
     def iterate_endpoints(self):
         """Iterates the endpoints of the Flask application to generate the documentation.

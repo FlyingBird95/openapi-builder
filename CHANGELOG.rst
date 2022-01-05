@@ -22,6 +22,7 @@ Introduced the following features:
 - **Added** class decorator for registering converters: :code:`openapi_builder.converters.base.register_converter`.
 - **Removed** :code:`custom_converters` option to :code:`add_documentation`.
 - **Changed** loading converters lazily.
+- **Added** url parameter converters.
 
 .. _halogen: https://halogen.readthedocs.io/en/latest/
 

@@ -75,6 +75,10 @@ class OpenAPI:
             "paths": self.paths.get_value(),
             "components": self.components.get_value(),
         }
+        if self.security:
+            value["security"] = [
+                requirement.get_value() for requirement in self.security
+            ]
         return value
 
 

@@ -91,6 +91,22 @@ class NullableConverter(Converter):
 
 
 @register_converter
+class LinkConverter(Converter):
+    converts_class = halogen.schema._SchemaType
+
+    def matches(self, value) -> bool:
+        return super().matches(value) and value.__name__ == "LinkSchema"
+
+    def convert(self, value) -> Schema:
+        properties = {}
+
+        for prop in value.__class_attrs__.values():
+            properties[prop.key] = Schema(type="string", format="string")
+
+        return Schema(type="object", properties=properties)
+
+
+@register_converter
 class SchemaConverter(Converter):
     converts_class = halogen.schema._SchemaType
 
