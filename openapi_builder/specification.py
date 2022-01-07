@@ -79,6 +79,8 @@ class OpenAPI:
             value["security"] = [
                 requirement.get_value() for requirement in self.security
             ]
+        if self.tags:
+            value["tags"] = [tag.get_value() for tag in self.tags]
         return value
 
 
