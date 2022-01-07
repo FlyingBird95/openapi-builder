@@ -16,8 +16,10 @@ from .specification import (
     MediaType,
     OpenAPI,
     Operation,
+    Parameter,
     PathItem,
     Paths,
+    Reference,
     RequestBody,
     Response,
     Responses,
@@ -205,7 +207,25 @@ class OpenAPIBuilder:
                 )
 
             input_schema = self.documentation_context.config.input_schema
-            if input_schema is not None:
+            if input_schema is not None and method == "GET":
+                schema_or_reference = self.process(input_schema)
+                if isinstance(schema_or_reference, Reference):
+                    schema = schema_or_reference.get_schema(
+                        self.open_api_documentation.specification
+                    )
+                else:
+                    schema = schema_or_reference
+                for key, value in schema.properties.items():
+                    path_item.parameters.append(
+                        Parameter(
+                            in_="query",
+                            name=key,
+                            schema=value,
+                            required=value.required,
+                        )
+                    )
+                request_body = None
+            elif input_schema is not None:
                 schema_or_reference = self.process(input_schema)
                 request_body = RequestBody(
                     description=self.documentation_context.config.description,

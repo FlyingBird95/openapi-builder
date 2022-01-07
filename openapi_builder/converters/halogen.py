@@ -107,6 +107,30 @@ class LinkConverter(Converter):
 
 
 @register_converter
+class CurieConverter(Converter):
+    converts_class = halogen.schema._SchemaType
+
+    def matches(self, value) -> bool:
+        return super().matches(value) and value.__class_attrs__.keys() == {
+            "href",
+            "name",
+            "templated",
+            "type",
+        }
+
+    def convert(self, value) -> Schema:
+        return Schema(
+            type="object",
+            properties={
+                "href": Schema(type="string", format="url"),
+                "name": Schema(type="string", format="string"),
+                "templated": Schema(type="boolean"),
+                "type": Schema(type="string", format="string"),
+            },
+        )
+
+
+@register_converter
 class SchemaConverter(Converter):
     converts_class = halogen.schema._SchemaType
 
@@ -123,9 +147,15 @@ class SchemaConverter(Converter):
             else:
                 result = properties
 
-            result[prop.key] = self.builder.process(
+            attr = self.builder.process(
                 value=prop.attr_type, name=f"{schema_name}.{prop.key}"
             )
+            if hasattr(prop, "default"):
+                attr.required = False
+                attr.nullable = True
+                # TODO investigate how to compute the default. For enums it's enum.value
+                attr.default = str(prop.default) if prop.default is not None else None
+            result[prop.key] = attr
 
         self.builder.schemas[schema_name] = Schema(type="object", properties=properties)
         return Reference.from_schema(schema_name=schema_name)
