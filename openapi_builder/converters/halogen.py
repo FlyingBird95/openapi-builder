@@ -101,7 +101,7 @@ class LinkConverter(Converter):
         properties = {}
 
         for prop in value.__class_attrs__.values():
-            properties[prop.key] = Schema(type="string", format="string")
+            properties[prop.key] = Schema(type="string", format="url")
 
         return Schema(type="object", properties=properties)
 
@@ -152,9 +152,15 @@ class SchemaConverter(Converter):
             )
             if hasattr(prop, "default"):
                 attr.required = False
-                attr.nullable = True
                 # TODO investigate how to compute the default. For enums it's enum.value
-                attr.default = str(prop.default) if prop.default is not None else None
+                if callable(prop.default):
+                    attr.default = prop.default()
+                elif hasattr(prop.default, "value"):
+                    attr.default = prop.default.value
+                elif prop.default is None:
+                    attr.default = None
+                else:
+                    attr.default = prop.default
             result[prop.key] = attr
 
         self.builder.schemas[schema_name] = Schema(type="object", properties=properties)
