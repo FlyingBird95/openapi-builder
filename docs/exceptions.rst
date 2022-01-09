@@ -5,6 +5,7 @@ The following exceptions can be encountered during the configuration of the :cod
 
 
 - :ref:`MissingConverter`
+- :ref:`MissingParameterConverter`
 - :ref:`MissingConfigContext`
 
 MissingConverter
@@ -25,6 +26,33 @@ snippet as an example:
 
         def convert(self, value) -> Schema:
             return Schema(type="string", format="email")
+
+MissingParameterConverter
+~~~~~~~~~~~~~~~~~~~~~~~~~
+A converter is missing for the parameter. This might be because you added a custom parameter validator using the following snippet:
+
+.. code:: python
+
+    app.url_map.converters["uid"] = validators.UUIDValidator
+
+You can solve this error by registering your custom parameter converter. You can use the following snippet as an example:
+
+.. code:: python
+
+    from openapi_builder.converters.parameter.base import (
+        ParameterConverter,
+        register_parameter_converter,
+    )
+    from openapi_builder.specification import Schema
+
+
+    @register_parameter_converter
+    class UUIDConverter(ParameterConverter):
+        converts_class = validators.UUIDValidator
+
+        @property
+        def schema(self) -> Schema:
+            return Schema(type="string", format="hex")
 
 
 MissingConfigContext

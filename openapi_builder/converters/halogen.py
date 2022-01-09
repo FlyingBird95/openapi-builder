@@ -148,11 +148,11 @@ class SchemaConverter(Converter):
                 result = properties
 
             attr = self.builder.process(
-                value=prop.attr_type, name=f"{schema_name}.{prop.key}"
+                value=prop.attr_type,
+                name=f"{schema_name}.{prop.key}",
             )
             if hasattr(prop, "default"):
                 attr.required = False
-                # TODO investigate how to compute the default. For enums it's enum.value
                 if callable(prop.default):
                     attr.default = prop.default()
                 elif hasattr(prop.default, "value"):
