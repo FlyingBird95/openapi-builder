@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Python Module Index &#8212; openapi_builder 0.2.4 documentation</title>
+    <title>Exceptions &#8212; openapi_builder 0.2.4 documentation</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -36,15 +36,14 @@
     <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-
+    <link rel="next" title="API Reference" href="source/packages/modules.html" />
+    <link rel="prev" title="Configuration" href="configuration.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
 
     <!-- Google Analytics -->
     
-
-
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
     
@@ -81,8 +80,8 @@
    Configuration
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="exceptions.html">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Exceptions
   </a>
  </li>
@@ -209,8 +208,8 @@
    Changelog
   </a>
  </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
+ <li class="toctree-l1">
+  <a class="reference internal" href="py-modindex.html">
    Module Index
   </a>
  </li>
@@ -252,6 +251,23 @@
             </button>
             
             
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/exceptions.rst.txt"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.rst</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
             <!-- Source interaction buttons -->
 
             <!-- Full screen (wrap in <a> to have style consistency -->
@@ -268,6 +284,29 @@
         <!-- Table of contents -->
         <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#missingconverter">
+   MissingConverter
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#missingparameterconverter">
+   MissingParameterConverter
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#missingconfigcontext">
+   MissingConfigContext
+  </a>
+ </li>
+</ul>
+
+            </nav>
         </div>
     </div>
 </div>
@@ -275,132 +314,123 @@
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>Module Index</h1>
+                <h1>Exceptions</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
                         
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#missingconverter">
+   MissingConverter
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#missingparameterconverter">
+   MissingParameterConverter
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#missingconfigcontext">
+   MissingConfigContext
+  </a>
+ </li>
+</ul>
+
+                        </nav>
                     </div>
                 </div>
             </div>
             
               <div>
                 
+  <div class="section" id="exceptions">
+<h1>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h1>
+<p>The following exceptions can be encountered during the configuration of the <code class="code docutils literal notranslate"><span class="pre">openapi_builder</span></code> package:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#missingconverter"><span class="std std-ref">MissingConverter</span></a></p></li>
+<li><p><a class="reference internal" href="#missingparameterconverter"><span class="std std-ref">MissingParameterConverter</span></a></p></li>
+<li><p><a class="reference internal" href="#missingconfigcontext"><span class="std std-ref">MissingConfigContext</span></a></p></li>
+</ul>
+<div class="section" id="missingconverter">
+<h2>MissingConverter<a class="headerlink" href="#missingconverter" title="Permalink to this headline">¶</a></h2>
+<p>A converter is missing for the field or schema that needs to be serialized. You can either solve this error using
+<code class="code docutils literal notranslate"><span class="pre">DocumentationOptions.strict_mode</span></code>, or by registering your custom converter. You can use the following
+snippet as an example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openapi_builder.converters</span> <span class="kn">import</span> <span class="n">Converter</span><span class="p">,</span> <span class="n">register_converter</span>
+<span class="kn">from</span> <span class="nn">openapi_builder.specification</span> <span class="kn">import</span> <span class="n">Schema</span>
 
-   <h1>Python Module Index</h1>
 
-   <div class="modindex-jumpbox">
-   <a href="#cap-o"><strong>o</strong></a>
-   </div>
+<span class="nd">@register_converter</span>
+<span class="k">class</span> <span class="nc">YourFieldConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
+    <span class="n">converts_class</span> <span class="o">=</span> <span class="n">YourFieldClass</span>
 
-   <table class="indextable modindextable">
-     <tr class="pcap"><td></td><td>&#160;</td><td></td></tr>
-     <tr class="cap" id="cap-o"><td></td><td>
-       <strong>o</strong></td><td></td></tr>
-     <tr>
-       <td><img src="_static/minus.png" class="toggler"
-              id="toggle-1" style="display: none" alt="-" /></td>
-       <td>
-       <a href="source/packages/openapi_builder.html#module-openapi_builder"><code class="xref">openapi_builder</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="source/packages/openapi_builder.blueprint.html#module-openapi_builder.blueprint"><code class="xref">openapi_builder.blueprint</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="source/packages/openapi_builder.blueprint.blueprint.html#module-openapi_builder.blueprint.blueprint"><code class="xref">openapi_builder.blueprint.blueprint</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="source/packages/openapi_builder.blueprint.configuration.html#module-openapi_builder.blueprint.configuration"><code class="xref">openapi_builder.blueprint.configuration</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="source/packages/openapi_builder.blueprint.get.html#module-openapi_builder.blueprint.get"><code class="xref">openapi_builder.blueprint.get</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="source/packages/openapi_builder.builder.html#module-openapi_builder.builder"><code class="xref">openapi_builder.builder</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="source/packages/openapi_builder.constants.html#module-openapi_builder.constants"><code class="xref">openapi_builder.constants</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="source/packages/openapi_builder.converters.html#module-openapi_builder.converters"><code class="xref">openapi_builder.converters</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="source/packages/openapi_builder.converters.base.html#module-openapi_builder.converters.base"><code class="xref">openapi_builder.converters.base</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="source/packages/openapi_builder.converters.marshmallow.html#module-openapi_builder.converters.marshmallow"><code class="xref">openapi_builder.converters.marshmallow</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="source/packages/openapi_builder.converters.parameter.html#module-openapi_builder.converters.parameter"><code class="xref">openapi_builder.converters.parameter</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="source/packages/openapi_builder.converters.parameter.base.html#module-openapi_builder.converters.parameter.base"><code class="xref">openapi_builder.converters.parameter.base</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="source/packages/openapi_builder.converters.parameter.flask_converters.html#module-openapi_builder.converters.parameter.flask_converters"><code class="xref">openapi_builder.converters.parameter.flask_converters</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="source/packages/openapi_builder.converters.parameter.process.html#module-openapi_builder.converters.parameter.process"><code class="xref">openapi_builder.converters.parameter.process</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="source/packages/openapi_builder.decorators.html#module-openapi_builder.decorators"><code class="xref">openapi_builder.decorators</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="source/packages/openapi_builder.documentation.html#module-openapi_builder.documentation"><code class="xref">openapi_builder.documentation</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="source/packages/openapi_builder.exceptions.html#module-openapi_builder.exceptions"><code class="xref">openapi_builder.exceptions</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="source/packages/openapi_builder.specification.html#module-openapi_builder.specification"><code class="xref">openapi_builder.specification</code></a></td><td>
-       <em></em></td></tr>
-     <tr class="cg-1">
-       <td></td>
-       <td>&#160;&#160;&#160;
-       <a href="source/packages/openapi_builder.util.html#module-openapi_builder.util"><code class="xref">openapi_builder.util</code></a></td><td>
-       <em></em></td></tr>
-   </table>
+    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Schema</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;email&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="missingparameterconverter">
+<h2>MissingParameterConverter<a class="headerlink" href="#missingparameterconverter" title="Permalink to this headline">¶</a></h2>
+<p>A converter is missing for the parameter. This might be because you added a custom parameter validator using the following snippet:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">app</span><span class="o">.</span><span class="n">url_map</span><span class="o">.</span><span class="n">converters</span><span class="p">[</span><span class="s2">&quot;uid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">validators</span><span class="o">.</span><span class="n">UUIDValidator</span>
+</pre></div>
+</div>
+<p>You can solve this error by registering your custom parameter converter. You can use the following snippet as an example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openapi_builder.converters.parameter.base</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">ParameterConverter</span><span class="p">,</span>
+    <span class="n">register_parameter_converter</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">openapi_builder.specification</span> <span class="kn">import</span> <span class="n">Schema</span>
+
+
+<span class="nd">@register_parameter_converter</span>
+<span class="k">class</span> <span class="nc">UUIDConverter</span><span class="p">(</span><span class="n">ParameterConverter</span><span class="p">):</span>
+    <span class="n">converts_class</span> <span class="o">=</span> <span class="n">validators</span><span class="o">.</span><span class="n">UUIDValidator</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">schema</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Schema</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;hex&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="missingconfigcontext">
+<h2>MissingConfigContext<a class="headerlink" href="#missingconfigcontext" title="Permalink to this headline">¶</a></h2>
+<p>A function is called that requires a proper value for the <code class="code docutils literal notranslate"><span class="pre">documentation</span></code> variable.
+This variable is used by the <code class="code docutils literal notranslate"><span class="pre">OpenAPIBuilder</span></code>. You can only encounter this exception when
+overriding the <code class="code docutils literal notranslate"><span class="pre">OpenAPIBuilder</span></code>-class itself. Decorate your function according to the following snippet:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@documentation_context</span><span class="o">.</span><span class="n">verify_context</span>
+<span class="k">def</span> <span class="nf">process</span><span class="p">():</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+</div>
+</div>
 
 
               </div>
               
             
                 <!-- Previous / next buttons -->
-<div class='prev-next-area'>
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="configuration.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Configuration</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="source/packages/modules.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">API Reference</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
             
         </div>

@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>OpenAPI Builder &#8212; openapi_builder 0.2.3 documentation</title>
+    <title>OpenAPI Builder &#8212; openapi_builder 0.2.4 documentation</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -33,7 +33,7 @@
     <script src="_static/doctools.js"></script>
     <script src="_static/language_data.js"></script>
     <script src="_static/js/rtd_sphinx_search.min.js"></script>
-    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Configuration" href="configuration.html" />
@@ -60,7 +60,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">openapi_builder 0.2.3 documentation</h1>
+      <h1 class="site-logo" id="site-title">openapi_builder 0.2.4 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -77,6 +77,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="configuration.html">
    Configuration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="exceptions.html">
+   Exceptions
   </a>
  </li>
  <li class="toctree-l1 has-children">
@@ -137,8 +142,18 @@
       </label>
       <ul>
        <li class="toctree-l4">
+        <a class="reference internal" href="source/packages/openapi_builder.converters.parameter.html">
+         openapi_builder.converters.parameter package
+        </a>
+       </li>
+       <li class="toctree-l4">
         <a class="reference internal" href="source/packages/openapi_builder.converters.base.html">
          openapi_builder.converters.base module
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="source/packages/openapi_builder.converters.halogen.html">
+         openapi_builder.converters.halogen module
         </a>
        </li>
        <li class="toctree-l4">
@@ -148,26 +163,14 @@
        </li>
       </ul>
      </li>
-     <li class="toctree-l3 has-children">
-      <a class="reference internal" href="source/packages/openapi_builder.parsers.html">
-       openapi_builder.parsers package
-      </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-      <label for="toctree-checkbox-5">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="source/packages/openapi_builder.parsers.docstring.html">
-         openapi_builder.parsers.docstring module
-        </a>
-       </li>
-      </ul>
-     </li>
      <li class="toctree-l3">
       <a class="reference internal" href="source/packages/openapi_builder.builder.html">
        openapi_builder.builder module
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="source/packages/openapi_builder.constants.html">
+       openapi_builder.constants module
       </a>
      </li>
      <li class="toctree-l3">
@@ -260,7 +263,7 @@
                 data-placement="left">.rst</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -278,7 +281,7 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
@@ -374,11 +377,110 @@
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>OpenAPI Builder</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#features">
+   Features
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#quick-start">
+   Quick start
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#initialising-the-extension">
+     Initialising the extension
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#adding-resources">
+     Adding resources
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#contributing">
+   Contributing
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#development">
+   Development
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#black">
+     Black
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pre-commit">
+     pre-commit
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#automated-documentation">
+     Automated documentation
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#github-pages">
+       GitHub Pages
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#building-locally">
+       Building locally
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#other-documentation-features">
+       Other documentation features
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#consolidated-metadata">
+     Consolidated metadata
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#setup-py">
+     setup.py
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#github-actions-workflows">
+     GitHub Actions Workflows
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
   <div class="section" id="id1">
-<h1><a class="reference external" href="https://flyingbird95.github.io/openapi_builder">OpenAPI Builder</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<h1><a class="reference external" href="https://flyingbird95.github.io/openapi-builder">OpenAPI Builder</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
 <p>A <a class="reference external" href="https://flask.palletsprojects.com/">Flask</a> extension for automatically adding <a class="reference external" href="https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md">OpenAPI</a> documentation to your Flask app.</p>
 <div class="section" id="features">
 <h2>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
@@ -406,7 +508,7 @@ documentation.</p></li>
 </pre></div>
 </div>
 <p>After installation, it’s time to build the documentation for the resources in your Flask application, and expose them
-so your external users can read them. For working examples, see <a class="reference external" href="https://github.com/FlyingBird95/openapi_builder/tree/master/examples/">this folder</a>.</p>
+so your external users can read them. For working examples, see <a class="reference external" href="https://github.com/FlyingBird95/openapi-builder/tree/master/examples/">this folder</a>.</p>
 <div class="section" id="initialising-the-extension">
 <h3>Initialising the extension<a class="headerlink" href="#initialising-the-extension" title="Permalink to this headline">¶</a></h3>
 <p>The extension can be initialized using the following snippet:</p>
@@ -480,7 +582,7 @@ this:</p>
     <span class="o">...</span>
 </pre></div>
 </div>
-<p>For a full overview of all applicable parameters, see <a class="reference external" href="https://flyingbird95.github.io/openapi_builder/configuration.html">this configuration page</a>.</p>
+<p>For a full overview of all applicable parameters, see <a class="reference external" href="https://flyingbird95.github.io/openapi-builder/configuration.html">this configuration page</a>.</p>
 <p>That’s all folks. You can view your documentation at <a class="reference external" href="http://localhost:5000/documentation">http://localhost:5000/documentation</a>, and inspect the configuration
 at: <a class="reference external" href="http://localhost:5000/documentation-configuration">http://localhost:5000/documentation-configuration</a>. Whenever the schema is updated by adding/removing/updating a new
 property, it is automatically reflected in the OpenAPI documentation.</p>
@@ -510,10 +612,10 @@ For a given block of code, a fixed version of black will always produce the same
 However, it should be noted that different versions of black will produce different outputs.
 Black is configured here:</p>
 <ul class="simple">
-<li><p>requirements-dev.txt, <a class="reference external" href="https://github.com/flyingbird95/openapi_builder/blob/master/requirements-dev.txt#L1">L1</a></p></li>
-<li><p>.pre-commit-config.yaml, <a class="reference external" href="https://github.com/flyingbird95/openapi_builder/blob/master/.pre-commit-config.yaml#L14">L14</a>,
-<a class="reference external" href="https://github.com/flyingbird95/openapi_builder/blob/master/.pre-commit-config.yaml#L28">L28</a>, and
-<a class="reference external" href="https://github.com/flyingbird95/openapi_builder/blob/master/.pre-commit-config.yaml#L47">L47</a></p></li>
+<li><p>requirements-dev.txt, <a class="reference external" href="https://github.com/flyingbird95/openapi-builder/blob/master/requirements-dev.txt#L1">L1</a></p></li>
+<li><p>.pre-commit-config.yaml, <a class="reference external" href="https://github.com/flyingbird95/openapi-builder/blob/master/.pre-commit-config.yaml#L14">L14</a>,
+<a class="reference external" href="https://github.com/flyingbird95/openapi-builder/blob/master/.pre-commit-config.yaml#L28">L28</a>, and
+<a class="reference external" href="https://github.com/flyingbird95/openapi-builder/blob/master/.pre-commit-config.yaml#L47">L47</a></p></li>
 </ul>
 </div>
 <div class="section" id="pre-commit">
@@ -561,7 +663,7 @@ The pre-commit stack will also run on github with one of the action workflows, w
 It is set up to work well out of the box, with several features added in.</p>
 <div class="section" id="github-pages">
 <h4>GitHub Pages<a class="headerlink" href="#github-pages" title="Permalink to this headline">¶</a></h4>
-<p>Documentation is deployed to <a class="reference external" href="https://pages.github.com/">GitHub Pages</a> and is available at <a class="reference external" href="https://flyingbird95.github.io/openapi_builder/">https://flyingbird95.github.io/openapi_builder/</a>.</p>
+<p>Documentation is deployed to <a class="reference external" href="https://pages.github.com/">GitHub Pages</a> and is available at <a class="reference external" href="https://flyingbird95.github.io/openapi-builder/">https://flyingbird95.github.io/openapi-builder/</a>.</p>
 <p>The gh-pages documentation is refreshed every time there is a push to the master branch.</p>
 <p>Note that only one copy of the documentation is served (the latest version).</p>
 </div>
@@ -655,7 +757,7 @@ It is also useful to ensure that style guides are adhered to</p>
 <p>Five workflows are included:</p>
 <dl class="simple">
 <dt>docs</dt><dd><p>The docs workflow ensures the documentation builds correctly, and presents any errors and warnings nicely as annotations.
-The available html documentation is automatically deployed to the gh-pages branch and <a class="reference external" href="https://flyingbird95.github.io/openapi_builder/">https://flyingbird95.github.io/openapi_builder/</a>.</p>
+The available html documentation is automatically deployed to the gh-pages branch and <a class="reference external" href="https://flyingbird95.github.io/openapi-builder/">https://flyingbird95.github.io/openapi-builder/</a>.</p>
 </dd>
 <dt>pre-commit</dt><dd><p>Runs the pre-commit stack.
 Ensures all contributions are compliant, even if a contributor has not set up pre-commit on their local machine.</p>
@@ -679,12 +781,19 @@ Wheels are built for all the tested systems, and stored as artifacts for conveni
 <li class="toctree-l2"><a class="reference internal" href="configuration.html#adding-resources">Adding resources</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="exceptions.html">Exceptions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#missingconverter">MissingConverter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#missingparameterconverter">MissingParameterConverter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="exceptions.html#missingconfigcontext">MissingConfigContext</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="source/packages/modules.html">API Reference</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="source/packages/openapi_builder.html">openapi_builder package</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="source/changelog.html">Changelog</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="source/changelog.html#unreleased">Unreleased</a></li>
+<li class="toctree-l2"><a class="reference internal" href="source/changelog.html#version-0-2-4">Version 0.2.4</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source/changelog.html#version-0-2-0">Version 0.2.0</a></li>
 <li class="toctree-l2"><a class="reference internal" href="source/changelog.html#version-0-1-0">Version 0.1.0</a></li>
 </ul>
@@ -700,8 +809,8 @@ Wheels are built for all the tested systems, and stored as artifacts for conveni
 
               </div>
               
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'>
     <a class='right-next' id="next-link" href="configuration.html" title="next page">
     <div class="prev-next-info">
@@ -711,19 +820,17 @@ Wheels are built for all the tested systems, and stored as artifacts for conveni
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By Patrick Vogel<br/>
-        
-            &copy; Copyright 2021, Patrick Vogel.<br/>
-      </p>
-    </div>
-  </footer>
+  <p>
+    
+      By Patrick Vogel<br/>
+    
+        &copy; Copyright 2022, Patrick Vogel.<br/>
+  </p>
+</footer>
 </main>
 
 

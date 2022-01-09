@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>openapi_builder.exceptions &#8212; openapi_builder 0.2.3 documentation</title>
+    <title>openapi_builder.exceptions &#8212; openapi_builder 0.2.4 documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -33,7 +33,7 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/language_data.js"></script>
     <script src="../../_static/js/rtd_sphinx_search.min.js"></script>
-    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -59,7 +59,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">openapi_builder 0.2.3 documentation</h1>
+      <h1 class="site-logo" id="site-title">openapi_builder 0.2.4 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -76,6 +76,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="../../configuration.html">
    Configuration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../exceptions.html">
+   Exceptions
   </a>
  </li>
  <li class="toctree-l1 has-children">
@@ -136,8 +141,18 @@
       </label>
       <ul>
        <li class="toctree-l4">
+        <a class="reference internal" href="../../source/packages/openapi_builder.converters.parameter.html">
+         openapi_builder.converters.parameter package
+        </a>
+       </li>
+       <li class="toctree-l4">
         <a class="reference internal" href="../../source/packages/openapi_builder.converters.base.html">
          openapi_builder.converters.base module
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../source/packages/openapi_builder.converters.halogen.html">
+         openapi_builder.converters.halogen module
         </a>
        </li>
        <li class="toctree-l4">
@@ -147,26 +162,14 @@
        </li>
       </ul>
      </li>
-     <li class="toctree-l3 has-children">
-      <a class="reference internal" href="../../source/packages/openapi_builder.parsers.html">
-       openapi_builder.parsers package
-      </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-      <label for="toctree-checkbox-5">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../../source/packages/openapi_builder.parsers.docstring.html">
-         openapi_builder.parsers.docstring module
-        </a>
-       </li>
-      </ul>
-     </li>
      <li class="toctree-l3">
       <a class="reference internal" href="../../source/packages/openapi_builder.builder.html">
        openapi_builder.builder module
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../source/packages/openapi_builder.constants.html">
+       openapi_builder.constants module
       </a>
      </li>
      <li class="toctree-l3">
@@ -260,94 +263,70 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
         </div>
     </div>
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
   <h1>Source code for openapi_builder.exceptions</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">openapi_builder.util</span> <span class="kn">import</span> <span class="n">to_camelcase</span>
-
-<span class="n">MISSING_PROCESSOR_MESSAGE</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;</span>
-<span class="s1">You&#39;re missing a converter for class </span><span class="si">{class_name}</span><span class="s1">.</span>
-<span class="s1">You can use the snippet below to generate a converter for it. Don&#39;t forget to register it!</span>
-
-
-<span class="s1">from typing import Union</span>
-
-<span class="s1">from openapi_builder.builder import OpenAPIBuilder</span>
-<span class="s1">from openapi_builder.converts import Converter</span>
-<span class="s1">from openapi_builder.specification import Reference, Schema</span>
-
-<span class="s1">class </span><span class="si">{class_name}</span><span class="s1">Converter(Converter):</span>
-<span class="s1">    &quot;&quot;&quot;Converter for a certain class that returns a openapi_builder.specification.Schema.&quot;&quot;&quot;</span>
-
-<span class="s1">    converts_class = </span><span class="si">{class_name}</span><span class="s1"></span>
-<span class="s1">    &quot;&quot;&quot;Specification of the class that it converts.&quot;&quot;&quot;</span>
-
-<span class="s1">    def convert(value: </span><span class="si">{class_name}</span><span class="s1">) -&gt; Union[Reference, Schema]:</span>
-<span class="s1">        &quot;&quot;&quot;Converts an instance of </span><span class="si">{class_name}</span><span class="s1"> and return a Reference or Schema.&quot;&quot;&quot;</span>
-<span class="s1">&#39;&#39;&#39;</span>
-
-<span class="n">MISSING_CONFIG_CONTEXT</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">You&#39;re not allowed to call this function outside the use_documentation_config context manager.</span>
-<span class="s2">Please call the function in the following manner:</span>
-
-<span class="s2">&gt;&gt;&gt; builder = OpenAPIBuilder()</span>
-<span class="s2">&gt;&gt;&gt; config = Documentation()  # retrieved from the @add_documentation decorator.</span>
-<span class="s2">&gt;&gt;&gt; with builder.use_documentation_config():</span>
-<span class="s2">&gt;&gt;&gt;     builder.your_function()</span>
-<span class="s2">&quot;&quot;&quot;</span>
+<span></span><span class="kn">from</span> <span class="nn">openapi_builder.constants</span> <span class="kn">import</span> <span class="n">DOCUMENTATION_URL</span>
 
 
 <div class="viewcode-block" id="OpenApiException"><a class="viewcode-back" href="../../source/packages/openapi_builder.exceptions.html#openapi_builder.exceptions.OpenApiException">[docs]</a><span class="k">class</span> <span class="nc">OpenApiException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Base Exception.&quot;&quot;&quot;</span></div>
+    <span class="sd">&quot;&quot;&quot;Base Exception.&quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{DOCUMENTATION_URL}</span><span class="s2">/exceptions.html/</span><span class="si">{self.__class__.__name__}</span><span class="s2">&quot;</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Open </span><span class="si">{url}</span><span class="s2"> for more info.&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="MissingConverter"><a class="viewcode-back" href="../../source/packages/openapi_builder.exceptions.html#openapi_builder.exceptions.MissingConverter">[docs]</a><span class="k">class</span> <span class="nc">MissingConverter</span><span class="p">(</span><span class="n">OpenApiException</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Missing converter for the given class or instance.&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Missing converter for the given class or instance.&quot;&quot;&quot;</span></div>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="n">class_name</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
-            <span class="n">MISSING_PROCESSOR_MESSAGE</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">class_name</span><span class="o">=</span><span class="n">to_camelcase</span><span class="p">(</span><span class="n">class_name</span><span class="p">))</span>
-        <span class="p">)</span></div>
+
+<div class="viewcode-block" id="MissingParameterConverter"><a class="viewcode-back" href="../../source/packages/openapi_builder.exceptions.html#openapi_builder.exceptions.MissingParameterConverter">[docs]</a><span class="k">class</span> <span class="nc">MissingParameterConverter</span><span class="p">(</span><span class="n">OpenApiException</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Missing parameter converter for the given class.&quot;&quot;&quot;</span></div>
 
 
 <div class="viewcode-block" id="MissingConfigContext"><a class="viewcode-back" href="../../source/packages/openapi_builder.exceptions.html#openapi_builder.exceptions.MissingConfigContext">[docs]</a><span class="k">class</span> <span class="nc">MissingConfigContext</span><span class="p">(</span><span class="n">OpenApiException</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Missing config context.</span>
 
 <span class="sd">    The function must be called inside the &#39;use_documentation_config&#39; context manager.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">MISSING_CONFIG_CONTEXT</span><span class="p">)</span></div>
+<span class="sd">    &quot;&quot;&quot;</span></div>
 </pre></div>
 
               </div>
               
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By Patrick Vogel<br/>
-        
-            &copy; Copyright 2021, Patrick Vogel.<br/>
-      </p>
-    </div>
-  </footer>
+  <p>
+    
+      By Patrick Vogel<br/>
+    
+        &copy; Copyright 2022, Patrick Vogel.<br/>
+  </p>
+</footer>
 </main>
 
 

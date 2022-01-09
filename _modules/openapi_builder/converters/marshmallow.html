@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>openapi_builder.converters.marshmallow &#8212; openapi_builder 0.2.3 documentation</title>
+    <title>openapi_builder.converters.marshmallow &#8212; openapi_builder 0.2.4 documentation</title>
     
   <link href="../../../_static/css/theme.css" rel="stylesheet">
   <link href="../../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -33,7 +33,7 @@
     <script src="../../../_static/doctools.js"></script>
     <script src="../../../_static/language_data.js"></script>
     <script src="../../../_static/js/rtd_sphinx_search.min.js"></script>
-    <script src="../../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="../../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -59,7 +59,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">openapi_builder 0.2.3 documentation</h1>
+      <h1 class="site-logo" id="site-title">openapi_builder 0.2.4 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../../search.html" method="get">
@@ -76,6 +76,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="../../../configuration.html">
    Configuration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../../exceptions.html">
+   Exceptions
   </a>
  </li>
  <li class="toctree-l1 has-children">
@@ -136,8 +141,18 @@
       </label>
       <ul>
        <li class="toctree-l4">
+        <a class="reference internal" href="../../../source/packages/openapi_builder.converters.parameter.html">
+         openapi_builder.converters.parameter package
+        </a>
+       </li>
+       <li class="toctree-l4">
         <a class="reference internal" href="../../../source/packages/openapi_builder.converters.base.html">
          openapi_builder.converters.base module
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../../source/packages/openapi_builder.converters.halogen.html">
+         openapi_builder.converters.halogen module
         </a>
        </li>
        <li class="toctree-l4">
@@ -147,26 +162,14 @@
        </li>
       </ul>
      </li>
-     <li class="toctree-l3 has-children">
-      <a class="reference internal" href="../../../source/packages/openapi_builder.parsers.html">
-       openapi_builder.parsers package
-      </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-      <label for="toctree-checkbox-5">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../../../source/packages/openapi_builder.parsers.docstring.html">
-         openapi_builder.parsers.docstring module
-        </a>
-       </li>
-      </ul>
-     </li>
      <li class="toctree-l3">
       <a class="reference internal" href="../../../source/packages/openapi_builder.builder.html">
        openapi_builder.builder module
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../../source/packages/openapi_builder.constants.html">
+       openapi_builder.constants module
       </a>
      </li>
      <li class="toctree-l3">
@@ -260,14 +263,24 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
         </div>
     </div>
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
   <h1>Source code for openapi_builder.converters.marshmallow</h1><div class="highlight"><pre>
@@ -275,95 +288,108 @@
 
 <span class="kn">import</span> <span class="nn">marshmallow</span>
 
-<span class="kn">from</span> <span class="nn">openapi_builder.converters</span> <span class="kn">import</span> <span class="n">Converter</span>
+<span class="kn">from</span> <span class="nn">openapi_builder.converters</span> <span class="kn">import</span> <span class="n">Converter</span><span class="p">,</span> <span class="n">register_converter</span>
 <span class="kn">from</span> <span class="nn">openapi_builder.specification</span> <span class="kn">import</span> <span class="n">Reference</span><span class="p">,</span> <span class="n">Schema</span>
 
 
-<div class="viewcode-block" id="EmailConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.EmailConverter">[docs]</a><span class="k">class</span> <span class="nc">EmailConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
+<div class="viewcode-block" id="EmailConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.EmailConverter">[docs]</a><span class="nd">@register_converter</span>
+<span class="k">class</span> <span class="nc">EmailConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
     <span class="n">converts_class</span> <span class="o">=</span> <span class="n">marshmallow</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">Email</span>
 
 <div class="viewcode-block" id="EmailConverter.convert"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.EmailConverter.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Schema</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;email&quot;</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="StringConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.StringConverter">[docs]</a><span class="k">class</span> <span class="nc">StringConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
+<div class="viewcode-block" id="StringConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.StringConverter">[docs]</a><span class="nd">@register_converter</span>
+<span class="k">class</span> <span class="nc">StringConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
     <span class="n">converts_class</span> <span class="o">=</span> <span class="n">marshmallow</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">String</span>
 
 <div class="viewcode-block" id="StringConverter.convert"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.StringConverter.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Schema</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="BooleanConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.BooleanConverter">[docs]</a><span class="k">class</span> <span class="nc">BooleanConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
+<div class="viewcode-block" id="BooleanConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.BooleanConverter">[docs]</a><span class="nd">@register_converter</span>
+<span class="k">class</span> <span class="nc">BooleanConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
     <span class="n">converts_class</span> <span class="o">=</span> <span class="n">marshmallow</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">Boolean</span>
 
 <div class="viewcode-block" id="BooleanConverter.convert"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.BooleanConverter.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Schema</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;boolean&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;boolean&quot;</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="NumberConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.NumberConverter">[docs]</a><span class="k">class</span> <span class="nc">NumberConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
+<div class="viewcode-block" id="NumberConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.NumberConverter">[docs]</a><span class="nd">@register_converter</span>
+<span class="k">class</span> <span class="nc">NumberConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
     <span class="n">converts_class</span> <span class="o">=</span> <span class="n">marshmallow</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">Number</span>
 
 <div class="viewcode-block" id="NumberConverter.convert"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.NumberConverter.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Schema</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="IntegerConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.IntegerConverter">[docs]</a><span class="k">class</span> <span class="nc">IntegerConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
+<div class="viewcode-block" id="IntegerConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.IntegerConverter">[docs]</a><span class="nd">@register_converter</span>
+<span class="k">class</span> <span class="nc">IntegerConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
     <span class="n">converts_class</span> <span class="o">=</span> <span class="n">marshmallow</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">Integer</span>
 
 <div class="viewcode-block" id="IntegerConverter.convert"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.IntegerConverter.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Schema</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;integer&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;int32&quot;</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="FloatConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.FloatConverter">[docs]</a><span class="k">class</span> <span class="nc">FloatConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
+<div class="viewcode-block" id="FloatConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.FloatConverter">[docs]</a><span class="nd">@register_converter</span>
+<span class="k">class</span> <span class="nc">FloatConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
     <span class="n">converts_class</span> <span class="o">=</span> <span class="n">marshmallow</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">Float</span>
 
 <div class="viewcode-block" id="FloatConverter.convert"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.FloatConverter.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Schema</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="UUIDConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.UUIDConverter">[docs]</a><span class="k">class</span> <span class="nc">UUIDConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
+<div class="viewcode-block" id="UUIDConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.UUIDConverter">[docs]</a><span class="nd">@register_converter</span>
+<span class="k">class</span> <span class="nc">UUIDConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
     <span class="n">converts_class</span> <span class="o">=</span> <span class="n">marshmallow</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">Float</span>
 
 <div class="viewcode-block" id="UUIDConverter.convert"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.UUIDConverter.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Schema</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;uuid&quot;</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="DecimalConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.DecimalConverter">[docs]</a><span class="k">class</span> <span class="nc">DecimalConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
+<div class="viewcode-block" id="DecimalConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.DecimalConverter">[docs]</a><span class="nd">@register_converter</span>
+<span class="k">class</span> <span class="nc">DecimalConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
     <span class="n">converts_class</span> <span class="o">=</span> <span class="n">marshmallow</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">Decimal</span>
 
 <div class="viewcode-block" id="DecimalConverter.convert"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.DecimalConverter.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Schema</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;number&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="DateConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.DateConverter">[docs]</a><span class="k">class</span> <span class="nc">DateConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
+<div class="viewcode-block" id="DateConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.DateConverter">[docs]</a><span class="nd">@register_converter</span>
+<span class="k">class</span> <span class="nc">DateConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
     <span class="n">converts_class</span> <span class="o">=</span> <span class="n">marshmallow</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">Date</span>
 
 <div class="viewcode-block" id="DateConverter.convert"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.DateConverter.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Schema</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;date&quot;</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="DateTimeConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.DateTimeConverter">[docs]</a><span class="k">class</span> <span class="nc">DateTimeConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
+<div class="viewcode-block" id="DateTimeConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.DateTimeConverter">[docs]</a><span class="nd">@register_converter</span>
+<span class="k">class</span> <span class="nc">DateTimeConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
     <span class="n">converts_class</span> <span class="o">=</span> <span class="n">marshmallow</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">DateTime</span>
 
 <div class="viewcode-block" id="DateTimeConverter.convert"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.DateTimeConverter.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Schema</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;date-time&quot;</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="TimeConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.TimeConverter">[docs]</a><span class="k">class</span> <span class="nc">TimeConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
+<div class="viewcode-block" id="TimeConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.TimeConverter">[docs]</a><span class="nd">@register_converter</span>
+<span class="k">class</span> <span class="nc">TimeConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
     <span class="n">converts_class</span> <span class="o">=</span> <span class="n">marshmallow</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">Time</span>
 
 <div class="viewcode-block" id="TimeConverter.convert"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.TimeConverter.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Schema</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;time&quot;</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="URLConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.URLConverter">[docs]</a><span class="k">class</span> <span class="nc">URLConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
+<div class="viewcode-block" id="URLConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.URLConverter">[docs]</a><span class="nd">@register_converter</span>
+<span class="k">class</span> <span class="nc">URLConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
     <span class="n">converts_class</span> <span class="o">=</span> <span class="n">marshmallow</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">URL</span>
 
 <div class="viewcode-block" id="URLConverter.convert"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.URLConverter.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Schema</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;URL&quot;</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="NestedConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.NestedConverter">[docs]</a><span class="k">class</span> <span class="nc">NestedConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
+<div class="viewcode-block" id="NestedConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.NestedConverter">[docs]</a><span class="nd">@register_converter</span>
+<span class="k">class</span> <span class="nc">NestedConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
     <span class="n">converts_class</span> <span class="o">=</span> <span class="n">marshmallow</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">Nested</span>
 
 <div class="viewcode-block" id="NestedConverter.convert"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.NestedConverter.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">Schema</span><span class="p">,</span> <span class="n">Reference</span><span class="p">]:</span>
@@ -373,14 +399,16 @@
         <span class="k">return</span> <span class="n">schema</span></div></div>
 
 
-<div class="viewcode-block" id="ListConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.ListConverter">[docs]</a><span class="k">class</span> <span class="nc">ListConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
+<div class="viewcode-block" id="ListConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.ListConverter">[docs]</a><span class="nd">@register_converter</span>
+<span class="k">class</span> <span class="nc">ListConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
     <span class="n">converts_class</span> <span class="o">=</span> <span class="n">marshmallow</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">List</span>
 
 <div class="viewcode-block" id="ListConverter.convert"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.ListConverter.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Schema</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;array&quot;</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="SchemaMetaConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.SchemaMetaConverter">[docs]</a><span class="k">class</span> <span class="nc">SchemaMetaConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
+<div class="viewcode-block" id="SchemaMetaConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.SchemaMetaConverter">[docs]</a><span class="nd">@register_converter</span>
+<span class="k">class</span> <span class="nc">SchemaMetaConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
     <span class="n">converts_class</span> <span class="o">=</span> <span class="n">marshmallow</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">SchemaMeta</span>
 
 <div class="viewcode-block" id="SchemaMetaConverter.convert"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.SchemaMetaConverter.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Schema</span><span class="p">:</span>
@@ -388,7 +416,8 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">process</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="n">value</span><span class="p">())</span></div></div>
 
 
-<div class="viewcode-block" id="SchemaConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.SchemaConverter">[docs]</a><span class="k">class</span> <span class="nc">SchemaConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
+<div class="viewcode-block" id="SchemaConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.SchemaConverter">[docs]</a><span class="nd">@register_converter</span>
+<span class="k">class</span> <span class="nc">SchemaConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
     <span class="n">converts_class</span> <span class="o">=</span> <span class="n">marshmallow</span><span class="o">.</span><span class="n">schema</span><span class="o">.</span><span class="n">Schema</span>
 
 <div class="viewcode-block" id="SchemaConverter.convert"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.SchemaConverter.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Schema</span><span class="p">:</span>
@@ -398,60 +427,38 @@
             <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">prop</span> <span class="ow">in</span> <span class="n">value</span><span class="o">.</span><span class="n">_declared_fields</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
         <span class="p">}</span>
 
-        <span class="n">schema</span> <span class="o">=</span> <span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="n">properties</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">schemas</span><span class="p">[</span><span class="n">schema_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">schema</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">builder</span><span class="o">.</span><span class="n">schemas</span><span class="p">[</span><span class="n">schema_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="p">,</span> <span class="n">properties</span><span class="o">=</span><span class="n">properties</span><span class="p">)</span>
         <span class="n">reference</span> <span class="o">=</span> <span class="n">Reference</span><span class="o">.</span><span class="n">from_schema</span><span class="p">(</span><span class="n">schema_name</span><span class="o">=</span><span class="n">schema_name</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">value</span><span class="o">.</span><span class="n">many</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;array&quot;</span><span class="p">,</span> <span class="n">items</span><span class="o">=</span><span class="n">reference</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">reference</span></div></div>
 
 
-<div class="viewcode-block" id="DictConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.DictConverter">[docs]</a><span class="k">class</span> <span class="nc">DictConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
+<div class="viewcode-block" id="DictConverter"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.DictConverter">[docs]</a><span class="nd">@register_converter</span>
+<span class="k">class</span> <span class="nc">DictConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
     <span class="n">converts_class</span> <span class="o">=</span> <span class="n">marshmallow</span><span class="o">.</span><span class="n">fields</span><span class="o">.</span><span class="n">Dict</span>
 
 <div class="viewcode-block" id="DictConverter.convert"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.DictConverter.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Schema</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;object&quot;</span><span class="p">)</span></div></div>
-
-
-<div class="viewcode-block" id="register_marshmallow_converters"><a class="viewcode-back" href="../../../source/packages/openapi_builder.converters.marshmallow.html#openapi_builder.converters.marshmallow.register_marshmallow_converters">[docs]</a><span class="k">def</span> <span class="nf">register_marshmallow_converters</span><span class="p">(</span><span class="n">builder</span><span class="p">):</span>
-    <span class="n">EmailConverter</span><span class="p">(</span><span class="n">builder</span><span class="o">=</span><span class="n">builder</span><span class="p">)</span>
-    <span class="n">StringConverter</span><span class="p">(</span><span class="n">builder</span><span class="o">=</span><span class="n">builder</span><span class="p">)</span>
-    <span class="n">BooleanConverter</span><span class="p">(</span><span class="n">builder</span><span class="o">=</span><span class="n">builder</span><span class="p">)</span>
-    <span class="n">NumberConverter</span><span class="p">(</span><span class="n">builder</span><span class="o">=</span><span class="n">builder</span><span class="p">)</span>
-    <span class="n">IntegerConverter</span><span class="p">(</span><span class="n">builder</span><span class="o">=</span><span class="n">builder</span><span class="p">)</span>
-    <span class="n">FloatConverter</span><span class="p">(</span><span class="n">builder</span><span class="o">=</span><span class="n">builder</span><span class="p">)</span>
-    <span class="n">UUIDConverter</span><span class="p">(</span><span class="n">builder</span><span class="o">=</span><span class="n">builder</span><span class="p">)</span>
-    <span class="n">DecimalConverter</span><span class="p">(</span><span class="n">builder</span><span class="o">=</span><span class="n">builder</span><span class="p">)</span>
-    <span class="n">DateConverter</span><span class="p">(</span><span class="n">builder</span><span class="o">=</span><span class="n">builder</span><span class="p">)</span>
-    <span class="n">DateTimeConverter</span><span class="p">(</span><span class="n">builder</span><span class="o">=</span><span class="n">builder</span><span class="p">)</span>
-    <span class="n">TimeConverter</span><span class="p">(</span><span class="n">builder</span><span class="o">=</span><span class="n">builder</span><span class="p">)</span>
-    <span class="n">URLConverter</span><span class="p">(</span><span class="n">builder</span><span class="o">=</span><span class="n">builder</span><span class="p">)</span>
-    <span class="n">NestedConverter</span><span class="p">(</span><span class="n">builder</span><span class="o">=</span><span class="n">builder</span><span class="p">)</span>
-    <span class="n">ListConverter</span><span class="p">(</span><span class="n">builder</span><span class="o">=</span><span class="n">builder</span><span class="p">)</span>
-    <span class="n">SchemaConverter</span><span class="p">(</span><span class="n">builder</span><span class="o">=</span><span class="n">builder</span><span class="p">)</span>
-    <span class="n">SchemaMetaConverter</span><span class="p">(</span><span class="n">builder</span><span class="o">=</span><span class="n">builder</span><span class="p">)</span>
-    <span class="n">DictConverter</span><span class="p">(</span><span class="n">builder</span><span class="o">=</span><span class="n">builder</span><span class="p">)</span></div>
 </pre></div>
 
               </div>
               
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By Patrick Vogel<br/>
-        
-            &copy; Copyright 2021, Patrick Vogel.<br/>
-      </p>
-    </div>
-  </footer>
+  <p>
+    
+      By Patrick Vogel<br/>
+    
+        &copy; Copyright 2022, Patrick Vogel.<br/>
+  </p>
+</footer>
 </main>
 
 

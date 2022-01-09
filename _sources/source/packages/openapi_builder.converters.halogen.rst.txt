@@ -1,0 +1,7 @@
+openapi\_builder.converters.halogen module
+==========================================
+
+.. automodule:: openapi_builder.converters.halogen
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>openapi_builder.documentation &#8212; openapi_builder 0.2.3 documentation</title>
+    <title>openapi_builder.documentation &#8212; openapi_builder 0.2.4 documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -33,7 +33,7 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/language_data.js"></script>
     <script src="../../_static/js/rtd_sphinx_search.min.js"></script>
-    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -59,7 +59,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">openapi_builder 0.2.3 documentation</h1>
+      <h1 class="site-logo" id="site-title">openapi_builder 0.2.4 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -76,6 +76,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="../../configuration.html">
    Configuration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../exceptions.html">
+   Exceptions
   </a>
  </li>
  <li class="toctree-l1 has-children">
@@ -136,8 +141,18 @@
       </label>
       <ul>
        <li class="toctree-l4">
+        <a class="reference internal" href="../../source/packages/openapi_builder.converters.parameter.html">
+         openapi_builder.converters.parameter package
+        </a>
+       </li>
+       <li class="toctree-l4">
         <a class="reference internal" href="../../source/packages/openapi_builder.converters.base.html">
          openapi_builder.converters.base module
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../source/packages/openapi_builder.converters.halogen.html">
+         openapi_builder.converters.halogen module
         </a>
        </li>
        <li class="toctree-l4">
@@ -147,26 +162,14 @@
        </li>
       </ul>
      </li>
-     <li class="toctree-l3 has-children">
-      <a class="reference internal" href="../../source/packages/openapi_builder.parsers.html">
-       openapi_builder.parsers package
-      </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-      <label for="toctree-checkbox-5">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="../../source/packages/openapi_builder.parsers.docstring.html">
-         openapi_builder.parsers.docstring module
-        </a>
-       </li>
-      </ul>
-     </li>
      <li class="toctree-l3">
       <a class="reference internal" href="../../source/packages/openapi_builder.builder.html">
        openapi_builder.builder module
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="../../source/packages/openapi_builder.constants.html">
+       openapi_builder.constants module
       </a>
      </li>
      <li class="toctree-l3">
@@ -260,24 +263,37 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
         </div>
     </div>
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1></h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
   <h1>Source code for openapi_builder.documentation</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">http</span> <span class="kn">import</span> <span class="n">HTTPStatus</span>
+<span></span><span class="kn">import</span> <span class="nn">contextlib</span>
+<span class="kn">import</span> <span class="nn">functools</span>
+<span class="kn">from</span> <span class="nn">http</span> <span class="kn">import</span> <span class="n">HTTPStatus</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
+<span class="kn">from</span> <span class="nn">openapi_builder.exceptions</span> <span class="kn">import</span> <span class="n">MissingConfigContext</span>
 <span class="kn">from</span> <span class="nn">openapi_builder.specification</span> <span class="kn">import</span> <span class="n">Parameter</span><span class="p">,</span> <span class="n">Schema</span>
 
 
-<div class="viewcode-block" id="Documentation"><a class="viewcode-back" href="../../source/packages/openapi_builder.documentation.html#openapi_builder.documentation.Documentation">[docs]</a><span class="k">class</span> <span class="nc">Documentation</span><span class="p">:</span>
+<div class="viewcode-block" id="Documentation"><a class="viewcode-back" href="../../source/packages/openapi_builder.documentation.html#openapi_builder.builder.Documentation">[docs]</a><span class="k">class</span> <span class="nc">Documentation</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Class for storing documentation configuration.</span>
 
 <span class="sd">    The preferred way to add documentation for and endpoint is via the decorator, since the default</span>
@@ -293,7 +309,6 @@
         <span class="n">parameters</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Parameter</span><span class="p">]],</span>
         <span class="n">summary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
         <span class="n">description</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
-        <span class="n">custom_converters</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Schema</span><span class="p">]],</span>
         <span class="n">tags</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
     <span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">responses</span> <span class="o">=</span> <span class="p">(</span>
@@ -305,31 +320,61 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span> <span class="k">if</span> <span class="n">parameters</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">summary</span> <span class="o">=</span> <span class="n">summary</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">description</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">custom_converters</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="n">custom_converters</span> <span class="k">if</span> <span class="n">custom_converters</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">{}</span>
-        <span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">tags</span> <span class="o">=</span> <span class="n">tags</span> <span class="k">if</span> <span class="n">tags</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span></div>
+
+
+<div class="viewcode-block" id="DocumentationContext"><a class="viewcode-back" href="../../source/packages/openapi_builder.documentation.html#openapi_builder.builder.DocumentationContext">[docs]</a><span class="k">class</span> <span class="nc">DocumentationContext</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Documentation</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+<div class="viewcode-block" id="DocumentationContext.use_config"><a class="viewcode-back" href="../../source/packages/openapi_builder.documentation.html#openapi_builder.builder.DocumentationContext.use_config">[docs]</a>    <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+    <span class="k">def</span> <span class="nf">use_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">documentation_config</span><span class="p">:</span> <span class="n">Documentation</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Context manager for function that need to be executed with a documentation_config.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">documentation_config</span><span class="p">,</span> <span class="n">Documentation</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{documentation_config}</span><span class="s2"> is not an instance of Documentation.&quot;</span>
+            <span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">documentation_config</span>
+        <span class="k">yield</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="kc">None</span></div>
+
+<div class="viewcode-block" id="DocumentationContext.verify_context"><a class="viewcode-back" href="../../source/packages/openapi_builder.documentation.html#openapi_builder.builder.DocumentationContext.verify_context">[docs]</a>    <span class="k">def</span> <span class="nf">verify_context</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function_to_check</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Verifies that the function is executed within the documentation context.</span>
+
+<span class="sd">        The function must be called according to the following usage:</span>
+<span class="sd">        &gt;&gt;&gt; @documentation_context.verify_context</span>
+<span class="sd">        &gt;&gt;&gt; def process():</span>
+<span class="sd">        &gt;&gt;&gt;     ...</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">function_to_check</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">inner</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="n">Documentation</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="n">MissingConfigContext</span><span class="p">()</span>
+
+            <span class="k">return</span> <span class="n">function_to_check</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">inner</span></div></div>
 </pre></div>
 
               </div>
               
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By Patrick Vogel<br/>
-        
-            &copy; Copyright 2021, Patrick Vogel.<br/>
-      </p>
-    </div>
-  </footer>
+  <p>
+    
+      By Patrick Vogel<br/>
+    
+        &copy; Copyright 2022, Patrick Vogel.<br/>
+  </p>
+</footer>
 </main>
 
 

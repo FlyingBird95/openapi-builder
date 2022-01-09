@@ -6,10 +6,18 @@ openapi\_builder.converters package
    :undoc-members:
    :show-inheritance:
 
+Subpackages
+-----------
+
+.. toctree::
+
+   openapi_builder.converters.parameter
+
 Submodules
 ----------
 
 .. toctree::
 
    openapi_builder.converters.base
+   openapi_builder.converters.halogen
    openapi_builder.converters.marshmallow

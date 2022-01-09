@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>Configuration &#8212; openapi_builder 0.2.3 documentation</title>
+    <title>Configuration &#8212; openapi_builder 0.2.4 documentation</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -33,10 +33,10 @@
     <script src="_static/doctools.js"></script>
     <script src="_static/language_data.js"></script>
     <script src="_static/js/rtd_sphinx_search.min.js"></script>
-    <script src="_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="API Reference" href="source/packages/modules.html" />
+    <link rel="next" title="Exceptions" href="exceptions.html" />
     <link rel="prev" title="OpenAPI Builder" href="index.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -61,7 +61,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">openapi_builder 0.2.3 documentation</h1>
+      <h1 class="site-logo" id="site-title">openapi_builder 0.2.4 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -78,6 +78,11 @@
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Configuration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="exceptions.html">
+   Exceptions
   </a>
  </li>
  <li class="toctree-l1 has-children">
@@ -138,8 +143,18 @@
       </label>
       <ul>
        <li class="toctree-l4">
+        <a class="reference internal" href="source/packages/openapi_builder.converters.parameter.html">
+         openapi_builder.converters.parameter package
+        </a>
+       </li>
+       <li class="toctree-l4">
         <a class="reference internal" href="source/packages/openapi_builder.converters.base.html">
          openapi_builder.converters.base module
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="source/packages/openapi_builder.converters.halogen.html">
+         openapi_builder.converters.halogen module
         </a>
        </li>
        <li class="toctree-l4">
@@ -149,26 +164,14 @@
        </li>
       </ul>
      </li>
-     <li class="toctree-l3 has-children">
-      <a class="reference internal" href="source/packages/openapi_builder.parsers.html">
-       openapi_builder.parsers package
-      </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-      <label for="toctree-checkbox-5">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="source/packages/openapi_builder.parsers.docstring.html">
-         openapi_builder.parsers.docstring module
-        </a>
-       </li>
-      </ul>
-     </li>
      <li class="toctree-l3">
       <a class="reference internal" href="source/packages/openapi_builder.builder.html">
        openapi_builder.builder module
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="source/packages/openapi_builder.constants.html">
+       openapi_builder.constants module
       </a>
      </li>
      <li class="toctree-l3">
@@ -261,7 +264,7 @@
                 data-placement="left">.rst</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -279,7 +282,7 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
             <div class="tocsection onthispage pt-5 pb-3">
                 <i class="fas fa-list"></i> Contents
@@ -311,7 +314,42 @@
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>Configuration</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#configuring-the-extension">
+   Configuring the extension
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#documentation-options">
+     Documentation options
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#adding-resources">
+   Adding resources
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
   <div class="section" id="configuration">
@@ -432,12 +470,25 @@ made when a variable is named in {brackets}.</p></td>
 <td><p>Whether default marshmallow converters are included in the <code class="code docutils literal notranslate"><span class="pre">OpenAPIBuilder</span></code>. In case a different
 serialization library than <a class="reference external" href="https://github.com/marshmallow-code/marshmallow">marshmallow</a> is used, this value must be set to <code class="code docutils literal notranslate"><span class="pre">False</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">include_documentation_blueprint</span></code></p></td>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">include_halogen_converters</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">bool</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">False</span></code></p></td>
+<td><p>Whether default halogen converters are included in the <code class="code docutils literal notranslate"><span class="pre">OpenAPIBuilder</span></code>. In case a different
+serialization library than <a class="reference external" href="https://halogen.readthedocs.io/en/latest/">halogen</a> is used, this value must be set to <code class="code docutils literal notranslate"><span class="pre">False</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">include_documentation_blueprint</span></code></p></td>
 <td><p><code class="code docutils literal notranslate"><span class="pre">bool</span></code></p></td>
 <td><p><code class="code docutils literal notranslate"><span class="pre">True</span></code></p></td>
 <td><p>Whether a documentation blueprint is exposed in the Flask application. This blueprint contains two endpoints.
 One for exposing the documentation UI, and one for exposing the documentation configuration (data collected by
 inspecting all endpoints). If a custom documentation UI is used, the value must be set to <code class="code docutils literal notranslate"><span class="pre">False</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">strict_mode</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">DocumentationOptions.StrictMode</span></code></p></td>
+<td><p><code class="code docutils literal notranslate"><span class="pre">DocumentationOptions.StrictMode.SHOW_WARNINGS</span></code></p></td>
+<td><p>Whether something unforeseen happened, should the extension crash (preferred in testing), using
+<code class="code docutils literal notranslate"><span class="pre">DocumentationOptions.StrictMode.FAIL_ON_ERROR</span></code> or only print out warnings, using
+<code class="code docutils literal notranslate"><span class="pre">DocumentationOptions.StrictMode.SHOW_WARNINGS</span></code>.</p></td>
 </tr>
 </tbody>
 </table>
@@ -486,7 +537,7 @@ exception is raised.</p></td>
 <td><p><code class="code docutils literal notranslate"><span class="pre">Optional[List[Parameter]]</span></code></p></td>
 <td><p><code class="code docutils literal notranslate"><span class="pre">None</span></code></p></td>
 <td><p>A list of parameters that the endpoint uses. Parameters can be query-arguments,
-header-values, path-values or cookies. See the <a class="reference external" href="https://flyingbird95.github.io/openapi_builder/source/packages/openapi_builder.specification.html#openapi_builder.specification.Parameter">parameter</a> documentation for more info about the
+header-values, path-values or cookies. See the <a class="reference external" href="https://flyingbird95.github.io/openapi-builder/source/packages/openapi_builder.specification.html#openapi_builder.specification.Parameter">parameter</a> documentation for more info about the
 <code class="code docutils literal notranslate"><span class="pre">Parameter</span></code>. This class can be imported using:
 <code class="code docutils literal notranslate"><span class="pre">from</span> <span class="pre">openapi_builder.specification</span> <span class="pre">import</span> <span class="pre">Parameter</span></code>.</p></td>
 </tr>
@@ -500,15 +551,7 @@ header-values, path-values or cookies. See the <a class="reference external" hre
 <td><p><code class="code docutils literal notranslate"><span class="pre">None</span></code></p></td>
 <td><p>A verbose explanation of the operation behavior. CommonMark syntax MAY be used for rich text representation.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">custom_converters</span></code></p></td>
-<td><p><code class="code docutils literal notranslate"><span class="pre">Optional[Dict[str,</span> <span class="pre">Schema]]</span></code></p></td>
-<td><p><code class="code docutils literal notranslate"><span class="pre">None</span></code></p></td>
-<td><p>A dictionary for describing custom attributes within a serialization class. This is illustrated in example 2.
-Note that the value of the dictionary must be a <code class="code docutils literal notranslate"><span class="pre">Schema</span></code> class. See the <a class="reference external" href="https://flyingbird95.github.io/openapi_builder/source/packages/openapi_builder.specification.html#openapi_builder.specification.Schema">schema</a> documentation for more info
-about <code class="code docutils literal notranslate"><span class="pre">Schema</span></code>. This class can be imported using:
-<code class="code docutils literal notranslate"><span class="pre">from</span> <span class="pre">openapi_builder.specification</span> <span class="pre">import</span> <span class="pre">Schema</span></code>.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="code docutils literal notranslate"><span class="pre">tags</span></code></p></td>
+<tr class="row-odd"><td><p><code class="code docutils literal notranslate"><span class="pre">tags</span></code></p></td>
 <td><p><code class="code docutils literal notranslate"><span class="pre">Optional[List[str]]</span></code></p></td>
 <td><p><code class="code docutils literal notranslate"><span class="pre">None</span></code></p></td>
 <td><p>Optional list of strings that represent the endpoint. A typical value for this argument is the name of the
@@ -523,8 +566,8 @@ resource where this endpoint belongs to. Tags are also used by the documentation
 
               </div>
               
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
     <a class='left-prev' id="prev-link" href="index.html" title="previous page">
         <i class="fas fa-angle-left"></i>
@@ -533,27 +576,25 @@ resource where this endpoint belongs to. Tags are also used by the documentation
             <p class="prev-next-title">OpenAPI Builder</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="source/packages/modules.html" title="next page">
+    <a class='right-next' id="next-link" href="exceptions.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">API Reference</p>
+        <p class="prev-next-title">Exceptions</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By Patrick Vogel<br/>
-        
-            &copy; Copyright 2021, Patrick Vogel.<br/>
-      </p>
-    </div>
-  </footer>
+  <p>
+    
+      By Patrick Vogel<br/>
+    
+        &copy; Copyright 2022, Patrick Vogel.<br/>
+  </p>
+</footer>
 </main>
 
 

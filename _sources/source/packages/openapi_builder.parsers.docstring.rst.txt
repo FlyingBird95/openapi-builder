@@ -1,7 +1,0 @@
-openapi\_builder.parsers.docstring module
-=========================================
-
-.. automodule:: openapi_builder.parsers.docstring
-   :members:
-   :undoc-members:
-   :show-inheritance:

@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>openapi_builder.builder module &#8212; openapi_builder 0.2.3 documentation</title>
+    <title>openapi_builder.builder module &#8212; openapi_builder 0.2.4 documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -33,11 +33,11 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/language_data.js"></script>
     <script src="../../_static/js/rtd_sphinx_search.min.js"></script>
-    <script src="../../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="openapi_builder.decorators module" href="openapi_builder.decorators.html" />
-    <link rel="prev" title="openapi_builder.parsers.docstring module" href="openapi_builder.parsers.docstring.html" />
+    <link rel="next" title="openapi_builder.constants module" href="openapi_builder.constants.html" />
+    <link rel="prev" title="openapi_builder.converters.marshmallow module" href="openapi_builder.converters.marshmallow.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -61,7 +61,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">openapi_builder 0.2.3 documentation</h1>
+      <h1 class="site-logo" id="site-title">openapi_builder 0.2.4 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -78,6 +78,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="../../configuration.html">
    Configuration
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../../exceptions.html">
+   Exceptions
   </a>
  </li>
  <li class="toctree-l1 current active has-children">
@@ -138,8 +143,18 @@
       </label>
       <ul>
        <li class="toctree-l4">
+        <a class="reference internal" href="openapi_builder.converters.parameter.html">
+         openapi_builder.converters.parameter package
+        </a>
+       </li>
+       <li class="toctree-l4">
         <a class="reference internal" href="openapi_builder.converters.base.html">
          openapi_builder.converters.base module
+        </a>
+       </li>
+       <li class="toctree-l4">
+        <a class="reference internal" href="openapi_builder.converters.halogen.html">
+         openapi_builder.converters.halogen module
         </a>
        </li>
        <li class="toctree-l4">
@@ -149,26 +164,14 @@
        </li>
       </ul>
      </li>
-     <li class="toctree-l3 has-children">
-      <a class="reference internal" href="openapi_builder.parsers.html">
-       openapi_builder.parsers package
-      </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/>
-      <label for="toctree-checkbox-5">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="openapi_builder.parsers.docstring.html">
-         openapi_builder.parsers.docstring module
-        </a>
-       </li>
-      </ul>
-     </li>
      <li class="toctree-l3 current active">
       <a class="current reference internal" href="#">
        openapi_builder.builder module
+      </a>
+     </li>
+     <li class="toctree-l3">
+      <a class="reference internal" href="openapi_builder.constants.html">
+       openapi_builder.constants module
       </a>
      </li>
      <li class="toctree-l3">
@@ -261,7 +264,7 @@
                 data-placement="left">.rst</button></a>
         <!-- Download PDF via print -->
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
 </div>
 
@@ -279,22 +282,49 @@
         </div>
 
         <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
             
         </div>
     </div>
 </div>
     <div id="main-content" class="row">
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>openapi_builder.builder module</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                    </div>
+                </div>
+            </div>
+            
               <div>
                 
   <div class="section" id="module-openapi_builder.builder">
 <span id="openapi-builder-builder-module"></span><h1>openapi_builder.builder module<a class="headerlink" href="#module-openapi_builder.builder" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="openapi_builder.builder.DocumentationOptions">
-<em class="property">class </em><code class="sig-prename descclassname">openapi_builder.builder.</code><code class="sig-name descname">DocumentationOptions</code><span class="sig-paren">(</span><em class="sig-param">include_head_response: bool = True</em>, <em class="sig-param">include_options_response: bool = True</em>, <em class="sig-param">server_url: str = '/'</em>, <em class="sig-param">include_marshmallow_converters: bool = True</em>, <em class="sig-param">include_documentation_blueprint: bool = True</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/builder.html#DocumentationOptions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.builder.DocumentationOptions" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">openapi_builder.builder.</code><code class="sig-name descname">DocumentationOptions</code><span class="sig-paren">(</span><em class="sig-param">include_head_response: bool = True</em>, <em class="sig-param">include_options_response: bool = True</em>, <em class="sig-param">server_url: str = '/'</em>, <em class="sig-param">include_marshmallow_converters: bool = True</em>, <em class="sig-param">include_halogen_converters: bool = False</em>, <em class="sig-param">include_documentation_blueprint: bool = True</em>, <em class="sig-param">strict_mode: openapi_builder.builder.DocumentationOptions.StrictMode = &lt;StrictMode.SHOW_WARNINGS: 2&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/builder.html#DocumentationOptions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.builder.DocumentationOptions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="class">
+<dt id="openapi_builder.builder.DocumentationOptions.StrictMode">
+<em class="property">class </em><code class="sig-name descname">StrictMode</code><a class="reference internal" href="../../_modules/openapi_builder/builder.html#DocumentationOptions.StrictMode"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.builder.DocumentationOptions.StrictMode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/enum.html#enum.Enum" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
+<p>An enumeration.</p>
+<dl class="attribute">
+<dt id="openapi_builder.builder.DocumentationOptions.StrictMode.FAIL_ON_ERROR">
+<code class="sig-name descname">FAIL_ON_ERROR</code><em class="property"> = 1</em><a class="headerlink" href="#openapi_builder.builder.DocumentationOptions.StrictMode.FAIL_ON_ERROR" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="openapi_builder.builder.DocumentationOptions.StrictMode.SHOW_WARNINGS">
+<code class="sig-name descname">SHOW_WARNINGS</code><em class="property"> = 2</em><a class="headerlink" href="#openapi_builder.builder.DocumentationOptions.StrictMode.SHOW_WARNINGS" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
@@ -302,12 +332,17 @@
 <em class="property">class </em><code class="sig-prename descclassname">openapi_builder.builder.</code><code class="sig-name descname">OpenAPIBuilder</code><span class="sig-paren">(</span><em class="sig-param">open_api_documentation: openapi_builder.builder.OpenApiDocumentation</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/builder.html#OpenAPIBuilder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.builder.OpenAPIBuilder" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
 <p>OpenAPI builder for generating the documentation.</p>
+<dl class="attribute">
+<dt id="openapi_builder.builder.OpenAPIBuilder.documentation_context">
+<code class="sig-name descname">documentation_context</code><em class="property"> = &lt;openapi_builder.documentation.DocumentationContext object&gt;</em><a class="headerlink" href="#openapi_builder.builder.OpenAPIBuilder.documentation_context" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 <dl class="method">
 <dt id="openapi_builder.builder.OpenAPIBuilder.iterate_endpoints">
 <code class="sig-name descname">iterate_endpoints</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/builder.html#OpenAPIBuilder.iterate_endpoints"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.builder.OpenAPIBuilder.iterate_endpoints" title="Permalink to this definition">¶</a></dt>
 <dd><p>Iterates the endpoints of the Flask application to generate the documentation.</p>
 <p>This function is executed before the first request is processed in the corresponding
-Flask application.</p>
+Flask application, but after OpenApiBuilder.register_converters.</p>
 </dd></dl>
 
 <dl class="method">
@@ -332,30 +367,20 @@ Flask application.</p>
 <dt id="openapi_builder.builder.OpenAPIBuilder.process_rule">
 <code class="sig-name descname">process_rule</code><span class="sig-paren">(</span><em class="sig-param">rule: werkzeug.routing.Rule</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/builder.html#OpenAPIBuilder.process_rule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.builder.OpenAPIBuilder.process_rule" title="Permalink to this definition">¶</a></dt>
 <dd><p>Processes a Werkzeug rule.</p>
-<p>The function must be called within the use_documentation_config-context manager.
-Usage:
-&gt;&gt;&gt; builder = OpenAPIBuilder()
-&gt;&gt;&gt; config = Documentation()  # retrieved from the &#64;add_documentation decorator.
-&gt;&gt;&gt; with builder.use_documentation_config(config):
-&gt;&gt;&gt;   builder.process_rule(rule)</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="openapi_builder.builder.OpenAPIBuilder.register_converter">
-<code class="sig-name descname">register_converter</code><span class="sig-paren">(</span><em class="sig-param">converter</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/builder.html#OpenAPIBuilder.register_converter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.builder.OpenAPIBuilder.register_converter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Register a converter for this builder.</p>
+<dt id="openapi_builder.builder.OpenAPIBuilder.register_converters">
+<code class="sig-name descname">register_converters</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/builder.html#OpenAPIBuilder.register_converters"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.builder.OpenAPIBuilder.register_converters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Registers converts for the instance.</p>
+<p>This function is executed before the first request is processed the in the corresponding
+Flask application. Also before, OpenApiBuilder.iterate_endpoints.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="openapi_builder.builder.OpenAPIBuilder.schemas">
 <em class="property">property </em><code class="sig-name descname">schemas</code><a class="headerlink" href="#openapi_builder.builder.OpenAPIBuilder.schemas" title="Permalink to this definition">¶</a></dt>
 <dd><p>Helper property to return the schemas.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="openapi_builder.builder.OpenAPIBuilder.use_documentation_config">
-<code class="sig-name descname">use_documentation_config</code><span class="sig-paren">(</span><em class="sig-param">documentation_config: openapi_builder.documentation.Documentation</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/builder.html#OpenAPIBuilder.use_documentation_config"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.builder.OpenAPIBuilder.use_documentation_config" title="Permalink to this definition">¶</a></dt>
-<dd><p>Context manager for function that need to be executed with a documentation_config.</p>
 </dd></dl>
 
 </dd></dl>
@@ -373,17 +398,20 @@ Usage:
 &gt;&gt;&gt; documentation = OpenApiDocumentation()
 &gt;&gt;&gt; app = Flask(__name__)
 &gt;&gt;&gt; documentation.init_app(app=app)</p>
-<dl class="attribute">
-<dt id="openapi_builder.builder.OpenApiDocumentation.app">
-<code class="sig-name descname">app</code><em class="property">: Optional[Flask]</em><em class="property"> = None</em><a class="headerlink" href="#openapi_builder.builder.OpenApiDocumentation.app" title="Permalink to this definition">¶</a></dt>
-<dd><p>After self.init_app is called, the self.app must not be None anymore.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="openapi_builder.builder.OpenApiDocumentation.builder">
-<code class="sig-name descname">builder</code><em class="property"> = None</em><a class="headerlink" href="#openapi_builder.builder.OpenApiDocumentation.builder" title="Permalink to this definition">¶</a></dt>
-<dd><p>The builder used for iterating the endpoints. This is done in order to generate the
-configuration configuration.</p>
+<dl class="method">
+<dt id="openapi_builder.builder.OpenApiDocumentation.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">app: Optional[flask.app.Flask] = None</em>, <em class="sig-param">title: str = 'Open API REST documentation'</em>, <em class="sig-param">version: str = '1.0.0'</em>, <em class="sig-param">options: Optional[openapi_builder.builder.DocumentationOptions] = None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/openapi_builder/builder.html#OpenApiDocumentation.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#openapi_builder.builder.OpenApiDocumentation.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize the extension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>app</strong> – The Flask application for iterating the endpoints to find out the documentation.</p></li>
+<li><p><strong>title</strong> – The title of the API.</p></li>
+<li><p><strong>version</strong> – The version of the API implementation.</p></li>
+<li><p><strong>options</strong> – Global documentation options for the builder.</p></li>
+</ul>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -398,18 +426,6 @@ configuration configuration.</p>
 <dd><p>Initialises the application.</p>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="openapi_builder.builder.OpenApiDocumentation.options">
-<code class="sig-name descname">options</code><em class="property">: DocumentationOptions</em><em class="property"> = None</em><a class="headerlink" href="#openapi_builder.builder.OpenApiDocumentation.options" title="Permalink to this definition">¶</a></dt>
-<dd><p>Global documentation options for the builder.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="openapi_builder.builder.OpenApiDocumentation.specification">
-<code class="sig-name descname">specification</code><em class="property"> = None</em><a class="headerlink" href="#openapi_builder.builder.OpenApiDocumentation.specification" title="Permalink to this definition">¶</a></dt>
-<dd><p>The specification that is generated using the builder.</p>
-</dd></dl>
-
 </dd></dl>
 
 </div>
@@ -417,37 +433,35 @@ configuration configuration.</p>
 
               </div>
               
-        
-            <!-- Previous / next buttons -->
+            
+                <!-- Previous / next buttons -->
 <div class='prev-next-area'> 
-    <a class='left-prev' id="prev-link" href="openapi_builder.parsers.docstring.html" title="previous page">
+    <a class='left-prev' id="prev-link" href="openapi_builder.converters.marshmallow.html" title="previous page">
         <i class="fas fa-angle-left"></i>
         <div class="prev-next-info">
             <p class="prev-next-subtitle">previous</p>
-            <p class="prev-next-title">openapi_builder.parsers.docstring module</p>
+            <p class="prev-next-title">openapi_builder.converters.marshmallow module</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="openapi_builder.decorators.html" title="next page">
+    <a class='right-next' id="next-link" href="openapi_builder.constants.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">openapi_builder.decorators module</p>
+        <p class="prev-next-title">openapi_builder.constants module</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
 </div>
-        
+            
         </div>
     </div>
     <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By Patrick Vogel<br/>
-        
-            &copy; Copyright 2021, Patrick Vogel.<br/>
-      </p>
-    </div>
-  </footer>
+  <p>
+    
+      By Patrick Vogel<br/>
+    
+        &copy; Copyright 2022, Patrick Vogel.<br/>
+  </p>
+</footer>
 </main>
 
 

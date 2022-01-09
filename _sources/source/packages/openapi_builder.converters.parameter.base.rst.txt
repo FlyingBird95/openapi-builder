@@ -1,0 +1,7 @@
+openapi\_builder.converters.parameter.base module
+=================================================
+
+.. automodule:: openapi_builder.converters.parameter.base
+   :members:
+   :undoc-members:
+   :show-inheritance:
