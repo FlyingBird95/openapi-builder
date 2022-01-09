@@ -14,7 +14,10 @@ Unreleased
 ----------
 Release date:
 
-Introduced the following features:
+
+Version `0.2.4 <https://github.com/FlyingBird95/openapi-builder/tree/v0.2.4>`__
+--------------------------------------------------------------------------------
+Release date: 2022-01-09
 
 - **Added** tag support per endpoint
 - **Added** configuration page
@@ -22,13 +25,14 @@ Introduced the following features:
 - **Added** class decorator for registering converters: :code:`openapi_builder.converters.base.register_converter`.
 - **Removed** :code:`custom_converters` option to :code:`add_documentation`.
 - **Changed** loading converters lazily.
+- **Added** url parameter converters: :code:`openapi_builder.converters.parameter`.
 
 .. _halogen: https://halogen.readthedocs.io/en/latest/
 
 
-Version `0.2.0 <https://github.com/FlyingBird95/openapi_builder/tree/v0.2.0>`__
+Version `0.2.0 <https://github.com/FlyingBird95/openapi-builder/tree/v0.2.0>`__
 --------------------------------------------------------------------------------
-Release date: 2021-12-9
+Release date: 2021-12-09
 
 - **Changed** interface to support the standard :code:`init_app` notation.
 - **Fixed** broken marshmallow support.
@@ -36,7 +40,7 @@ Release date: 2021-12-9
 - **Added** example.
 - **Added** documentation.
 
-Version `0.1.0 <https://github.com/FlyingBird95/openapi_builder/tree/v0.1.0>`__
+Version `0.1.0 <https://github.com/FlyingBird95/openapi-builder/tree/v0.1.0>`__
 --------------------------------------------------------------------------------
 Release date: 2021-11-17
 

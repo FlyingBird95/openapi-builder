@@ -91,6 +91,46 @@ class NullableConverter(Converter):
 
 
 @register_converter
+class LinkConverter(Converter):
+    converts_class = halogen.schema._SchemaType
+
+    def matches(self, value) -> bool:
+        return super().matches(value) and value.__name__ == "LinkSchema"
+
+    def convert(self, value) -> Schema:
+        properties = {}
+
+        for prop in value.__class_attrs__.values():
+            properties[prop.key] = Schema(type="string", format="url")
+
+        return Schema(type="object", properties=properties)
+
+
+@register_converter
+class CurieConverter(Converter):
+    converts_class = halogen.schema._SchemaType
+
+    def matches(self, value) -> bool:
+        return super().matches(value) and value.__class_attrs__.keys() == {
+            "href",
+            "name",
+            "templated",
+            "type",
+        }
+
+    def convert(self, value) -> Schema:
+        return Schema(
+            type="object",
+            properties={
+                "href": Schema(type="string", format="url"),
+                "name": Schema(type="string", format="string"),
+                "templated": Schema(type="boolean"),
+                "type": Schema(type="string", format="string"),
+            },
+        )
+
+
+@register_converter
 class SchemaConverter(Converter):
     converts_class = halogen.schema._SchemaType
 
@@ -107,9 +147,21 @@ class SchemaConverter(Converter):
             else:
                 result = properties
 
-            result[prop.key] = self.builder.process(
-                value=prop.attr_type, name=f"{schema_name}.{prop.key}"
+            attr = self.builder.process(
+                value=prop.attr_type,
+                name=f"{schema_name}.{prop.key}",
             )
+            if hasattr(prop, "default"):
+                attr.required = False
+                if callable(prop.default):
+                    attr.default = prop.default()
+                elif hasattr(prop.default, "value"):
+                    attr.default = prop.default.value
+                elif prop.default is None:
+                    attr.default = None
+                else:
+                    attr.default = prop.default
+            result[prop.key] = attr
 
         self.builder.schemas[schema_name] = Schema(type="object", properties=properties)
         return Reference.from_schema(schema_name=schema_name)

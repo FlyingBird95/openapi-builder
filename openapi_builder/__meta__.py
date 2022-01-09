@@ -8,5 +8,5 @@ author_email = "patrickvogel@live.nl"
 description = (
     "A Flask extension to automatically add OpenAPI documentation for your Flask app."
 )
-url = "https://github.com/FlyingBird95/openapi_builder"
+url = "https://github.com/FlyingBird95/openapi-builder"
 license = "MIT"

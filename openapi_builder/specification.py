@@ -75,6 +75,12 @@ class OpenAPI:
             "paths": self.paths.get_value(),
             "components": self.components.get_value(),
         }
+        if self.security:
+            value["security"] = [
+                requirement.get_value() for requirement in self.security
+            ]
+        if self.tags:
+            value["tags"] = [tag.get_value() for tag in self.tags]
         return value
 
 
@@ -424,7 +430,7 @@ class Components:
                 key: value.get_value() for key, value in self.headers.items()
             }
         if self.security_schemes:
-            value["security_schemes"] = {
+            value["securitySchemes"] = {
                 key: value.get_value() for key, value in self.security_schemes.items()
             }
         if self.links:
@@ -1428,6 +1434,14 @@ class Reference:
     @classmethod
     def from_security_scheme(cls, security_scheme_name):
         return cls(ref=f"#/components/securitySchemes/{security_scheme_name}")
+
+    def get_schema(self, open_api: OpenAPI) -> "Schema":
+        if self.ref.startswith("#/components/schemas/"):
+            schema_name = self.ref[len("#/components/schemas/") :]
+            return open_api.components.schemas[schema_name]
+        raise ValueError(
+            "This function only works when the reference is created via from_schema"
+        )
 
     def get_value(self):
         value = {"$ref": self.ref}

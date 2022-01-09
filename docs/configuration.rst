@@ -181,5 +181,5 @@ options are applicable for passing to the function. This decorator can be import
        (with the same tags) together.
 
 
-.. _parameter: https://flyingbird95.github.io/openapi_builder/source/packages/openapi_builder.specification.html#openapi_builder.specification.Parameter
-.. _schema: https://flyingbird95.github.io/openapi_builder/source/packages/openapi_builder.specification.html#openapi_builder.specification.Schema
+.. _parameter: https://flyingbird95.github.io/openapi-builder/source/packages/openapi_builder.specification.html#openapi_builder.specification.Parameter
+.. _schema: https://flyingbird95.github.io/openapi-builder/source/packages/openapi_builder.specification.html#openapi_builder.specification.Schema

@@ -42,6 +42,7 @@ def test_default_options(app):
 def test_register_marshmallow_converters(app):
     """Test that marshmallow converters are registered by default."""
     open_api_documentation = OpenApiDocumentation(app=app)
+    app.try_trigger_before_first_request_functions()
     assert any(
         isinstance(converter, StringConverter)
         for converter in open_api_documentation.builder.converters

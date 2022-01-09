@@ -5,7 +5,7 @@ from flask import render_template, url_for
 from .blueprint import openapi_documentation
 
 
-@openapi_documentation.route("/", methods=["GET"])
+@openapi_documentation.get("")
 def index():
     """Get Open API UI page."""
     config = {

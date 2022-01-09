@@ -8,6 +8,7 @@ from werkzeug.routing import Rule
 from .blueprint.blueprint import openapi_documentation
 from .constants import EXTENSION_NAME
 from .converters.base import CONVERTER_CLASSES, Converter
+from .converters.parameter.process import parse_openapi_arguments
 from .documentation import Documentation, DocumentationContext
 from .exceptions import MissingConverter
 from .specification import (
@@ -15,15 +16,17 @@ from .specification import (
     MediaType,
     OpenAPI,
     Operation,
+    Parameter,
     PathItem,
     Paths,
+    Reference,
     RequestBody,
     Response,
     Responses,
     Schema,
     Server,
 )
-from .util import openapi_endpoint_name_from_rule, parse_openapi_arguments
+from .util import openapi_endpoint_name_from_rule
 
 
 class DocumentationOptions:
@@ -158,6 +161,9 @@ class OpenAPIBuilder:
             converter_class(builder=self) for converter_class in CONVERTER_CLASSES
         ]
 
+        # register parameter converters
+        import openapi_builder.converters.parameter.flask_converters  # noqa: F401
+
     def iterate_endpoints(self):
         """Iterates the endpoints of the Flask application to generate the documentation.
 
@@ -201,7 +207,25 @@ class OpenAPIBuilder:
                 )
 
             input_schema = self.documentation_context.config.input_schema
-            if input_schema is not None:
+            if input_schema is not None and method == "GET":
+                schema_or_reference = self.process(input_schema)
+                if isinstance(schema_or_reference, Reference):
+                    schema = schema_or_reference.get_schema(
+                        self.open_api_documentation.specification
+                    )
+                else:
+                    schema = schema_or_reference
+                for key, value in schema.properties.items():
+                    path_item.parameters.append(
+                        Parameter(
+                            in_="query",
+                            name=key,
+                            schema=value,
+                            required=value.required,
+                        )
+                    )
+                request_body = None
+            elif input_schema is not None:
                 schema_or_reference = self.process(input_schema)
                 request_body = RequestBody(
                     description=self.documentation_context.config.description,
