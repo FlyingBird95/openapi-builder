@@ -1,6 +1,6 @@
 |GHA tests| |Documentation| |Codecov report| |pre-commit| |black| |pypi| |downloads|
 
-`OpenAPI Builder <https://flyingbird95.github.io/openapi_builder>`_
+`OpenAPI Builder <https://flyingbird95.github.io/openapi-builder>`_
 ===================================================================
 A Flask_ extension for automatically adding OpenAPI_ documentation to your Flask app.
 
@@ -135,7 +135,7 @@ That's all folks. You can view your documentation at http://localhost:5000/docum
 at: http://localhost:5000/documentation-configuration. Whenever the schema is updated by adding/removing/updating a new
 property, it is automatically reflected in the OpenAPI documentation.
 
-.. _doc-page: https://flyingbird95.github.io/openapi_builder/configuration.html
+.. _doc-page: https://flyingbird95.github.io/openapi-builder/configuration.html
 
 
 Contributing
@@ -168,10 +168,10 @@ For a given block of code, a fixed version of black will always produce the same
 However, it should be noted that different versions of black will produce different outputs.
 Black is configured here:
 
-- requirements-dev.txt, `L1 <https://github.com/flyingbird95/openapi_builder/blob/master/requirements-dev.txt#L1>`__
-- .pre-commit-config.yaml, `L14 <https://github.com/flyingbird95/openapi_builder/blob/master/.pre-commit-config.yaml#L14>`__,
-  `L28 <https://github.com/flyingbird95/openapi_builder/blob/master/.pre-commit-config.yaml#L28>`__, and
-  `L47 <https://github.com/flyingbird95/openapi_builder/blob/master/.pre-commit-config.yaml#L47>`__
+- requirements-dev.txt, `L1 <https://github.com/flyingbird95/openapi-builder/blob/master/requirements-dev.txt#L1>`__
+- .pre-commit-config.yaml, `L14 <https://github.com/flyingbird95/openapi-builder/blob/master/.pre-commit-config.yaml#L14>`__,
+  `L28 <https://github.com/flyingbird95/openapi-builder/blob/master/.pre-commit-config.yaml#L28>`__, and
+  `L47 <https://github.com/flyingbird95/openapi-builder/blob/master/.pre-commit-config.yaml#L47>`__
 
 .. _black: https://github.com/psf/black
 
@@ -245,7 +245,7 @@ It is set up to work well out of the box, with several features added in.
 GitHub Pages
 ^^^^^^^^^^^^
 
-Documentation is deployed to `GitHub Pages`_ and is available at https://flyingbird95.github.io/openapi_builder/.
+Documentation is deployed to `GitHub Pages`_ and is available at https://flyingbird95.github.io/openapi-builder/.
 
 The gh-pages documentation is refreshed every time there is a push to the master branch.
 
@@ -376,7 +376,7 @@ Five workflows are included:
 
 docs
     The docs workflow ensures the documentation builds correctly, and presents any errors and warnings nicely as annotations.
-    The available html documentation is automatically deployed to the gh-pages branch and https://flyingbird95.github.io/openapi_builder/.
+    The available html documentation is automatically deployed to the gh-pages branch and https://flyingbird95.github.io/openapi-builder/.
 
 pre-commit
     Runs the pre-commit stack.
@@ -405,14 +405,14 @@ When the ``publish`` job is enabled on the release candidate tests workflow, it 
 
 
 
-.. |GHA tests| image:: https://github.com/flyingbird95/openapi_builder/workflows/tests/badge.svg
-   :target: https://github.com/flyingbird95/openapi_builder/actions?query=workflow%3Atests
+.. |GHA tests| image:: https://github.com/flyingbird95/openapi-builder/workflows/tests/badge.svg
+   :target: https://github.com/flyingbird95/openapi-builder/actions?query=workflow%3Atests
    :alt: GHA Status
-.. |Documentation| image:: https://github.com/flyingbird95/openapi_builder/workflows/docs/badge.svg
-   :target: https://flyingbird95.github.io/openapi_builder/index.html
+.. |Documentation| image:: https://github.com/flyingbird95/openapi-builder/workflows/docs/badge.svg
+   :target: https://flyingbird95.github.io/openapi-builder/index.html
    :alt: Documentation
-.. |Codecov report| image:: https://codecov.io/github/flyingbird95/openapi_builder/coverage.svg?branch=master
-   :target: https://codecov.io/github/flyingbird95/openapi_builder?branch=master
+.. |Codecov report| image:: https://codecov.io/github/flyingbird95/openapi-builder/coverage.svg?branch=master
+   :target: https://codecov.io/github/flyingbird95/openapi-builder?branch=master
    :alt: Coverage
 .. |pre-commit| image:: https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white
    :target: https://github.com/pre-commit/pre-commit
