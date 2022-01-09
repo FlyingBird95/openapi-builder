@@ -42,7 +42,7 @@ Installation is simple via PIP:
 After installation, it's time to build the documentation for the resources in your Flask application, and expose them
 so your external users can read them. For working examples, see `this folder <this-folder_>`_.
 
-.. _this-folder: https://github.com/FlyingBird95/openapi_builder/tree/master/examples/
+.. _this-folder: https://github.com/FlyingBird95/openapi-builder/tree/master/examples/
 
 Initialising the extension
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
