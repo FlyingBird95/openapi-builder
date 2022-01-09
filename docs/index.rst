@@ -6,6 +6,7 @@
     :caption: Contents:
 
     configuration
+    exceptions
 
     source/packages/modules
     source/changelog

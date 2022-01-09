@@ -75,6 +75,12 @@ class OpenAPI:
             "paths": self.paths.get_value(),
             "components": self.components.get_value(),
         }
+        if self.security:
+            value["security"] = [
+                requirement.get_value() for requirement in self.security
+            ]
+        if self.tags:
+            value["tags"] = [tag.get_value() for tag in self.tags]
         return value
 
 
@@ -424,7 +430,7 @@ class Components:
                 key: value.get_value() for key, value in self.headers.items()
             }
         if self.security_schemes:
-            value["security_schemes"] = {
+            value["securitySchemes"] = {
                 key: value.get_value() for key, value in self.security_schemes.items()
             }
         if self.links:
@@ -1429,6 +1435,14 @@ class Reference:
     def from_security_scheme(cls, security_scheme_name):
         return cls(ref=f"#/components/securitySchemes/{security_scheme_name}")
 
+    def get_schema(self, open_api: OpenAPI) -> "Schema":
+        if self.ref.startswith("#/components/schemas/"):
+            schema_name = self.ref[len("#/components/schemas/") :]
+            return open_api.components.schemas[schema_name]
+        raise ValueError(
+            "This function only works when the reference is created via from_schema"
+        )
+
     def get_value(self):
         value = {"$ref": self.ref}
 
@@ -1473,6 +1487,8 @@ class Schema:
         description: Optional[str] = None,
         format: Optional[str] = None,
         default: Optional[Any] = None,
+        example: Optional[Any] = None,
+        examples: Optional[Dict[str, Union["Example", Reference]]] = None,
     ):
         self.title: Optional[str] = title
         self.multiple_of: Optional[int] = multiple_of
@@ -1505,6 +1521,8 @@ class Schema:
         self.description: Optional[str] = description
         self.format: Optional[str] = format
         self.default: Optional[Any] = default
+        self.example: Optional[Any] = example
+        self.examples: Optional[Dict[str, Union["Example", Reference]]] = examples
 
     def get_value(self):
         value = {}
@@ -1565,6 +1583,14 @@ class Schema:
             value["format"] = self.format
         if self.default is not None:
             value["default"] = self.default
+        if self.example is not None and self.examples is not None:
+            raise ValueError("`example` and `examples` are mutually exclusive")
+        if self.example is not None:
+            value["example"] = self.example
+        if self.examples is not None:
+            value["examples"] = {
+                key: example.get_value() for key, example in self.examples.items()
+            }
 
         return value
 

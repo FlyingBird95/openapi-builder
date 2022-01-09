@@ -1,5 +1,5 @@
 Configuration
-============
+=============
 Once you have successfully installed the :code:`openapi_builder` package, it's time to properly configure it such
 that it suits your needs. The configuration consist of the following two steps:
 
@@ -7,7 +7,7 @@ that it suits your needs. The configuration consist of the following two steps:
 - :ref:`Adding resources`
 
 Configuring the extension
-~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~
 The extension can be added to the Flask app using the following snippet.
 
 .. code:: python
@@ -104,14 +104,26 @@ following line:
      - :code:`True`
      - Whether default marshmallow converters are included in the :code:`OpenAPIBuilder`. In case a different
        serialization library than marshmallow_ is used, this value must be set to :code:`False`.
+   * - :code:`include_halogen_converters`
+     - :code:`bool`
+     - :code:`False`
+     - Whether default halogen converters are included in the :code:`OpenAPIBuilder`. In case a different
+       serialization library than halogen_ is used, this value must be set to :code:`False`.
    * - :code:`include_documentation_blueprint`
      - :code:`bool`
      - :code:`True`
      - Whether a documentation blueprint is exposed in the Flask application. This blueprint contains two endpoints.
        One for exposing the documentation UI, and one for exposing the documentation configuration (data collected by
        inspecting all endpoints). If a custom documentation UI is used, the value must be set to :code:`False`.
+   * - :code:`strict_mode`
+     - :code:`DocumentationOptions.StrictMode`
+     - :code:`DocumentationOptions.StrictMode.SHOW_WARNINGS`
+     - Whether something unforeseen happened, should the extension crash (preferred in testing), using
+       :code:`DocumentationOptions.StrictMode.FAIL_ON_ERROR` or only print out warnings, using
+       :code:`DocumentationOptions.StrictMode.SHOW_WARNINGS`.
 
 .. _marshmallow: https://github.com/marshmallow-code/marshmallow
+.. _halogen: https://halogen.readthedocs.io/en/latest/
 
 Adding resources
 ~~~~~~~~~~~~~~~~
@@ -161,13 +173,6 @@ options are applicable for passing to the function. This decorator can be import
      - :code:`Optional[str]`
      - :code:`None`
      - A verbose explanation of the operation behavior. CommonMark syntax MAY be used for rich text representation.
-   * - :code:`custom_converters`
-     - :code:`Optional[Dict[str, Schema]]`
-     - :code:`None`
-     - A dictionary for describing custom attributes within a serialization class. This is illustrated in example 2.
-       Note that the value of the dictionary must be a :code:`Schema` class. See the schema_ documentation for more info
-       about :code:`Schema`. This class can be imported using:
-       :code:`from openapi_builder.specification import Schema`.
    * - :code:`tags`
      - :code:`Optional[List[str]]`
      - :code:`None`
@@ -176,5 +181,5 @@ options are applicable for passing to the function. This decorator can be import
        (with the same tags) together.
 
 
-.. _parameter: https://flyingbird95.github.io/openapi_builder/source/packages/openapi_builder.specification.html#openapi_builder.specification.Parameter
-.. _schema: https://flyingbird95.github.io/openapi_builder/source/packages/openapi_builder.specification.html#openapi_builder.specification.Schema
+.. _parameter: https://flyingbird95.github.io/openapi-builder/source/packages/openapi_builder.specification.html#openapi_builder.specification.Parameter
+.. _schema: https://flyingbird95.github.io/openapi-builder/source/packages/openapi_builder.specification.html#openapi_builder.specification.Schema

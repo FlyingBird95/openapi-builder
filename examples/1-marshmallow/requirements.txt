@@ -1,0 +1,2 @@
+marshmallow  # no pinned version, so it uses the latest
+openapi-builder

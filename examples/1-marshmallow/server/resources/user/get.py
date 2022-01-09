@@ -3,11 +3,10 @@ from http import HTTPStatus
 from flask import jsonify
 
 from openapi_builder import add_documentation
-from openapi_builder.specification import Schema
 
 from ...models import User
 from .blueprint import blueprint
-from .schema import ErrorSchema, FunctionSchema, UserSchema
+from .schema import ErrorSchema, UserSchema
 
 
 @blueprint.route("/<int:user_id>")
@@ -26,16 +25,3 @@ def get(user_id):
             HTTPStatus.NOT_FOUND,
         )
     return jsonify(UserSchema().dump(user))
-
-
-@blueprint.route("/custom")
-@add_documentation(
-    responses={HTTPStatus.OK: FunctionSchema},
-    custom_converters={
-        "FunctionSchema.list_of_strings": Schema(
-            type="array", items=Schema(type="string")
-        ),
-    },
-)
-def custom():
-    return jsonify(FunctionSchema().dump(None))

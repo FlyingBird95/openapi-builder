@@ -14,7 +14,6 @@ Subpackages
 
    openapi_builder.blueprint
    openapi_builder.converters
-   openapi_builder.parsers
 
 Submodules
 ----------
@@ -23,6 +22,7 @@ Submodules
    :maxdepth: 4
 
    openapi_builder.builder
+   openapi_builder.constants
    openapi_builder.decorators
    openapi_builder.documentation
    openapi_builder.exceptions
