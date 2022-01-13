@@ -9,7 +9,7 @@ def test_get_without_decorator(http, open_api_documentation):
     assert response.status_code == HTTPStatus.OK
     assert response.parsed_data == {"status": "OK"}
 
-    configuration = open_api_documentation.get_configuration()
+    configuration = open_api_documentation.get_specification()
     assert configuration["paths"] == {}
 
 
@@ -21,7 +21,7 @@ def test_get_with_decorator(http, open_api_documentation):
     assert response.status_code == HTTPStatus.OK
     assert response.parsed_data == {"status": "OK"}
 
-    configuration = open_api_documentation.get_configuration()
+    configuration = open_api_documentation.get_specification()
     path = configuration["paths"]["/get_with_decorator"]
     assert path["get"] == {"responses": {}}
     assert path["head"] == {"responses": {}}
@@ -35,7 +35,7 @@ def test_get_with_decorator_no_head(http, open_api_documentation):
     assert response.status_code == HTTPStatus.OK
     assert response.parsed_data == {"status": "OK"}
 
-    configuration = open_api_documentation.get_configuration()
+    configuration = open_api_documentation.get_specification()
     path = configuration["paths"]["/get_with_decorator"]
     assert path["get"] == {"responses": {}}
     assert "head" not in path
@@ -48,7 +48,7 @@ def test_get_with_decorator_no_options(http, open_api_documentation):
     assert response.status_code == HTTPStatus.OK
     assert response.parsed_data == {"status": "OK"}
 
-    configuration = open_api_documentation.get_configuration()
+    configuration = open_api_documentation.get_specification()
     path = configuration["paths"]["/get_with_decorator"]
     assert path["get"] == {"responses": {}}
     assert "options" not in path

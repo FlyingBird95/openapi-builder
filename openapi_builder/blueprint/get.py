@@ -11,7 +11,7 @@ def index():
     config = {
         "app_name": "OpenAPI UI",
         "dom_id": "#openapi-ui",
-        "url": url_for("openapi_documentation.configuration"),
+        "url": url_for("openapi_documentation.specification"),
         "layout": "StandaloneLayout",
         "deepLinking": True,
     }

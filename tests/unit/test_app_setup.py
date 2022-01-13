@@ -24,7 +24,7 @@ def test_configuring_flask_app_option_2(http):
 def test_default_options(app):
     """Test default options for the OpenApiDocumentation."""
     open_api_documentation = OpenApiDocumentation(app=app)
-    configuration = open_api_documentation.get_configuration()
+    configuration = open_api_documentation.get_specification()
     info = configuration["info"]
     assert info["title"] == "Open API REST documentation"
     assert info["version"] == "1.0.0"

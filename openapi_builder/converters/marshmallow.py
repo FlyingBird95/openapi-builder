@@ -19,7 +19,7 @@ class StringConverter(Converter):
     converts_class = marshmallow.fields.String
 
     def convert(self, value) -> Schema:
-        return Schema(type="string", format="string")
+        return Schema(type="string")
 
 
 @register_converter
@@ -27,7 +27,7 @@ class BooleanConverter(Converter):
     converts_class = marshmallow.fields.Boolean
 
     def convert(self, value) -> Schema:
-        return Schema(type="boolean", format="boolean")
+        return Schema(type="boolean")
 
 
 @register_converter
@@ -35,7 +35,7 @@ class NumberConverter(Converter):
     converts_class = marshmallow.fields.Number
 
     def convert(self, value) -> Schema:
-        return Schema(type="number", format=None)
+        return Schema(type="number")
 
 
 @register_converter
@@ -43,7 +43,7 @@ class IntegerConverter(Converter):
     converts_class = marshmallow.fields.Integer
 
     def convert(self, value) -> Schema:
-        return Schema(type="integer", format="int32")
+        return Schema(type="integer")
 
 
 @register_converter
@@ -51,12 +51,12 @@ class FloatConverter(Converter):
     converts_class = marshmallow.fields.Float
 
     def convert(self, value) -> Schema:
-        return Schema(type="number", format=None)
+        return Schema(type="float")
 
 
 @register_converter
 class UUIDConverter(Converter):
-    converts_class = marshmallow.fields.Float
+    converts_class = marshmallow.fields.UUID
 
     def convert(self, value) -> Schema:
         return Schema(type="string", format="uuid")
@@ -67,7 +67,7 @@ class DecimalConverter(Converter):
     converts_class = marshmallow.fields.Decimal
 
     def convert(self, value) -> Schema:
-        return Schema(type="number", format=None)
+        return Schema(type="number")
 
 
 @register_converter

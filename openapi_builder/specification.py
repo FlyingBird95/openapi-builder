@@ -1524,6 +1524,10 @@ class Schema:
         self.example: Optional[Any] = example
         self.examples: Optional[Dict[str, Union["Example", Reference]]] = examples
 
+        self.options: Optional[
+            Dict
+        ] = None  # can only be set via after Schema is created
+
     def get_value(self):
         value = {}
 
@@ -1591,6 +1595,9 @@ class Schema:
             value["examples"] = {
                 key: example.get_value() for key, example in self.examples.items()
             }
+
+        if self.options is not None:
+            value.update(self.options)
 
         return value
 

@@ -1,5 +1,6 @@
 import halogen
 
+from openapi_builder.constants import HIDDEN_ATTR_NAME
 from openapi_builder.converters import Converter, register_converter
 from openapi_builder.specification import Reference, Schema
 
@@ -47,7 +48,7 @@ class StringConverter(Converter):
     converts_class = halogen.types.String
 
     def convert(self, value: halogen.types.String) -> Schema:
-        return Schema(type="string", format="string")
+        return Schema(type="string")
 
 
 @register_converter
@@ -109,23 +110,22 @@ class LinkConverter(Converter):
 @register_converter
 class CurieConverter(Converter):
     converts_class = halogen.schema._SchemaType
+    currie_attributes = {"href", "name", "templated", "type"}
 
     def matches(self, value) -> bool:
-        return super().matches(value) and value.__class_attrs__.keys() == {
-            "href",
-            "name",
-            "templated",
-            "type",
-        }
+        return (
+            super().matches(value)
+            and value.__class_attrs__.keys() == self.currie_attributes
+        )
 
     def convert(self, value) -> Schema:
         return Schema(
             type="object",
             properties={
                 "href": Schema(type="string", format="url"),
-                "name": Schema(type="string", format="string"),
+                "name": Schema(type="string"),
                 "templated": Schema(type="boolean"),
-                "type": Schema(type="string", format="string"),
+                "type": Schema(type="string"),
             },
         )
 
@@ -136,9 +136,10 @@ class SchemaConverter(Converter):
 
     def convert(self, value) -> Schema:
         schema_name = value.__name__
+        schema_options = getattr(value, HIDDEN_ATTR_NAME, None)
         properties = {}
 
-        for prop in value.__class_attrs__.values():
+        for key, prop in value.__class_attrs__.items():
 
             if prop.compartment:
                 if prop.compartment not in properties:
@@ -151,6 +152,10 @@ class SchemaConverter(Converter):
                 value=prop.attr_type,
                 name=f"{schema_name}.{prop.key}",
             )
+            if schema_options is not None and key in schema_options.options:
+                attr.options = schema_options.options[key]
+            if prop.required is False:
+                attr.required = False
             if hasattr(prop, "default"):
                 attr.required = False
                 if callable(prop.default):

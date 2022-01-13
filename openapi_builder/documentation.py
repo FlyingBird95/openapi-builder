@@ -20,6 +20,7 @@ class Documentation:
         self,
         responses: Optional[Dict[Union[HTTPStatus, int], Any]],
         input_schema: Optional[Any],
+        query_schema: Optional[Any],
         parameters: Optional[List[Parameter]],
         summary: Optional[str],
         description: Optional[str],
@@ -31,10 +32,18 @@ class Documentation:
             else {}
         )
         self.input_schema = input_schema
+        self.query_schema = query_schema
         self.parameters = parameters if parameters is not None else []
         self.summary = summary
         self.description = description
         self.tags = tags if tags is not None else []
+
+
+class SchemaOptions:
+    """Additional options to be serialized for a certain schema."""
+
+    def __init__(self, **options):
+        self.options = options
 
 
 class DocumentationContext:
