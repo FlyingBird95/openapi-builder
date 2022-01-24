@@ -6,7 +6,7 @@ from .blueprint import openapi_documentation
 
 
 @openapi_documentation.get("")
-def index():
+def get():
     """Get Open API UI page."""
     config = {
         "app_name": "OpenAPI UI",

@@ -13,6 +13,8 @@ class DocumentationOptionsFactory(factory.Factory):
     server_url = "/"
     include_marshmallow_converters = True
     include_documentation_blueprint = True
+    request_content_type = "application/json"
+    response_content_type = "application/json"
 
 
 class OpenApiDocumentationFactory(factory.Factory):

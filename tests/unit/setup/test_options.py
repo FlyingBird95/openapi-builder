@@ -2,6 +2,28 @@ from http import HTTPStatus
 
 import pytest
 
+from openapi_builder.converters import halogen, marshmallow
+
+
+def test_register_marshmallow_converters(open_api_documentation):
+    """Test that marshmallow converters are registered by default."""
+    # open_api_documentation = OpenApiDocumentation(app=app)
+    open_api_documentation.app.try_trigger_before_first_request_functions()
+    assert any(
+        isinstance(converter, marshmallow.StringConverter)
+        for converter in open_api_documentation.builder.converters
+    )
+
+
+@pytest.mark.paramtrize("documentation_options__include_halogen_converters", [True])
+def test_register_halogen_converters(open_api_documentation):
+    """Test that halogen converters can be registered."""
+    open_api_documentation.app.try_trigger_before_first_request_functions()
+    assert any(
+        isinstance(converter, halogen.StringConverter)
+        for converter in open_api_documentation.builder.converters
+    )
+
 
 @pytest.mark.usefixtures("get_without_decorator")
 def test_get_without_decorator(http, open_api_documentation):
@@ -52,3 +74,27 @@ def test_get_with_decorator_no_options(http, open_api_documentation):
     path = configuration["paths"]["/get_with_decorator"]
     assert path["get"] == {"responses": {}}
     assert "options" not in path
+
+
+@pytest.mark.usefixtures("get_with_marshmallow_schema")
+@pytest.mark.parametrize(
+    "documentation_options__response_content_type", ["something-else"]
+)
+def test_response_content_type(http, open_api_documentation):
+    open_api_documentation.app.try_trigger_before_first_request_functions()
+    configuration = open_api_documentation.get_specification()
+    path = configuration["paths"]["/get_with_marshmallow_schema"]
+    responses = path["get"]["responses"]
+    assert "something-else" in responses["200"]["content"]
+
+
+@pytest.mark.usefixtures("get_with_marshmallow_input_schema")
+@pytest.mark.parametrize(
+    "documentation_options__request_content_type", ["something-else"]
+)
+def test_request_content_type(http, open_api_documentation):
+    open_api_documentation.app.try_trigger_before_first_request_functions()
+    configuration = open_api_documentation.get_specification()
+    path = configuration["paths"]["/get_with_marshmallow_input_schema"]
+    request_body = path["get"]["requestBody"]
+    assert "something-else" in request_body["content"]
