@@ -18,4 +18,4 @@ def test_get_marshmallow_string_schema(http, open_api_documentation):
 
     schema = configuration["components"]["schemas"]["GeneratedSchema"]
     assert schema["type"] == "object"
-    assert schema["properties"] == {"field": {"type": "string", "format": "string"}}
+    assert schema["properties"] == {"field": {"type": "string"}}
