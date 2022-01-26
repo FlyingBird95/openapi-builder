@@ -10,7 +10,7 @@ from .blueprint.blueprint import openapi_documentation
 from .constants import EXTENSION_NAME, HIDDEN_ATTR_NAME
 from .converters.base import CONVERTER_CLASSES, Converter
 from .converters.parameter.process import parse_openapi_arguments
-from .documentation import Documentation, DocumentationContext
+from .documentation import Documentation, DocumentationConfigManager
 from .exceptions import MissingConverter
 from .specification import (
     Info,
@@ -115,13 +115,11 @@ class OpenApiDocumentation:
 class OpenAPIBuilder:
     """OpenAPI builder for generating the documentation."""
 
-    documentation_context = DocumentationContext()
-
     def __init__(self, open_api_documentation: OpenApiDocumentation):
         self.open_api_documentation: OpenApiDocumentation = open_api_documentation
         self.converters: List[Converter] = []
+        self.config_manager = DocumentationConfigManager()
 
-    @documentation_context.verify_context
     def process(self, value: Any, name: Optional[str] = None):
         """Processes an instance, and returns a schema, or reference to that schema."""
         try:
@@ -174,13 +172,12 @@ class OpenAPIBuilder:
                 # endpoint has no documentation configuration -> skip
                 continue
 
-            with self.documentation_context.use_config(config):
+            with self.config_manager.use_documentation_context(config):
                 self.process_rule(rule)
 
-    @documentation_context.verify_context
     def process_rule(self, rule: Rule):
         """Processes a Werkzeug rule."""
-        parameters = list(self.documentation_context.config.parameters)
+        parameters = list(self.config.parameters)
         parameters.extend(parse_openapi_arguments(rule))
         endpoint_name = openapi_endpoint_name_from_rule(rule)
 
@@ -190,23 +187,23 @@ class OpenAPIBuilder:
 
         for method in rule.methods:
             values = {}
-            for key, schema in self.documentation_context.config.responses.items():
+            for key, schema in self.config.responses.items():
                 reference = self.process(schema)
                 values[key] = Response(
-                    description=self.documentation_context.config.description,
+                    description=self.config.description,
                     content={
                         self.options.response_content_type: MediaType(schema=reference)
                     },
                 )
 
             operation = Operation(
-                summary=self.documentation_context.config.summary,
-                description=self.documentation_context.config.description,
+                summary=self.config.summary,
+                description=self.config.description,
                 responses=Responses(values=values),
-                tags=self.documentation_context.config.tags,
+                tags=self.config.tags,
             )
 
-            query_schema = self.documentation_context.config.query_schema
+            query_schema = self.config.query_schema
             if query_schema is not None:
                 schema_or_reference = self.process(query_schema)
                 if isinstance(schema_or_reference, Reference):
@@ -225,11 +222,11 @@ class OpenAPIBuilder:
                         )
                     )
 
-            input_schema = self.documentation_context.config.input_schema
+            input_schema = self.config.input_schema
             if input_schema is not None:
                 schema_or_reference = self.process(input_schema)
                 operation.request_body = RequestBody(
-                    description=self.documentation_context.config.description,
+                    description=self.config.description,
                     content={
                         self.options.request_content_type: MediaType(
                             schema=schema_or_reference
@@ -262,3 +259,8 @@ class OpenAPIBuilder:
     def options(self):
         """Helper property to return the options."""
         return self.open_api_documentation.options
+
+    @property
+    def config(self):
+        self.config_manager.ensure_valid_config()
+        return self.config_manager.config

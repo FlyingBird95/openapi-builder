@@ -63,6 +63,7 @@ overriding the :code:`OpenAPIBuilder`-class itself. Decorate your function accor
 
 .. code:: python
 
-    @documentation_context.verify_context
     def process():
-        ...
+        config = Documentation(...)
+        with builder.config_manager.use_documentation_context(config):
+            ...

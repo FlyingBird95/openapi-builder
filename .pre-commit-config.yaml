@@ -4,11 +4,7 @@ repos:
     hooks:
       - id: isort
         name: isort
-        args: ["--profile=black"]
-      - id: isort
-        name: isort (cython)
-        types: [cython]
-        args: ["--profile=black"]
+        args: ["--profile=black", "--line-length=120",  "--skip-gitignore"]
 
   - repo: https://github.com/psf/black
     rev: 21.7b0

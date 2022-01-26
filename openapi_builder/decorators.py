@@ -5,15 +5,17 @@ from openapi_builder.constants import HIDDEN_ATTR_NAME
 from openapi_builder.documentation import Documentation, SchemaOptions
 from openapi_builder.specification import Parameter
 
+_MISSING = object()
+
 
 def add_documentation(
-    responses: Optional[Dict[Union[HTTPStatus, int], Any]] = None,
-    input_schema: Optional[Any] = None,
-    query_schema: Optional[Any] = None,
-    parameters: Optional[List[Parameter]] = None,
-    summary: Optional[str] = None,
-    description: Optional[str] = None,
-    tags: Optional[List[str]] = None,
+    responses: Optional[Dict[Union[HTTPStatus, int], Any]] = _MISSING,
+    input_schema: Optional[Any] = _MISSING,
+    query_schema: Optional[Any] = _MISSING,
+    parameters: Optional[List[Parameter]] = _MISSING,
+    summary: Optional[str] = _MISSING,
+    description: Optional[str] = _MISSING,
+    tags: Optional[List[str]] = _MISSING,
 ):
     """Adds documentation options for a given Flask endpoint.
 
@@ -28,15 +30,23 @@ def add_documentation(
     """
 
     def inner(func):
-        value = Documentation(
-            responses=responses,
-            input_schema=input_schema,
-            query_schema=query_schema,
-            parameters=parameters,
-            summary=summary,
-            description=description,
-            tags=tags,
-        )
+        kwargs = {}
+        if responses is not _MISSING:
+            kwargs["responses"] = responses
+        if input_schema is not _MISSING:
+            kwargs["input_schema"] = input_schema
+        if query_schema is not _MISSING:
+            kwargs["query_schema"] = query_schema
+        if parameters is not _MISSING:
+            kwargs["parameters"] = parameters
+        if summary is not _MISSING:
+            kwargs["summary"] = summary
+        if description is not _MISSING:
+            kwargs["description"] = description
+        if tags is not _MISSING:
+            kwargs["tags"] = tags
+
+        value = Documentation(**kwargs)
         setattr(func, HIDDEN_ATTR_NAME, value)
         return func
 

@@ -15,8 +15,8 @@ def test_register_marshmallow_converters(open_api_documentation):
     )
 
 
-@pytest.mark.paramtrize("documentation_options__include_halogen_converters", [True])
-@pytest.mark.paramtrize(
+@pytest.mark.parametrize("documentation_options__include_halogen_converters", [True])
+@pytest.mark.parametrize(
     "documentation_options__include_marshmallow_converters", [False]
 )
 def test_register_halogen_converters(http, open_api_documentation):
