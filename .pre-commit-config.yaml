@@ -6,6 +6,12 @@ repos:
         name: isort
         args: ["--profile=black", "--line-length=100",  "--skip-gitignore", "--quiet"]
 
+  - repo: https://github.com/myint/autoflake
+    rev: master
+    hooks:
+      - id: autoflake
+        name: autoflake
+
   - repo: https://github.com/psf/black
     rev: 21.7b0
     hooks:
