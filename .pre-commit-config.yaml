@@ -4,7 +4,7 @@ repos:
     hooks:
       - id: isort
         name: isort
-        args: ["--profile=black", "--line-length=120",  "--skip-gitignore"]
+        args: ["--profile=black", "--line-length=100",  "--skip-gitignore", "--quiet"]
 
   - repo: https://github.com/psf/black
     rev: 21.7b0
