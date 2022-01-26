@@ -45,7 +45,7 @@ def marshmallow_schema(marshmallow_fields):
 @pytest.fixture
 def get_with_marshmallow_schema(app, marshmallow_schema, marshmallow_example_object):
     @app.route("/get_with_marshmallow_schema")
-    @add_documentation(responses={HTTPStatus.OK: marshmallow_schema})
+    @add_documentation(responses={HTTPStatus.OK: marshmallow_schema()})
     def get_with_marshmallow_schema_func():
         return jsonify(marshmallow_schema().dump(marshmallow_example_object))
 
@@ -53,12 +53,12 @@ def get_with_marshmallow_schema(app, marshmallow_schema, marshmallow_example_obj
 
 
 @pytest.fixture
-def get_with_marshmallow_input_schema(
+def post_with_marshmallow_input_schema(
     app, marshmallow_schema, marshmallow_example_object
 ):
-    @app.route("/get_with_marshmallow_input_schema")
+    @app.route("/post_with_marshmallow_input_schema", methods=["POST"])
     @add_documentation(input_schema=marshmallow_schema)
-    def get_with_marshmallow_input_schema_func():
+    def post_with_marshmallow_input_schema_func():
         return jsonify({"status": "OK"})
 
-    return get_with_marshmallow_input_schema_func
+    return post_with_marshmallow_input_schema_func

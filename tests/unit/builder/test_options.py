@@ -16,7 +16,10 @@ def test_register_marshmallow_converters(open_api_documentation):
 
 
 @pytest.mark.paramtrize("documentation_options__include_halogen_converters", [True])
-def test_register_halogen_converters(open_api_documentation):
+@pytest.mark.paramtrize(
+    "documentation_options__include_marshmallow_converters", [False]
+)
+def test_register_halogen_converters(http, open_api_documentation):
     """Test that halogen converters can be registered."""
     open_api_documentation.app.try_trigger_before_first_request_functions()
     assert any(
@@ -88,13 +91,13 @@ def test_response_content_type(http, open_api_documentation):
     assert "something-else" in responses["200"]["content"]
 
 
-@pytest.mark.usefixtures("get_with_marshmallow_input_schema")
+@pytest.mark.usefixtures("post_with_marshmallow_input_schema")
 @pytest.mark.parametrize(
     "documentation_options__request_content_type", ["something-else"]
 )
 def test_request_content_type(http, open_api_documentation):
     open_api_documentation.app.try_trigger_before_first_request_functions()
     configuration = open_api_documentation.get_specification()
-    path = configuration["paths"]["/get_with_marshmallow_input_schema"]
-    request_body = path["get"]["requestBody"]
+    path = configuration["paths"]["/post_with_marshmallow_input_schema"]
+    request_body = path["post"]["requestBody"]
     assert "something-else" in request_body["content"]

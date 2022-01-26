@@ -30,7 +30,7 @@ from .specification import (
 from .util import openapi_endpoint_name_from_rule
 
 
-@dataclass
+@dataclass(unsafe_hash=True, frozen=True)
 class DocumentationOptions:
     """Global options as defaults for the extension."""
 
@@ -143,7 +143,7 @@ class OpenAPIBuilder:
         """Registers converts for the instance.
 
         This function is executed before the first request is processed the in the corresponding
-        Flask application. Also before, OpenApiBuilder.iterate_endpoints.
+        Flask application. Also before OpenApiBuilder.iterate_endpoints.
         """
         if self.options.include_marshmallow_converters:
             # Keep import below to support packages without marshmallow.
