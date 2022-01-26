@@ -101,3 +101,15 @@ def test_request_content_type(http, open_api_documentation):
     path = configuration["paths"]["/post_with_marshmallow_input_schema"]
     request_body = path["post"]["requestBody"]
     assert "something-else" in request_body["content"]
+
+
+@pytest.mark.usefixtures("put_with_marshmallow_query_schema")
+def test_query_options(http, open_api_documentation):
+    open_api_documentation.app.try_trigger_before_first_request_functions()
+    configuration = open_api_documentation.get_specification()
+    path = configuration["paths"]["/put_with_marshmallow_query_schema"]
+    [parameter] = path["put"]["parameters"]
+    assert parameter["in"] == "query"
+    assert parameter["name"] == "field"
+    assert parameter["schema"] == {"type": "string"}
+    assert path["put"]["responses"] == {}

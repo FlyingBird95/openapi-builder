@@ -65,12 +65,12 @@ def post_with_marshmallow_input_schema(
 
 
 @pytest.fixture
-def post_with_marshmallow_query_schema(
+def put_with_marshmallow_query_schema(
     app, marshmallow_schema, marshmallow_example_object
 ):
-    @app.route("/post_with_marshmallow_input_schema", methods=["POST"])
+    @app.route("/put_with_marshmallow_query_schema", methods=["PUT"])
     @add_documentation(query_schema=marshmallow_schema)
-    def post_with_marshmallow_query_schema():
+    def put_with_marshmallow_query_schema():
         return jsonify({"status": "OK"})
 
-    return post_with_marshmallow_query_schema
+    return put_with_marshmallow_query_schema
