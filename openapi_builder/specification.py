@@ -3,9 +3,11 @@
 This is described on this page:
 https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md
 """
+from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Union
 
 
+@dataclass()
 class OpenAPI:
     """Root document object of the OpenAPI document.
 
@@ -13,59 +15,44 @@ class OpenAPI:
     https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#openapi-object
     """
 
-    def __init__(
-        self,
-        info: "Info",
-        paths: "Paths",
-        openapi: str = "3.0.3",
-        servers: Optional[List["Server"]] = None,
-        components: Optional["Components"] = None,
-        security: Optional[List["SecurityRequirement"]] = None,
-        tags: Optional[List["Tag"]] = None,
-        external_docs: Optional["ExternalDocumentation"] = None,
-    ):
-        self.openapi: str = openapi
-        """REQUIRED. This string MUST be the semantic version number of the OpenAPI
-        Specification version that the OpenAPI document uses. The openapi field SHOULD
-        be used by tooling specifications and clients to interpret the OpenAPI document.
-        This is not related to the API info.version string."""
+    info: "Info"
+    """REQUIRED. Provides metadata about the API. The metadata MAY be used by
+    tooling as required."""
 
-        self.info: Info = info
-        """REQUIRED. Provides metadata about the API. The metadata MAY be used by
-        tooling as required."""
+    paths: "Paths" = field(default_factory=lambda: Paths())
+    """REQUIRED. The available paths and operations for the API."""
 
-        self.servers: List[Server] = servers if servers is not None else []
-        """An array of Server Objects, which provide connectivity information to a
-        target server. If the servers property is not provided, or is an empty array,
-        the default value would be a Server Object with a url value of /."""
+    openapi: str = "3.0.3"
+    """REQUIRED. This string MUST be the semantic version number of the OpenAPI
+    Specification version that the OpenAPI document uses. The openapi field SHOULD
+    be used by tooling specifications and clients to interpret the OpenAPI document.
+    This is not related to the API info.version string."""
 
-        self.paths: Paths = paths
-        """REQUIRED. The available paths and operations for the API."""
+    servers: List["Server"] = field(default_factory=list)
+    """An array of Server Objects, which provide connectivity information to a
+    target server. If the servers property is not provided, or is an empty array,
+    the default value would be a Server Object with a url value of /."""
 
-        self.components: Components = (
-            components if components is not None else Components()
-        )
-        """An element to hold various schemas for the specification."""
+    components: "Components" = field(default_factory=lambda: Components())
+    """An element to hold various schemas for the specification."""
 
-        self.security: List[SecurityRequirement] = (
-            security if security is not None else []
-        )
-        """A declaration of which security mechanisms can be used across the API. The
-        list of values includes alternative security requirement objects that can be
-        used. Only one of the security requirement objects need to be satisfied to
-        authorize a request. Individual operations can override this definition. To make
-        security optional, an empty security requirement ({}) can be included in the
-        array."""
+    security: List["SecurityRequirement"] = field(default_factory=list)
+    """A declaration of which security mechanisms can be used across the API. The
+    list of values includes alternative security requirement objects that can be
+    used. Only one of the security requirement objects need to be satisfied to
+    authorize a request. Individual operations can override this definition. To make
+    security optional, an empty security requirement ({}) can be included in the
+    array."""
 
-        self.tags: List[Tag] = tags if tags is not None else []
-        """A list of tags used by the specification with additional metadata. The order
-        of the tags can be used to reflect on their order by the parsing tools. Not all
-        tags that are used by the Operation Object must be declared. The tags that are
-        not declared MAY be organized randomly or based on the tools' logic. Each tag
-        name in the list MUST be unique."""
+    tags: List["Tag"] = field(default_factory=list)
+    """A list of tags used by the specification with additional metadata. The order
+    of the tags can be used to reflect on their order by the parsing tools. Not all
+    tags that are used by the Operation Object must be declared. The tags that are
+    not declared MAY be organized randomly or based on the tools' logic. Each tag
+    name in the list MUST be unique."""
 
-        self.external_docs: Optional[ExternalDocumentation] = external_docs
-        """Additional external documentation."""
+    external_docs: Optional["ExternalDocumentation"] = None
+    """Additional external documentation."""
 
     def get_value(self):
         value = {
@@ -84,6 +71,7 @@ class OpenAPI:
         return value
 
 
+@dataclass()
 class Info:
     """The object provides metadata about the API.
 
@@ -111,34 +99,25 @@ class Info:
     }
     """
 
-    def __init__(
-        self,
-        title: str,
-        version: str,
-        description: Optional[str] = None,
-        terms_of_service: Optional[str] = None,
-        contact: Optional["Contact"] = None,
-        license: Optional["License"] = None,
-    ):
-        self.title: str = title
-        """REQUIRED. The title of the API."""
+    title: str
+    """REQUIRED. The title of the API."""
 
-        self.description: Optional[str] = description
-        """A short description of the API. CommonMark syntax MAY be used for rich
-        text representation."""
+    version: str
+    """REQUIRED. The version of the OpenAPI document (which is distinct from the
+    OpenAPI Specification version or the API implementation version)."""
 
-        self.terms_of_service: Optional[str] = terms_of_service
-        """A URL to the Terms of Service for the API. MUST be in the format of a URL."""
+    description: Optional[str] = None
+    """A short description of the API. CommonMark syntax MAY be used for rich
+    text representation."""
 
-        self.contact: Optional[Contact] = contact
-        """The contact information for the exposed API."""
+    terms_of_service: Optional[str] = None
+    """A URL to the Terms of Service for the API. MUST be in the format of a URL."""
 
-        self.license: Optional[License] = license
-        """The license information for the exposed API."""
+    contact: Optional["Contact"] = None
+    """The contact information for the exposed API."""
 
-        self.version: str = version
-        """REQUIRED. The version of the OpenAPI document (which is distinct from the
-        OpenAPI Specification version or the API implementation version)."""
+    license: Optional["License"] = None
+    """The license information for the exposed API."""
 
     def get_value(self):
         value = {
@@ -158,6 +137,7 @@ class Info:
         return value
 
 
+@dataclass()
 class Contact:
     """Contact information for the exposed API.
 
@@ -172,22 +152,16 @@ class Contact:
     }
     """
 
-    def __init__(
-        self,
-        name: Optional[str] = None,
-        url: Optional[str] = None,
-        email: Optional[str] = None,
-    ):
-        self.name: Optional[str] = name
-        """The identifying name of the contact person/organization."""
+    name: Optional[str] = None
+    """The identifying name of the contact person/organization."""
 
-        self.url: Optional[str] = url
-        """The URL pointing to the contact information. MUST be in the format of a
-        URL."""
+    url: Optional[str] = None
+    """The URL pointing to the contact information. MUST be in the format of a
+    URL."""
 
-        self.email: Optional[str] = email
-        """The email address of the contact person/organization. MUST be in the format
-        of an email address."""
+    email: Optional[str] = None
+    """The email address of the contact person/organization. MUST be in the format
+    of an email address."""
 
     def get_value(self):
         value = {}
@@ -202,6 +176,7 @@ class Contact:
         return value
 
 
+@dataclass()
 class License:
     """License information for the exposed API.
 
@@ -215,12 +190,11 @@ class License:
     }
     """
 
-    def __init__(self, name: str, url: Optional[str] = None):
-        self.name: str = name
-        """REQUIRED. The license name used for the API."""
+    name: str
+    """REQUIRED. The license name used for the API."""
 
-        self.url: str = url
-        """A URL to the license used for the API. MUST be in the format of a URL."""
+    url: str = None
+    """A URL to the license used for the API. MUST be in the format of a URL."""
 
     def get_value(self):
         value = {"name": self.name}
@@ -231,6 +205,7 @@ class License:
         return value
 
 
+@dataclass()
 class Server:
     """An object representing a Server.
 
@@ -261,27 +236,19 @@ class Server:
     }
     """
 
-    def __init__(
-        self,
-        url: str,
-        description: Optional[str] = None,
-        variables: Optional[Dict[str, "ServerVariable"]] = None,
-    ):
-        self.url: str = url
-        """REQUIRED. A URL to the target host. This URL supports Server Variables and
-        MAY be relative, to indicate that the host location is relative to the location
-        where the OpenAPI document is being served. Variable substitutions will be made
-        when a variable is named in {brackets}."""
+    url: str
+    """REQUIRED. A URL to the target host. This URL supports Server Variables and
+    MAY be relative, to indicate that the host location is relative to the location
+    where the OpenAPI document is being served. Variable substitutions will be made
+    when a variable is named in {brackets}."""
 
-        self.description: Optional[str] = description
-        """An optional string describing the host designated by the URL. CommonMark
-        syntax MAY be used for rich text representation."""
+    description: Optional[str] = None
+    """An optional string describing the host designated by the URL. CommonMark
+    syntax MAY be used for rich text representation."""
 
-        self.variables: Dict[str, ServerVariable] = (
-            variables if variables is not None else {}
-        )
-        """A map between a variable name and its value. The value is used for
-        substitution in the server's URL template."""
+    variables: Dict[str, "ServerVariable"] = field(default_factory=dict)
+    """A map between a variable name and its value. The value is used for
+    substitution in the server's URL template."""
 
     def get_value(self):
         value = {"url": self.url}
@@ -297,6 +264,7 @@ class Server:
         return value
 
 
+@dataclass()
 class ServerVariable:
     """An object representing a Server Variable for server URL template substitution.
 
@@ -304,23 +272,20 @@ class ServerVariable:
     https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#serverVariableObject
     """
 
-    def __init__(
-        self, default: str, enum: List[str] = None, description: Optional[str] = None
-    ):
-        self.enum: List[str] = enum if enum is not None else []
-        """An enumeration of string values to be used if the substitution options are
-        from a limited set. The array SHOULD NOT be empty."""
+    default: str
+    """REQUIRED. The default value to use for substitution, which SHALL be sent
+    if an alternate value is not supplied. Note this behavior is different than the
+    Schema Object's treatment of default values, because in those cases parameter
+    values are optional. If the enum is defined, the value SHOULD exist in the
+    enum's values."""
 
-        self.default: str = default
-        """REQUIRED. The default value to use for substitution, which SHALL be sent
-        if an alternate value is not supplied. Note this behavior is different than the
-        Schema Object's treatment of default values, because in those cases parameter
-        values are optional. If the enum is defined, the value SHOULD exist in the
-        enum's values."""
+    enum: List[str] = field(default_factory=list)
+    """An enumeration of string values to be used if the substitution options are
+    from a limited set. The array SHOULD NOT be empty."""
 
-        self.description: Optional[str] = description
-        """An optional description for the server variable. CommonMark syntax MAY be
-        used for rich text representation."""
+    description: Optional[str] = None
+    """An optional description for the server variable. CommonMark syntax MAY be
+    used for rich text representation."""
 
     def get_value(self):
         value = {"default": self.default}
@@ -333,6 +298,7 @@ class ServerVariable:
         return value
 
 
+@dataclass()
 class Components:
     """Holds a set of reusable objects for different aspects of the OAS.
 
@@ -343,64 +309,36 @@ class Components:
     https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#componentsObject
     """
 
-    def __init__(
-        self,
-        schemas: Optional[Dict[str, Union["Schema", "Reference"]]] = None,
-        responses: Optional[Dict[str, Union["Response", "Reference"]]] = None,
-        parameters: Optional[Dict[str, Union["Parameter", "Reference"]]] = None,
-        examples: Optional[Dict[str, Union["Example", "Reference"]]] = None,
-        request_bodies: Optional[Dict[str, Union["RequestBody", "Reference"]]] = None,
-        headers: Optional[Dict[str, Union["Header", "Reference"]]] = None,
-        security_schemes: Optional[
-            Dict[str, Union["SecurityScheme", "Reference"]]
-        ] = None,
-        links: Optional[Dict[str, Union["Link", "Reference"]]] = None,
-        callbacks: Optional[Dict[str, Union["Callback", "Reference"]]] = None,
-    ):
-        self.schemas: Dict[str, Union[Schema, Reference]] = (
-            schemas if schemas is not None else {}
-        )
-        """An object to hold reusable Schema Objects."""
+    schemas: Dict[str, Union["Schema", "Reference"]] = field(default_factory=dict)
+    """An object to hold reusable Schema Objects."""
 
-        self.responses: Dict[str, Union[Response, Reference]] = (
-            responses if responses is not None else {}
-        )
-        """An object to hold reusable Response Objects."""
+    responses: Dict[str, Union["Schema", "Reference"]] = field(default_factory=dict)
+    """An object to hold reusable Response Objects."""
 
-        self.parameters: Dict[str, Union[Parameter, Reference]] = (
-            parameters if parameters is not None else {}
-        )
-        """An object to hold reusable Parameter Objects."""
+    parameters: Dict[str, Union["Parameter", "Reference"]] = field(default_factory=dict)
+    """An object to hold reusable Parameter Objects."""
 
-        self.examples: Dict[str, Union[Example, Reference]] = (
-            examples if examples is not None else {}
-        )
-        """An object to hold reusable Example Objects."""
+    examples: Dict[str, Union["Example", "Reference"]] = field(default_factory=dict)
+    """An object to hold reusable Example Objects."""
 
-        self.request_bodies: Dict[str, Union[RequestBody, Reference]] = (
-            request_bodies if request_bodies is not None else {}
-        )
-        """An object to hold reusable Request Body Objects."""
+    request_bodies: Dict[str, Union["RequestBody", "Reference"]] = field(
+        default_factory=dict
+    )
+    """An object to hold reusable Request Body Objects."""
 
-        self.headers: Dict[str, Union[Header, Reference]] = (
-            headers if headers is not None else {}
-        )
-        """An object to hold reusable Header Objects."""
+    headers: Dict[str, Union["Header", "Reference"]] = field(default_factory=dict)
+    """An object to hold reusable Header Objects."""
 
-        self.security_schemes: Dict[str, Union[SecurityScheme, Reference]] = (
-            security_schemes if security_schemes is not None else {}
-        )
-        """An object to hold reusable Security Scheme Objects."""
+    security_schemes: Dict[str, Union["SecurityScheme", "Reference"]] = field(
+        default_factory=dict
+    )
+    """An object to hold reusable Security Scheme Objects."""
 
-        self.links: Dict[str, Union[Link, Reference]] = (
-            links if links is not None else {}
-        )
-        """An object to hold reusable Link Objects."""
+    links: Dict[str, Union["Link", "Reference"]] = field(default_factory=dict)
+    """An object to hold reusable Link Objects."""
 
-        self.callbacks: Dict[str, Union[Callback, Reference]] = (
-            callbacks if callbacks is not None else {}
-        )
-        """An object to hold reusable Callback Objects."""
+    callbacks: Dict[str, Union["Callback", "Reference"]] = field(default_factory=dict)
+    """An object to hold reusable Callback Objects."""
 
     def get_value(self):
         value = {}
@@ -445,6 +383,7 @@ class Components:
         return value
 
 
+@dataclass()
 class Paths:
     """Holds the relative paths to the individual endpoints and their operations.
 
@@ -479,99 +418,81 @@ class Paths:
     }
     """
 
-    def __init__(self, values: Optional[Dict[str, "PathItem"]] = None):
-        self.values = values if values is not None else {}
-        """A relative path to an individual endpoint. The field name MUST begin with a
-        forward slash (/). The path is appended (no relative URL resolution) to the
-        expanded URL from the Server Object's url field in order to construct the full
-        URL. Paths templating is allowed. When matching URLs, concrete (non-templated)
-        paths would be matched before their templated counterparts. Templated paths
-        with the same hierarchy but different templated names MUST NOT exist as they
-        are identical. In case of ambiguous matching, it's up to the tooling to decide
-        which one to use."""
+    values: Dict[str, "PathItem"] = field(default_factory=dict)
+    """A relative path to an individual endpoint. The field name MUST begin with a
+    forward slash (/). The path is appended (no relative URL resolution) to the
+    expanded URL from the Server Object's url field in order to construct the full
+    URL. Paths templating is allowed. When matching URLs, concrete (non-templated)
+    paths would be matched before their templated counterparts. Templated paths
+    with the same hierarchy but different templated names MUST NOT exist as they
+    are identical. In case of ambiguous matching, it's up to the tooling to decide
+    which one to use."""
 
     def get_value(self):
         value = {key: value.get_value() for key, value in self.values.items()}
         return value
 
 
+@dataclass()
 class PathItem:
     """Describes the operations available on a single path.
 
     A Paths Item MAY be empty, due to ACL constraints. The path itself is still
-    exposed to the documentation viewer but they will not know which operations and
+    exposed to the documentation viewer, but they will not know which operations and
     parameters are available.
 
     Open API path item as described here:
     https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#pathItemObject
     """
 
-    def __init__(
-        self,
-        ref: Optional[str] = None,
-        summary: Optional[str] = None,
-        description: Optional[str] = None,
-        get: Optional["Operation"] = None,
-        put: Optional["Operation"] = None,
-        post: Optional["Operation"] = None,
-        delete: Optional["Operation"] = None,
-        options: Optional["Operation"] = None,
-        head: Optional["Operation"] = None,
-        patch: Optional["Operation"] = None,
-        trace: Optional["Operation"] = None,
-        servers: Optional[List["Server"]] = None,
-        parameters: Optional[List[Union["Parameter", "Reference"]]] = None,
-    ):
-        self.ref: str = ref
-        """Allows for an external definition of this path item. The referenced structure
-        MUST be in the format of a Paths Item Object. In case a Paths Item Object field
-        appears both in the defined object and the referenced object, the behavior is
-        undefined."""
+    ref: Optional[str] = None
+    """Allows for an external definition of this path item. The referenced structure
+    MUST be in the format of a Paths Item Object. In case a Paths Item Object field
+    appears both in the defined object and the referenced object, the behavior is
+    undefined."""
 
-        self.summary: str = summary
-        """An optional, string summary, intended to apply to all operations in this
-        path."""
+    summary: Optional[str] = None
+    """An optional, string summary, intended to apply to all operations in this
+    path."""
 
-        self.description: str = description
-        """An optional, string description, intended to apply to all operations in this
-        path. CommonMark syntax MAY be used for rich text representation."""
+    description: Optional[str] = None
+    """An optional, string description, intended to apply to all operations in this
+    path. CommonMark syntax MAY be used for rich text representation."""
 
-        self.get: Optional[Operation] = get
-        """A definition of a GET operation on this path."""
+    get: Optional["Operation"] = None
+    """A definition of a GET operation on this path."""
 
-        self.put: Optional[Operation] = put
-        """A definition of a PUT operation on this path."""
+    put: Optional["Operation"] = None
+    """A definition of a PUT operation on this path."""
 
-        self.post: Optional[Operation] = post
-        """A definition of a POST operation on this path."""
+    post: Optional["Operation"] = None
+    """A definition of a POST operation on this path."""
 
-        self.delete: Optional[Operation] = delete
-        """A definition of a DELETE operation on this path."""
+    delete: Optional["Operation"] = None
+    """A definition of a DELETE operation on this path."""
 
-        self.options: Optional[Operation] = options
-        """A definition of a OPTIONS operation on this path."""
+    options: Optional["Operation"] = None
+    """A definition of a OPTIONS operation on this path."""
 
-        self.head: Optional[Operation] = head
-        """A definition of a HEAD operation on this path."""
+    head: Optional["Operation"] = None
+    """A definition of a HEAD operation on this path."""
 
-        self.patch: Optional[Operation] = patch
-        """A definition of a PATCH operation on this path."""
+    patch: Optional["Operation"] = None
+    """A definition of a PATCH operation on this path."""
 
-        self.trace: Optional[Operation] = trace
-        """A definition of a TRACE operation on this path."""
+    trace: Optional["Operation"] = None
+    """A definition of a TRACE operation on this path."""
 
-        self.servers: List[Server] = servers if servers is not None else []
-        """An alternative server array to service all operations in this path."""
+    servers: List[Server] = field(default_factory=list)
+    """An alternative server array to service all operations in this path."""
 
-        self.parameters: List[Union[Parameter, Reference]] = (
-            parameters if parameters is not None else []
-        )
-        """A list of parameters that are applicable for all the operations described
-        under this path. These parameters can be overridden at the operation level, but
-        cannot be removed there. The list MUST NOT include duplicated parameters. A
-        unique parameter is defined by a combination of a name and location. The list
-        can use the Reference Object to link to parameters that are defined at the
-        OpenAPI Object's components/parameters."""
+    parameters: List[Union["Parameter", "Reference"]] = field(default_factory=list)
+    """A list of parameters that are applicable for all the operations described
+    under this path. These parameters can be overridden at the operation level, but
+    cannot be removed there. The list MUST NOT include duplicated parameters. A
+    unique parameter is defined by a combination of a name and location. The list
+    can use the Reference Object to link to parameters that are defined at the
+    OpenAPI Object's components/parameters."""
 
     def get_value(self):
         value = {}
@@ -608,6 +529,7 @@ class PathItem:
         return value
 
 
+@dataclass()
 class Operation:
     """Describes a single API operation on a path.
 
@@ -615,88 +537,67 @@ class Operation:
     https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#operationObject
     """
 
-    def __init__(
-        self,
-        tags: Optional[List[str]] = None,
-        summary: Optional[str] = None,
-        description: Optional[str] = None,
-        external_docs: Optional["ExternalDocumentation"] = None,
-        operation_id: Optional[str] = None,
-        parameters: Optional[Union["Parameter", "Reference"]] = None,
-        request_body: Optional[Union["RequestBody", "Reference"]] = None,
-        responses: Optional["Responses"] = None,
-        callbacks: Optional[Dict[str, Union["Callback", "Reference"]]] = None,
-        deprecated: bool = False,
-        security: Optional[List["SecurityRequirement"]] = None,
-        servers: Optional[List["Server"]] = None,
-    ):
-        self.tags: List[Tag] = tags if tags is not None else []
-        """A list of tags for API documentation control. Tags can be used for logical
-        grouping of operations by resources or any other qualifier."""
+    tags: List["Tag"] = field(default_factory=list)
+    """A list of tags for API documentation control. Tags can be used for logical
+    grouping of operations by resources or any other qualifier."""
 
-        self.summary: Optional[str] = summary
-        """A short summary of what the operation does."""
+    summary: Optional[str] = None
+    """A short summary of what the operation does."""
 
-        self.description: Optional[str] = description
-        """A verbose explanation of the operation behavior. CommonMark syntax MAY be
-        used for rich text representation."""
+    description: Optional[str] = None
+    """A verbose explanation of the operation behavior. CommonMark syntax MAY be
+    used for rich text representation."""
 
-        self.external_docs: ExternalDocumentation = external_docs
-        """Additional external documentation for this operation."""
+    external_docs: Optional["ExternalDocumentation"] = None
+    """Additional external documentation for this operation."""
 
-        self.operation_id: Optional[str] = operation_id
-        """Unique string used to identify the operation. The id MUST be unique among
-        all operations described in the API. The operationId value is case-sensitive.
-        Tools and libraries MAY use the operationId to uniquely identify an operation,
-        therefore, it is RECOMMENDED to follow common programming naming conventions."""
+    operation_id: Optional[str] = None
+    """Unique string used to identify the operation. The id MUST be unique among
+    all operations described in the API. The operationId value is case-sensitive.
+    Tools and libraries MAY use the operationId to uniquely identify an operation,
+    therefore, it is RECOMMENDED to follow common programming naming conventions."""
 
-        self.parameters: List[Union[Parameter, Reference]] = (
-            parameters if parameters is not None else []
-        )
-        """A list of parameters that are applicable for this operation. If a parameter
-        is already defined at the Paths Item, the new definition will override it but
-        can never remove it. The list MUST NOT include duplicated parameters. A unique
-        parameter is defined by a combination of a name and location. The list can use
-        the Reference Object to link to parameters that are defined at the OpenAPI
-        Object's components/parameters."""
+    parameters: List[Union["Parameter", "Reference"]] = field(default_factory=list)
+    """A list of parameters that are applicable for this operation. If a parameter
+    is already defined at the Paths Item, the new definition will override it but
+    can never remove it. The list MUST NOT include duplicated parameters. A unique
+    parameter is defined by a combination of a name and location. The list can use
+    the Reference Object to link to parameters that are defined at the OpenAPI
+    Object's components/parameters."""
 
-        self.request_body: Optional[Union[RequestBody, Reference]] = request_body
-        """The request body applicable for this operation. The requestBody is only
-        supported in HTTP methods where the HTTP 1.1 specification RFC7231 has
-        explicitly  defined semantics for request bodies. In other cases where the HTTP
-        spec is vague, requestBody SHALL be ignored by consumers."""
+    request_body: Optional[Union["RequestBody", "Reference"]] = None
+    """The request body applicable for this operation. The requestBody is only
+    supported in HTTP methods where the HTTP 1.1 specification RFC7231 has
+    explicitly  defined semantics for request bodies. In other cases where the HTTP
+    spec is vague, requestBody SHALL be ignored by consumers."""
 
-        self.responses: Responses = responses
-        """REQUIRED. The list of possible responses as they are returned from executing
-        this operation."""
+    responses: Optional["Responses"] = None
+    """REQUIRED. The list of possible responses as they are returned from executing
+    this operation."""
 
-        self.callbacks: Dict[str, Union[Callback, Reference]] = (
-            callbacks if callbacks is not None else {}
-        )
-        """A map of possible out-of band callbacks related to the parent operation. The
-        key is a unique identifier for the Callback Object. Each value in the map is a
-        Callback Object that describes a request that may be initiated by the API
-        provider and the expected responses."""
+    callbacks: Dict[str, Union["Callback", "Reference"]] = field(default_factory=dict)
+    """A map of possible out-of band callbacks related to the parent operation. The
+    key is a unique identifier for the Callback Object. Each value in the map is a
+    Callback Object that describes a request that may be initiated by the API
+    provider and the expected responses."""
 
-        self.deprecated: bool = deprecated
-        """Declares this operation to be deprecated. Consumers SHOULD refrain from
-        usage of the declared operation. Default value is false."""
+    deprecated: bool = False
+    """Declares this operation to be deprecated. Consumers SHOULD refrain from
+    usage of the declared operation. Default value is false."""
 
-        self.security: List[SecurityRequirement] = (
-            security if security is not None else []
-        )
-        """A declaration of which security mechanisms can be used for this operation.
-        The list of values includes alternative security requirement objects that can
-        be used. Only one of the security requirement objects need to be satisfied to
-        authorize a request. To make security optional, an empty security requirement
-        ({}) can be included in the array. This definition overrides any declared
-        top-level security. To remove a top-level security declaration, an empty array
-        can be used."""
+    security: List["SecurityRequirement"] = field(default_factory=list)
+    """A declaration of which security mechanisms can be used for this operation.
+    The list of values includes alternative security requirement objects that can
+    be used. Only one of the security requirement objects need to be satisfied to
+    authorize a request. To make security optional, an empty security requirement
+    ({}) can be included in the array. This definition overrides any declared
+    top-level security. To remove a top-level security declaration, an empty array
+    can be used."""
 
-        self.servers: List[Server] = servers if servers is not None else []
-        """An alternative server array to service this operation. If an alternative
-        server object is specified at the Paths Item Object or Root level, it will be
-        overridden by this value."""
+    servers: List[Server] = field(default_factory=list)
+    """An alternative server array to service this operation. If an alternative
+    server object is specified at the Paths Item Object or Root level, it will be
+    overridden by this value."""
 
     def get_value(self):
         value = {}
@@ -736,6 +637,7 @@ class Operation:
         return value
 
 
+@dataclass()
 class ExternalDocumentation:
     """Allows referencing an external resource for extended documentation.
 
@@ -749,14 +651,13 @@ class ExternalDocumentation:
     }
     """
 
-    def __init__(self, url: str, description: Optional[str] = None):
-        self.description = description
-        """A short description of the target documentation. CommonMark syntax MAY be
-        used for rich text representation."""
+    url: str
+    """REQUIRED. The URL for the target documentation. Value MUST be in the format
+    of a URL."""
 
-        self.url = url
-        """REQUIRED. The URL for the target documentation. Value MUST be in the format
-        of a URL."""
+    description: Optional[str] = None
+    """A short description of the target documentation. CommonMark syntax MAY be
+    used for rich text representation."""
 
     def get_value(self):
         value = {"url": self.url}
@@ -767,6 +668,7 @@ class ExternalDocumentation:
         return value
 
 
+@dataclass()
 class Parameter:
     """Describes a single operation parameter.
 
@@ -792,53 +694,43 @@ class Parameter:
     }
     """
 
-    def __init__(
-        self,
-        in_: str,
-        name: str,
-        description: Optional[str] = None,
-        schema: Optional[Union["Schema", "Reference"]] = None,
-        required=True,
-        deprecated=False,
-        allow_empty_value=False,
-    ):
-        self.name: str = name
-        """REQUIRED. The name of the parameter. Parameter names are case sensitive.
-            - If in is "path", the name field MUST correspond to a template expression
-              occurring within the path field in the Paths Object. See Paths Templating
-              for further information.
-            - If in is "header" and the name field is "Accept", "Content-Type" or
-              "Authorization", the parameter definition SHALL be ignored.
-            - For all other cases, the name corresponds to the parameter name used by
-              the in property.
-        """
+    name: str
+    """REQUIRED. The name of the parameter. Parameter names are case sensitive.
+        - If in is "path", the name field MUST correspond to a template expression
+          occurring within the path field in the Paths Object. See Paths Templating
+          for further information.
+        - If in is "header" and the name field is "Accept", "Content-Type" or
+          "Authorization", the parameter definition SHALL be ignored.
+        - For all other cases, the name corresponds to the parameter name used by
+          the in property.
+    """
 
-        self.in_: str = in_
-        """REQUIRED. The location of the parameter. Possible values are "query",
-        "header", "path" or "cookie"."""
+    in_: str
+    """REQUIRED. The location of the parameter. Possible values are "query",
+    "header", "path" or "cookie"."""
 
-        self.description: Optional[str] = description
-        """A brief description of the parameter. This could contain examples of use.
-        CommonMark syntax MAY be used for rich text representation."""
+    description: Optional[str] = None
+    """A brief description of the parameter. This could contain examples of use.
+    CommonMark syntax MAY be used for rich text representation."""
 
-        self.schema: Optional[Union["Schema", "Reference"]] = schema
-        """The schema defining the type used for the parameter."""
+    schema: Optional[Union["Schema", "Reference"]] = None
+    """The schema defining the type used for the parameter."""
 
-        self.required: bool = required
-        """Determines whether this parameter is mandatory. If the parameter location
-        is "path", this property is REQUIRED and its value MUST be true. Otherwise, the
-        property MAY be included and its default value is false."""
+    required: bool = True
+    """Determines whether this parameter is mandatory. If the parameter location
+    is "path", this property is REQUIRED and its value MUST be true. Otherwise, the
+    property MAY be included and its default value is false."""
 
-        self.deprecated: bool = deprecated
-        """Specifies that a parameter is deprecated and SHOULD be transitioned out of
-        usage. Default value is false."""
+    deprecated: bool = False
+    """Specifies that a parameter is deprecated and SHOULD be transitioned out of
+    usage. Default value is false."""
 
-        self.allow_empty_value: bool = allow_empty_value
-        """Sets the ability to pass empty-valued parameters. This is valid only for
-        query parameters and allows sending a parameter with an empty value. Default
-        value is false. If style is used, and if behavior is n/a (cannot be serialized),
-        the value of allowEmptyValue SHALL be ignored. Use of this property is NOT
-        RECOMMENDED, as it is likely to be removed in a later revision."""
+    allow_empty_value: bool = False
+    """Sets the ability to pass empty-valued parameters. This is valid only for
+    query parameters and allows sending a parameter with an empty value. Default
+    value is false. If style is used, and if behavior is n/a (cannot be serialized),
+    the value of allowEmptyValue SHALL be ignored. Use of this property is NOT
+    RECOMMENDED, as it is likely to be removed in a later revision."""
 
     def get_value(self):
         value = {"in": self.in_, "name": self.name}
@@ -857,6 +749,7 @@ class Parameter:
         return value
 
 
+@dataclass()
 class RequestBody:
     """Describes a single request body.
 
@@ -864,24 +757,18 @@ class RequestBody:
     https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#requestBodyObject
     """
 
-    def __init__(
-        self,
-        description: Optional[str] = None,
-        content: Optional[Dict[str, "MediaType"]] = None,
-        required: bool = False,
-    ):
-        self.description: Optional[str] = description
-        """A brief description of the request body. This could contain examples of use.
-        CommonMark syntax MAY be used for rich text representation."""
+    description: Optional[str] = None
+    """A brief description of the request body. This could contain examples of use.
+    CommonMark syntax MAY be used for rich text representation."""
 
-        self.content: Dict[str, MediaType] = content if content is not None else {}
-        """REQUIRED. The content of the request body. The key is a media type or media
-        type range and the value describes it. For requests that match multiple keys,
-        only the most specific key is applicable. e.g. text/plain overrides text/*"""
+    content: Dict[str, "MediaType"] = field(default_factory=dict)
+    """REQUIRED. The content of the request body. The key is a media type or media
+    type range and the value describes it. For requests that match multiple keys,
+    only the most specific key is applicable. e.g. text/plain overrides text/*"""
 
-        self.required: bool = required
-        """Determines if the request body is required in the request. Defaults to
-        false."""
+    required: bool = False
+    """Determines if the request body is required in the request. Defaults to
+    false."""
 
     def get_value(self):
         value = {
@@ -898,6 +785,7 @@ class RequestBody:
         return value
 
 
+@dataclass()
 class MediaType:
     """Provides schema and examples for the media type identified by its key.
 
@@ -905,35 +793,26 @@ class MediaType:
     https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#mediaTypeObject
     """
 
-    def __init__(
-        self,
-        schema: Optional[Union["Schema", "Reference"]] = None,
-        example: Any = None,
-        examples: Optional[Dict[str, Union["Example", "Reference"]]] = None,
-        encoding: Optional[Dict[str, "Encoding"]] = None,
-    ):
-        self.schema: Optional[Union["Schema", "Reference"]] = schema
-        """The schema defining the content of the request, response, or parameter."""
+    schema: Optional[Union["Schema", "Reference"]] = None
+    """The schema defining the content of the request, response, or parameter."""
 
-        self.example: Any = example
-        """Example of the media type. The example object SHOULD be in the correct
-        format as specified by the media type. The example field is mutually exclusive
-        of the examples field. Furthermore, if referencing a schema which contains an
-        example, the example value SHALL override the example provided by the schema."""
+    example: Any = None
+    """Example of the media type. The example object SHOULD be in the correct
+    format as specified by the media type. The example field is mutually exclusive
+    of the examples field. Furthermore, if referencing a schema which contains an
+    example, the example value SHALL override the example provided by the schema."""
 
-        self.examples: Dict[str, Union[Example, Reference]] = (
-            examples if examples is not None else {}
-        )
-        """Examples of the media type. Each example object SHOULD match the media type
-        and specified schema if present. The examples field is mutually exclusive of the
-        example field. Furthermore, if referencing a schema which contains an example,
-        the examples value SHALL override the example provided by the schema."""
+    examples: Dict[str, Union["Example", "Reference"]] = field(default_factory=dict)
+    """Examples of the media type. Each example object SHOULD match the media type
+    and specified schema if present. The examples field is mutually exclusive of the
+    example field. Furthermore, if referencing a schema which contains an example,
+    the examples value SHALL override the example provided by the schema."""
 
-        self.encoding: Dict[str, "Encoding"] = encoding if encoding is not None else {}
-        """A map between a property name and its encoding information. The key, being
-        the property name, MUST exist in the schema as a property. The encoding object
-        SHALL only apply to requestBody objects when the media type is multipart or
-        application/x-www-form-urlencoded."""
+    encoding: Dict[str, "Encoding"] = field(default_factory=dict)
+    """A map between a property name and its encoding information. The key, being
+    the property name, MUST exist in the schema as a property. The encoding object
+    SHALL only apply to requestBody objects when the media type is multipart or
+    application/x-www-form-urlencoded."""
 
     def get_value(self):
         value = {}
@@ -955,6 +834,7 @@ class MediaType:
         return value
 
 
+@dataclass()
 class Encoding:
     """A single encoding definition applied to a single schema property.
 
@@ -962,50 +842,40 @@ class Encoding:
     https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#encodingObject
     """
 
-    def __init__(
-        self,
-        content_type: Optional[str] = None,
-        headers: Optional[Dict[str, Union["Header", "Reference"]]] = None,
-        style: Optional[str] = None,
-        explode: bool = True,
-        allow_reserved: bool = False,
-    ):
-        self.content_type: Optional[str] = content_type
-        """The Content-Type for encoding a specific property. Default value depends on
-        the property type: for string with format being binary –
-        application/octet-stream; for other primitive types – text/plain; for object -
-        application/json; for array – the default is defined based on the inner type.
-        The value can be a specific media type (e.g. application/json), a wildcard media
-        type (e.g. image/*), or a comma-separated list of the two types."""
+    content_type: Optional[str] = None
+    """The Content-Type for encoding a specific property. Default value depends on
+    the property type: for string with format being binary –
+    application/octet-stream; for other primitive types – text/plain; for object -
+    application/json; for array – the default is defined based on the inner type.
+    The value can be a specific media type (e.g. application/json), a wildcard media
+    type (e.g. image/*), or a comma-separated list of the two types."""
 
-        self.headers: Dict[str, Union[Header, Reference]] = (
-            headers if headers is not None else {}
-        )
-        """A map allowing additional information to be provided as headers, for example
-        Content-Disposition. Content-Type is described separately and SHALL be ignored
-        in this section. This property SHALL be ignored if the request body media type
-        is not a multipart."""
+    headers: Dict[str, Union["Header", "Reference"]] = field(default_factory=dict)
+    """A map allowing additional information to be provided as headers, for example
+    Content-Disposition. Content-Type is described separately and SHALL be ignored
+    in this section. This property SHALL be ignored if the request body media type
+    is not a multipart."""
 
-        self.style: Optional[str] = style
-        """Describes how a specific property value will be serialized depending on its
-        type. See Parameter Object for details on the style property. The behavior
-        follows the same values as query parameters, including default values. This
-        property SHALL be ignored if the request body media type is not
-        application/x-www-form-urlencoded."""
+    style: Optional[str] = None
+    """Describes how a specific property value will be serialized depending on its
+    type. See Parameter Object for details on the style property. The behavior
+    follows the same values as query parameters, including default values. This
+    property SHALL be ignored if the request body media type is not
+    application/x-www-form-urlencoded."""
 
-        self.explode: bool = explode
-        """When this is true, property values of type array or object generate separate
-        parameters for each value of the array, or key-value-pair of the map. For other
-        types of properties this property has no effect. When style is form, the default
-        value is true. For all other styles, the default value is false. This property
-        SHALL be ignored if the request body media type is not
-        application/x-www-form-urlencoded."""
+    explode: bool = True
+    """When this is true, property values of type array or object generate separate
+    parameters for each value of the array, or key-value-pair of the map. For other
+    types of properties this property has no effect. When style is form, the default
+    value is true. For all other styles, the default value is false. This property
+    SHALL be ignored if the request body media type is not
+    application/x-www-form-urlencoded."""
 
-        self.allow_reserved: bool = allow_reserved
-        """Determines whether the parameter value SHOULD allow reserved characters, as
-        defined by RFC3986 :/?#[]@!$&'()*+,;= to be included without percent-encoding.
-        The default value is false. This property SHALL be ignored if the request body
-        media type is not application/x-www-form-urlencoded."""
+    allow_reserved: bool = False
+    """Determines whether the parameter value SHOULD allow reserved characters, as
+    defined by RFC3986 :/?#[]@!$&'()*+,;= to be included without percent-encoding.
+    The default value is false. This property SHALL be ignored if the request body
+    media type is not application/x-www-form-urlencoded."""
 
     def get_value(self):
         value = {}
@@ -1026,6 +896,7 @@ class Encoding:
         return value
 
 
+@dataclass()
 class Responses:
     """A container for the expected responses of an operation.
 
@@ -1062,22 +933,18 @@ class Responses:
     }
     """
 
-    def __init__(
-        self, values: Optional[Dict[str, Union["Response", "Reference"]]] = None
-    ):
-        self.values: Dict[str, Union[Response, Reference]] = (
-            values if values is not None else {}
-        )
-        """The documentation of responses other than the ones declared for specific
-        HTTP response codes. Use this field to cover undeclared responses. A Reference
-        Object can link to a response that the OpenAPI Object's components/responses
-        section defines."""
+    values: Dict[str, Union["Response", "Reference"]] = field(default_factory=dict)
+    """The documentation of responses other than the ones declared for specific
+    HTTP response codes. Use this field to cover undeclared responses. A Reference
+    Object can link to a response that the OpenAPI Object's components/responses
+    section defines."""
 
     def get_value(self):
         value = {key: value.get_value() for key, value in self.values.items()}
         return value
 
 
+@dataclass()
 class Response:
     """Describes a single response from an API Operation.
 
@@ -1103,36 +970,25 @@ class Response:
     }
     """
 
-    def __init__(
-        self,
-        description: str,
-        headers: Optional[Dict[str, Union["Header", "Reference"]]] = None,
-        content: Optional[Dict[str, "MediaType"]] = None,
-        links: Optional[Dict[str, Union["Link", "Reference"]]] = None,
-    ):
-        self.description = description
-        """REQUIRED. A short description of the response. CommonMark syntax MAY be used
-        for rich text representation."""
+    description: str
+    """REQUIRED. A short description of the response. CommonMark syntax MAY be used
+    for rich text representation."""
 
-        self.headers: Dict[str, Union[Header, Reference]] = (
-            headers if headers is not None else {}
-        )
-        """Maps a header name to its definition. RFC7230 states header names are case
-        insensitive. If a response header is defined with the name "Content-Type", it
-        SHALL be ignored."""
+    headers: Dict[str, Union["Header", "Reference"]] = field(default_factory=dict)
+    """Maps a header name to its definition. RFC7230 states header names are case
+    insensitive. If a response header is defined with the name "Content-Type", it
+    SHALL be ignored."""
 
-        self.content: Dict[str, MediaType] = content if content is not None else {}
-        """A map containing descriptions of potential response payloads. The key is a
-        media type or media type range and the value describes it. For responses that
-        match multiple keys, only the most specific key is applicable. e.g. text/plain
-        overrides text/*"""
+    content: Dict[str, "MediaType"] = field(default_factory=dict)
+    """A map containing descriptions of potential response payloads. The key is a
+    media type or media type range and the value describes it. For responses that
+    match multiple keys, only the most specific key is applicable. e.g. text/plain
+    overrides text/*"""
 
-        self.links: Dict[str, Union[Link, Reference]] = (
-            links if links is not None else {}
-        )
-        """A map of operations links that can be followed from the response. The key of
-        the map is a short name for the link, following the naming constraints of the
-        names for Component Objects."""
+    links: Dict[str, Union["Link", "Reference"]] = field(default_factory=dict)
+    """A map of operations links that can be followed from the response. The key of
+    the map is a short name for the link, following the naming constraints of the
+    names for Component Objects."""
 
     def get_value(self):
         value = {"description": self.description}
@@ -1151,6 +1007,7 @@ class Response:
         return value
 
 
+@dataclass()
 class Callback:
     """A map of possible out-of band callbacks related to the parent operation.
 
@@ -1163,16 +1020,16 @@ class Callback:
     https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#callbackObject
     """
 
-    def __init__(self, values: Optional[Dict[str, PathItem]] = None):
-        self.values = values if values is not None else {}
-        """A Paths Item Object used to define a callback request and expected
-        responses."""
+    values: Dict[str, PathItem] = field(default_factory=dict)
+    """A Paths Item Object used to define a callback request and expected
+    responses."""
 
     def get_value(self):
         value = {key: path_item.get_value() for key, path_item in self.values.items()}
         return value
 
 
+@dataclass()
 class Example:
     """Open API example object.
 
@@ -1180,30 +1037,23 @@ class Example:
     https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#exampleObject
     """
 
-    def __init__(
-        self,
-        summary: Optional[str] = None,
-        description: Optional[str] = None,
-        value: Any = None,
-        external_value: str = None,
-    ):
-        self.summary: str = summary
-        """Short description for the example."""
+    summary: Optional[str] = None
+    """Short description for the example."""
 
-        self.description: str = description
-        """Long description for the example. CommonMark syntax MAY be used for rich
-        text representation."""
+    description: Optional[str] = None
+    """Long description for the example. CommonMark syntax MAY be used for rich
+    text representation."""
 
-        self.value: Any = value
-        """Embedded literal example. The value field and externalValue field are
-        mutually exclusive. To represent examples of media types that cannot naturally
-        represented in JSON or YAML, use a string value to contain the example,
-        escaping where necessary."""
+    value: Any = None
+    """Embedded literal example. The value field and externalValue field are
+    mutually exclusive. To represent examples of media types that cannot naturally
+    represented in JSON or YAML, use a string value to contain the example,
+    escaping where necessary."""
 
-        self.external_value: str = external_value
-        """A URL that points to the literal example. This provides the capability to
-        reference examples that cannot easily be included in JSON or YAML documents.
-        The value field and externalValue field are mutually exclusive."""
+    external_value: Optional[str] = None
+    """A URL that points to the literal example. This provides the capability to
+    reference examples that cannot easily be included in JSON or YAML documents.
+    The value field and externalValue field are mutually exclusive."""
 
     def get_value(self):
         value = {}
@@ -1220,6 +1070,7 @@ class Example:
         return value
 
 
+@dataclass()
 class Link:
     """The Link object represents a possible design-time link for a response.
 
@@ -1231,43 +1082,34 @@ class Link:
     https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#linkObject
     """
 
-    def __init__(
-        self,
-        operation_ref: Optional[str] = None,
-        operation_id: Optional[str] = None,
-        parameters: Optional[Dict[str, Any]] = None,
-        request_body: Any = None,
-        description: Optional[str] = None,
-        server: Optional["Server"] = None,
-    ):
-        self.operation_ref: str = operation_ref
-        """A relative or absolute URI reference to an OAS operation. This field is
-        mutually exclusive of the operationId field, and MUST point to an Operation
-        Object. Relative operationRef values MAY be used to locate an existing
-        Operation Object in the OpenAPI definition."""
+    operation_ref: Optional[str] = None
+    """A relative or absolute URI reference to an OAS operation. This field is
+    mutually exclusive of the operationId field, and MUST point to an Operation
+    Object. Relative operationRef values MAY be used to locate an existing
+    Operation Object in the OpenAPI definition."""
 
-        self.operation_id: str = operation_id
-        """The name of an existing, resolvable OAS operation, as defined with a unique
-        operationId. This field is mutually exclusive of the operationRef field."""
+    operation_id: Optional[str] = None
+    """The name of an existing, resolvable OAS operation, as defined with a unique
+    operationId. This field is mutually exclusive of the operationRef field."""
 
-        self.parameters: Dict[str, Any] = parameters if parameters is not None else {}
-        """A map representing parameters to pass to an operation as specified with
-        operationId or identified via operationRef. The key is the parameter name to be
-        used, whereas the value can be a constant or an expression to be evaluated and
-        passed to the linked operation. The parameter name can be qualified using the
-        parameter location [{in}.]{name} for operations that use the same parameter
-        name in different locations (e.g. path.id)."""
+    parameters: Dict[str, Any] = field(default_factory=dict)
+    """A map representing parameters to pass to an operation as specified with
+    operationId or identified via operationRef. The key is the parameter name to be
+    used, whereas the value can be a constant or an expression to be evaluated and
+    passed to the linked operation. The parameter name can be qualified using the
+    parameter location [{in}.]{name} for operations that use the same parameter
+    name in different locations (e.g. path.id)."""
 
-        self.request_body: Any = request_body
-        """A literal value or {expression} to use as a request body when calling the
-        target operation."""
+    request_body: Any = None
+    """A literal value or {expression} to use as a request body when calling the
+    target operation."""
 
-        self.description: str = description
-        """A description of the link. CommonMark syntax MAY be used for rich text
-        representation."""
+    description: Optional[str] = None
+    """A description of the link. CommonMark syntax MAY be used for rich text
+    representation."""
 
-        self.server: Server = server
-        """A server object to be used by the target operation."""
+    server: Optional["Server"] = None
+    """A server object to be used by the target operation."""
 
     def get_value(self):
         value = {}
@@ -1288,6 +1130,7 @@ class Link:
         return value
 
 
+@dataclass()
 class Header:
     """The Header Object.
 
@@ -1309,32 +1152,25 @@ class Header:
     }
     """
 
-    def __init__(
-        self,
-        description: Optional[str] = None,
-        required=True,
-        deprecated=False,
-        allow_empty_value=False,
-    ):
-        self.description: Optional[str] = description
-        """A brief description of the header. This could contain examples of use.
-        CommonMark syntax MAY be used for rich text representation."""
+    description: Optional[str] = None
+    """A brief description of the header. This could contain examples of use.
+    CommonMark syntax MAY be used for rich text representation."""
 
-        self.required: bool = required
-        """Determines whether this header is mandatory. If the header location is
-        "path", this property is REQUIRED and its value MUST be true. Otherwise, the
-        property MAY be included and its default value is false."""
+    required: bool = True
+    """Determines whether this header is mandatory. If the header location is
+    "path", this property is REQUIRED and its value MUST be true. Otherwise, the
+    property MAY be included and its default value is false."""
 
-        self.deprecated: bool = deprecated
-        """Specifies that a header is deprecated and SHOULD be transitioned out of
-        usage. Default value is false."""
+    deprecated: bool = False
+    """Specifies that a header is deprecated and SHOULD be transitioned out of
+    usage. Default value is false."""
 
-        self.allow_empty_value: bool = allow_empty_value
-        """Sets the ability to pass empty-valued headers. This is valid only for query
-        headers and allows sending a header with an empty value. Default value is false.
-        If style is used, and if behavior is n/a (cannot be serialized), the value of
-        allowEmptyValue SHALL be ignored. Use of this property is NOT RECOMMENDED, as
-        it is likely to be removed in a later revision."""
+    allow_empty_value: bool = False
+    """Sets the ability to pass empty-valued headers. This is valid only for query
+    headers and allows sending a header with an empty value. Default value is false.
+    If style is used, and if behavior is n/a (cannot be serialized), the value of
+    allowEmptyValue SHALL be ignored. Use of this property is NOT RECOMMENDED, as
+    it is likely to be removed in a later revision."""
 
     def get_value(self):
         value = {}
@@ -1351,6 +1187,7 @@ class Header:
         return value
 
 
+@dataclass()
 class Tag:
     """Adds metadata to a single tag that is used by the Operation Object.
 
@@ -1367,21 +1204,15 @@ class Tag:
     }
     """
 
-    def __init__(
-        self,
-        name: str,
-        description: Optional[str] = None,
-        external_docs: Optional[ExternalDocumentation] = None,
-    ):
-        self.name: str = name
-        """REQUIRED. The name of the tag."""
+    name: str
+    """REQUIRED. The name of the tag."""
 
-        self.description: Optional[str] = description
-        """A short description for the tag. CommonMark syntax MAY be used for rich
-        text representation."""
+    description: Optional[str] = None
+    """A short description for the tag. CommonMark syntax MAY be used for rich
+    text representation."""
 
-        self.external_docs: Optional[ExternalDocumentation] = external_docs
-        """Additional external documentation for this tag."""
+    external_docs: Optional[ExternalDocumentation] = None
+    """Additional external documentation for this tag."""
 
     def get_value(self):
         value = {"name": self.name}
@@ -1394,6 +1225,7 @@ class Tag:
         return value
 
 
+@dataclass()
 class Reference:
     """A simple object to allow referencing other components in the specification.
 
@@ -1411,9 +1243,8 @@ class Reference:
     }
     """
 
-    def __init__(self, ref: str):
-        self.ref: str = ref
-        """REQUIRED. The reference string."""
+    ref: str
+    """REQUIRED. The reference string."""
 
     @classmethod
     def from_schema(cls, schema_name):
@@ -1449,6 +1280,7 @@ class Reference:
         return value
 
 
+@dataclass()
 class Schema:
     """The Schema Object allows the definition of input and output data types.
 
@@ -1458,75 +1290,36 @@ class Schema:
     https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#schemaObject
     """
 
-    def __init__(
-        self,
-        title: Optional[str] = None,
-        multiple_of: Optional[int] = None,
-        maximum: Optional[int] = None,
-        exclusive_maximum: Optional[bool] = None,
-        minimum: Optional[int] = None,
-        exclusive_minimum: Optional[bool] = None,
-        max_length: Optional[int] = None,
-        min_length: Optional[int] = None,
-        pattern: Optional[str] = None,
-        max_items: Optional[int] = None,
-        min_items: Optional[int] = None,
-        unique_items: Optional[int] = None,
-        max_properties: Optional[int] = None,
-        min_properties: Optional[int] = None,
-        required: Optional[bool] = None,
-        enum: Optional[List["Schema"]] = None,
-        type: Optional[Union[str, List[str]]] = None,
-        all_of: Optional[List["Schema"]] = None,
-        any_of: Optional[List["Schema"]] = None,
-        one_of: Optional[List["Schema"]] = None,
-        not_: Optional["Schema"] = None,
-        items: Optional["Schema"] = None,
-        properties: Optional[Dict[str, Union["Schema", Reference]]] = None,
-        additional_properties: Union[bool, "Schema", Reference] = True,
-        description: Optional[str] = None,
-        format: Optional[str] = None,
-        default: Optional[Any] = None,
-        example: Optional[Any] = None,
-        examples: Optional[Dict[str, Union["Example", Reference]]] = None,
-    ):
-        self.title: Optional[str] = title
-        self.multiple_of: Optional[int] = multiple_of
-        self.maximum: Optional[int] = maximum
-        self.exclusive_maximum: Optional[bool] = exclusive_maximum
-        self.minimum: Optional[int] = minimum
-        self.exclusive_minimum: Optional[bool] = exclusive_minimum
-        self.max_length: Optional[int] = max_length
-        self.min_length: Optional[int] = min_length
-        self.pattern: Optional[str] = pattern
-        self.max_items: Optional[int] = max_items
-        self.min_items: Optional[int] = min_items
-        self.unique_items: Optional[int] = unique_items
-        self.max_properties: Optional[int] = max_properties
-        self.min_properties: Optional[int] = min_properties
-        self.required: Optional[bool] = required
-        self.enum: List[Schema] = enum if enum is not None else []
-        self.type: Optional[Union[str, List[str]]] = type
-        self.all_of: List[Schema] = all_of if all_of is not None else []
-        self.any_of: List[Schema] = any_of if any_of is not None else []
-        self.one_of: List[Schema] = one_of if one_of is not None else []
-        self.not_: Optional[Schema] = not_
-        self.items: Optional[Schema] = items
-        self.properties: Dict[str, Union[Schema, Reference]] = (
-            properties if properties is not None else {}
-        )
-        self.additional_properties: Union[
-            bool, "Schema", Reference
-        ] = additional_properties
-        self.description: Optional[str] = description
-        self.format: Optional[str] = format
-        self.default: Optional[Any] = default
-        self.example: Optional[Any] = example
-        self.examples: Optional[Dict[str, Union["Example", Reference]]] = examples
-
-        self.options: Optional[
-            Dict
-        ] = None  # can only be set via after Schema is created
+    title: Optional[str] = None
+    multiple_of: Optional[int] = None
+    maximum: Optional[int] = None
+    exclusive_maximum: Optional[bool] = None
+    minimum: Optional[int] = None
+    exclusive_minimum: Optional[bool] = None
+    max_length: Optional[int] = None
+    min_length: Optional[int] = None
+    pattern: Optional[str] = None
+    max_items: Optional[int] = None
+    min_items: Optional[int] = None
+    unique_items: Optional[int] = None
+    max_properties: Optional[int] = None
+    min_properties: Optional[int] = None
+    required: Optional[bool] = None
+    enum: List["Schema"] = field(default_factory=list)
+    type: Optional[Union[str, List[str]]] = None
+    all_of: List["Schema"] = field(default_factory=list)
+    any_of: List["Schema"] = field(default_factory=list)
+    one_of: List["Schema"] = field(default_factory=list)
+    not_: Optional["Schema"] = None
+    items: Optional["Schema"] = None
+    properties: Dict[str, Union["Schema", Reference]] = field(default_factory=dict)
+    additional_properties: Union[bool, "Schema", Reference] = True
+    description: Optional[str] = None
+    format: Optional[str] = None
+    default: Optional[Any] = None
+    example: Optional[Any] = None
+    examples: Dict[str, Union["Example", Reference]] = field(default_factory=dict)
+    options: Optional[Dict] = None  # can only be set via after Schema is created
 
     def get_value(self):
         value = {}
@@ -1587,11 +1380,11 @@ class Schema:
             value["format"] = self.format
         if self.default is not None:
             value["default"] = self.default
-        if self.example is not None and self.examples is not None:
+        if self.example is not None and self.examples:
             raise ValueError("`example` and `examples` are mutually exclusive")
         if self.example is not None:
             value["example"] = self.example
-        if self.examples is not None:
+        if self.examples:
             value["examples"] = {
                 key: example.get_value() for key, example in self.examples.items()
             }
@@ -1602,6 +1395,7 @@ class Schema:
         return value
 
 
+@dataclass()
 class Discriminator:
     """The Descriminator object.
 
@@ -1615,14 +1409,13 @@ class Discriminator:
     https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#discriminatorObject
     """
 
-    def __init__(self, property_name: str, mapping: Optional[Dict[str, str]] = None):
-        self.property_name: str = property_name
-        """REQUIRED. The name of the property in the payload that will hold the
-        discriminator value."""
+    property_name: str
+    """REQUIRED. The name of the property in the payload that will hold the
+    discriminator value."""
 
-        self.mapping: Dict[str, str] = mapping if mapping is not None else {}
-        """An object to hold mappings between payload values and schema names or
-        references."""
+    mapping: Dict[str, str] = field(default_factory=dict)
+    """An object to hold mappings between payload values and schema names or
+    references."""
 
     def get_value(self):
         value = {"propertyName": self.property_name}
@@ -1633,6 +1426,7 @@ class Discriminator:
         return value
 
 
+@dataclass()
 class SecurityScheme:
     """Defines a security scheme that can be used by the operations.
 
@@ -1645,49 +1439,38 @@ class SecurityScheme:
     https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#securitySchemeObject
     """
 
-    def __init__(
-        self,
-        type: str,
-        name: str,
-        in_: str,
-        scheme: str,
-        open_id_connect_url: str,
-        description: Optional[str] = None,
-        bearer_format: Optional[str] = None,
-        flows: Optional["OAuthFlows"] = None,
-    ):
-        self.type: str = type
-        """REQUIRED. The type of the security scheme. Valid values are "apiKey",
-        "http", "oauth2", "openIdConnect"."""
+    type: str
+    """REQUIRED. The type of the security scheme. Valid values are "apiKey",
+    "http", "oauth2", "openIdConnect"."""
 
-        self.description: str = description
-        """A short description for security scheme. CommonMark syntax MAY be used for
-        rich text representation."""
+    name: str
+    """REQUIRED. The name of the header, query or cookie parameter to be used."""
 
-        self.name: str = name
-        """REQUIRED. The name of the header, query or cookie parameter to be used."""
+    open_id_connect_url: str
+    """REQUIRED. OpenId Connect URL to discover OAuth2 configuration values. This
+    MUST be in the form of a URL."""
 
-        self.in_: str = in_
-        """REQUIRED. The location of the API key. Valid values are "query", "header" or
-        "cookie"."""
+    in_: str
+    """REQUIRED. The location of the API key. Valid values are "query", "header" or
+    "cookie"."""
 
-        self.scheme: str = scheme
-        """REQUIRED. The name of the HTTP Authorization scheme to be used in the
-        Authorization header as defined in RFC7235. The values used SHOULD be registered
-        in the IANA Authentication Scheme registry."""
+    scheme: str
+    """REQUIRED. The name of the HTTP Authorization scheme to be used in the
+    Authorization header as defined in RFC7235. The values used SHOULD be registered
+    in the IANA Authentication Scheme registry."""
 
-        self.bearer_format: str = bearer_format
-        """A hint to the client to identify how the bearer token is formatted. Bearer
-        tokens are usually generated by an authorization server, so this information is
-        primarily for documentation purposes."""
+    description: Optional[str] = None
+    """A short description for security scheme. CommonMark syntax MAY be used for
+    rich text representation."""
 
-        self.flows: List[OAuthFlows] = flows if flows is not None else []
-        """REQUIRED. An object containing configuration information for the flow types
-        supported."""
+    bearer_format: Optional[str] = None
+    """A hint to the client to identify how the bearer token is formatted. Bearer
+    tokens are usually generated by an authorization server, so this information is
+    primarily for documentation purposes."""
 
-        self.open_id_connect_url: str = open_id_connect_url
-        """REQUIRED. OpenId Connect URL to discover OAuth2 configuration values. This
-        MUST be in the form of a URL."""
+    flows: List["OAuthFlows"] = field(default_factory=list)
+    """REQUIRED. An object containing configuration information for the flow types
+    supported."""
 
     def get_value(self):
         value = {
@@ -1707,6 +1490,7 @@ class SecurityScheme:
         return value
 
 
+@dataclass()
 class OAuthFlows:
     """Allows configuration of the supported OAuth Flows.
 
@@ -1714,26 +1498,19 @@ class OAuthFlows:
     https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#oauthFlowsObject
     """
 
-    def __init__(
-        self,
-        implicit: Optional["OAuthFlow"] = None,
-        password: Optional["OAuthFlow"] = None,
-        client_credentials: Optional["OAuthFlow"] = None,
-        authorization_code: Optional["OAuthFlow"] = None,
-    ):
-        self.implicit = implicit
-        """Configuration for the OAuth Implicit flow"""
+    implicit: Optional["OAuthFlow"] = None
+    """Configuration for the OAuth Implicit flow"""
 
-        self.password = password
-        """Configuration for the OAuth Resource Owner Password flow"""
+    password: Optional["OAuthFlow"] = None
+    """Configuration for the OAuth Resource Owner Password flow"""
 
-        self.client_credentials = client_credentials
-        """Configuration for the OAuth Client Credentials flow. Previously called
-        application in OpenAPI 2.0."""
+    client_credentials: Optional["OAuthFlow"] = None
+    """Configuration for the OAuth Client Credentials flow. Previously called
+    application in OpenAPI 2.0."""
 
-        self.authorization_code = authorization_code
-        """Configuration for the OAuth Authorization Code flow. Previously called
-        accessCode in OpenAPI 2.0."""
+    authorization_code: Optional["OAuthFlow"] = None
+    """Configuration for the OAuth Authorization Code flow. Previously called
+    accessCode in OpenAPI 2.0."""
 
     def get_value(self):
         value = {}
@@ -1750,6 +1527,7 @@ class OAuthFlows:
         return value
 
 
+@dataclass()
 class OAuthFlow:
     """Configuration details for a supported OAuth Flow.
 
@@ -1757,28 +1535,21 @@ class OAuthFlow:
     https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#oauthFlowObject
     """
 
-    def __init__(
-        self,
-        authorization_url: str,
-        token_url: str,
-        refresh_url: Optional[str] = None,
-        scopes: Optional[Dict[str, str]] = None,
-    ):
-        self.authorization_url = authorization_url
-        """REQUIRED. The authorization URL to be used for this flow. This MUST be in the
-        form of a URL."""
+    authorization_url: str
+    """REQUIRED. The authorization URL to be used for this flow. This MUST be in the
+    form of a URL."""
 
-        self.token_url = token_url
-        """REQUIRED. The token URL to be used for this flow. This MUST be in the form
-        of a URL."""
+    token_url: str
+    """REQUIRED. The token URL to be used for this flow. This MUST be in the form
+    of a URL."""
 
-        self.refresh_url = refresh_url
-        """The URL to be used for obtaining refresh tokens. This MUST be in the form
-        of a URL."""
+    refresh_url: Optional[str] = None
+    """The URL to be used for obtaining refresh tokens. This MUST be in the form
+    of a URL."""
 
-        self.scopes: Dict[str, str] = scopes if scopes is not None else {}
-        """REQUIRED. The available scopes for the OAuth2 security scheme. A map between
-        the scope name and a short description for it. The map MAY be empty."""
+    scopes: Dict[str, str] = field(default_factory=dict)
+    """REQUIRED. The available scopes for the OAuth2 security scheme. A map between
+    the scope name and a short description for it. The map MAY be empty."""
 
     def get_value(self):
         value = {
@@ -1793,6 +1564,7 @@ class OAuthFlow:
         return value
 
 
+@dataclass()
 class SecurityRequirement:
     """Lists the required security schemes to execute this operation.
 
@@ -1803,14 +1575,13 @@ class SecurityRequirement:
     https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#securityRequirementObject
     """
 
-    def __init__(self, values: Dict[str, List[str]] = None):
-        self.values: Dict[str, List[str]] = values if values is not None else {}
-        """Each name MUST correspond to a security scheme which is declared in the
-        Security Schemes under the Components Object. If the security scheme is of
-        type "oauth2" or "openIdConnect", then the value is a list of scope names
-        required for the execution, and the list MAY be empty if authorization does
-        not require a specified scope. For other security scheme types, the array MUST
-        be empty."""
+    values: Dict[str, List[str]] = field(default_factory=dict)
+    """Each name MUST correspond to a security scheme which is declared in the
+    Security Schemes under the Components Object. If the security scheme is of
+    type "oauth2" or "openIdConnect", then the value is a list of scope names
+    required for the execution, and the list MAY be empty if authorization does
+    not require a specified scope. For other security scheme types, the array MUST
+    be empty."""
 
     def get_value(self):
         return self.values

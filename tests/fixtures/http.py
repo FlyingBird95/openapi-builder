@@ -37,6 +37,7 @@ class TestClient(FlaskClient):
 def app():
     app = Flask(__name__)
     app.config["SERVER_NAME"] = "127.0.0.1"
+    app.config["DEBUG"] = True
     app.test_client_class = TestClient
     app.response_class = CustomResponse
     return app

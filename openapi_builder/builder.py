@@ -84,7 +84,6 @@ class OpenApiDocumentation:
         )
         self.specification = OpenAPI(
             info=Info(title=title, version=version),
-            paths=Paths(),
             servers=[Server(url=self.options.server_url)],
         )
         self.builder = OpenAPIBuilder(open_api_documentation=self)
