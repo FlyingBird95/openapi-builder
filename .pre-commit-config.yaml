@@ -1,11 +1,4 @@
 repos:
-  - repo: https://github.com/PyCQA/isort
-    rev: 5.10.1
-    hooks:
-      - id: isort
-        name: isort
-        args: ["--profile=black", "--line-length=100",  "--skip-gitignore", "--quiet"]
-
   - repo: https://github.com/myint/autoflake
     rev: v1.4
     hooks:
