@@ -9,8 +9,8 @@ from openapi_builder.specification import Reference, Schema
 class ListConverter(Converter):
     converts_class = halogen.types.List
 
-    def convert(self, value: halogen.types.List) -> Schema:
-        items = self.builder.process(value.item_type)
+    def convert(self, value: halogen.types.List, name) -> Schema:
+        items = self.builder.process(value.item_type, name=name)
         schema = Schema(type="array", items=items)
 
         if value.allow_scalar:
@@ -23,7 +23,7 @@ class ListConverter(Converter):
 class ISODateTimeConverter(Converter):
     converts_class = halogen.types.ISODateTime
 
-    def convert(self, value: halogen.types.ISODateTime) -> Schema:
+    def convert(self, value: halogen.types.ISODateTime, name) -> Schema:
         return Schema(type="string", format="date-time")
 
 
@@ -31,7 +31,7 @@ class ISODateTimeConverter(Converter):
 class ISOUTCDateTimeConverter(Converter):
     converts_class = halogen.types.ISOUTCDateTime
 
-    def convert(self, value: halogen.types.ISOUTCDateTime) -> Schema:
+    def convert(self, value: halogen.types.ISOUTCDateTime, name) -> Schema:
         return Schema(type="string", format="date-time")
 
 
@@ -39,7 +39,7 @@ class ISOUTCDateTimeConverter(Converter):
 class ISOUTCDateConverter(Converter):
     converts_class = halogen.types.ISOUTCDate
 
-    def convert(self, value: halogen.types.ISOUTCDate) -> Schema:
+    def convert(self, value: halogen.types.ISOUTCDate, name) -> Schema:
         return Schema(type="string", format="date")
 
 
@@ -47,7 +47,7 @@ class ISOUTCDateConverter(Converter):
 class StringConverter(Converter):
     converts_class = halogen.types.String
 
-    def convert(self, value: halogen.types.String) -> Schema:
+    def convert(self, value: halogen.types.String, name) -> Schema:
         return Schema(type="string")
 
 
@@ -55,7 +55,7 @@ class StringConverter(Converter):
 class IntConverter(Converter):
     converts_class = halogen.types.Int
 
-    def convert(self, value: halogen.types.Int) -> Schema:
+    def convert(self, value: halogen.types.Int, name) -> Schema:
         return Schema(type="integer")
 
 
@@ -63,7 +63,7 @@ class IntConverter(Converter):
 class BooleanConverter(Converter):
     converts_class = halogen.types.Boolean
 
-    def convert(self, value: halogen.types.Boolean) -> Schema:
+    def convert(self, value: halogen.types.Boolean, name) -> Schema:
         return Schema(type="boolean")
 
 
@@ -71,7 +71,7 @@ class BooleanConverter(Converter):
 class AmountConverter(Converter):
     converts_class = halogen.types.Amount
 
-    def convert(self, value: halogen.types.Amount) -> Schema:
+    def convert(self, value: halogen.types.Amount, name) -> Schema:
         return Schema(
             type="object",
             properties={
@@ -85,8 +85,8 @@ class AmountConverter(Converter):
 class NullableConverter(Converter):
     converts_class = halogen.types.Nullable
 
-    def convert(self, value: halogen.types.Nullable) -> Schema:
-        inner = self.builder.process(value.nested_type)
+    def convert(self, value: halogen.types.Nullable, name) -> Schema:
+        inner = self.builder.process(value.nested_type, name=name)
         inner.nullable = True
         return inner
 
@@ -98,7 +98,7 @@ class LinkConverter(Converter):
     def matches(self, value) -> bool:
         return super().matches(value) and value.__name__ == "LinkSchema"
 
-    def convert(self, value) -> Schema:
+    def convert(self, value, name) -> Schema:
         properties = {}
 
         for prop in value.__class_attrs__.values():
@@ -118,7 +118,7 @@ class CurieConverter(Converter):
             and value.__class_attrs__.keys() == self.currie_attributes
         )
 
-    def convert(self, value) -> Schema:
+    def convert(self, value, name) -> Schema:
         return Schema(
             type="object",
             properties={
@@ -134,7 +134,7 @@ class CurieConverter(Converter):
 class SchemaConverter(Converter):
     converts_class = halogen.schema._SchemaType
 
-    def convert(self, value) -> Schema:
+    def convert(self, value, name) -> Schema:
         schema_name = value.__name__
         schema_options = getattr(value, HIDDEN_ATTR_NAME, None)
         properties = {}
@@ -168,5 +168,6 @@ class SchemaConverter(Converter):
                     attr.default = prop.default
             result[prop.key] = attr
 
-        self.builder.schemas[schema_name] = Schema(type="object", properties=properties)
-        return Reference.from_schema(schema_name=schema_name)
+        schema = Schema(type="object", properties=properties)
+        self.builder.schemas[schema_name] = schema
+        return Reference.from_schema(schema_name=schema_name, required=schema.required)

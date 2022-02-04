@@ -1246,25 +1246,31 @@ class Reference:
     ref: str
     """REQUIRED. The reference string."""
 
-    @classmethod
-    def from_schema(cls, schema_name):
-        return cls(ref=f"#/components/schemas/{schema_name}")
+    required: bool  # used by Schema.get_value().properties
+    """Whether the schema where it refers to is required."""
 
     @classmethod
-    def from_response(cls, response_name):
-        return cls(ref=f"#/components/responses/{response_name}")
+    def from_schema(cls, schema_name, required):
+        return cls(ref=f"#/components/schemas/{schema_name}", required=required)
 
     @classmethod
-    def from_parameter(cls, parameter_name):
-        return cls(ref=f"#/components/parameters/{parameter_name}")
+    def from_response(cls, response_name, required):
+        return cls(ref=f"#/components/responses/{response_name}", required=required)
 
     @classmethod
-    def from_example(cls, example_name):
-        return cls(ref=f"#/components/examples/{example_name}")
+    def from_parameter(cls, parameter_name, required):
+        return cls(ref=f"#/components/parameters/{parameter_name}", required=required)
 
     @classmethod
-    def from_security_scheme(cls, security_scheme_name):
-        return cls(ref=f"#/components/securitySchemes/{security_scheme_name}")
+    def from_example(cls, example_name, required):
+        return cls(ref=f"#/components/examples/{example_name}", required=required)
+
+    @classmethod
+    def from_security_scheme(cls, security_scheme_name, required):
+        return cls(
+            ref=f"#/components/securitySchemes/{security_scheme_name}",
+            required=required,
+        )
 
     def get_schema(self, open_api: OpenAPI) -> "Schema":
         if self.ref.startswith("#/components/schemas/"):
@@ -1304,7 +1310,7 @@ class Schema:
     unique_items: Optional[int] = None
     max_properties: Optional[int] = None
     min_properties: Optional[int] = None
-    required: Optional[bool] = None
+    required: bool = True
     enum: List["Schema"] = field(default_factory=list)
     type: Optional[Union[str, List[str]]] = None
     all_of: List["Schema"] = field(default_factory=list)
@@ -1352,8 +1358,6 @@ class Schema:
             value["maxProperties"] = self.max_properties
         if self.min_properties is not None:
             value["minProperties"] = self.min_properties
-        if self.required is not None:
-            value["required"] = self.required
         if self.enum:
             value["enum"] = self.enum
         if self.type is not None:
@@ -1372,6 +1376,11 @@ class Schema:
             value["properties"] = {
                 key: prop.get_value() for key, prop in self.properties.items()
             }
+            required_properties = [
+                key for key, value in self.properties.items() if value.required
+            ]
+            if required_properties:
+                value["required"] = required_properties
         if self.additional_properties is not True:
             value["additionalProperties"] = self.additional_properties.get_value()
         if self.description is not None:

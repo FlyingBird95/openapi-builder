@@ -119,7 +119,7 @@ class OpenAPIBuilder:
         self.converters: List[Converter] = []
         self.config_manager = DocumentationConfigManager()
 
-    def process(self, value: Any, name: Optional[str] = None):
+    def process(self, value: Any, name: str):
         """Processes an instance, and returns a schema, or reference to that schema."""
         try:
             converter = next(
@@ -134,7 +134,7 @@ class OpenAPIBuilder:
             else:
                 raise ValueError(f"Unknown strict mode: {self.options.strict_mode}")
         else:
-            return converter.convert(value=value)
+            return converter.convert(value=value, name=name)
 
     def register_converters(self):
         """Registers converts for the instance.
@@ -187,7 +187,7 @@ class OpenAPIBuilder:
         for method in rule.methods:
             values = {}
             for key, schema in self.config.responses.items():
-                reference = self.process(schema)
+                reference = self.process(schema, name=key)
                 values[key] = Response(
                     description=self.config.description,
                     content={
@@ -204,7 +204,7 @@ class OpenAPIBuilder:
 
             query_schema = self.config.query_schema
             if query_schema is not None:
-                schema_or_reference = self.process(query_schema)
+                schema_or_reference = self.process(query_schema, name="query")
                 if isinstance(schema_or_reference, Reference):
                     schema = schema_or_reference.get_schema(
                         self.open_api_documentation.specification
@@ -223,7 +223,7 @@ class OpenAPIBuilder:
 
             input_schema = self.config.input_schema
             if input_schema is not None:
-                schema_or_reference = self.process(input_schema)
+                schema_or_reference = self.process(input_schema, name="input_schema")
                 operation.request_body = RequestBody(
                     description=self.config.description,
                     content={
