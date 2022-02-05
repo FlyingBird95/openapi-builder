@@ -1,4 +1,5 @@
 import enum
+import logging
 import warnings
 from dataclasses import dataclass
 from typing import Any, List, Optional
@@ -19,7 +20,6 @@ from .specification import (
     Operation,
     Parameter,
     PathItem,
-    Paths,
     Reference,
     RequestBody,
     Response,
@@ -28,6 +28,8 @@ from .specification import (
     Server,
 )
 from .util import openapi_endpoint_name_from_rule
+
+logger = logging.getLogger(__name__)
 
 
 @dataclass(unsafe_hash=True, frozen=True)
@@ -122,9 +124,6 @@ class OpenAPIBuilder:
 
     def process(self, value: Any, name: str):
         """Processes an instance, and returns a schema, or reference to that schema."""
-        if name in self.schemas:
-            return Reference.from_schema(schema_name=name, schema=self.schemas[name])
-
         try:
             converter = next(
                 converter for converter in self.converters if converter.matches(value)
@@ -196,6 +195,7 @@ class OpenAPIBuilder:
 
     def process_rule(self, rule: Rule):
         """Processes a Werkzeug rule."""
+        logger.info(f"Processing {rule.endpoint}")
         parameters = list(self.config.parameters)
         parameters.extend(parse_openapi_arguments(rule))
         endpoint_name = openapi_endpoint_name_from_rule(rule)

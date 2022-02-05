@@ -14,7 +14,7 @@ def test_strict_mode_error(open_api_documentation):
     builder = open_api_documentation.builder
     with pytest.raises(MissingConverter):
         with builder.config_manager.use_documentation_context(Documentation()):
-            open_api_documentation.builder.process({}, name="abc")
+            open_api_documentation.builder.process(None, name="abc")
 
 
 @pytest.mark.parametrize(
@@ -24,7 +24,7 @@ def test_strict_mode_error(open_api_documentation):
 def test_strict_mode_warning(open_api_documentation):
     builder = open_api_documentation.builder
     with builder.config_manager.use_documentation_context(Documentation()):
-        result = open_api_documentation.builder.process({}, name="abc")
+        result = open_api_documentation.builder.process(None, name="abc")
 
     assert isinstance(result, Schema)
     assert result.example == "<unknown>"
@@ -35,7 +35,7 @@ def test_unknown_strict_mode(open_api_documentation):
     builder = open_api_documentation.builder
     with pytest.raises(ValueError):
         with builder.config_manager.use_documentation_context(Documentation()):
-            open_api_documentation.builder.process({}, name="abc")
+            open_api_documentation.builder.process(None, name="abc")
 
 
 def test_unknown_documentation(open_api_documentation):

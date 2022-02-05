@@ -137,7 +137,17 @@ class CurieConverter(Converter):
 class SchemaConverter(Converter):
     converts_class = halogen.schema._SchemaType
 
+    cache = {}
+
     def convert(self, value, name) -> Schema:
+        if value.__name__ in self.cache:
+            return self.cache[value.__name__]
+        else:
+            self.cache[value.__name__] = Reference.from_schema(
+                schema_name=value.__name__,
+                schema=Schema(type="object"),
+            )
+
         schema_name = value.__name__
         schema_options: Optional["SchemaOptions"] = getattr(
             value, HIDDEN_ATTR_NAME, None
