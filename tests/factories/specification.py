@@ -273,6 +273,7 @@ class ReferenceFactory(factory.Factory):
         model = Reference
 
     ref = "ref"
+    required = True
 
 
 class SchemaFactory(factory.Factory):

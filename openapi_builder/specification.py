@@ -537,7 +537,7 @@ class Operation:
     https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#operationObject
     """
 
-    tags: List["Tag"] = field(default_factory=list)
+    tags: List[str] = field(default_factory=list)
     """A list of tags for API documentation control. Tags can be used for logical
     grouping of operations by resources or any other qualifier."""
 
@@ -990,6 +990,10 @@ class Response:
     the map is a short name for the link, following the naming constraints of the
     names for Component Objects."""
 
+    def __post_init__(self):
+        if self.description is None:
+            raise ValueError("Invalid description")
+
     def get_value(self):
         value = {"description": self.description}
 
@@ -1250,8 +1254,11 @@ class Reference:
     """Whether the schema where it refers to is required."""
 
     @classmethod
-    def from_schema(cls, schema_name, required):
-        return cls(ref=f"#/components/schemas/{schema_name}", required=required)
+    def from_schema(cls, schema_name, schema):
+        return cls(
+            ref=f"#/components/schemas/{schema_name}",
+            required=bool(schema.required),
+        )
 
     @classmethod
     def from_response(cls, response_name, required):
@@ -1326,6 +1333,7 @@ class Schema:
     example: Optional[Any] = None
     examples: Dict[str, Union["Example", Reference]] = field(default_factory=dict)
     options: Optional[Dict] = None  # can only be set via after Schema is created
+    discriminator: Optional["Discriminator"] = None
 
     def get_value(self):
         value = {}
@@ -1397,6 +1405,8 @@ class Schema:
             value["examples"] = {
                 key: example.get_value() for key, example in self.examples.items()
             }
+        if self.discriminator is not None:
+            value["discriminator"] = self.discriminator.get_value()
 
         if self.options is not None:
             value.update(self.options)
@@ -1406,7 +1416,7 @@ class Schema:
 
 @dataclass()
 class Discriminator:
-    """The Descriminator object.
+    """The Discriminator object.
 
     When request bodies or response payloads may be one of a number of different
     schemas, a discriminator object can be used to aid in serialization,

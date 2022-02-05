@@ -1,8 +1,11 @@
+from typing import Optional
+
 import halogen
 
 from openapi_builder.constants import HIDDEN_ATTR_NAME
 from openapi_builder.converters import Converter, register_converter
-from openapi_builder.specification import Reference, Schema
+from openapi_builder.documentation import SchemaOptions
+from openapi_builder.specification import Discriminator, Reference, Schema
 
 
 @register_converter
@@ -102,7 +105,7 @@ class LinkConverter(Converter):
         properties = {}
 
         for prop in value.__class_attrs__.values():
-            properties[prop.key] = Schema(type="string", format="url")
+            properties[prop.key] = Schema(type="string", format="url", example="<url>")
 
         return Schema(type="object", properties=properties)
 
@@ -136,11 +139,12 @@ class SchemaConverter(Converter):
 
     def convert(self, value, name) -> Schema:
         schema_name = value.__name__
-        schema_options = getattr(value, HIDDEN_ATTR_NAME, None)
+        schema_options: Optional["SchemaOptions"] = getattr(
+            value, HIDDEN_ATTR_NAME, None
+        )
         properties = {}
 
         for key, prop in value.__class_attrs__.items():
-
             if prop.compartment:
                 if prop.compartment not in properties:
                     properties[prop.compartment] = Schema(type="object")
@@ -170,4 +174,27 @@ class SchemaConverter(Converter):
 
         schema = Schema(type="object", properties=properties)
         self.builder.schemas[schema_name] = schema
-        return Reference.from_schema(schema_name=schema_name, required=schema.required)
+        if not schema_options or not schema_options.discriminator:
+            return Reference.from_schema(schema_name=schema_name, schema=schema)
+
+        # process discriminator configuration
+        new_schema = Schema(type="object")
+        self.builder.schemas[schema_name] = new_schema
+
+        mapping = {
+            key: self.builder.process(value=value, name=key)
+            for key, value in schema_options.discriminator.mapping.items()
+        }
+        if schema_options.discriminator.all_of:
+            for reference in mapping.values():
+                s = reference.get_schema(
+                    self.builder.open_api_documentation.specification
+                )
+                s.all_of = [schema]
+        new_schema.one_of = list(mapping.values())
+        new_schema.discriminator = Discriminator(
+            property_name=schema_options.discriminator.name,
+            mapping={key: reference.ref for key, reference in mapping.items()},
+        )
+
+        return Reference.from_schema(schema_name=schema_name, schema=new_schema)

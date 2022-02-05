@@ -4,7 +4,7 @@ from http import HTTPStatus
 from typing import Any, Dict, List, Optional, Union
 
 from openapi_builder.exceptions import MissingConfigContext
-from openapi_builder.specification import Parameter
+from openapi_builder.specification import Discriminator, Parameter, Tag
 
 
 @dataclass()
@@ -17,23 +17,40 @@ class Documentation:
     See `openapi_builder.decorators.add_documentation` for more info.
     """
 
-    responses: Optional[Dict[Union[HTTPStatus, int], Any]] = field(default_factory=dict)
-    input_schema: Optional[Any] = None
-    query_schema: Optional[Any] = None
-    parameters: Optional[List[Parameter]] = field(default_factory=list)
+    responses: Dict[Union[HTTPStatus, int], Any] = field(default_factory=dict)
+    input_schema: Any = None
+    query_schema: Any = None
+    parameters: List[Parameter] = field(default_factory=list)
     summary: Optional[str] = None
     description: Optional[str] = None
-    tags: Optional[List[str]] = field(default_factory=list)
+    tags: List[str] = field(default_factory=list)
 
     def __post_init__(self):
         self.responses = {str(int(k)): v for k, v in self.responses.items()}
 
 
+@dataclass()
+class DiscriminatorOptions:
+    """Additional options for the discriminator."""
+
+    name: str
+    all_of: bool = False
+    mapping: Dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass()
 class SchemaOptions:
     """Additional options to be serialized for a certain schema."""
 
-    def __init__(self, **options):
-        self.options = options
+    discriminator: DiscriminatorOptions
+    options: Dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass()
+class ResourceOptions:
+    """Additional options to be serialized for a certain resource (blueprint)."""
+
+    tags: List[Tag] = field(default_factory=list)
 
 
 class DocumentationConfigManager:

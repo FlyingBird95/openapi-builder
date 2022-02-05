@@ -108,6 +108,7 @@ class OpenApiDocumentation:
 
     def get_specification(self):
         """Returns the OpenAPI configuration specification as a dictionary."""
+        # TODO: validate spec
         return self.specification.get_value()
 
 
@@ -121,6 +122,9 @@ class OpenAPIBuilder:
 
     def process(self, value: Any, name: str):
         """Processes an instance, and returns a schema, or reference to that schema."""
+        if name in self.schemas:
+            return Reference.from_schema(schema_name=name, schema=self.schemas[name])
+
         try:
             converter = next(
                 converter for converter in self.converters if converter.matches(value)
@@ -129,7 +133,7 @@ class OpenAPIBuilder:
             if self.options.strict_mode == self.options.StrictMode.FAIL_ON_ERROR:
                 raise MissingConverter()
             elif self.options.strict_mode == self.options.StrictMode.SHOW_WARNINGS:
-                warnings.warn(f"Missing converter for: {value}", UserWarning)
+                warnings.warn(f"Missing converter for: {value}: {name}", UserWarning)
                 return Schema(example="<unknown>")
             else:
                 raise ValueError(f"Unknown strict mode: {self.options.strict_mode}")
@@ -165,13 +169,29 @@ class OpenAPIBuilder:
         """
         for rule in self.open_api_documentation.app.url_map._rules:
             view_func = self.open_api_documentation.app.view_functions[rule.endpoint]
-            try:
-                config: Documentation = getattr(view_func, HIDDEN_ATTR_NAME)
-            except AttributeError:
+            config: Documentation = getattr(view_func, HIDDEN_ATTR_NAME, None)
+            if config is None:
                 # endpoint has no documentation configuration -> skip
                 continue
 
+            blueprint_name = rule.endpoint.split(".")[0]
+            blueprint = self.open_api_documentation.app.blueprints.get(blueprint_name)
+            resource_options = getattr(blueprint, HIDDEN_ATTR_NAME, None)
+
+            if resource_options is not None:
+                tag_names = [
+                    tag.name for tag in self.open_api_documentation.specification.tags
+                ]
+                for tag in resource_options.tags:
+                    if tag.name not in tag_names:
+                        self.open_api_documentation.specification.tags.append(tag)
+
             with self.config_manager.use_documentation_context(config):
+                if resource_options is not None:
+                    for tag in resource_options.tags:
+                        if tag.name not in self.config.tags:
+                            self.config.tags.append(tag.name)
+
                 self.process_rule(rule)
 
     def process_rule(self, rule: Rule):
@@ -189,7 +209,7 @@ class OpenAPIBuilder:
             for key, schema in self.config.responses.items():
                 reference = self.process(schema, name=key)
                 values[key] = Response(
-                    description=self.config.description,
+                    description=self.config.description or "",
                     content={
                         self.options.response_content_type: MediaType(schema=reference)
                     },
@@ -243,6 +263,8 @@ class OpenAPIBuilder:
                 path_item.post = operation
             if method == "PUT":
                 path_item.put = operation
+            if method == "DELETE":
+                path_item.delete = operation
 
     @property
     def schemas(self):

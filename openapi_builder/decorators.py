@@ -1,21 +1,26 @@
 from http import HTTPStatus
 from typing import Any, Dict, List, Optional, Union
 
-from openapi_builder.constants import HIDDEN_ATTR_NAME
-from openapi_builder.documentation import Documentation, SchemaOptions
-from openapi_builder.specification import Parameter
+from flask import Blueprint
 
-_MISSING = object()
+from openapi_builder.constants import HIDDEN_ATTR_NAME
+from openapi_builder.documentation import (
+    Documentation,
+    DiscriminatorOptions,
+    ResourceOptions,
+    SchemaOptions,
+)
+from openapi_builder.specification import Parameter, Tag
 
 
 def add_documentation(
-    responses: Optional[Dict[Union[HTTPStatus, int], Any]] = _MISSING,
-    input_schema: Optional[Any] = _MISSING,
-    query_schema: Optional[Any] = _MISSING,
-    parameters: Optional[List[Parameter]] = _MISSING,
-    summary: Optional[str] = _MISSING,
-    description: Optional[str] = _MISSING,
-    tags: Optional[List[str]] = _MISSING,
+    responses: Optional[Dict[Union[HTTPStatus, int], Any]] = None,
+    input_schema: Optional[Any] = None,
+    query_schema: Optional[Any] = None,
+    parameters: Optional[List[Parameter]] = None,
+    summary: Optional[str] = None,
+    description: Optional[str] = None,
+    tags: Optional[List[str]] = None,
 ):
     """Adds documentation options for a given Flask endpoint.
 
@@ -31,19 +36,19 @@ def add_documentation(
 
     def inner(func):
         kwargs = {}
-        if responses is not _MISSING:
+        if responses is not None:
             kwargs["responses"] = responses
-        if input_schema is not _MISSING:
+        if input_schema is not None:
             kwargs["input_schema"] = input_schema
-        if query_schema is not _MISSING:
+        if query_schema is not None:
             kwargs["query_schema"] = query_schema
-        if parameters is not _MISSING:
+        if parameters is not None:
             kwargs["parameters"] = parameters
-        if summary is not _MISSING:
+        if summary is not None:
             kwargs["summary"] = summary
-        if description is not _MISSING:
+        if description is not None:
             kwargs["description"] = description
-        if tags is not _MISSING:
+        if tags is not None:
             kwargs["tags"] = tags
 
         value = Documentation(**kwargs)
@@ -53,24 +58,40 @@ def add_documentation(
     return inner
 
 
-def documentation_schema_options(**options):
+def set_resource_options(
+    resource: Blueprint,
+    tags: Optional[List[Union[str, Tag]]] = None,
+):
+    """Set documentation defaults on the blueprint."""
+    kwargs = {}
+    if tags is not None:
+        kwargs["tags"] = tags
+    value = ResourceOptions(**kwargs)
+    setattr(resource, HIDDEN_ATTR_NAME, value)
+
+
+def set_schema_options(
+    schema: Any,
+    options: Dict[str, Any] = None,
+    discriminator: Optional[DiscriminatorOptions] = None,
+):
     """Adds schema options for a given class.
 
     Usage:
     >>> from marshmallow import fields
     >>>
     >>>
-    >>> @documentation_schema_options(
-    >>>    attr={"example": "abc"},
-    >>> )
     >>> class YourSchema:
     >>>     attr = fields.Str()
     >>>     ...
+    >>>
+    >>> set_schema_options(YourSchema, options={"attr": {"example": "abc"}})
     """
+    kwargs = {}
+    if options is not None:
+        kwargs["options"] = options
+    if discriminator is not None:
+        kwargs["discriminator"] = discriminator
 
-    def inner(func):
-        value = SchemaOptions(**options)
-        setattr(func, HIDDEN_ATTR_NAME, value)
-        return func
-
-    return inner
+    value = SchemaOptions(**kwargs)
+    setattr(schema, HIDDEN_ATTR_NAME, value)

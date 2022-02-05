@@ -143,10 +143,7 @@ class SchemaConverter(Converter):
 
         schema = Schema(type="object", properties=properties)
         self.builder.schemas[schema_name] = schema
-        reference = Reference.from_schema(
-            schema_name=schema_name,
-            required=schema.required,
-        )
+        reference = Reference.from_schema(schema_name=schema_name, schema=schema)
         if value.many:
             return Schema(type="array", items=reference)
         return reference
