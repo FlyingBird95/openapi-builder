@@ -1497,7 +1497,7 @@ class SecurityScheme:
         if self.name is not None:
             value["name"] = self.name
         if self.scheme is not None:
-            value["schema"] = self.scheme
+            value["scheme"] = self.scheme
         if self.flows:
             value["flows"] = [flow.get_value() for flow in self.flows]
         if self.open_id_connect_url is not None:

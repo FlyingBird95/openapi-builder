@@ -127,7 +127,6 @@ def test_discriminator(discriminator):
 
 def test_security_scheme(security_scheme):
     assert security_scheme.get_value() == {
-        "flows": [],
         "in": "query",
         "name": "name",
         "openIdConnectUrl": security_scheme.open_id_connect_url,
