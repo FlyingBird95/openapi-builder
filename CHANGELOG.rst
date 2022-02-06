@@ -14,6 +14,13 @@ Unreleased
 ----------
 Release date:
 
+Version `0.2.5 <https://github.com/FlyingBird95/openapi-builder/tree/v0.2.5>`__
+--------------------------------------------------------------------------------
+Release date: 2022-02-06
+
+- **Added** default converters: :code:`openapi_builder.converters.defaults`.
+- **Added** :code:`set_resource_options` and :code:`set_schema_options`.
+- **Changed** specification to use :code:`dataclass()`.
 
 Version `0.2.4 <https://github.com/FlyingBird95/openapi-builder/tree/v0.2.4>`__
 --------------------------------------------------------------------------------
