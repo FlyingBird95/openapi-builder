@@ -17,6 +17,10 @@ class MissingParameterConverter(OpenApiException):
     """Missing parameter converter for the given class."""
 
 
+class MissingDefaultConverter(OpenApiException):
+    """Missing default converter for the given class."""
+
+
 class MissingConfigContext(OpenApiException):
     """Missing config context.
 

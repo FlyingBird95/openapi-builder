@@ -1,15 +1,17 @@
 import enum
 import warnings
+from dataclasses import dataclass
 from typing import Any, List, Optional
 
 from flask import Flask
 from werkzeug.routing import Rule
 
+from . import logger
 from .blueprint.blueprint import openapi_documentation
-from .constants import EXTENSION_NAME
+from .constants import EXTENSION_NAME, HIDDEN_ATTR_NAME
 from .converters.base import CONVERTER_CLASSES, Converter
 from .converters.parameter.process import parse_openapi_arguments
-from .documentation import Documentation, DocumentationContext
+from .documentation import Documentation, DocumentationConfigManager
 from .exceptions import MissingConverter
 from .specification import (
     Info,
@@ -18,7 +20,6 @@ from .specification import (
     Operation,
     Parameter,
     PathItem,
-    Paths,
     Reference,
     RequestBody,
     Response,
@@ -29,28 +30,23 @@ from .specification import (
 from .util import openapi_endpoint_name_from_rule
 
 
+@dataclass(unsafe_hash=True, frozen=True)
 class DocumentationOptions:
+    """Global options as defaults for the extension."""
+
     class StrictMode(enum.Enum):
         FAIL_ON_ERROR = enum.auto()
         SHOW_WARNINGS = enum.auto()
 
-    def __init__(
-        self,
-        include_head_response: bool = True,
-        include_options_response: bool = True,
-        server_url: str = "/",
-        include_marshmallow_converters: bool = True,
-        include_halogen_converters: bool = False,
-        include_documentation_blueprint: bool = True,
-        strict_mode: StrictMode = StrictMode.SHOW_WARNINGS,
-    ):
-        self.include_head_response: bool = include_head_response
-        self.include_options_response: bool = include_options_response
-        self.server_url: str = server_url
-        self.include_marshmallow_converters: bool = include_marshmallow_converters
-        self.include_halogen_converters: bool = include_halogen_converters
-        self.include_documentation_blueprint: bool = include_documentation_blueprint
-        self.strict_mode: DocumentationOptions.StrictMode = strict_mode
+    include_head_response: bool = True
+    include_options_response: bool = True
+    server_url: str = "/"
+    include_marshmallow_converters: bool = True
+    include_halogen_converters: bool = False
+    include_documentation_blueprint: bool = True
+    strict_mode: StrictMode = StrictMode.SHOW_WARNINGS
+    request_content_type: str = "application/json"
+    response_content_type: str = "application/json"
 
 
 class OpenApiDocumentation:
@@ -88,7 +84,6 @@ class OpenApiDocumentation:
         )
         self.specification = OpenAPI(
             info=Info(title=title, version=version),
-            paths=Paths(),
             servers=[Server(url=self.options.server_url)],
         )
         self.builder = OpenAPIBuilder(open_api_documentation=self)
@@ -111,22 +106,21 @@ class OpenApiDocumentation:
         app.extensions[EXTENSION_NAME] = self
         self.app = app
 
-    def get_configuration(self):
+    def get_specification(self):
         """Returns the OpenAPI configuration specification as a dictionary."""
+        # TODO: validate spec
         return self.specification.get_value()
 
 
 class OpenAPIBuilder:
     """OpenAPI builder for generating the documentation."""
 
-    documentation_context = DocumentationContext()
-
     def __init__(self, open_api_documentation: OpenApiDocumentation):
         self.open_api_documentation: OpenApiDocumentation = open_api_documentation
         self.converters: List[Converter] = []
+        self.config_manager = DocumentationConfigManager()
 
-    @documentation_context.verify_context
-    def process(self, value: Any, name: Optional[str] = None):
+    def process(self, value: Any, name: str):
         """Processes an instance, and returns a schema, or reference to that schema."""
         try:
             converter = next(
@@ -136,18 +130,18 @@ class OpenAPIBuilder:
             if self.options.strict_mode == self.options.StrictMode.FAIL_ON_ERROR:
                 raise MissingConverter()
             elif self.options.strict_mode == self.options.StrictMode.SHOW_WARNINGS:
-                warnings.warn(f"Missing converter for: {value}", UserWarning)
+                warnings.warn(f"Missing converter for: {value}: {name}", UserWarning)
                 return Schema(example="<unknown>")
             else:
                 raise ValueError(f"Unknown strict mode: {self.options.strict_mode}")
         else:
-            return converter.convert(value=value)
+            return converter.convert(value=value, name=name)
 
     def register_converters(self):
         """Registers converts for the instance.
 
         This function is executed before the first request is processed the in the corresponding
-        Flask application. Also before, OpenApiBuilder.iterate_endpoints.
+        Flask application. Also before OpenApiBuilder.iterate_endpoints.
         """
         if self.options.include_marshmallow_converters:
             # Keep import below to support packages without marshmallow.
@@ -164,6 +158,9 @@ class OpenAPIBuilder:
         # register parameter converters
         import openapi_builder.converters.parameter.flask_converters  # noqa: F401
 
+        # register default converters
+        import openapi_builder.converters.defaults.default_converters  # noqa: F401
+
     def iterate_endpoints(self):
         """Iterates the endpoints of the Flask application to generate the documentation.
 
@@ -172,21 +169,38 @@ class OpenAPIBuilder:
         """
         for rule in self.open_api_documentation.app.url_map._rules:
             view_func = self.open_api_documentation.app.view_functions[rule.endpoint]
-            try:
-                config: Documentation = getattr(view_func, EXTENSION_NAME)
-            except AttributeError:
+            config: Documentation = getattr(view_func, HIDDEN_ATTR_NAME, None)
+            if config is None:
                 # endpoint has no documentation configuration -> skip
                 continue
 
-            with self.documentation_context.use_config(config):
+            blueprint_name = rule.endpoint.split(".")[0]
+            blueprint = self.open_api_documentation.app.blueprints.get(blueprint_name)
+            resource_options = getattr(blueprint, HIDDEN_ATTR_NAME, None)
+
+            if resource_options is not None:
+                tag_names = [
+                    tag.name for tag in self.open_api_documentation.specification.tags
+                ]
+                for tag in resource_options.tags:
+                    if tag.name not in tag_names:
+                        self.open_api_documentation.specification.tags.append(tag)
+                        self.open_api_documentation.specification.tags.sort(
+                            key=lambda t: t.name
+                        )
+
+            with self.config_manager.use_documentation_context(config):
+                if resource_options is not None:
+                    for tag in resource_options.tags:
+                        if tag.name not in self.config.tags:
+                            self.config.tags.append(tag.name)
+
                 self.process_rule(rule)
 
-    @documentation_context.verify_context
     def process_rule(self, rule: Rule):
         """Processes a Werkzeug rule."""
-        view_func = self.open_api_documentation.app.view_functions[rule.endpoint]
-
-        parameters = list(self.documentation_context.config.parameters)
+        logger.info(f"Processing {rule.endpoint}")
+        parameters = list(self.config.parameters)
         parameters.extend(parse_openapi_arguments(rule))
         endpoint_name = openapi_endpoint_name_from_rule(rule)
 
@@ -196,19 +210,25 @@ class OpenAPIBuilder:
 
         for method in rule.methods:
             values = {}
-            for key, schema in self.documentation_context.config.responses.items():
-                reference = self.process(schema)
+            for key, schema in self.config.responses.items():
+                reference = self.process(schema, name=key)
                 values[key] = Response(
-                    description=(
-                        self.documentation_context.config.description
-                        or view_func.__doc__
-                    ),
-                    content={"application/json": MediaType(schema=reference)},
+                    description=self.config.description or "",
+                    content={
+                        self.options.response_content_type: MediaType(schema=reference)
+                    },
                 )
 
-            input_schema = self.documentation_context.config.input_schema
-            if input_schema is not None and method == "GET":
-                schema_or_reference = self.process(input_schema)
+            operation = Operation(
+                summary=self.config.summary,
+                description=self.config.description,
+                responses=Responses(values=values),
+                tags=self.config.tags,
+            )
+
+            query_schema = self.config.query_schema
+            if query_schema is not None:
+                schema_or_reference = self.process(query_schema, name="query")
                 if isinstance(schema_or_reference, Reference):
                     schema = schema_or_reference.get_schema(
                         self.open_api_documentation.specification
@@ -216,7 +236,7 @@ class OpenAPIBuilder:
                 else:
                     schema = schema_or_reference
                 for key, value in schema.properties.items():
-                    path_item.parameters.append(
+                    operation.parameters.append(
                         Parameter(
                             in_="query",
                             name=key,
@@ -224,23 +244,18 @@ class OpenAPIBuilder:
                             required=value.required,
                         )
                     )
-                request_body = None
-            elif input_schema is not None:
-                schema_or_reference = self.process(input_schema)
-                request_body = RequestBody(
-                    description=self.documentation_context.config.description,
-                    content={"application/json": MediaType(schema=schema_or_reference)},
-                )
-            else:
-                request_body = None
 
-            operation = Operation(
-                summary=self.documentation_context.config.summary,
-                description=self.documentation_context.config.description,
-                responses=Responses(values=values),
-                request_body=request_body,
-                tags=self.documentation_context.config.tags,
-            )
+            input_schema = self.config.input_schema
+            if input_schema is not None:
+                schema_or_reference = self.process(input_schema, name="input_schema")
+                operation.request_body = RequestBody(
+                    description=self.config.description,
+                    content={
+                        self.options.request_content_type: MediaType(
+                            schema=schema_or_reference
+                        ),
+                    },
+                )
 
             if method == "GET":
                 path_item.get = operation
@@ -252,6 +267,8 @@ class OpenAPIBuilder:
                 path_item.post = operation
             if method == "PUT":
                 path_item.put = operation
+            if method == "DELETE":
+                path_item.delete = operation
 
     @property
     def schemas(self):
@@ -267,3 +284,8 @@ class OpenAPIBuilder:
     def options(self):
         """Helper property to return the options."""
         return self.open_api_documentation.options
+
+    @property
+    def config(self):
+        self.config_manager.ensure_valid_config()
+        return self.config_manager.config

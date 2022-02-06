@@ -40,7 +40,7 @@ class OpenAPIFactory(factory.Factory):
     info = factory.SubFactory("tests.factories.specification.InfoFactory")
     paths = factory.SubFactory("tests.factories.specification.PathsFactory")
     servers = []
-    components = None
+    components = factory.SubFactory("tests.factories.specification.ComponentsFactory")
     security = None
     tags = None
     external_docs = None
@@ -112,7 +112,7 @@ class PathsFactory(factory.Factory):
     class Meta:
         model = Paths
 
-    values = None
+    values = {}
 
 
 class PathItemFactory(factory.Factory):
@@ -178,7 +178,7 @@ class RequestBodyFactory(factory.Factory):
         model = RequestBody
 
     description = None
-    content = None
+    content = {}
     required = False
 
 
@@ -207,7 +207,7 @@ class ResponsesFactory(factory.Factory):
     class Meta:
         model = Responses
 
-    values = None
+    values = {}
 
 
 class ResponseFactory(factory.Factory):
@@ -224,7 +224,7 @@ class CallbackFactory(factory.Factory):
     class Meta:
         model = Callback
 
-    values = None
+    values = {}
 
 
 class ExampleFactory(factory.Factory):
@@ -273,6 +273,7 @@ class ReferenceFactory(factory.Factory):
         model = Reference
 
     ref = "ref"
+    required = True
 
 
 class SchemaFactory(factory.Factory):
@@ -329,7 +330,7 @@ class SecuritySchemeFactory(factory.Factory):
     open_id_connect_url = factory.Faker("url")
     description = None
     bearer_format = None
-    flows = None
+    flows = []
 
 
 class OAuthFlowsFactory(factory.Factory):
@@ -349,11 +350,11 @@ class OAuthFlowFactory(factory.Factory):
     authorization_url = factory.Faker("url")
     token_url = factory.Faker("url")
     refresh_url = None
-    scopes = None
+    scopes = {}
 
 
 class SecurityRequirementFactory(factory.Factory):
     class Meta:
         model = SecurityRequirement
 
-    values = None
+    values = {}

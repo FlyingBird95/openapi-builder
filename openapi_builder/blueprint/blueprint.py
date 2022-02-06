@@ -11,4 +11,4 @@ openapi_documentation = Blueprint(
     template_folder=TEMPLATE_FOLDER,
 )
 
-from . import configuration, get  # noqa: F401
+from . import get, specification  # noqa: F401

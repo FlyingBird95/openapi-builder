@@ -1,12 +1,13 @@
 import contextlib
-import functools
+from dataclasses import dataclass, field
 from http import HTTPStatus
 from typing import Any, Dict, List, Optional, Union
 
 from openapi_builder.exceptions import MissingConfigContext
-from openapi_builder.specification import Parameter, Schema
+from openapi_builder.specification import Discriminator, Parameter, Tag
 
 
+@dataclass()
 class Documentation:
     """Class for storing documentation configuration.
 
@@ -16,57 +17,63 @@ class Documentation:
     See `openapi_builder.decorators.add_documentation` for more info.
     """
 
-    def __init__(
-        self,
-        responses: Optional[Dict[Union[HTTPStatus, int], Any]],
-        input_schema: Optional[Any],
-        parameters: Optional[List[Parameter]],
-        summary: Optional[str],
-        description: Optional[str],
-        tags: Optional[List[str]],
-    ):
-        self.responses = (
-            {str(int(k)): v for k, v in responses.items()}
-            if responses is not None
-            else {}
-        )
-        self.input_schema = input_schema
-        self.parameters = parameters if parameters is not None else []
-        self.summary = summary
-        self.description = description
-        self.tags = tags if tags is not None else []
+    responses: Dict[Union[HTTPStatus, int], Any] = field(default_factory=dict)
+    input_schema: Any = None
+    query_schema: Any = None
+    parameters: List[Parameter] = field(default_factory=list)
+    summary: Optional[str] = None
+    description: Optional[str] = None
+    tags: List[str] = field(default_factory=list)
+
+    def __post_init__(self):
+        self.responses = {str(int(k)): v for k, v in self.responses.items()}
 
 
-class DocumentationContext:
+@dataclass()
+class DiscriminatorOptions:
+    """Additional options for the discriminator."""
+
+    name: str
+    all_of: bool = False
+    mapping: Dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass()
+class SchemaOptions:
+    """Additional options to be serialized for a certain schema."""
+
+    discriminator: DiscriminatorOptions
+    options: Dict[str, Any] = field(default_factory=dict)
+
+
+@dataclass()
+class ResourceOptions:
+    """Additional options to be serialized for a certain resource (blueprint)."""
+
+    tags: List[Tag] = field(default_factory=list)
+
+
+class DocumentationConfigManager:
     def __init__(self):
-        self.config: Optional[Documentation] = None
+        self.config = None
 
     @contextlib.contextmanager
-    def use_config(self, documentation_config: Documentation):
+    def use_documentation_context(self, documentation_config: Documentation):
         """Context manager for function that need to be executed with a documentation_config."""
         if not isinstance(documentation_config, Documentation):
             raise TypeError(
                 f"{documentation_config} is not an instance of Documentation."
             )
+        if self.config is not None:
+            raise ValueError(f"self.config should be None, but is {self.config}")
 
         self.config = documentation_config
         yield
         self.config = None
 
-    def verify_context(self, function_to_check):
-        """Verifies that the function is executed within the documentation context.
+    def ensure_valid_config(self):
+        """Ensures that the function is executed within the documentation context."""
+        if not isinstance(self.config, Documentation):
+            raise MissingConfigContext()
 
-        The function must be called according to the following usage:
-        >>> @documentation_context.verify_context
-        >>> def process():
-        >>>     ...
-        """
-
-        @functools.wraps(function_to_check)
-        def inner(*args, **kwargs):
-            if not isinstance(self.config, Documentation):
-                raise MissingConfigContext()
-
-            return function_to_check(*args, **kwargs)
-
-        return inner
+        return self.config
