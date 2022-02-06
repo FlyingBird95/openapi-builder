@@ -38,7 +38,7 @@ How it works
 OpenAPI Builder uses the Flask_ application and schemas to retrieve information about the interaction of your API.
 This information is used to generate a specification, which is a JSON-file according to the industry standard Open API
 format. This specification can be visualized using any UI that supports the Open API specification, such as
-`Swagger UI <swagger_>`_, or Redoc_.
+`Swagger UI <swagger_ui_>`_, or Redoc_.
 
 |swagger| |redoc|
 
@@ -48,7 +48,7 @@ format. This specification can be visualized using any UI that supports the Open
   :width: 45%
 
 .. _Flask: https://flask.palletsprojects.com/
-.. _swagger: https://swagger.io/tools/swagger-ui/
+.. _swagger_ui: https://swagger.io/tools/swagger-ui/
 .. _Redoc: https://redoc.ly/
 
 Quick start
