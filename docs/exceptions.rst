@@ -6,6 +6,7 @@ The following exceptions can be encountered during the configuration of the :cod
 
 - :ref:`MissingConverter`
 - :ref:`MissingParameterConverter`
+- :ref:`MissingDefaultConverter`
 - :ref:`MissingConfigContext`
 
 MissingConverter
@@ -55,6 +56,30 @@ You can solve this error by registering your custom parameter converter. You can
             return Schema(type="string", format="hex")
 
 
+MissingDefaultConverter
+~~~~~~~~~~~~~~~~~~~~~~~~~
+A converter is missing for a default type. This might be because you return a default that is not JSON serializable.
+
+You can solve this error by registering your custom default converter. You can use the following snippet as an example:
+
+.. code:: python
+
+    import datetime
+
+    from openapi_builder.converters.defaults.base import (
+        DefaultConverter,
+        register_default_converter,
+    )
+
+
+    @register_default_converter
+    class TimeDeltaConverter(DefaultConverter):
+        converts_class = datetime.timedelta
+
+        def convert(self, value) -> Any:
+            return value.isoformat()
+
+
 MissingConfigContext
 ~~~~~~~~~~~~~~~~~~~~
 A function is called that requires a proper value for the :code:`documentation` variable.
@@ -63,6 +88,7 @@ overriding the :code:`OpenAPIBuilder`-class itself. Decorate your function accor
 
 .. code:: python
 
-    @documentation_context.verify_context
     def process():
-        ...
+        config = Documentation(...)
+        with builder.config_manager.use_documentation_context(config):
+            ...

@@ -30,5 +30,5 @@ class Converter:
         """Returns True if the Converter can match the specified class."""
         return isinstance(value, self.converts_class)
 
-    def convert(self, value) -> Schema:
+    def convert(self, value, name) -> Schema:
         raise NotImplementedError
