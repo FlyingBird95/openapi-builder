@@ -12,5 +12,5 @@ Submodules
 .. toctree::
 
    openapi_builder.blueprint.blueprint
-   openapi_builder.blueprint.configuration
    openapi_builder.blueprint.get
+   openapi_builder.blueprint.specification

@@ -11,6 +11,7 @@ Subpackages
 
 .. toctree::
 
+   openapi_builder.converters.defaults
    openapi_builder.converters.parameter
 
 Submodules

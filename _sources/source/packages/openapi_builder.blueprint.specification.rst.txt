@@ -1,0 +1,7 @@
+openapi\_builder.blueprint.specification module
+===============================================
+
+.. automodule:: openapi_builder.blueprint.specification
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -24,5 +24,6 @@ Submodules
    openapi_builder.decorators
    openapi_builder.documentation
    openapi_builder.exceptions
+   openapi_builder.logger
    openapi_builder.specification
    openapi_builder.util

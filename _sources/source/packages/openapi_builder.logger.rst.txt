@@ -1,0 +1,7 @@
+openapi\_builder.logger module
+==============================
+
+.. automodule:: openapi_builder.logger
+   :members:
+   :undoc-members:
+   :show-inheritance:

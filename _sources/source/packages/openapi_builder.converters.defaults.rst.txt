@@ -1,0 +1,16 @@
+openapi\_builder.converters.defaults package
+============================================
+
+.. automodule:: openapi_builder.converters.defaults
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+.. toctree::
+
+   openapi_builder.converters.defaults.base
+   openapi_builder.converters.defaults.default_converters
+   openapi_builder.converters.defaults.process

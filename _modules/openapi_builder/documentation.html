@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta charset="utf-8" />
-    <title>openapi_builder.documentation &#8212; openapi_builder 0.2.4 documentation</title>
+    <title>openapi_builder.documentation &#8212; openapi_builder 0.2.5 documentation</title>
     
   <link href="../../_static/css/theme.css" rel="stylesheet">
   <link href="../../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -21,7 +21,7 @@
       
 
     
-    <link rel="stylesheet" href="../../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" type="text/css" />
+    <link rel="stylesheet" href="../../_static/sphinx-book-theme.css?digest=84ace793992934648b4de8eed757e5a2" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../../_static/css/rtd_sphinx_search.min.css" />
     
@@ -33,7 +33,7 @@
     <script src="../../_static/doctools.js"></script>
     <script src="../../_static/language_data.js"></script>
     <script src="../../_static/js/rtd_sphinx_search.min.js"></script>
-    <script src="../../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="../../_static/sphinx-book-theme.9d8b4a8b9bb19db25eeaddc40d639ba2.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -52,14 +52,19 @@
     <div class="container-xl">
       <div class="row">
           
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+<!-- Checkboxes to toggle the left sidebar -->
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle navigation sidebar">
+<label class="overlay" for="__navigation">
+    <div class="visually-hidden">Toggle navigation sidebar</div>
+</label>
+<div class="col-12 col-md-3 bd-sidebar site-navigation " id="site-navigation">
     
         <div class="navbar-brand-box">
     <a class="navbar-brand text-wrap" href="../../index.html">
       
       
       
-      <h1 class="site-logo" id="site-title">openapi_builder 0.2.4 documentation</h1>
+      <h1 class="site-logo" id="site-title">openapi_builder 0.2.5 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="../../search.html" method="get">
@@ -119,13 +124,13 @@
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../../source/packages/openapi_builder.blueprint.configuration.html">
-         openapi_builder.blueprint.configuration module
+        <a class="reference internal" href="../../source/packages/openapi_builder.blueprint.get.html">
+         openapi_builder.blueprint.get module
         </a>
        </li>
        <li class="toctree-l4">
-        <a class="reference internal" href="../../source/packages/openapi_builder.blueprint.get.html">
-         openapi_builder.blueprint.get module
+        <a class="reference internal" href="../../source/packages/openapi_builder.blueprint.specification.html">
+         openapi_builder.blueprint.specification module
         </a>
        </li>
       </ul>
@@ -140,6 +145,11 @@
        </i>
       </label>
       <ul>
+       <li class="toctree-l4">
+        <a class="reference internal" href="../../source/packages/openapi_builder.converters.defaults.html">
+         openapi_builder.converters.defaults package
+        </a>
+       </li>
        <li class="toctree-l4">
         <a class="reference internal" href="../../source/packages/openapi_builder.converters.parameter.html">
          openapi_builder.converters.parameter package
@@ -188,6 +198,11 @@
       </a>
      </li>
      <li class="toctree-l3">
+      <a class="reference internal" href="../../source/packages/openapi_builder.logger.html">
+       openapi_builder.logger module
+      </a>
+     </li>
+     <li class="toctree-l3">
       <a class="reference internal" href="../../source/packages/openapi_builder.specification.html">
        openapi_builder.specification module
       </a>
@@ -232,22 +247,22 @@
 
 
           
+<!-- This is an invisible pixel that we watch to see if we've scrolled. -->
+<div class="sbt-scroll-pixel-helper"></div>
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
     <div class="topbar container-xl fixed-top">
     <div class="topbar-contents row">
         <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
         <div class="col pl-md-4 topbar-main">
-            
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
+            <div class="topbar-left">
+                
+                <label class="nav-toggle-button" for="__navigation">
+                    <div class="visually-hidden">Toggle navigation</div>
+                    <i class="fas fa-bars"></i>
+                </label>
+                
+            </div>
             
             <!-- Source interaction buttons -->
 
@@ -285,15 +300,16 @@
                 
   <h1>Source code for openapi_builder.documentation</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">contextlib</span>
-<span class="kn">import</span> <span class="nn">functools</span>
+<span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span><span class="p">,</span> <span class="n">field</span>
 <span class="kn">from</span> <span class="nn">http</span> <span class="kn">import</span> <span class="n">HTTPStatus</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">from</span> <span class="nn">openapi_builder.exceptions</span> <span class="kn">import</span> <span class="n">MissingConfigContext</span>
-<span class="kn">from</span> <span class="nn">openapi_builder.specification</span> <span class="kn">import</span> <span class="n">Parameter</span><span class="p">,</span> <span class="n">Schema</span>
+<span class="kn">from</span> <span class="nn">openapi_builder.specification</span> <span class="kn">import</span> <span class="n">Discriminator</span><span class="p">,</span> <span class="n">Parameter</span><span class="p">,</span> <span class="n">Tag</span>
 
 
-<div class="viewcode-block" id="Documentation"><a class="viewcode-back" href="../../source/packages/openapi_builder.documentation.html#openapi_builder.builder.Documentation">[docs]</a><span class="k">class</span> <span class="nc">Documentation</span><span class="p">:</span>
+<div class="viewcode-block" id="Documentation"><a class="viewcode-back" href="../../source/packages/openapi_builder.documentation.html#openapi_builder.documentation.Documentation">[docs]</a><span class="nd">@dataclass</span><span class="p">()</span>
+<span class="k">class</span> <span class="nc">Documentation</span><span class="p">:</span>
     <span class="sd">&quot;&quot;&quot;Class for storing documentation configuration.</span>
 
 <span class="sd">    The preferred way to add documentation for and endpoint is via the decorator, since the default</span>
@@ -302,60 +318,66 @@
 <span class="sd">    See `openapi_builder.decorators.add_documentation` for more info.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
-        <span class="bp">self</span><span class="p">,</span>
-        <span class="n">responses</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Dict</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">HTTPStatus</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">Any</span><span class="p">]],</span>
-        <span class="n">input_schema</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Any</span><span class="p">],</span>
-        <span class="n">parameters</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Parameter</span><span class="p">]],</span>
-        <span class="n">summary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
-        <span class="n">description</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span>
-        <span class="n">tags</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]],</span>
-    <span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">responses</span> <span class="o">=</span> <span class="p">(</span>
-            <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="p">)):</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">responses</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
-            <span class="k">if</span> <span class="n">responses</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
-            <span class="k">else</span> <span class="p">{}</span>
-        <span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">input_schema</span> <span class="o">=</span> <span class="n">input_schema</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="n">parameters</span> <span class="k">if</span> <span class="n">parameters</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">summary</span> <span class="o">=</span> <span class="n">summary</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">description</span> <span class="o">=</span> <span class="n">description</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">tags</span> <span class="o">=</span> <span class="n">tags</span> <span class="k">if</span> <span class="n">tags</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span></div>
+    <span class="n">responses</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="n">Union</span><span class="p">[</span><span class="n">HTTPStatus</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+    <span class="n">input_schema</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">query_schema</span><span class="p">:</span> <span class="n">Any</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">parameters</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Parameter</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+    <span class="n">summary</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">description</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="n">tags</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__post_init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">responses</span> <span class="o">=</span> <span class="p">{</span><span class="nb">str</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">k</span><span class="p">)):</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">responses</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span></div>
 
 
-<div class="viewcode-block" id="DocumentationContext"><a class="viewcode-back" href="../../source/packages/openapi_builder.documentation.html#openapi_builder.builder.DocumentationContext">[docs]</a><span class="k">class</span> <span class="nc">DocumentationContext</span><span class="p">:</span>
+<div class="viewcode-block" id="DiscriminatorOptions"><a class="viewcode-back" href="../../source/packages/openapi_builder.documentation.html#openapi_builder.documentation.DiscriminatorOptions">[docs]</a><span class="nd">@dataclass</span><span class="p">()</span>
+<span class="k">class</span> <span class="nc">DiscriminatorOptions</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Additional options for the discriminator.&quot;&quot;&quot;</span>
+
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">all_of</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">mapping</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="SchemaOptions"><a class="viewcode-back" href="../../source/packages/openapi_builder.documentation.html#openapi_builder.documentation.SchemaOptions">[docs]</a><span class="nd">@dataclass</span><span class="p">()</span>
+<span class="k">class</span> <span class="nc">SchemaOptions</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Additional options to be serialized for a certain schema.&quot;&quot;&quot;</span>
+
+    <span class="n">discriminator</span><span class="p">:</span> <span class="n">DiscriminatorOptions</span>
+    <span class="n">options</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ResourceOptions"><a class="viewcode-back" href="../../source/packages/openapi_builder.documentation.html#openapi_builder.documentation.ResourceOptions">[docs]</a><span class="nd">@dataclass</span><span class="p">()</span>
+<span class="k">class</span> <span class="nc">ResourceOptions</span><span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;Additional options to be serialized for a certain resource (blueprint).&quot;&quot;&quot;</span>
+
+    <span class="n">tags</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tag</span><span class="p">]</span> <span class="o">=</span> <span class="n">field</span><span class="p">(</span><span class="n">default_factory</span><span class="o">=</span><span class="nb">list</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="DocumentationConfigManager"><a class="viewcode-back" href="../../source/packages/openapi_builder.documentation.html#openapi_builder.documentation.DocumentationConfigManager">[docs]</a><span class="k">class</span> <span class="nc">DocumentationConfigManager</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Documentation</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="kc">None</span>
 
-<div class="viewcode-block" id="DocumentationContext.use_config"><a class="viewcode-back" href="../../source/packages/openapi_builder.documentation.html#openapi_builder.builder.DocumentationContext.use_config">[docs]</a>    <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
-    <span class="k">def</span> <span class="nf">use_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">documentation_config</span><span class="p">:</span> <span class="n">Documentation</span><span class="p">):</span>
+<div class="viewcode-block" id="DocumentationConfigManager.use_documentation_context"><a class="viewcode-back" href="../../source/packages/openapi_builder.documentation.html#openapi_builder.documentation.DocumentationConfigManager.use_documentation_context">[docs]</a>    <span class="nd">@contextlib</span><span class="o">.</span><span class="n">contextmanager</span>
+    <span class="k">def</span> <span class="nf">use_documentation_context</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">documentation_config</span><span class="p">:</span> <span class="n">Documentation</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Context manager for function that need to be executed with a documentation_config.&quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">documentation_config</span><span class="p">,</span> <span class="n">Documentation</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
                 <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{documentation_config}</span><span class="s2"> is not an instance of Documentation.&quot;</span>
             <span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;self.config should be None, but is </span><span class="si">{self.config}</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="n">documentation_config</span>
         <span class="k">yield</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">config</span> <span class="o">=</span> <span class="kc">None</span></div>
 
-<div class="viewcode-block" id="DocumentationContext.verify_context"><a class="viewcode-back" href="../../source/packages/openapi_builder.documentation.html#openapi_builder.builder.DocumentationContext.verify_context">[docs]</a>    <span class="k">def</span> <span class="nf">verify_context</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function_to_check</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Verifies that the function is executed within the documentation context.</span>
+<div class="viewcode-block" id="DocumentationConfigManager.ensure_valid_config"><a class="viewcode-back" href="../../source/packages/openapi_builder.documentation.html#openapi_builder.documentation.DocumentationConfigManager.ensure_valid_config">[docs]</a>    <span class="k">def</span> <span class="nf">ensure_valid_config</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Ensures that the function is executed within the documentation context.&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="n">Documentation</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="n">MissingConfigContext</span><span class="p">()</span>
 
-<span class="sd">        The function must be called according to the following usage:</span>
-<span class="sd">        &gt;&gt;&gt; @documentation_context.verify_context</span>
-<span class="sd">        &gt;&gt;&gt; def process():</span>
-<span class="sd">        &gt;&gt;&gt;     ...</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-
-        <span class="nd">@functools</span><span class="o">.</span><span class="n">wraps</span><span class="p">(</span><span class="n">function_to_check</span><span class="p">)</span>
-        <span class="k">def</span> <span class="nf">inner</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">,</span> <span class="n">Documentation</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="n">MissingConfigContext</span><span class="p">()</span>
-
-            <span class="k">return</span> <span class="n">function_to_check</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="n">inner</span></div></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span></div></div>
 </pre></div>
 
               </div>

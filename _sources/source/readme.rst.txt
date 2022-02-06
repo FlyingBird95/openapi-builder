@@ -31,6 +31,26 @@ To summarize, the key features are:
 .. _marshmallow: https://marshmallow.readthedocs.io/en/stable/
 .. _halogen: https://halogen.readthedocs.io/en/latest/
 
+How it works
+------------
+.. image:: img/flow-diagram.png
+
+OpenAPI Builder uses the Flask_ application and schemas to retrieve information about the interaction of your API.
+This information is used to generate a specification, which is a JSON-file according to the industry standard Open API
+format. This specification can be visualized using any UI that supports the Open API specification, such as
+`Swagger UI <swagger_ui_>`_, or Redoc_.
+
+|swagger| |redoc|
+
+.. |swagger| image:: img/swagger-ui.png
+  :width: 45%
+.. |redoc| image:: img/redoc-ui.png
+  :width: 45%
+
+.. _Flask: https://flask.palletsprojects.com/
+.. _swagger_ui: https://swagger.io/tools/swagger-ui/
+.. _Redoc: https://redoc.ly/
+
 Quick start
 -----------
 Installation is simple via PIP:
