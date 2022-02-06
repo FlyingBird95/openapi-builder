@@ -1,9 +1,11 @@
+import datetime
 from typing import Optional
 
 import halogen
 
 from openapi_builder.constants import HIDDEN_ATTR_NAME
 from openapi_builder.converters import Converter, register_converter
+from openapi_builder.converters.defaults.process import get_default
 from openapi_builder.documentation import SchemaOptions
 from openapi_builder.specification import Discriminator, Reference, Schema
 
@@ -27,7 +29,12 @@ class ISODateTimeConverter(Converter):
     converts_class = halogen.types.ISODateTime
 
     def convert(self, value: halogen.types.ISODateTime, name) -> Schema:
-        return Schema(type="string", format="date-time")
+        return Schema(
+            type="string",
+            format="date-time",
+            description="ISO-8601",
+            example=datetime.datetime.now().isoformat(),
+        )
 
 
 @register_converter
@@ -35,7 +42,12 @@ class ISOUTCDateTimeConverter(Converter):
     converts_class = halogen.types.ISOUTCDateTime
 
     def convert(self, value: halogen.types.ISOUTCDateTime, name) -> Schema:
-        return Schema(type="string", format="date-time")
+        return Schema(
+            type="string",
+            format="date-time",
+            description="ISO-8601",
+            example=datetime.datetime.now().isoformat().replace("+00:00", "Z"),
+        )
 
 
 @register_converter
@@ -43,7 +55,12 @@ class ISOUTCDateConverter(Converter):
     converts_class = halogen.types.ISOUTCDate
 
     def convert(self, value: halogen.types.ISOUTCDate, name) -> Schema:
-        return Schema(type="string", format="date")
+        return Schema(
+            type="string",
+            format="date",
+            description="ISO-8601",
+            example=datetime.date.today().isoformat(),
+        )
 
 
 @register_converter
@@ -172,14 +189,7 @@ class SchemaConverter(Converter):
                 attr.required = False
             if hasattr(prop, "default"):
                 attr.required = False
-                if callable(prop.default):
-                    attr.default = prop.default()
-                elif hasattr(prop.default, "value"):
-                    attr.default = prop.default.value
-                elif prop.default is None:
-                    attr.default = None
-                else:
-                    attr.default = prop.default
+                attr.default = get_default(prop.default)
             result[prop.key] = attr
 
         schema = Schema(type="object", properties=properties)

@@ -16,7 +16,7 @@ def register_parameter_converter(converter_class):
 
 
 class ParameterConverter:
-    """Converter for a certain class that returns a openapi_builder.specification.Schema."""
+    """Converter for a certain class that returns an openapi_builder.specification.Schema."""
 
     converts_class = None
     """Specification of the class that it converts."""

@@ -1462,18 +1462,18 @@ class SecurityScheme:
     """REQUIRED. The type of the security scheme. Valid values are "apiKey",
     "http", "oauth2", "openIdConnect"."""
 
-    name: str
-    """REQUIRED. The name of the header, query or cookie parameter to be used."""
-
-    open_id_connect_url: str
-    """REQUIRED. OpenId Connect URL to discover OAuth2 configuration values. This
-    MUST be in the form of a URL."""
-
     in_: str
     """REQUIRED. The location of the API key. Valid values are "query", "header" or
     "cookie"."""
 
-    scheme: str
+    name: Optional[str] = None
+    """REQUIRED. The name of the header, query or cookie parameter to be used."""
+
+    open_id_connect_url: Optional[str] = None
+    """REQUIRED. OpenId Connect URL to discover OAuth2 configuration values. This
+    MUST be in the form of a URL."""
+
+    scheme: Optional[str] = None
     """REQUIRED. The name of the HTTP Authorization scheme to be used in the
     Authorization header as defined in RFC7235. The values used SHOULD be registered
     in the IANA Authentication Scheme registry."""
@@ -1492,15 +1492,16 @@ class SecurityScheme:
     supported."""
 
     def get_value(self):
-        value = {
-            "type": self.type,
-            "name": self.name,
-            "in": self.in_,
-            "scheme": self.scheme,
-            "flows": [flow.get_value() for flow in self.flows],
-            "openIdConnectUrl": self.open_id_connect_url,
-        }
+        value = {"type": self.type, "in": self.in_}
 
+        if self.name is not None:
+            value["name"] = self.name
+        if self.scheme is not None:
+            value["schema"] = self.scheme
+        if self.flows:
+            value["flows"] = [flow.get_value() for flow in self.flows]
+        if self.open_id_connect_url is not None:
+            value["openIdConnectUrl"] = self.open_id_connect_url
         if self.description:
             value["description"] = self.description
         if self.bearer_format:

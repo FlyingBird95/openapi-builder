@@ -1,5 +1,4 @@
 import enum
-import logging
 import warnings
 from dataclasses import dataclass
 from typing import Any, List, Optional
@@ -7,6 +6,7 @@ from typing import Any, List, Optional
 from flask import Flask
 from werkzeug.routing import Rule
 
+from . import logger
 from .blueprint.blueprint import openapi_documentation
 from .constants import EXTENSION_NAME, HIDDEN_ATTR_NAME
 from .converters.base import CONVERTER_CLASSES, Converter
@@ -28,8 +28,6 @@ from .specification import (
     Server,
 )
 from .util import openapi_endpoint_name_from_rule
-
-logger = logging.getLogger(__name__)
 
 
 @dataclass(unsafe_hash=True, frozen=True)
@@ -160,6 +158,9 @@ class OpenAPIBuilder:
         # register parameter converters
         import openapi_builder.converters.parameter.flask_converters  # noqa: F401
 
+        # register default converters
+        import openapi_builder.converters.defaults.default_converters  # noqa: F401
+
     def iterate_endpoints(self):
         """Iterates the endpoints of the Flask application to generate the documentation.
 
@@ -184,6 +185,9 @@ class OpenAPIBuilder:
                 for tag in resource_options.tags:
                     if tag.name not in tag_names:
                         self.open_api_documentation.specification.tags.append(tag)
+                        self.open_api_documentation.specification.tags.sort(
+                            key=lambda t: t.name
+                        )
 
             with self.config_manager.use_documentation_context(config):
                 if resource_options is not None:
