@@ -14,6 +14,8 @@ Unreleased
 ----------
 Release date:
 
+- **Updated** converters, and how to register them. This can now be done via the :code:`Options`.
+
 Version `0.2.5 <https://github.com/FlyingBird95/openapi-builder/tree/v0.2.5>`__
 --------------------------------------------------------------------------------
 Release date: 2022-02-06
@@ -29,7 +31,7 @@ Release date: 2022-01-09
 - **Added** tag support per endpoint
 - **Added** configuration page
 - **Added** support for halogen_ (including example).
-- **Added** class decorator for registering converters: :code:`openapi_builder.converters.base.append_converter_class`.
+- **Added** class decorator for registering converters: :code:`openapi_builder.converters.base.register_converter`.
 - **Removed** :code:`custom_converters` option to :code:`add_documentation`.
 - **Changed** loading converters lazily.
 - **Added** url parameter converters: :code:`openapi_builder.converters.parameter`.

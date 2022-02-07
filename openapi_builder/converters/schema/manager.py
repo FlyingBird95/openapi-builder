@@ -4,9 +4,7 @@ import warnings
 from openapi_builder.exceptions import MissingConverter
 from openapi_builder.specification import Schema
 
-from .halogen import ALL_HALOGEN_CONVERTER_CLASSES
 from .base import SchemaConverter
-from .marshmallow import ALL_MARSHMALLOW_CONVERTER_CLASSES
 
 if typing.TYPE_CHECKING:
     from openapi_builder.builder import OpenAPIBuilder
@@ -24,10 +22,16 @@ class SchemaManager:
 
     def init_own_converters(self):
         if self.options.include_marshmallow_converters:
+            # Import locally, because not everyone uses marshmallow
+            from .marshmallow import ALL_MARSHMALLOW_CONVERTER_CLASSES
+
             for converter_class in ALL_MARSHMALLOW_CONVERTER_CLASSES:
                 self.register(converter_class)
 
         if self.options.include_halogen_converters:
+            # Import locally, because not everyone uses halogen
+            from .halogen import ALL_HALOGEN_CONVERTER_CLASSES
+
             for converter_class in ALL_HALOGEN_CONVERTER_CLASSES:
                 self.register(converter_class)
 

@@ -17,16 +17,24 @@ snippet as an example:
 
 .. code:: python
 
-    from openapi_builder.converters import Converter, append_converter_class
+    from openapi_builder import DocumentationOptions, OpenApiDocumentation
+    from openapi_builder.converters.schema.base import SchemaConverter
     from openapi_builder.specification import Schema
 
 
-    @append_converter_class
-    class YourFieldConverter(Converter):
+    class YourFieldConverter(SchemaConverter):
         converts_class = YourFieldClass
 
         def convert(self, value) -> Schema:
             return Schema(type="string", format="email")
+
+
+    OpenApiDocumentation(
+        ...,
+        options=DocumentationOptions(
+            schema_converter_classes=[YourFieldConverter],
+        ),
+    )
 
 MissingParameterConverter
 ~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -40,20 +48,25 @@ You can solve this error by registering your custom parameter converter. You can
 
 .. code:: python
 
-    from openapi_builder.converters.parameter.base import (
-        ParameterConverter,
-        register_parameter_converter,
-    )
+    from openapi_builder import DocumentationOptions, OpenApiDocumentation
+    from openapi_builder.converters.parameters.base import ParameterConverter
     from openapi_builder.specification import Schema
 
 
-    @register_parameter_converter
     class UUIDConverter(ParameterConverter):
         converts_class = validators.UUIDValidator
 
         @property
         def schema(self) -> Schema:
             return Schema(type="string", format="hex")
+
+
+    OpenApiDocumentation(
+        ...,
+        options=DocumentationOptions(
+            schema_converter_classes=[YourFieldConverter],
+        ),
+    )
 
 
 MissingDefaultConverter
@@ -66,18 +79,24 @@ You can solve this error by registering your custom default converter. You can u
 
     import datetime
 
-    from openapi_builder.converters.defaults.base import (
-        DefaultConverter,
-        register_default_converter,
-    )
+    from openapi_builder import DocumentationOptions, OpenApiDocumentation
+    from openapi_builder.converters.defaults.base import DefaultsConverter
+    from openapi_builder.specification import Schema
 
 
-    @register_default_converter
-    class TimeDeltaConverter(DefaultConverter):
+    class TimeDeltaConverter(DefaultsConverter):
         converts_class = datetime.timedelta
 
         def convert(self, value) -> Any:
             return value.isoformat()
+
+
+    OpenApiDocumentation(
+        ...,
+        options=DocumentationOptions(
+            schema_converter_classes=[YourFieldConverter],
+        ),
+    )
 
 
 MissingConfigContext
