@@ -2,17 +2,8 @@ import typing
 
 from openapi_builder.specification import Schema
 
-PARAMETER_CONVERTERS: typing.List["ParameterConverter"] = []
-
-
-def register_parameter_converter(converter_class):
-    """Decorator for registering a converter.
-
-    The parameter converter is initialized without any arguments.
-    """
-    instance = converter_class()
-    PARAMETER_CONVERTERS.append(instance)
-    return converter_class
+if typing.TYPE_CHECKING:
+    from .manager import ParameterManager
 
 
 class ParameterConverter:
@@ -21,10 +12,13 @@ class ParameterConverter:
     converts_class = None
     """Specification of the class that it converts."""
 
+    def __init__(self, manager: "ParameterManager"):
+        self.manager: ParameterManager = manager
+
     def matches(self, value) -> bool:
         """Returns True if the Converter can match the specified class."""
         return isinstance(value, self.converts_class)
 
     @property
     def schema(self) -> Schema:
-        raise NotImplementedError
+        raise NotImplementedError()

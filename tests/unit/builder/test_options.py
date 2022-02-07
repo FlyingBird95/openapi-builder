@@ -2,7 +2,7 @@ from http import HTTPStatus
 
 import pytest
 
-from openapi_builder.converters import halogen, marshmallow
+from openapi_builder.converters.schema import halogen, marshmallow
 
 
 def test_register_marshmallow_converters(open_api_documentation):
@@ -11,7 +11,7 @@ def test_register_marshmallow_converters(open_api_documentation):
     open_api_documentation.app.try_trigger_before_first_request_functions()
     assert any(
         isinstance(converter, marshmallow.StringConverter)
-        for converter in open_api_documentation.builder.converters
+        for converter in open_api_documentation.builder.schema_manager.converters
     )
 
 
@@ -24,7 +24,7 @@ def test_register_halogen_converters(http, open_api_documentation):
     open_api_documentation.app.try_trigger_before_first_request_functions()
     assert any(
         isinstance(converter, halogen.StringConverter)
-        for converter in open_api_documentation.builder.converters
+        for converter in open_api_documentation.builder.schema_manager.converters
     )
 
 

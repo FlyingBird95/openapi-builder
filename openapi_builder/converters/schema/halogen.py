@@ -4,18 +4,26 @@ from typing import Optional
 import halogen
 
 from openapi_builder.constants import HIDDEN_ATTR_NAME
-from openapi_builder.converters import Converter, register_converter
-from openapi_builder.converters.defaults.process import get_default
 from openapi_builder.documentation import SchemaOptions
 from openapi_builder.specification import Discriminator, Reference, Schema
 
+from .base import SchemaConverter
 
-@register_converter
-class ListConverter(Converter):
+
+ALL_HALOGEN_CONVERTER_CLASSES = []
+
+
+def append_converter_class(converter_class):
+    ALL_HALOGEN_CONVERTER_CLASSES.append(converter_class)
+    return converter_class
+
+
+@append_converter_class
+class ListConverter(SchemaConverter):
     converts_class = halogen.types.List
 
     def convert(self, value: halogen.types.List, name) -> Schema:
-        items = self.builder.process(value.item_type, name=name)
+        items = self.manager.process(value.item_type, name=name)
         schema = Schema(type="array", items=items)
 
         if value.allow_scalar:
@@ -24,8 +32,8 @@ class ListConverter(Converter):
             return schema
 
 
-@register_converter
-class ISODateTimeConverter(Converter):
+@append_converter_class
+class ISODateTimeConverter(SchemaConverter):
     converts_class = halogen.types.ISODateTime
 
     def convert(self, value: halogen.types.ISODateTime, name) -> Schema:
@@ -37,8 +45,8 @@ class ISODateTimeConverter(Converter):
         )
 
 
-@register_converter
-class ISOUTCDateTimeConverter(Converter):
+@append_converter_class
+class ISOUTCDateTimeConverter(SchemaConverter):
     converts_class = halogen.types.ISOUTCDateTime
 
     def convert(self, value: halogen.types.ISOUTCDateTime, name) -> Schema:
@@ -50,8 +58,8 @@ class ISOUTCDateTimeConverter(Converter):
         )
 
 
-@register_converter
-class ISOUTCDateConverter(Converter):
+@append_converter_class
+class ISOUTCDateConverter(SchemaConverter):
     converts_class = halogen.types.ISOUTCDate
 
     def convert(self, value: halogen.types.ISOUTCDate, name) -> Schema:
@@ -63,32 +71,32 @@ class ISOUTCDateConverter(Converter):
         )
 
 
-@register_converter
-class StringConverter(Converter):
+@append_converter_class
+class StringConverter(SchemaConverter):
     converts_class = halogen.types.String
 
     def convert(self, value: halogen.types.String, name) -> Schema:
         return Schema(type="string")
 
 
-@register_converter
-class IntConverter(Converter):
+@append_converter_class
+class IntConverter(SchemaConverter):
     converts_class = halogen.types.Int
 
     def convert(self, value: halogen.types.Int, name) -> Schema:
         return Schema(type="integer")
 
 
-@register_converter
-class BooleanConverter(Converter):
+@append_converter_class
+class BooleanConverter(SchemaConverter):
     converts_class = halogen.types.Boolean
 
     def convert(self, value: halogen.types.Boolean, name) -> Schema:
         return Schema(type="boolean")
 
 
-@register_converter
-class AmountConverter(Converter):
+@append_converter_class
+class AmountConverter(SchemaConverter):
     converts_class = halogen.types.Amount
 
     def convert(self, value: halogen.types.Amount, name) -> Schema:
@@ -101,18 +109,18 @@ class AmountConverter(Converter):
         )
 
 
-@register_converter
-class NullableConverter(Converter):
+@append_converter_class
+class NullableConverter(SchemaConverter):
     converts_class = halogen.types.Nullable
 
     def convert(self, value: halogen.types.Nullable, name) -> Schema:
-        inner = self.builder.process(value.nested_type, name=name)
+        inner = self.manager.process(value.nested_type, name=name)
         inner.nullable = True
         return inner
 
 
-@register_converter
-class LinkConverter(Converter):
+@append_converter_class
+class LinkConverter(SchemaConverter):
     converts_class = halogen.schema._SchemaType
 
     def matches(self, value) -> bool:
@@ -127,8 +135,8 @@ class LinkConverter(Converter):
         return Schema(type="object", properties=properties)
 
 
-@register_converter
-class CurieConverter(Converter):
+@append_converter_class
+class CurieConverter(SchemaConverter):
     converts_class = halogen.schema._SchemaType
     currie_attributes = {"href", "name", "templated", "type"}
 
@@ -150,8 +158,8 @@ class CurieConverter(Converter):
         )
 
 
-@register_converter
-class SchemaConverter(Converter):
+@append_converter_class
+class SchemaConverter(SchemaConverter):
     converts_class = halogen.schema._SchemaType
 
     cache = {}
@@ -179,7 +187,7 @@ class SchemaConverter(Converter):
             else:
                 result = properties
 
-            attr = self.builder.process(
+            attr = self.manager.process(
                 value=prop.attr_type,
                 name=f"{schema_name}.{prop.key}",
             )
@@ -189,26 +197,28 @@ class SchemaConverter(Converter):
                 attr.required = False
             if hasattr(prop, "default"):
                 attr.required = False
-                attr.default = get_default(prop.default)
+                attr.default = self.manager.builder.default_manager.process(
+                    prop.default
+                )
             result[prop.key] = attr
 
         schema = Schema(type="object", properties=properties)
-        self.builder.schemas[schema_name] = schema
+        self.manager.builder.schemas[schema_name] = schema
         if not schema_options or not schema_options.discriminator:
             return Reference.from_schema(schema_name=schema_name, schema=schema)
 
         # process discriminator configuration
         new_schema = Schema(type="object")
-        self.builder.schemas[schema_name] = new_schema
+        self.manager.builder.schemas[schema_name] = new_schema
 
         mapping = {
-            key: self.builder.process(value=value, name=key)
+            key: self.manager.process(value=value, name=key)
             for key, value in schema_options.discriminator.mapping.items()
         }
         if schema_options.discriminator.all_of:
             for reference in mapping.values():
                 s = reference.get_schema(
-                    self.builder.open_api_documentation.specification
+                    self.manager.builder.open_api_documentation.specification
                 )
                 s.all_of = [schema]
         new_schema.one_of = list(mapping.values())

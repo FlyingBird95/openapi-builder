@@ -1,46 +1,52 @@
 import enum
 import typing
 
-from .base import DefaultConverter, register_default_converter
-from .process import get_default
+from .base import DefaultsConverter
+
+ALL_DEFAULT_CONVERTER_CLASSES = []
 
 
-@register_default_converter
-class VanillaConverter(DefaultConverter):
+def append_converter_class(converter_class):
+    ALL_DEFAULT_CONVERTER_CLASSES.append(converter_class)
+    return converter_class
+
+
+@append_converter_class
+class VanillaConverter(DefaultsConverter):
     converts_class = (int, str, float)
 
     def convert(self, value) -> typing.Any:
         return value
 
 
-@register_default_converter
-class ListConverter(DefaultConverter):
+@append_converter_class
+class ListConverter(DefaultsConverter):
     converts_class = list
 
     def convert(self, value) -> typing.Any:
-        return [get_default(item) for item in value]
+        return [self.manager.process(item) for item in value]
 
 
-@register_default_converter
-class CallableConverter(DefaultConverter):
+@append_converter_class
+class CallableConverter(DefaultsConverter):
     def matches(self, value) -> bool:
         return callable(value)
 
     def convert(self, value) -> typing.Any:
-        return get_default(value())
+        return self.manager.process(value())
 
 
-@register_default_converter
-class EnumConverter(DefaultConverter):
+@append_converter_class
+class EnumConverter(DefaultsConverter):
 
     converts_class = enum.Enum
 
     def convert(self, value) -> typing.Any:
-        return get_default(value.value)
+        return self.manager.process(value.value)
 
 
-@register_default_converter
-class NoneConverter(DefaultConverter):
+@append_converter_class
+class NoneConverter(DefaultsConverter):
     def matches(self, value) -> bool:
         return value is None
 

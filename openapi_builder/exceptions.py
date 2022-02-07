@@ -5,7 +5,7 @@ class OpenApiException(Exception):
     """Base Exception."""
 
     def __init__(self):
-        url = f"{DOCUMENTATION_URL}/exceptions.html/{self.__class__.__name__}"
+        url = f"{DOCUMENTATION_URL}/exceptions.html#{self.__class__.__name__.lower()}"
         super().__init__(f"Open {url} for more info.")
 
 

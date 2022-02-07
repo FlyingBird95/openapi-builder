@@ -17,11 +17,11 @@ snippet as an example:
 
 .. code:: python
 
-    from openapi_builder.converters import Converter, register_converter
+    from openapi_builder.converters import Converter, append_converter_class
     from openapi_builder.specification import Schema
 
 
-    @register_converter
+    @append_converter_class
     class YourFieldConverter(Converter):
         converts_class = YourFieldClass
 

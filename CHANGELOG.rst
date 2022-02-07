@@ -29,7 +29,7 @@ Release date: 2022-01-09
 - **Added** tag support per endpoint
 - **Added** configuration page
 - **Added** support for halogen_ (including example).
-- **Added** class decorator for registering converters: :code:`openapi_builder.converters.base.register_converter`.
+- **Added** class decorator for registering converters: :code:`openapi_builder.converters.base.append_converter_class`.
 - **Removed** :code:`custom_converters` option to :code:`add_documentation`.
 - **Changed** loading converters lazily.
 - **Added** url parameter converters: :code:`openapi_builder.converters.parameter`.
