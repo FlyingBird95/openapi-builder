@@ -8,7 +8,4 @@
     configuration
     exceptions
 
-    source/packages/modules
     source/changelog
-    py-modindex
-    genindex

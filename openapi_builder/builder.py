@@ -110,8 +110,7 @@ class OpenApiDocumentation:
         app.extensions[EXTENSION_NAME] = self
         self.app = app
 
-        with app.app_context():
-            self.builder.iterate_endpoints()
+        app.before_first_request(lambda: self.builder.iterate_endpoints())
 
     def get_specification(self):
         """Returns the OpenAPI configuration specification as a dictionary."""
