@@ -1,7 +1,6 @@
 marshmallow==3.14.1
-myst-parser
-pypandoc>=1.6.3
-readthedocs-sphinx-search
-sphinx
-sphinx-autobuild
-sphinx_book_theme
+myst-parser==0.17.0
+readthedocs-sphinx-search==0.1.1
+sphinx==4.4.0
+sphinx-autobuild==2021.3.14
+sphinx-book-theme==0.2.0
