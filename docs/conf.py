@@ -229,23 +229,3 @@ epub_title = project
 
 # A list of files that should not be packed into the epub file.
 epub_exclude_files = ["search.html"]
-
-
-# -- Extension configuration -------------------------------------------------
-
-# -- Options for intersphinx extension ---------------------------------------
-
-# Example configuration for intersphinx
-# Common intersphinx mappings can be found here:
-# https://gist.github.com/bskinn/0e164963428d4b51017cebdb6cda5209
-# intersphinx_mapping = {
-#     "python": ("https://docs.python.org/{.major}".format(sys.version_info), None),
-#     "attrs": ("https://www.attrs.org/en/stable/", None),
-#     "numpy": ("https://numpy.org/doc/stable/", None),
-#     "scipy": ("https://docs.scipy.org/doc/scipy/reference/", None),
-#     "matplotlib": ("https://matplotlib.org/stable/", None),
-#     "pandas": ("https://pandas.pydata.org/pandas-docs/stable/", None),
-#     "Pillow": ("https://pillow.readthedocs.io/en/stable/", None),
-#     "skimage": ("https://scikit-image.org/docs/stable/", None),
-#     "sklearn": ("https://scikit-learn.org/stable/", None),
-# }
