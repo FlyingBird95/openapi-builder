@@ -10,10 +10,18 @@ from werkzeug.routing import (
 
 from openapi_builder.specification import Schema
 
-from .base import ParameterConverter, register_parameter_converter
+from .base import ParameterConverter
 
 
-@register_parameter_converter
+ALL_PARAMETER_CONVERTER_CLASSES = []
+
+
+def append_converter_class(converter_class):
+    ALL_PARAMETER_CONVERTER_CLASSES.append(converter_class)
+    return converter_class
+
+
+@append_converter_class
 class UnicodeParameterConverter(ParameterConverter):
     converts_class = UnicodeConverter
 
@@ -22,7 +30,7 @@ class UnicodeParameterConverter(ParameterConverter):
         return Schema(type="string", format="string")
 
 
-@register_parameter_converter
+@append_converter_class
 class AnyParameterConverter(ParameterConverter):
     converts_class = AnyConverter
 
@@ -31,7 +39,7 @@ class AnyParameterConverter(ParameterConverter):
         return Schema(type="string", format="string")
 
 
-@register_parameter_converter
+@append_converter_class
 class PathParameterConverter(ParameterConverter):
     converts_class = PathConverter
 
@@ -40,7 +48,7 @@ class PathParameterConverter(ParameterConverter):
         return Schema(type="string", format="string")
 
 
-@register_parameter_converter
+@append_converter_class
 class IntParameterConverter(ParameterConverter):
     converts_class = IntegerConverter
 
@@ -49,7 +57,7 @@ class IntParameterConverter(ParameterConverter):
         return Schema(type="number", format="integer")
 
 
-@register_parameter_converter
+@append_converter_class
 class FloatParameterConverter(ParameterConverter):
     converts_class = FloatConverter
 
@@ -58,7 +66,7 @@ class FloatParameterConverter(ParameterConverter):
         return Schema(type="number", format="float")
 
 
-@register_parameter_converter
+@append_converter_class
 class UUIDParameterConverter(ParameterConverter):
     converts_class = UUIDConverter
 

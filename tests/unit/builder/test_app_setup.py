@@ -8,7 +8,6 @@ def test_configuring_flask_app_option_1(app):
     documentation = OpenApiDocumentation(app=app)
     assert documentation.app == app
     assert app.extensions["__open_api_doc__"] == documentation
-    assert documentation.builder.iterate_endpoints in app.before_first_request_funcs
 
 
 def test_configuring_flask_app_option_2(app):
@@ -17,7 +16,6 @@ def test_configuring_flask_app_option_2(app):
     documentation.init_app(app=app)
     assert documentation.app == app
     assert app.extensions["__open_api_doc__"] == documentation
-    assert documentation.builder.iterate_endpoints in app.before_first_request_funcs
 
 
 @pytest.mark.parametrize("app", [None, {}])

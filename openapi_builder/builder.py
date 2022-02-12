@@ -1,18 +1,20 @@
 import enum
 import warnings
-from dataclasses import dataclass
-from typing import Any, List, Optional
+from dataclasses import dataclass, field
+from typing import List, Optional, Type
 
 from flask import Flask
 from werkzeug.routing import Rule
 
-from . import logger
 from .blueprint.blueprint import openapi_documentation
 from .constants import EXTENSION_NAME, HIDDEN_ATTR_NAME
-from .converters.base import CONVERTER_CLASSES, Converter
-from .converters.parameter.process import parse_openapi_arguments
+from .converters.defaults.base import DefaultsConverter
+from .converters.defaults.manager import DefaultsManager
+from .converters.parameter.base import ParameterConverter
+from .converters.parameter.manager import ParameterManager
+from .converters.schema.base import SchemaConverter
+from .converters.schema.manager import SchemaManager
 from .documentation import Documentation, DocumentationConfigManager
-from .exceptions import MissingConverter
 from .specification import (
     Info,
     MediaType,
@@ -20,11 +22,9 @@ from .specification import (
     Operation,
     Parameter,
     PathItem,
-    Reference,
     RequestBody,
     Response,
     Responses,
-    Schema,
     Server,
 )
 from .util import openapi_endpoint_name_from_rule
@@ -47,6 +47,13 @@ class DocumentationOptions:
     strict_mode: StrictMode = StrictMode.SHOW_WARNINGS
     request_content_type: str = "application/json"
     response_content_type: str = "application/json"
+    schema_converter_classes: List[Type[SchemaConverter]] = field(default_factory=list)
+    defaults_converter_classes: List[Type[DefaultsConverter]] = field(
+        default_factory=list
+    )
+    parameter_converter_classes: List[Type[ParameterConverter]] = field(
+        default_factory=list
+    )
 
 
 class OpenApiDocumentation:
@@ -99,12 +106,11 @@ class OpenApiDocumentation:
         if self.options.include_documentation_blueprint:
             app.register_blueprint(openapi_documentation)
 
-        app.before_first_request(self.builder.register_converters)
-        app.before_first_request(self.builder.iterate_endpoints)
-
         # Register the extension in the app.
         app.extensions[EXTENSION_NAME] = self
         self.app = app
+
+        app.before_first_request(lambda: self.builder.iterate_endpoints())
 
     def get_specification(self):
         """Returns the OpenAPI configuration specification as a dictionary."""
@@ -117,55 +123,19 @@ class OpenAPIBuilder:
 
     def __init__(self, open_api_documentation: OpenApiDocumentation):
         self.open_api_documentation: OpenApiDocumentation = open_api_documentation
-        self.converters: List[Converter] = []
+        self.schema_manager = SchemaManager(builder=self)
+        self.schema_manager.load_converters()
+        self.default_manager = DefaultsManager(builder=self)
+        self.default_manager.load_converters()
+        self.parameter_manager = ParameterManager(builder=self)
+        self.parameter_manager.load_converters()
         self.config_manager = DocumentationConfigManager()
-
-    def process(self, value: Any, name: str):
-        """Processes an instance, and returns a schema, or reference to that schema."""
-        try:
-            converter = next(
-                converter for converter in self.converters if converter.matches(value)
-            )
-        except StopIteration:
-            if self.options.strict_mode == self.options.StrictMode.FAIL_ON_ERROR:
-                raise MissingConverter()
-            elif self.options.strict_mode == self.options.StrictMode.SHOW_WARNINGS:
-                warnings.warn(f"Missing converter for: {value}: {name}", UserWarning)
-                return Schema(example="<unknown>")
-            else:
-                raise ValueError(f"Unknown strict mode: {self.options.strict_mode}")
-        else:
-            return converter.convert(value=value, name=name)
-
-    def register_converters(self):
-        """Registers converts for the instance.
-
-        This function is executed before the first request is processed the in the corresponding
-        Flask application. Also before OpenApiBuilder.iterate_endpoints.
-        """
-        if self.options.include_marshmallow_converters:
-            # Keep import below to support packages without marshmallow.
-            import openapi_builder.converters.marshmallow  # noqa: F401
-
-        if self.options.include_halogen_converters:
-            # Keep import below to support packages without halogen.
-            import openapi_builder.converters.halogen  # noqa: F401
-
-        self.converters = [
-            converter_class(builder=self) for converter_class in CONVERTER_CLASSES
-        ]
-
-        # register parameter converters
-        import openapi_builder.converters.parameter.flask_converters  # noqa: F401
-
-        # register default converters
-        import openapi_builder.converters.defaults.default_converters  # noqa: F401
 
     def iterate_endpoints(self):
         """Iterates the endpoints of the Flask application to generate the documentation.
 
         This function is executed before the first request is processed in the corresponding
-        Flask application, but after OpenApiBuilder.register_converters.
+        Flask application, but after OpenApiBuilder.append_converter_classs.
         """
         for rule in self.open_api_documentation.app.url_map._rules:
             view_func = self.open_api_documentation.app.view_functions[rule.endpoint]
@@ -186,7 +156,7 @@ class OpenAPIBuilder:
                     if tag.name not in tag_names:
                         self.open_api_documentation.specification.tags.append(tag)
                         self.open_api_documentation.specification.tags.sort(
-                            key=lambda t: t.name
+                            key=lambda t: t.name  # sort alphabetically
                         )
 
             with self.config_manager.use_documentation_context(config):
@@ -199,9 +169,12 @@ class OpenAPIBuilder:
 
     def process_rule(self, rule: Rule):
         """Processes a Werkzeug rule."""
-        logger.info(f"Processing {rule.endpoint}")
         parameters = list(self.config.parameters)
-        parameters.extend(parse_openapi_arguments(rule))
+        for argument, converter_class in rule._converters.items():
+            schema = self.parameter_manager.process(converter_class)
+            parameters.append(
+                Parameter(name=argument, in_="path", required=True, schema=schema)
+            )
         endpoint_name = openapi_endpoint_name_from_rule(rule)
 
         if endpoint_name not in self.paths.values:
@@ -211,7 +184,7 @@ class OpenAPIBuilder:
         for method in rule.methods:
             values = {}
             for key, schema in self.config.responses.items():
-                reference = self.process(schema, name=key)
+                reference = self.schema_manager.process(schema, name=key)
                 values[key] = Response(
                     description=self.config.description or "",
                     content={
@@ -225,37 +198,8 @@ class OpenAPIBuilder:
                 responses=Responses(values=values),
                 tags=self.config.tags,
             )
-
-            query_schema = self.config.query_schema
-            if query_schema is not None:
-                schema_or_reference = self.process(query_schema, name="query")
-                if isinstance(schema_or_reference, Reference):
-                    schema = schema_or_reference.get_schema(
-                        self.open_api_documentation.specification
-                    )
-                else:
-                    schema = schema_or_reference
-                for key, value in schema.properties.items():
-                    operation.parameters.append(
-                        Parameter(
-                            in_="query",
-                            name=key,
-                            schema=value,
-                            required=value.required,
-                        )
-                    )
-
-            input_schema = self.config.input_schema
-            if input_schema is not None:
-                schema_or_reference = self.process(input_schema, name="input_schema")
-                operation.request_body = RequestBody(
-                    description=self.config.description,
-                    content={
-                        self.options.request_content_type: MediaType(
-                            schema=schema_or_reference
-                        ),
-                    },
-                )
+            self.process_query_schema(operation)
+            self.process_input_schema(operation)
 
             if method == "GET":
                 path_item.get = operation
@@ -269,6 +213,40 @@ class OpenAPIBuilder:
                 path_item.put = operation
             if method == "DELETE":
                 path_item.delete = operation
+
+    def process_query_schema(self, operation):
+        if self.config.query_schema is None:
+            return
+
+        reference = self.schema_manager.process(self.config.query_schema, name="query")
+        try:
+            schema = reference.get_schema(self.open_api_documentation.specification)
+        except KeyError:
+            warnings.warn("KeyError. Please fix")
+            return
+        for key, value in schema.properties.items():
+            operation.parameters.append(
+                Parameter(
+                    in_="query",
+                    name=key,
+                    schema=value,
+                    required=value.required,
+                )
+            )
+
+    def process_input_schema(self, operation):
+        input_schema = self.config.input_schema
+        if input_schema is None:
+            return
+        reference = self.schema_manager.process(input_schema, name="input_schema")
+        operation.request_body = RequestBody(
+            description=self.config.description,
+            content={
+                self.options.request_content_type: MediaType(
+                    schema=reference,
+                ),
+            },
+        )
 
     @property
     def schemas(self):

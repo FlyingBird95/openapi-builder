@@ -14,6 +14,8 @@ Unreleased
 ----------
 Release date:
 
+- **Updated** converters, and how to register them. This can now be done via the :code:`Options`.
+
 Version `0.2.5 <https://github.com/FlyingBird95/openapi-builder/tree/v0.2.5>`__
 --------------------------------------------------------------------------------
 Release date: 2022-02-06
