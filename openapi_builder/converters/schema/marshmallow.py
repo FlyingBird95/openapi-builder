@@ -181,7 +181,6 @@ class SchemaMetaConverter(MarshmallowConverter):
     def convert(self, value, name) -> Schema:
         # instantiating a SchemaMeta creates a Schema
         schema = self.manager.process(value=value(), name=name)
-        self.set_additional_properties(schema, value)
         return schema
 
 
