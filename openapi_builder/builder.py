@@ -124,11 +124,11 @@ class OpenAPIBuilder:
     def __init__(self, open_api_documentation: OpenApiDocumentation):
         self.open_api_documentation: OpenApiDocumentation = open_api_documentation
         self.schema_manager = SchemaManager(builder=self)
-        self.schema_manager.init_own_converters()
+        self.schema_manager.load_converters()
         self.default_manager = DefaultsManager(builder=self)
-        self.default_manager.init_own_converters()
+        self.default_manager.load_converters()
         self.parameter_manager = ParameterManager(builder=self)
-        self.parameter_manager.init_own_converters()
+        self.parameter_manager.load_converters()
         self.config_manager = DocumentationConfigManager()
 
     def iterate_endpoints(self):

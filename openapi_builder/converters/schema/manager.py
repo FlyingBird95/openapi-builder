@@ -17,10 +17,11 @@ class SchemaManager:
         self.builder: OpenAPIBuilder = builder
         self.converters: typing.List[SchemaConverter] = []
 
+    def load_converters(self):
+        """Load all converters, including the defaults."""
         for converter_class in self.options.schema_converter_classes:
             self.register(converter_class)
 
-    def init_own_converters(self):
         if self.options.include_marshmallow_converters:
             # Import locally, because not everyone uses marshmallow
             from .marshmallow import ALL_MARSHMALLOW_CONVERTER_CLASSES
