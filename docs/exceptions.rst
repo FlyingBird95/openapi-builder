@@ -1,19 +1,25 @@
+##########
 Exceptions
-==========
+##########
 
 The following exceptions can be encountered during the configuration of the :code:`openapi_builder` package:
 
 
-- :ref:`MissingConverter`
-- :ref:`MissingParameterConverter`
-- :ref:`MissingDefaultConverter`
-- :ref:`MissingConfigContext`
+- :ref:`missing_converter`
+- :ref:`missing_parameter_converter`
+- :ref:`missing_default_converter`
+- :ref:`missing_config_context`
 
+.. _missing_converter:
+
+****************
 MissingConverter
-~~~~~~~~~~~~~~~~
+****************
 A converter is missing for the field or schema that needs to be serialized. You can either solve this error using
-:code:`DocumentationOptions.strict_mode`, or by registering your custom converter. You can use the following
+:code:`DocumentationOptions.strict_mode`, or by registering your `custom converter <custom_converter_>`_. You can use the following
 snippet as an example:
+
+.. _custom_converter: configuration.html#schema-converters
 
 .. code:: python
 
@@ -36,15 +42,20 @@ snippet as an example:
         ),
     )
 
+.. _missing_parameter_converter:
+
+*************************
 MissingParameterConverter
-~~~~~~~~~~~~~~~~~~~~~~~~~
+*************************
 A converter is missing for the parameter. This might be because you added a custom parameter validator using the following snippet:
 
 .. code:: python
 
     app.url_map.converters["uid"] = validators.UUIDValidator
 
-You can solve this error by registering your custom parameter converter. You can use the following snippet as an example:
+You can solve this error by registering your custom `parameter converter <parameter_converter_>`_. You can use the following snippet as an example:
+
+.. _parameter_converter: configuration.html#parameter-converters
 
 .. code:: python
 
@@ -68,12 +79,16 @@ You can solve this error by registering your custom parameter converter. You can
         ),
     )
 
+.. _missing_default_converter:
 
+***********************
 MissingDefaultConverter
-~~~~~~~~~~~~~~~~~~~~~~~~~
+***********************
 A converter is missing for a default type. This might be because you return a default that is not JSON serializable.
 
-You can solve this error by registering your custom default converter. You can use the following snippet as an example:
+You can solve this error by registering your custom `defaults converter <defaults_converter_>`_. You can use the following snippet as an example:
+
+.. _defaults_converter: configuration.html#defaults-converters
 
 .. code:: python
 
@@ -98,9 +113,11 @@ You can solve this error by registering your custom default converter. You can u
         ),
     )
 
+.. _missing_config_context:
 
+********************
 MissingConfigContext
-~~~~~~~~~~~~~~~~~~~~
+********************
 A function is called that requires a proper value for the :code:`documentation` variable.
 This variable is used by the :code:`OpenAPIBuilder`. You can only encounter this exception when
 overriding the :code:`OpenAPIBuilder`-class itself. Decorate your function according to the following snippet:
