@@ -17,10 +17,11 @@ class ParameterManager:
         self.builder: OpenAPIBuilder = builder
         self.converters: typing.List[ParameterConverter] = []
 
+    def load_converters(self):
+        """Load all converters, including the defaults."""
         for converter_class in self.options.parameter_converter_classes:
             self.register(converter_class)
 
-    def init_own_converters(self):
         for converter_class in ALL_PARAMETER_CONVERTER_CLASSES:
             self.register(converter_class)
 

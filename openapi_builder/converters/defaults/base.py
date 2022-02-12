@@ -1,11 +1,11 @@
 import typing
-
+from abc import ABC
 
 if typing.TYPE_CHECKING:
     from .manager import DefaultsManager
 
 
-class DefaultsConverter:
+class DefaultsConverter(ABC):
     """Converter for a certain class that returns an openapi_builder.specification.Schema."""
 
     converts_class = None

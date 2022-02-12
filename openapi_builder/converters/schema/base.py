@@ -1,4 +1,5 @@
 import typing
+from abc import ABC
 
 from openapi_builder.specification import Schema
 
@@ -6,7 +7,7 @@ if typing.TYPE_CHECKING:
     from .manager import SchemaManager
 
 
-class SchemaConverter:
+class SchemaConverter(ABC):
     """Converter for a certain class that returns an openapi_builder.specification.Schema."""
 
     converts_class = None
