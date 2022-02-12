@@ -1,7 +1,0 @@
-openapi\_builder.converters.defaults.process module
-===================================================
-
-.. automodule:: openapi_builder.converters.defaults.process
-   :members:
-   :undoc-members:
-   :show-inheritance:

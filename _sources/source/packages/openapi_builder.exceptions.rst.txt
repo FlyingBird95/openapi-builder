@@ -1,7 +1,0 @@
-openapi\_builder.exceptions module
-==================================
-
-.. automodule:: openapi_builder.exceptions
-   :members:
-   :undoc-members:
-   :show-inheritance:

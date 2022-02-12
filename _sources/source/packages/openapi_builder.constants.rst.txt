@@ -1,7 +1,0 @@
-openapi\_builder.constants module
-=================================
-
-.. automodule:: openapi_builder.constants
-   :members:
-   :undoc-members:
-   :show-inheritance:

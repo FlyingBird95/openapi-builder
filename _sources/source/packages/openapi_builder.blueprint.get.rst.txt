@@ -1,7 +1,0 @@
-openapi\_builder.blueprint.get module
-=====================================
-
-.. automodule:: openapi_builder.blueprint.get
-   :members:
-   :undoc-members:
-   :show-inheritance:

@@ -1,7 +1,0 @@
-openapi\_builder.specification module
-=====================================
-
-.. automodule:: openapi_builder.specification
-   :members:
-   :undoc-members:
-   :show-inheritance:

@@ -1,7 +1,0 @@
-openapi\_builder.converters.marshmallow module
-==============================================
-
-.. automodule:: openapi_builder.converters.marshmallow
-   :members:
-   :undoc-members:
-   :show-inheritance:

@@ -1,7 +1,0 @@
-openapi\_builder.converters.defaults.base module
-================================================
-
-.. automodule:: openapi_builder.converters.defaults.base
-   :members:
-   :undoc-members:
-   :show-inheritance:

@@ -1,10 +1,11 @@
 
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
   <head>
     <meta charset="utf-8" />
-    <title>Exceptions &#8212; openapi_builder 0.2.5 documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exceptions &#8212; openapi_builder 0.2.6 documentation</title>
     
   <link href="_static/css/theme.css" rel="stylesheet">
   <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -21,22 +22,21 @@
       
 
     
-    <link rel="stylesheet" href="_static/sphinx-book-theme.css?digest=84ace793992934648b4de8eed757e5a2" type="text/css" />
-    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-book-theme.css?digest=84ace793992934648b4de8eed757e5a2" />
     <link rel="stylesheet" type="text/css" href="_static/css/rtd_sphinx_search.min.css" />
     
   <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
 
-    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
-    <script src="_static/language_data.js"></script>
     <script src="_static/js/rtd_sphinx_search.min.js"></script>
     <script src="_static/sphinx-book-theme.9d8b4a8b9bb19db25eeaddc40d639ba2.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="API Reference" href="source/packages/modules.html" />
+    <link rel="next" title="Changelog" href="source/changelog.html" />
     <link rel="prev" title="Configuration" href="configuration.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
@@ -66,7 +66,7 @@
       
       
       
-      <h1 class="site-logo" id="site-title">openapi_builder 0.2.5 documentation</h1>
+      <h1 class="site-logo" id="site-title">openapi_builder 0.2.6 documentation</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -74,7 +74,7 @@
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
 </form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item active">
-        <p class="caption">
+        <p aria-level="2" class="caption" role="heading">
  <span class="caption-text">
   Contents:
  </span>
@@ -90,147 +90,9 @@
    Exceptions
   </a>
  </li>
- <li class="toctree-l1 has-children">
-  <a class="reference internal" href="source/packages/modules.html">
-   API Reference
-  </a>
-  <input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/>
-  <label for="toctree-checkbox-1">
-   <i class="fas fa-chevron-down">
-   </i>
-  </label>
-  <ul>
-   <li class="toctree-l2 has-children">
-    <a class="reference internal" href="source/packages/openapi_builder.html">
-     openapi_builder package
-    </a>
-    <input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/>
-    <label for="toctree-checkbox-2">
-     <i class="fas fa-chevron-down">
-     </i>
-    </label>
-    <ul>
-     <li class="toctree-l3 has-children">
-      <a class="reference internal" href="source/packages/openapi_builder.blueprint.html">
-       openapi_builder.blueprint package
-      </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/>
-      <label for="toctree-checkbox-3">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="source/packages/openapi_builder.blueprint.blueprint.html">
-         openapi_builder.blueprint.blueprint module
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="source/packages/openapi_builder.blueprint.get.html">
-         openapi_builder.blueprint.get module
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="source/packages/openapi_builder.blueprint.specification.html">
-         openapi_builder.blueprint.specification module
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3 has-children">
-      <a class="reference internal" href="source/packages/openapi_builder.converters.html">
-       openapi_builder.converters package
-      </a>
-      <input class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/>
-      <label for="toctree-checkbox-4">
-       <i class="fas fa-chevron-down">
-       </i>
-      </label>
-      <ul>
-       <li class="toctree-l4">
-        <a class="reference internal" href="source/packages/openapi_builder.converters.defaults.html">
-         openapi_builder.converters.defaults package
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="source/packages/openapi_builder.converters.parameter.html">
-         openapi_builder.converters.parameter package
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="source/packages/openapi_builder.converters.base.html">
-         openapi_builder.converters.base module
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="source/packages/openapi_builder.converters.halogen.html">
-         openapi_builder.converters.halogen module
-        </a>
-       </li>
-       <li class="toctree-l4">
-        <a class="reference internal" href="source/packages/openapi_builder.converters.marshmallow.html">
-         openapi_builder.converters.marshmallow module
-        </a>
-       </li>
-      </ul>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="source/packages/openapi_builder.builder.html">
-       openapi_builder.builder module
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="source/packages/openapi_builder.constants.html">
-       openapi_builder.constants module
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="source/packages/openapi_builder.decorators.html">
-       openapi_builder.decorators module
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="source/packages/openapi_builder.documentation.html">
-       openapi_builder.documentation module
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="source/packages/openapi_builder.exceptions.html">
-       openapi_builder.exceptions module
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="source/packages/openapi_builder.logger.html">
-       openapi_builder.logger module
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="source/packages/openapi_builder.specification.html">
-       openapi_builder.specification module
-      </a>
-     </li>
-     <li class="toctree-l3">
-      <a class="reference internal" href="source/packages/openapi_builder.util.html">
-       openapi_builder.util module
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
  <li class="toctree-l1">
   <a class="reference internal" href="source/changelog.html">
    Changelog
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="py-modindex.html">
-   Module Index
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="genindex.html">
-   Index
   </a>
  </li>
 </ul>
@@ -377,76 +239,95 @@
 <h1>Exceptions<a class="headerlink" href="#exceptions" title="Permalink to this headline">¶</a></h1>
 <p>The following exceptions can be encountered during the configuration of the <code class="code docutils literal notranslate"><span class="pre">openapi_builder</span></code> package:</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="#missingconverter"><span class="std std-ref">MissingConverter</span></a></p></li>
-<li><p><a class="reference internal" href="#missingparameterconverter"><span class="std std-ref">MissingParameterConverter</span></a></p></li>
-<li><p><a class="reference internal" href="#missingdefaultconverter"><span class="std std-ref">MissingDefaultConverter</span></a></p></li>
-<li><p><a class="reference internal" href="#missingconfigcontext"><span class="std std-ref">MissingConfigContext</span></a></p></li>
+<li><p><a class="reference internal" href="#missing-converter"><span class="std std-ref">MissingConverter</span></a></p></li>
+<li><p><a class="reference internal" href="#missing-parameter-converter"><span class="std std-ref">MissingParameterConverter</span></a></p></li>
+<li><p><a class="reference internal" href="#missing-default-converter"><span class="std std-ref">MissingDefaultConverter</span></a></p></li>
+<li><p><a class="reference internal" href="#missing-config-context"><span class="std std-ref">MissingConfigContext</span></a></p></li>
 </ul>
 <div class="section" id="missingconverter">
-<h2>MissingConverter<a class="headerlink" href="#missingconverter" title="Permalink to this headline">¶</a></h2>
+<span id="missing-converter"></span><h2>MissingConverter<a class="headerlink" href="#missingconverter" title="Permalink to this headline">¶</a></h2>
 <p>A converter is missing for the field or schema that needs to be serialized. You can either solve this error using
-<code class="code docutils literal notranslate"><span class="pre">DocumentationOptions.strict_mode</span></code>, or by registering your custom converter. You can use the following
+<code class="code docutils literal notranslate"><span class="pre">DocumentationOptions.strict_mode</span></code>, or by registering your <a class="reference external" href="configuration.html#schema-converters">custom converter</a>. You can use the following
 snippet as an example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openapi_builder.converters</span> <span class="kn">import</span> <span class="n">Converter</span><span class="p">,</span> <span class="n">register_converter</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openapi_builder</span> <span class="kn">import</span> <span class="n">DocumentationOptions</span><span class="p">,</span> <span class="n">OpenApiDocumentation</span>
+<span class="kn">from</span> <span class="nn">openapi_builder.converters.schema.base</span> <span class="kn">import</span> <span class="n">SchemaConverter</span>
 <span class="kn">from</span> <span class="nn">openapi_builder.specification</span> <span class="kn">import</span> <span class="n">Schema</span>
 
 
-<span class="nd">@register_converter</span>
-<span class="k">class</span> <span class="nc">YourFieldConverter</span><span class="p">(</span><span class="n">Converter</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">YourFieldConverter</span><span class="p">(</span><span class="n">SchemaConverter</span><span class="p">):</span>
     <span class="n">converts_class</span> <span class="o">=</span> <span class="n">YourFieldClass</span>
 
     <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Schema</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;email&quot;</span><span class="p">)</span>
+
+
+<span class="n">OpenApiDocumentation</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">options</span><span class="o">=</span><span class="n">DocumentationOptions</span><span class="p">(</span>
+        <span class="n">schema_converter_classes</span><span class="o">=</span><span class="p">[</span><span class="n">YourFieldConverter</span><span class="p">],</span>
+    <span class="p">),</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="missingparameterconverter">
-<h2>MissingParameterConverter<a class="headerlink" href="#missingparameterconverter" title="Permalink to this headline">¶</a></h2>
+<span id="missing-parameter-converter"></span><h2>MissingParameterConverter<a class="headerlink" href="#missingparameterconverter" title="Permalink to this headline">¶</a></h2>
 <p>A converter is missing for the parameter. This might be because you added a custom parameter validator using the following snippet:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">app</span><span class="o">.</span><span class="n">url_map</span><span class="o">.</span><span class="n">converters</span><span class="p">[</span><span class="s2">&quot;uid&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">validators</span><span class="o">.</span><span class="n">UUIDValidator</span>
 </pre></div>
 </div>
-<p>You can solve this error by registering your custom parameter converter. You can use the following snippet as an example:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openapi_builder.converters.parameter.base</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">ParameterConverter</span><span class="p">,</span>
-    <span class="n">register_parameter_converter</span><span class="p">,</span>
-<span class="p">)</span>
+<p>You can solve this error by registering your custom <a class="reference external" href="configuration.html#parameter-converters">parameter converter</a>. You can use the following snippet as an example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">openapi_builder</span> <span class="kn">import</span> <span class="n">DocumentationOptions</span><span class="p">,</span> <span class="n">OpenApiDocumentation</span>
+<span class="kn">from</span> <span class="nn">openapi_builder.converters.parameters.base</span> <span class="kn">import</span> <span class="n">ParameterConverter</span>
 <span class="kn">from</span> <span class="nn">openapi_builder.specification</span> <span class="kn">import</span> <span class="n">Schema</span>
 
 
-<span class="nd">@register_parameter_converter</span>
 <span class="k">class</span> <span class="nc">UUIDConverter</span><span class="p">(</span><span class="n">ParameterConverter</span><span class="p">):</span>
     <span class="n">converts_class</span> <span class="o">=</span> <span class="n">validators</span><span class="o">.</span><span class="n">UUIDValidator</span>
 
     <span class="nd">@property</span>
     <span class="k">def</span> <span class="nf">schema</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Schema</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">Schema</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s2">&quot;string&quot;</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s2">&quot;hex&quot;</span><span class="p">)</span>
+
+
+<span class="n">OpenApiDocumentation</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">options</span><span class="o">=</span><span class="n">DocumentationOptions</span><span class="p">(</span>
+        <span class="n">schema_converter_classes</span><span class="o">=</span><span class="p">[</span><span class="n">YourFieldConverter</span><span class="p">],</span>
+    <span class="p">),</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="missingdefaultconverter">
-<h2>MissingDefaultConverter<a class="headerlink" href="#missingdefaultconverter" title="Permalink to this headline">¶</a></h2>
+<span id="missing-default-converter"></span><h2>MissingDefaultConverter<a class="headerlink" href="#missingdefaultconverter" title="Permalink to this headline">¶</a></h2>
 <p>A converter is missing for a default type. This might be because you return a default that is not JSON serializable.</p>
-<p>You can solve this error by registering your custom default converter. You can use the following snippet as an example:</p>
+<p>You can solve this error by registering your custom <a class="reference external" href="configuration.html#defaults-converters">defaults converter</a>. You can use the following snippet as an example:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">datetime</span>
 
-<span class="kn">from</span> <span class="nn">openapi_builder.converters.defaults.base</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">DefaultConverter</span><span class="p">,</span>
-    <span class="n">register_default_converter</span><span class="p">,</span>
-<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">openapi_builder</span> <span class="kn">import</span> <span class="n">DocumentationOptions</span><span class="p">,</span> <span class="n">OpenApiDocumentation</span>
+<span class="kn">from</span> <span class="nn">openapi_builder.converters.defaults.base</span> <span class="kn">import</span> <span class="n">DefaultsConverter</span>
+<span class="kn">from</span> <span class="nn">openapi_builder.specification</span> <span class="kn">import</span> <span class="n">Schema</span>
 
 
-<span class="nd">@register_default_converter</span>
-<span class="k">class</span> <span class="nc">TimeDeltaConverter</span><span class="p">(</span><span class="n">DefaultConverter</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">TimeDeltaConverter</span><span class="p">(</span><span class="n">DefaultsConverter</span><span class="p">):</span>
     <span class="n">converts_class</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span>
 
     <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">value</span><span class="o">.</span><span class="n">isoformat</span><span class="p">()</span>
+
+
+<span class="n">OpenApiDocumentation</span><span class="p">(</span>
+    <span class="o">...</span><span class="p">,</span>
+    <span class="n">options</span><span class="o">=</span><span class="n">DocumentationOptions</span><span class="p">(</span>
+        <span class="n">schema_converter_classes</span><span class="o">=</span><span class="p">[</span><span class="n">YourFieldConverter</span><span class="p">],</span>
+    <span class="p">),</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="missingconfigcontext">
-<h2>MissingConfigContext<a class="headerlink" href="#missingconfigcontext" title="Permalink to this headline">¶</a></h2>
+<span id="missing-config-context"></span><h2>MissingConfigContext<a class="headerlink" href="#missingconfigcontext" title="Permalink to this headline">¶</a></h2>
 <p>A function is called that requires a proper value for the <code class="code docutils literal notranslate"><span class="pre">documentation</span></code> variable.
 This variable is used by the <code class="code docutils literal notranslate"><span class="pre">OpenAPIBuilder</span></code>. You can only encounter this exception when
 overriding the <code class="code docutils literal notranslate"><span class="pre">OpenAPIBuilder</span></code>-class itself. Decorate your function according to the following snippet:</p>
@@ -472,10 +353,10 @@ overriding the <code class="code docutils literal notranslate"><span class="pre"
             <p class="prev-next-title">Configuration</p>
         </div>
     </a>
-    <a class='right-next' id="next-link" href="source/packages/modules.html" title="next page">
+    <a class='right-next' id="next-link" href="source/changelog.html" title="next page">
     <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title">API Reference</p>
+        <p class="prev-next-title">Changelog</p>
     </div>
     <i class="fas fa-angle-right"></i>
     </a>
