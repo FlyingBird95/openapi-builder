@@ -1,5 +1,3 @@
-from http import HTTPStatus
-
 import pytest
 from flask import jsonify
 
@@ -16,7 +14,7 @@ def get_with_route_validator(
     app, marshmallow_schema, marshmallow_example_object, route_with_parameter
 ):
     @app.route(route_with_parameter, methods=["GET"])
-    @add_documentation(responses={HTTPStatus.OK: marshmallow_schema()})
+    @add_documentation(response=marshmallow_schema())
     def get_with_marshmallow_schema_func(route):
         return jsonify(marshmallow_schema().dump(marshmallow_example_object))
 

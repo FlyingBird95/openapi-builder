@@ -16,7 +16,7 @@ from .schema import ErrorSchema, RegisterUser, UserSchema
         HTTPStatus.CREATED: UserSchema,
         HTTPStatus.BAD_REQUEST: ErrorSchema,
     },
-    input_schema=RegisterUser,
+    request_data=RegisterUser,
 )
 def post():
     """Register a new user."""

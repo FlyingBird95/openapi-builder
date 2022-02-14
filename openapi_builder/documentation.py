@@ -17,16 +17,18 @@ class Documentation:
     See `openapi_builder.decorators.add_documentation` for more info.
     """
 
-    responses: Dict[Union[HTTPStatus, int], Any] = field(default_factory=dict)
-    input_schema: Any = None
-    query_schema: Any = None
+    response: Union[Dict[Union[HTTPStatus], Any], Any] = field(default_factory=dict)
+    request_data: Any = None
+    request_query: Any = None
     parameters: List[Parameter] = field(default_factory=list)
     summary: Optional[str] = None
     description: Optional[str] = None
     tags: List[str] = field(default_factory=list)
 
     def __post_init__(self):
-        self.responses = {str(int(k)): v for k, v in self.responses.items()}
+        if not isinstance(self.response, dict):
+            self.response = {HTTPStatus.OK: self.response}
+        self.response = {str(int(k)): v for k, v in self.response.items()}
 
 
 @dataclass()

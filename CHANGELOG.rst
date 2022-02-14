@@ -14,6 +14,22 @@ Unreleased
 ----------
 Release date:
 
+Version `0.2.7 <https://github.com/FlyingBird95/openapi-builder/tree/v0.2.7>`__
+--------------------------------------------------------------------------------
+Release date: 2022-02-15
+
+- **Updated** :code:`add_documentation` arguments:
+
+  - :code:`responses` is now :code:`response`, and accepts either a :code:`dict` or any value.
+    In case any value is passed, it's converted into :code:`{200: <value>}`.
+  - :code:`input_schema` renamed into :code:`request_data`.
+  - :code:`query_schema` renamed into :code:`request_query`.
+
+
+Version `0.2.6 <https://github.com/FlyingBird95/openapi-builder/tree/v0.2.6>`__
+--------------------------------------------------------------------------------
+Release date: 2022-02-12
+
 - **Updated** converters, and how to register them. This can now be done via the :code:`Options`.
 
 Version `0.2.5 <https://github.com/FlyingBird95/openapi-builder/tree/v0.2.5>`__

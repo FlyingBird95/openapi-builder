@@ -14,9 +14,9 @@ from openapi_builder.specification import Parameter, Tag
 
 
 def add_documentation(
-    responses: Optional[Dict[Union[HTTPStatus, int], Any]] = None,
-    input_schema: Optional[Any] = None,
-    query_schema: Optional[Any] = None,
+    response: Optional[Union[Dict[Union[HTTPStatus], Any], Any]] = None,
+    request_data: Optional[Any] = None,
+    request_query: Optional[Any] = None,
     parameters: Optional[List[Parameter]] = None,
     summary: Optional[str] = None,
     description: Optional[str] = None,
@@ -36,12 +36,12 @@ def add_documentation(
 
     def inner(func):
         kwargs = {}
-        if responses is not None:
-            kwargs["responses"] = responses
-        if input_schema is not None:
-            kwargs["input_schema"] = input_schema
-        if query_schema is not None:
-            kwargs["query_schema"] = query_schema
+        if response is not None:
+            kwargs["response"] = response
+        if request_data is not None:
+            kwargs["request_data"] = request_data
+        if request_query is not None:
+            kwargs["request_query"] = request_query
         if parameters is not None:
             kwargs["parameters"] = parameters
         if summary is not None:
