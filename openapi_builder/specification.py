@@ -6,6 +6,8 @@ https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md
 from dataclasses import dataclass, field
 from typing import Any, Dict, List, Optional, Union
 
+missing = object()
+
 
 @dataclass()
 class OpenAPI:
@@ -1329,7 +1331,7 @@ class Schema:
     additional_properties: Union[bool, "Schema", Reference] = True
     description: Optional[str] = None
     format: Optional[str] = None
-    default: Optional[Any] = None
+    default: Optional[Any] = missing
     example: Optional[Any] = None
     examples: Dict[str, Union["Example", Reference]] = field(default_factory=dict)
     options: Optional[Dict] = None  # can only be set via after Schema is created
@@ -1395,7 +1397,7 @@ class Schema:
             value["description"] = self.description
         if self.format is not None:
             value["format"] = self.format
-        if self.default is not None:
+        if self.default is not missing:
             value["default"] = self.default
         if self.example is not None and self.examples:
             raise ValueError("`example` and `examples` are mutually exclusive")
