@@ -70,4 +70,4 @@ def test_none_converter(http, open_api_documentation):
 
     configuration = open_api_documentation.get_specification()
     properties = configuration["components"]["schemas"]["GeneratedSchema"]["properties"]
-    assert properties["field"] == {"type": "string"}
+    assert properties["field"] == {"type": "string", "default": None}
