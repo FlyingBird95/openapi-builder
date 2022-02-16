@@ -91,23 +91,23 @@ def test_response_content_type(http, open_api_documentation):
     assert "something-else" in responses["200"]["content"]
 
 
-@pytest.mark.usefixtures("post_with_marshmallow_input_schema")
+@pytest.mark.usefixtures("post_with_marshmallow_request_data")
 @pytest.mark.parametrize(
     "documentation_options__request_content_type", ["something-else"]
 )
 def test_request_content_type(http, open_api_documentation):
     open_api_documentation.app.try_trigger_before_first_request_functions()
     configuration = open_api_documentation.get_specification()
-    path = configuration["paths"]["/post_with_marshmallow_input_schema"]
+    path = configuration["paths"]["/post_with_marshmallow_request_data"]
     request_body = path["post"]["requestBody"]
     assert "something-else" in request_body["content"]
 
 
-@pytest.mark.usefixtures("put_with_marshmallow_query_schema")
+@pytest.mark.usefixtures("put_with_marshmallow_request_query")
 def test_query_options(http, open_api_documentation):
     open_api_documentation.app.try_trigger_before_first_request_functions()
     configuration = open_api_documentation.get_specification()
-    path = configuration["paths"]["/put_with_marshmallow_query_schema"]
+    path = configuration["paths"]["/put_with_marshmallow_request_query"]
     [parameter] = path["put"]["parameters"]
     assert parameter["in"] == "query"
     assert parameter["name"] == "field"

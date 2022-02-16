@@ -17,7 +17,7 @@ from .schema import ErrorSchema, UpdateUser, UserSchema
         HTTPStatus.NOT_FOUND: ErrorSchema,
         HTTPStatus.BAD_REQUEST: ErrorSchema,
     },
-    input_schema=UpdateUser,
+    request_data=UpdateUser,
 )
 def put(user_id):
     user = User.from_id(user_id)

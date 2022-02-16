@@ -183,7 +183,7 @@ class OpenAPIBuilder:
 
         for method in rule.methods:
             values = {}
-            for key, schema in self.config.responses.items():
+            for key, schema in self.config.response.items():
                 reference = self.schema_manager.process(schema, name=key)
                 values[key] = Response(
                     description=self.config.description or "",
@@ -198,8 +198,8 @@ class OpenAPIBuilder:
                 responses=Responses(values=values),
                 tags=self.config.tags,
             )
-            self.process_query_schema(operation)
-            self.process_input_schema(operation)
+            self.process_request_query(operation)
+            self.process_request_data(operation)
 
             if method == "GET":
                 path_item.get = operation
@@ -214,11 +214,11 @@ class OpenAPIBuilder:
             if method == "DELETE":
                 path_item.delete = operation
 
-    def process_query_schema(self, operation):
-        if self.config.query_schema is None:
+    def process_request_query(self, operation):
+        if self.config.request_query is None:
             return
 
-        reference = self.schema_manager.process(self.config.query_schema, name="query")
+        reference = self.schema_manager.process(self.config.request_query, name="query")
         try:
             schema = reference.get_schema(self.open_api_documentation.specification)
         except KeyError:
@@ -234,11 +234,11 @@ class OpenAPIBuilder:
                 )
             )
 
-    def process_input_schema(self, operation):
-        input_schema = self.config.input_schema
-        if input_schema is None:
+    def process_request_data(self, operation):
+        request_data = self.config.request_data
+        if request_data is None:
             return
-        reference = self.schema_manager.process(input_schema, name="input_schema")
+        reference = self.schema_manager.process(request_data, name="request_data")
         operation.request_body = RequestBody(
             description=self.config.description,
             content={
