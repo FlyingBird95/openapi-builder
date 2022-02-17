@@ -30,6 +30,7 @@ from openapi_builder.specification import (
     Server,
     ServerVariable,
     Tag,
+    missing,
 )
 
 
@@ -306,7 +307,7 @@ class SchemaFactory(factory.Factory):
     additional_properties = True
     description = None
     format = None
-    default = None
+    default = missing
     example = None
     examples = None
 

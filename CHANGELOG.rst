@@ -14,9 +14,15 @@ Unreleased
 ----------
 Release date:
 
+Version `0.2.8 <https://github.com/FlyingBird95/openapi-builder/tree/v0.2.8>`__
+--------------------------------------------------------------------------------
+Release date: 2022-02-18
+
+- **Fixed** bug with :code:`Schema.default` when the default value was :code:`None`.
+
 Version `0.2.7 <https://github.com/FlyingBird95/openapi-builder/tree/v0.2.7>`__
 --------------------------------------------------------------------------------
-Release date: 2022-02-15
+Release date: 2022-02-16
 
 - **Updated** :code:`add_documentation` arguments:
 
