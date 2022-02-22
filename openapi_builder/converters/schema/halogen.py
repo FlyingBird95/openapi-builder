@@ -129,7 +129,7 @@ class LinkConverter(SchemaConverter):
     def convert(self, value, name) -> Schema:
         properties = {}
 
-        for prop in value.__class_attrs__.values():
+        for prop in value.__attrs__.values():
             properties[prop.key] = Schema(type="string", format="url", example="<url>")
 
         return Schema(type="object", properties=properties)
@@ -142,8 +142,7 @@ class CurieConverter(SchemaConverter):
 
     def matches(self, value) -> bool:
         return (
-            super().matches(value)
-            and value.__class_attrs__.keys() == self.currie_attributes
+            super().matches(value) and value.__attrs__.keys() == self.currie_attributes
         )
 
     def convert(self, value, name) -> Schema:
@@ -179,7 +178,7 @@ class SchemaConverter(SchemaConverter):
         )
         properties = {}
 
-        for key, prop in value.__class_attrs__.items():
+        for key, prop in value.__attrs__.items():
             if prop.compartment:
                 if prop.compartment not in properties:
                     properties[prop.compartment] = Schema(type="object")
