@@ -66,8 +66,6 @@ class DocumentationConfigManager:
             raise TypeError(
                 f"{documentation_config} is not an instance of Documentation."
             )
-        if self.config is not None:
-            raise ValueError(f"self.config should be None, but is {self.config}")
 
         self.config = documentation_config
         yield
