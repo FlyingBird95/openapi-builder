@@ -19,14 +19,14 @@ class OpenAPI:
     """REQUIRED. Provides metadata about the API. The metadata MAY be used by
     tooling as required."""
 
-    paths: "Paths" = field(default_factory=lambda: Paths())
-    """REQUIRED. The available paths and operations for the API."""
-
     openapi: str = "3.0.3"
     """REQUIRED. This string MUST be the semantic version number of the OpenAPI
     Specification version that the OpenAPI document uses. The openapi field SHOULD
     be used by tooling specifications and clients to interpret the OpenAPI document.
     This is not related to the API info.version string."""
+
+    paths: "Paths" = field(default_factory=lambda: Paths())
+    """REQUIRED. The available paths and operations for the API."""
 
     servers: List["Server"] = field(default_factory=list)
     """An array of Server Objects, which provide connectivity information to a
@@ -312,7 +312,7 @@ class Components:
     schemas: Dict[str, Union["Schema", "Reference"]] = field(default_factory=dict)
     """An object to hold reusable Schema Objects."""
 
-    responses: Dict[str, Union["Schema", "Reference"]] = field(default_factory=dict)
+    responses: Dict[str, Union["Response", "Reference"]] = field(default_factory=dict)
     """An object to hold reusable Response Objects."""
 
     parameters: Dict[str, Union["Parameter", "Reference"]] = field(default_factory=dict)
@@ -1367,7 +1367,7 @@ class Schema:
         if self.min_properties is not None:
             value["minProperties"] = self.min_properties
         if self.enum:
-            value["enum"] = self.enum
+            value["enum"] = [item.get_value() for item in self.enum]
         if self.type is not None:
             value["type"] = self.type
         if self.all_of:
@@ -1377,7 +1377,7 @@ class Schema:
         if self.one_of:
             value["oneOf"] = [item.get_value() for item in self.one_of]
         if self.not_ is not None:
-            value["not"] = self.not_
+            value["not"] = self.not_.get_value()
         if self.items is not None:
             value["items"] = self.items.get_value()
         if self.properties:
@@ -1542,7 +1542,7 @@ class OAuthFlows:
         if self.client_credentials is not None:
             value["clientCredentials"] = self.client_credentials.get_value()
         if self.authorization_code is not None:
-            value["authorizationCoee"] = self.authorization_code.get_value()
+            value["authorizationCode"] = self.authorization_code.get_value()
 
         return value
 
