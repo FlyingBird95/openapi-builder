@@ -217,6 +217,54 @@ def test_operation(operation):
     assert operation.get_value() == {}
 
 
+@pytest.mark.parametrize("operation__summary", ["summary"])
+@pytest.mark.parametrize("operation__description", ["description"])
+@pytest.mark.parametrize("operation__tags", [["tag"]])
+@pytest.mark.parametrize(
+    "operation__external_docs", [LazyFixture("external_documentation")]
+)
+@pytest.mark.parametrize("operation__operation_id", ["operation_id"])
+@pytest.mark.parametrize(
+    "operation__callbacks", [LazyFixture(lambda callback: {"key": callback})]
+)
+@pytest.mark.parametrize(
+    "operation__parameters", [LazyFixture(lambda parameter: [parameter])]
+)
+@pytest.mark.parametrize("operation__responses", [LazyFixture("responses")])
+@pytest.mark.parametrize("operation__request_body", [LazyFixture("request_body")])
+@pytest.mark.parametrize("operation__deprecated", [True])
+@pytest.mark.parametrize(
+    "operation__security",
+    [LazyFixture(lambda security_requirement: [security_requirement])],
+)
+@pytest.mark.parametrize("operation__servers", [LazyFixture(lambda server: [server])])
+def test_operation_full(
+    operation,
+    external_documentation,
+    responses,
+    request_body,
+    callback,
+    parameter,
+    security_requirement,
+    server,
+    tag,
+):
+    assert operation.get_value() == {
+        "summary": "summary",
+        "description": "description",
+        "externalDocs": external_documentation.get_value(),
+        "tags": ["tag"],
+        "operationId": "operation_id",
+        "callbacks": {"key": callback.get_value()},
+        "parameters": [parameter.get_value()],
+        "requestBody": request_body.get_value(),
+        "responses": responses.get_value(),
+        "deprecated": True,
+        "security": [security_requirement.get_value()],
+        "servers": [server.get_value()],
+    }
+
+
 def test_external_documentation(external_documentation):
     assert external_documentation.get_value() == {
         "url": external_documentation.url,
@@ -524,14 +572,19 @@ def test_schema(schema):
 @pytest.mark.parametrize(
     "schema__properties", [LazyFixture(lambda second_schema: {"key": second_schema})]
 )
-@pytest.mark.parametrize("schema__additional_properties", [True])
+@pytest.mark.parametrize(
+    "schema__additional_properties", [LazyFixture("second_schema")]
+)
 @pytest.mark.parametrize("schema__description", ["description"])
 @pytest.mark.parametrize("schema__format", ["format"])
 @pytest.mark.parametrize("schema__default", ["default"])
 @pytest.mark.parametrize("schema__example", ["example"])
 @pytest.mark.parametrize("schema__discriminator", [LazyFixture("discriminator")])
 def test_schema_full(schema, second_schema, discriminator):
+    schema.options = {"abc": "def"}
+
     assert schema.get_value() == {
+        "additionalProperties": second_schema.get_value(),
         "allOf": [{}],
         "anyOf": [{}],
         "default": "default",
@@ -560,6 +613,7 @@ def test_schema_full(schema, second_schema, discriminator):
         "title": "title",
         "type": "type",
         "uniqueItems": 8,
+        "abc": "def",
     }
 
 
