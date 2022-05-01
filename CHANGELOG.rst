@@ -14,6 +14,19 @@ Unreleased
 ----------
 Release date:
 
+Version `0.2.10 <https://github.com/FlyingBird95/openapi-builder/tree/v0.2.10>`__
+--------------------------------------------------------------------------------
+Release date: 2022-04-01
+
+- **Improved** test coverage.
+
+
+Version `0.2.9 <https://github.com/FlyingBird95/openapi-builder/tree/v0.2.9>`__
+--------------------------------------------------------------------------------
+Release date: 2022-02-22
+
+- **Fixed** bug with halogen class inheritance.
+
 Version `0.2.8 <https://github.com/FlyingBird95/openapi-builder/tree/v0.2.8>`__
 --------------------------------------------------------------------------------
 Release date: 2022-02-18
