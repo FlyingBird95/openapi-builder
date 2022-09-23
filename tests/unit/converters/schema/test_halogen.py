@@ -1,8 +1,11 @@
 from http import HTTPStatus
 
+import halogen
 import pytest
+from flask import jsonify
+from halogen import Schema
 
-from openapi_builder import set_schema_options
+from openapi_builder import add_documentation, set_schema_options
 from openapi_builder.documentation import DiscriminatorOptions
 
 
@@ -51,3 +54,62 @@ def test_get_halogen_string_schema(
     assert all_of["type"] == "object"
     assert all_of["properties"] == {"field": {"type": "string"}}
     assert all_of["required"] == ["field"]
+
+
+@pytest.mark.usefixtures("get_with_halogen_schema")
+def test_halogen_description_from_docstring(http, app, open_api_documentation):
+    """Test that a schema attribute docstring is used as a description."""
+
+    class Fish(Schema):
+        name = halogen.Attr(halogen.types.String())
+        name.__doc__ = "Name of this fish."
+
+    @app.route("/fish", methods=["POST"])
+    @add_documentation(request_data=Fish)
+    def post_fish():
+        return jsonify({})
+
+    app.try_trigger_before_first_request_functions()
+
+    configuration = open_api_documentation.get_specification()
+    assert configuration["paths"]["/fish"]["post"]["requestBody"]["content"] == {
+        "application/json": {"schema": {"$ref": "#/components/schemas/Fish"}}
+    }
+
+    fish_schema = configuration["components"]["schemas"]["Fish"]
+    assert fish_schema["type"] == "object"
+    assert fish_schema["required"] == ["name"]
+    assert fish_schema["properties"] == {"name": {"type": "string", "description": "Name of this fish."}}
+
+
+@pytest.mark.usefixtures("get_with_halogen_schema")
+def test_halogen_description_from_docstring_hidden(http, app, open_api_documentation):
+    """Test that internal docstrings are not used in public descriptions."""
+
+    class FishWithSecrets(Schema):
+        """Schema with internal docs on fields."""
+
+        @halogen.attr(halogen.types.String())
+        def nickname(value):
+            """Docstring explaining an internal implementation detail."""
+            return value
+
+        @halogen.attr(halogen.types.String())
+        def num_fins(value):
+            """Docstring explaining an internal implementation detail."""
+            return value
+        num_fins.__doc__ = "Public doc."
+
+    @app.route("/fish", methods=["GET"])
+    @add_documentation(response=FishWithSecrets)
+    def get_fish():
+        return jsonify({})
+
+    app.try_trigger_before_first_request_functions()
+
+    configuration = open_api_documentation.get_specification()
+
+    fish_schema = configuration["components"]["schemas"]["FishWithSecrets"]
+    assert fish_schema["required"] == ["nickname", "num_fins"]
+    assert fish_schema["properties"]["nickname"] == {"type": "string"}
+    assert fish_schema["properties"]["num_fins"] == {"type": "string", "description": "Public doc."}

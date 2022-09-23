@@ -199,6 +199,8 @@ class SchemaConverter(SchemaConverter):
                 attr.default = self.manager.builder.default_manager.process(
                     prop.default
                 )
+            if prop.__doc__ and prop.__doc__ is not halogen.Attr.__doc__:
+                attr.description = prop.__doc__
             result[prop.key] = attr
 
         schema = Schema(type="object", properties=properties)
