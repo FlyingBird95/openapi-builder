@@ -79,7 +79,9 @@ def test_halogen_description_from_docstring(http, app, open_api_documentation):
     fish_schema = configuration["components"]["schemas"]["Fish"]
     assert fish_schema["type"] == "object"
     assert fish_schema["required"] == ["name"]
-    assert fish_schema["properties"] == {"name": {"type": "string", "description": "Name of this fish."}}
+    assert fish_schema["properties"] == {
+        "name": {"type": "string", "description": "Name of this fish."}
+    }
 
 
 @pytest.mark.usefixtures("get_with_halogen_schema")
@@ -98,6 +100,7 @@ def test_halogen_description_from_docstring_hidden(http, app, open_api_documenta
         def num_fins(value):
             """Docstring explaining an internal implementation detail."""
             return value
+
         num_fins.__doc__ = "Public doc."
 
     @app.route("/fish", methods=["GET"])
@@ -112,4 +115,7 @@ def test_halogen_description_from_docstring_hidden(http, app, open_api_documenta
     fish_schema = configuration["components"]["schemas"]["FishWithSecrets"]
     assert fish_schema["required"] == ["nickname", "num_fins"]
     assert fish_schema["properties"]["nickname"] == {"type": "string"}
-    assert fish_schema["properties"]["num_fins"] == {"type": "string", "description": "Public doc."}
+    assert fish_schema["properties"]["num_fins"] == {
+        "type": "string",
+        "description": "Public doc.",
+    }
