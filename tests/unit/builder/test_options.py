@@ -1,8 +1,14 @@
 from http import HTTPStatus
 
 import pytest
+from flask import jsonify
+import marshmallow
 
-from openapi_builder.converters.schema import halogen, marshmallow
+from openapi_builder import add_documentation
+from openapi_builder.converters.schema import (
+    halogen as halogen_converters,
+    marshmallow as marshmallow_converters,
+)
 
 
 def test_register_marshmallow_converters(open_api_documentation):
@@ -10,7 +16,7 @@ def test_register_marshmallow_converters(open_api_documentation):
     # open_api_documentation = OpenApiDocumentation(app=app)
     open_api_documentation.app.try_trigger_before_first_request_functions()
     assert any(
-        isinstance(converter, marshmallow.StringConverter)
+        isinstance(converter, marshmallow_converters.StringConverter)
         for converter in open_api_documentation.builder.schema_manager.converters
     )
 
@@ -23,7 +29,7 @@ def test_register_halogen_converters(http, open_api_documentation):
     """Test that halogen converters can be registered."""
     open_api_documentation.app.try_trigger_before_first_request_functions()
     assert any(
-        isinstance(converter, halogen.StringConverter)
+        isinstance(converter, halogen_converters.StringConverter)
         for converter in open_api_documentation.builder.schema_manager.converters
     )
 
@@ -79,35 +85,65 @@ def test_get_with_decorator_no_options(http, open_api_documentation):
     assert "options" not in path
 
 
-@pytest.mark.usefixtures("get_with_marshmallow_schema")
 @pytest.mark.parametrize(
     "documentation_options__response_content_type", ["something-else"]
 )
-def test_response_content_type(http, open_api_documentation):
+def test_response_content_type(http, app, open_api_documentation):
+    marshmallow_schema = marshmallow.Schema.from_dict(
+        {
+            "field": marshmallow.fields.String(),
+        }
+    )
+
+    @app.route("/get")
+    @add_documentation(response=marshmallow_schema())
+    def get():
+        return jsonify(marshmallow_schema().dump({"field": "value"}))
+
     open_api_documentation.app.try_trigger_before_first_request_functions()
     configuration = open_api_documentation.get_specification()
-    path = configuration["paths"]["/get_with_marshmallow_schema"]
+    path = configuration["paths"]["/get"]
     responses = path["get"]["responses"]
     assert "something-else" in responses["200"]["content"]
 
 
-@pytest.mark.usefixtures("post_with_marshmallow_request_data")
 @pytest.mark.parametrize(
     "documentation_options__request_content_type", ["something-else"]
 )
-def test_request_content_type(http, open_api_documentation):
+def test_request_content_type(http, app, open_api_documentation):
+    marshmallow_schema = marshmallow.Schema.from_dict(
+        {
+            "field": marshmallow.fields.String(),
+        }
+    )
+
+    @app.route("/post", methods=["POST"])
+    @add_documentation(request_data=marshmallow_schema)
+    def post():
+        return jsonify({"status": "OK"})
+
     open_api_documentation.app.try_trigger_before_first_request_functions()
     configuration = open_api_documentation.get_specification()
-    path = configuration["paths"]["/post_with_marshmallow_request_data"]
+    path = configuration["paths"]["/post"]
     request_body = path["post"]["requestBody"]
     assert "something-else" in request_body["content"]
 
 
-@pytest.mark.usefixtures("put_with_marshmallow_request_query")
-def test_query_options(http, open_api_documentation):
+def test_query_options(http, app, open_api_documentation):
+    marshmallow_schema = marshmallow.Schema.from_dict(
+        {
+            "field": marshmallow.fields.String(),
+        }
+    )
+
+    @app.route("/put", methods=["PUT"])
+    @add_documentation(request_query=marshmallow_schema)
+    def put():
+        return jsonify({"status": "OK"})
+
     open_api_documentation.app.try_trigger_before_first_request_functions()
     configuration = open_api_documentation.get_specification()
-    path = configuration["paths"]["/put_with_marshmallow_request_query"]
+    path = configuration["paths"]["/put"]
     [parameter] = path["put"]["parameters"]
     assert parameter["in"] == "query"
     assert parameter["name"] == "field"

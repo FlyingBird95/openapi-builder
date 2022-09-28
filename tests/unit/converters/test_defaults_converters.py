@@ -1,44 +1,64 @@
 import enum
 
 import pytest
-from marshmallow import fields
+import marshmallow
+from flask import jsonify
+
+from openapi_builder import add_documentation
 
 
 @pytest.mark.parametrize(
     "marshmallow_fields",
     [
-        {"field": fields.String(dump_default="abc")},
-        {"field": fields.String(load_default="abc")},
+        {"field": marshmallow.fields.String(dump_default="abc")},
+        {"field": marshmallow.fields.String(load_default="abc")},
     ],
 )
-@pytest.mark.usefixtures("get_with_marshmallow_schema")
-def test_vanilla_converter(http, open_api_documentation):
-    http.get("/get_with_marshmallow_schema")
+def test_vanilla_converter(http, app, marshmallow_fields, open_api_documentation):
+    marshmallow_schema = marshmallow.Schema.from_dict(marshmallow_fields)
 
+    @app.route("/get")
+    @add_documentation(response=marshmallow_schema())
+    def get():
+        return jsonify(marshmallow_schema().dump({"field": "value"}))
+
+    http.get("/get")
     configuration = open_api_documentation.get_specification()
     properties = configuration["components"]["schemas"]["GeneratedSchema"]["properties"]
     assert properties["field"] == {"type": "string", "default": "abc"}
 
 
 @pytest.mark.parametrize(
-    "marshmallow_fields", [{"field": fields.List(fields.String(), dump_default=[])}]
+    "marshmallow_fields",
+    [{"field": marshmallow.fields.List(marshmallow.fields.String(), dump_default=[])}],
 )
-@pytest.mark.usefixtures("get_with_marshmallow_schema")
-def test_list_converter(http, open_api_documentation):
-    http.get("/get_with_marshmallow_schema")
+def test_list_converter(http, app, marshmallow_fields, open_api_documentation):
+    marshmallow_schema = marshmallow.Schema.from_dict(marshmallow_fields)
 
+    @app.route("/get")
+    @add_documentation(response=marshmallow_schema())
+    def get():
+        return jsonify(marshmallow_schema().dump({"field": "value"}))
+
+    http.get("/get")
     configuration = open_api_documentation.get_specification()
     properties = configuration["components"]["schemas"]["GeneratedSchema"]["properties"]
     assert properties["field"] == {"type": "array", "default": []}
 
 
 @pytest.mark.parametrize(
-    "marshmallow_fields", [{"field": fields.String(dump_default=lambda: "abc")}]
+    "marshmallow_fields",
+    [{"field": marshmallow.fields.String(dump_default=lambda: "abc")}],
 )
-@pytest.mark.usefixtures("get_with_marshmallow_schema")
-def test_callable_converter(http, open_api_documentation):
-    http.get("/get_with_marshmallow_schema")
+def test_callable_converter(http, app, marshmallow_fields, open_api_documentation):
+    marshmallow_schema = marshmallow.Schema.from_dict(marshmallow_fields)
 
+    @app.route("/get")
+    @add_documentation(response=marshmallow_schema())
+    def get():
+        return jsonify(marshmallow_schema().dump({"field": "value"}))
+
+    http.get("/get")
     configuration = open_api_documentation.get_specification()
     properties = configuration["components"]["schemas"]["GeneratedSchema"]["properties"]
     assert properties["field"] == {"type": "string", "default": "abc"}
@@ -50,24 +70,35 @@ class MyEnum(enum.Enum):
 
 
 @pytest.mark.parametrize(
-    "marshmallow_fields", [{"field": fields.String(dump_default=MyEnum.first_value)}]
+    "marshmallow_fields",
+    [{"field": marshmallow.fields.String(dump_default=MyEnum.first_value)}],
 )
-@pytest.mark.usefixtures("get_with_marshmallow_schema")
-def test_enum_converter(http, open_api_documentation):
-    http.get("/get_with_marshmallow_schema")
+def test_enum_converter(http, app, marshmallow_fields, open_api_documentation):
+    marshmallow_schema = marshmallow.Schema.from_dict(marshmallow_fields)
 
+    @app.route("/get")
+    @add_documentation(response=marshmallow_schema())
+    def get():
+        return jsonify(marshmallow_schema().dump({"field": "value"}))
+
+    http.get("/get")
     configuration = open_api_documentation.get_specification()
     properties = configuration["components"]["schemas"]["GeneratedSchema"]["properties"]
     assert properties["field"] == {"type": "string", "default": "first_value"}
 
 
 @pytest.mark.parametrize(
-    "marshmallow_fields", [{"field": fields.String(dump_default=None)}]
+    "marshmallow_fields", [{"field": marshmallow.fields.String(dump_default=None)}]
 )
-@pytest.mark.usefixtures("get_with_marshmallow_schema")
-def test_none_converter(http, open_api_documentation):
-    http.get("/get_with_marshmallow_schema")
+def test_none_converter(http, app, marshmallow_fields, open_api_documentation):
+    marshmallow_schema = marshmallow.Schema.from_dict(marshmallow_fields)
 
+    @app.route("/get")
+    @add_documentation(response=marshmallow_schema())
+    def get():
+        return jsonify(marshmallow_schema().dump({"field": "value"}))
+
+    http.get("/get")
     configuration = open_api_documentation.get_specification()
     properties = configuration["components"]["schemas"]["GeneratedSchema"]["properties"]
     assert properties["field"] == {"type": "string", "default": None}

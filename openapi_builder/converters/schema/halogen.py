@@ -8,7 +8,7 @@ from openapi_builder.documentation import SchemaOptions
 from openapi_builder.specification import Discriminator, Reference, Schema
 
 from .base import SchemaConverter
-
+from ...parsers.docstring import DocStringParser
 
 ALL_HALOGEN_CONVERTER_CLASSES = []
 
@@ -172,6 +172,9 @@ class SchemaConverter(SchemaConverter):
                 schema=Schema(type="object"),
             )
 
+        parser = DocStringParser.from_class(value)
+        parser.parse()
+
         schema_name = value.__name__
         schema_options: Optional["SchemaOptions"] = getattr(
             value, HIDDEN_ATTR_NAME, None
@@ -190,6 +193,8 @@ class SchemaConverter(SchemaConverter):
                 value=prop.attr_type,
                 name=f"{schema_name}.{prop.key}",
             )
+            if parser.result.get(f"{schema_name}.{key}"):
+                attr.description = parser.result.get(f"{schema_name}.{key}")
             if schema_options is not None and key in schema_options.options:
                 attr.options = schema_options.options[key]
             if prop.required is False:
