@@ -8,7 +8,7 @@ from openapi_builder.documentation import SchemaOptions
 from openapi_builder.specification import Discriminator, Reference, Schema
 
 from .base import SchemaConverter
-from ...parsers.docstring import DocStringParser
+from openapi_builder.parsers.docstring import DocStringParser
 
 ALL_HALOGEN_CONVERTER_CLASSES = []
 
