@@ -1,4 +1,4 @@
-from abc import ABC
+from abc import ABC, abstractmethod
 from typing import Union
 
 import marshmallow
@@ -30,6 +30,10 @@ class MarshmallowConverter(SchemaConverter, ABC):
             schema.default = self.manager.builder.default_manager.process(
                 value.load_default
             )
+
+    @abstractmethod
+    def convert(self, value, name) -> Schema:
+        raise NotImplementedError()
 
 
 @append_converter_class
