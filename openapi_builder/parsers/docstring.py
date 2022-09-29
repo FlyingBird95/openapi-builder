@@ -89,7 +89,11 @@ class DocStringParser:
 
     def __get_class_name(self, base: ast.Expr) -> Optional[str]:
         if isinstance(base, ast.Name):
-            return self.import_names[base.id]
+            try:
+                return self.import_names[base.id]
+            except KeyError:
+                print(f"(1) This is not good, investigate: {base.id}")
+                return None
         elif isinstance(base, ast.Attribute):
             base_value = self.__get_class_name(base.value)
             return f"{base_value}.{base.attr}" if base_value else base.attr
@@ -118,7 +122,6 @@ class DocStringParser:
                     if super_module_name == full_name:
                         super_real_class_name = key.split(".")[-1]
                         self.result[f"{name}.{super_real_class_name}"] = docstring
-                    print(key)
 
                 continue
 
@@ -151,4 +154,7 @@ class DocStringParser:
         >>> answer_of_life = 42
         >>> '''Description why the answer of life = 42.'''
         """
-        self.result[self.get_name(node.targets[0])] = next_node.value.value
+        if isinstance(next_node.value, ast.Call):
+            print(f"(2) This is not good, investigate: {next_node.value}")
+        else:
+            self.result[self.get_name(node.targets[0])] = next_node.value.value
