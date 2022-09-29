@@ -56,8 +56,10 @@ class DocStringParser:
 
         if hasattr(node, "name"):
             return prefix + node.name
-        else:
+        elif hasattr(node, "id"):
             return prefix + node.id
+        else:
+            return prefix + node.value.id
 
     def parse(self):
         for index, node in enumerate(self.module.body):
