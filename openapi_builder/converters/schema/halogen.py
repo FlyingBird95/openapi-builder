@@ -207,6 +207,9 @@ class SchemaConverter(SchemaConverter):
             result[prop.key] = attr
 
         schema = Schema(type="object", properties=properties)
+        if value.__doc__:
+            schema.description = value.__doc__
+
         self.manager.builder.schemas[schema_name] = schema
         if not schema_options or not schema_options.discriminator:
             return Reference.from_schema(schema_name=schema_name, schema=schema)

@@ -1369,7 +1369,10 @@ class Schema:
         if self.min_properties is not None:
             value["minProperties"] = self.min_properties
         if self.enum:
-            value["enum"] = [item.get_value() for item in self.enum]
+            value["enum"] = [
+                item.get_value() if isinstance(item, Schema) else item
+                for item in self.enum
+            ]
         if self.type is not None:
             value["type"] = self.type
         if self.all_of:

@@ -1,6 +1,7 @@
 import ast
 import inspect
 import os
+from typing import Optional
 import sys
 
 
@@ -32,6 +33,9 @@ class DocStringParser:
         self.module = module
         self.prefix = prefix
         self.import_names = {}
+        """Dict to get the full import name:
+        i.e. 'import typing as t' results in: {'t': 'typing'}
+        """
         self.result = {}
 
     @classmethod
@@ -81,25 +85,43 @@ class DocStringParser:
         """Processes 'import package' statements."""
         for name in node.names:
             import_name = name.asname if name.asname is not None else name.name
-            self.import_names[import_name] = import_name
+            self.import_names[import_name] = name.name
+
+    def __get_class_name(self, base: ast.Expr) -> Optional[str]:
+        if isinstance(base, ast.Name):
+            return self.import_names[base.id]
+        elif isinstance(base, ast.Attribute):
+            base_value = self.__get_class_name(base.value)
+            return f"{base_value}.{base.attr}" if base_value else base.attr
+
+        if hasattr(base.value, "id"):
+            try:
+                return f"{self.import_names[base.value.id]}.{base.attr}"
+            except KeyError:
+                return None
+
+        return None
 
     def _process_class_definition(self, node: ast.ClassDef):
         """Processes 'class A(Base): ... definitions."""
+        name = self.get_name(node)
         for base in node.bases:  # parse super classes
-            try:
-                if isinstance(base, ast.Name):
-                    if base.id == "object":
-                        return
-                    full_name = self.import_names[base.id]
-                else:
-                    full_name = (
-                        self.import_names[base.value.id] + "." + base.attr
-                    )  # e.g. 'package.sub.ClassA'
-            except KeyError:
-                print(f"Don't know how to process this. {base}")
+            full_name = self.__get_class_name(base)
+            if not full_name:
                 return
             real_class_name = full_name.split(".")[-1]  # e.g. 'ClassA'.
             module_name = ".".join(full_name.split(".")[:-1])  # e.g. 'package.sub'
+
+            if not module_name:  # parent module found in same file
+                for key, docstring in list(self.result.items()):
+                    super_module_name = ".".join(key.split(".")[:-1])
+                    if super_module_name == full_name:
+                        super_real_class_name = key.split(".")[-1]
+                        self.result[f"{name}.{super_real_class_name}"] = docstring
+                    print(key)
+
+                continue
+
             super_class_parser = DocStringParser.from_file(
                 sys.modules[module_name].__file__
             )
@@ -119,7 +141,8 @@ class DocStringParser:
             self.result[key] = value
 
         # docstring from class definition.
-        self.result[self.get_name(node)] = ast.get_docstring(node)
+        self.import_names[name] = name
+        self.result[name] = ast.get_docstring(node)
 
     def _process_docstring_from_assignment(self, node: ast.Assign, next_node: ast.Expr):
         """

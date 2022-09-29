@@ -69,26 +69,3 @@ def test_get_halogen_string_schema(http, app, open_api_documentation):
     assert all_of["type"] == "object"
     assert all_of["properties"] == {"field": {"type": "string"}}
     assert all_of["required"] == ["field"]
-
-
-def test_halogen_description_from_docstring(http, app, open_api_documentation):
-    """Test that a schema attribute docstring is used as a description."""
-
-    @app.route("/fish", methods=["POST"])
-    @add_documentation(request_data=Fish)
-    def post_fish():
-        return jsonify({})
-
-    app.try_trigger_before_first_request_functions()
-
-    configuration = open_api_documentation.get_specification()
-    assert configuration["paths"]["/fish"]["post"]["requestBody"]["content"] == {
-        "application/json": {"schema": {"$ref": "#/components/schemas/Fish"}}
-    }
-
-    fish_schema = configuration["components"]["schemas"]["Fish"]
-    assert fish_schema["type"] == "object"
-    assert fish_schema["required"] == ["name"]
-    assert fish_schema["properties"] == {
-        "name": {"type": "string", "description": "Name of this fish."}
-    }
