@@ -1,5 +1,5 @@
 import typing
-from abc import ABC
+from abc import ABC, abstractmethod
 
 if typing.TYPE_CHECKING:
     from .manager import DefaultsManager
@@ -18,5 +18,6 @@ class DefaultsConverter(ABC):
         """Returns True if the Converter can match the specified class."""
         return isinstance(value, self.converts_class)
 
+    @abstractmethod
     def convert(self, value) -> typing.Any:
         raise NotImplementedError
