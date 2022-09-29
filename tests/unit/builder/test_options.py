@@ -54,9 +54,9 @@ def test_get_with_decorator(http, open_api_documentation):
 
     configuration = open_api_documentation.get_specification()
     path = configuration["paths"]["/get_with_decorator"]
-    assert path["get"] == {"responses": {}}
-    assert path["head"] == {"responses": {}}
-    assert path["options"] == {"responses": {}}
+    assert path["get"] == {"responses": {}, "summary": "/get_with_decorator"}
+    assert path["head"] == {"responses": {}, "summary": "/get_with_decorator"}
+    assert path["options"] == {"responses": {}, "summary": "/get_with_decorator"}
 
 
 @pytest.mark.usefixtures("get_with_decorator")
@@ -68,7 +68,7 @@ def test_get_with_decorator_no_head(http, open_api_documentation):
 
     configuration = open_api_documentation.get_specification()
     path = configuration["paths"]["/get_with_decorator"]
-    assert path["get"] == {"responses": {}}
+    assert path["get"] == {"responses": {}, "summary": "/get_with_decorator"}
     assert "head" not in path
 
 
@@ -81,7 +81,7 @@ def test_get_with_decorator_no_options(http, open_api_documentation):
 
     configuration = open_api_documentation.get_specification()
     path = configuration["paths"]["/get_with_decorator"]
-    assert path["get"] == {"responses": {}}
+    assert path["get"] == {"responses": {}, "summary": "/get_with_decorator"}
     assert "options" not in path
 
 
