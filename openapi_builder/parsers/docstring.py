@@ -161,7 +161,7 @@ class DocStringParser:
             if isinstance(n, ast.Call):
                 return None
             if isinstance(n, ast.Str):
-                return str(n)
+                return n.value
             return get_docstring(n.value)
 
         docstring = get_docstring(next_node)
