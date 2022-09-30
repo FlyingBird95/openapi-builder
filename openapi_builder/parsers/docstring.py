@@ -158,12 +158,15 @@ class DocStringParser:
         """
 
         def get_docstring(n):
-            if isinstance(n, ast.Expr):
-                return get_docstring(n.value)
-            return ast.literal_eval(n)
+            try:
+                return ast.literal_eval(n)
+            except ValueError:
+                if isinstance(n, (ast.Expr, ast.Attribute)):
+                    return get_docstring(n.value)
+                if isinstance(n, ast.Call):
+                    return get_docstring(n.func)
+                if isinstance(n, ast.Name):
+                    return n.id
+                raise  # don't know how to handle this situation
 
-        docstring = get_docstring(next_node)
-        if docstring is None:
-            print(f"(2) This is not good, investigate: {next_node.value}")
-        else:
-            self.result[self.get_name(node.targets[0])] = docstring
+        self.result[self.get_name(node.targets[0])] = get_docstring(next_node)

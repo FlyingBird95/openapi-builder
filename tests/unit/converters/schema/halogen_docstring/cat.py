@@ -5,8 +5,10 @@ import halogen as hal
 class Cat(hal.Schema):
     """Cat schema."""
 
-    name = hal.Attr(hal.types.String())
-    """The name of the cat."""
+    @hal.Attr(hal.types.String())
+    def name(self):
+        """The name of the cat."""
+        return "Ginger"  # note: docstring above is currently not possible to parse.
 
     age = hal.Attr(hal.types.Int())
     """The age of the cat in years."""
