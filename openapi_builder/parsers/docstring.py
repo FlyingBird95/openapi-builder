@@ -157,11 +157,11 @@ class DocStringParser:
         >>> '''Description why the answer of life = 42.'''
         """
 
-        def get_docstring(n: Union[str, ast.Expr]):
+        def get_docstring(n: Union[ast.Str, ast.Expr]):
             if isinstance(n, ast.Call):
                 return None
-            if isinstance(n, str):
-                return n
+            if isinstance(n, ast.Str):
+                return str(n)
             return get_docstring(n.value)
 
         docstring = get_docstring(next_node)
