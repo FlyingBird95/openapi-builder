@@ -1,7 +1,7 @@
 import ast
 import inspect
 import os
-from typing import Optional, Union
+from typing import Optional
 import sys
 
 
@@ -157,12 +157,10 @@ class DocStringParser:
         >>> '''Description why the answer of life = 42.'''
         """
 
-        def get_docstring(n: Union[ast.Str, ast.Expr]):
-            if isinstance(n, ast.Call):
-                return None
-            if isinstance(n, ast.Str):
-                return n.value
-            return get_docstring(n.value)
+        def get_docstring(n):
+            if isinstance(n, ast.Expr):
+                return get_docstring(n.value)
+            return ast.literal_eval(n)
 
         docstring = get_docstring(next_node)
         if docstring is None:
