@@ -2,7 +2,14 @@
 from halogen import Schema, Attr, types
 
 
-class Dog(Schema):
+class NumLegs(Schema):
+    """Class for specifying the number of legs."""
+
+    num_legs = Attr(types.Int())
+    """Number of legs for this animal."""
+
+
+class Dog(NumLegs, Schema):
     """Dog schema."""
 
     name = Attr(types.String())

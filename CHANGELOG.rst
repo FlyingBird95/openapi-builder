@@ -14,6 +14,13 @@ Unreleased
 ----------
 Release date:
 
+Version `0.2.11 <https://github.com/FlyingBird95/openapi-builder/tree/v0.2.11>`__
+--------------------------------------------------------------------------------
+Release date:
+
+- **Added** Docstring parser for property descriptions.
+
+
 Version `0.2.10 <https://github.com/FlyingBird95/openapi-builder/tree/v0.2.10>`__
 --------------------------------------------------------------------------------
 Release date: 2022-04-01

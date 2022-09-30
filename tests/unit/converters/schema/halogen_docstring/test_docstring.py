@@ -5,7 +5,7 @@ from openapi_builder import add_documentation
 from .cat import Cat
 from .dog import Dog
 from .fish import Fish
-from .snake import Snake
+from .snake import Snake, Python
 
 
 @pytest.fixture
@@ -90,10 +90,14 @@ def test_dog(http, app, open_api_documentation):
     cat_schema = configuration["components"]["schemas"]["Dog"]
     assert cat_schema["description"] == "Dog schema."
     assert cat_schema["type"] == "object"
-    assert cat_schema["required"] == ["name", "age"]
+    assert cat_schema["required"] == ["num_legs", "name", "age"]
     assert cat_schema["properties"] == {
         "name": {"type": "string", "description": "The name of the dog."},
         "age": {"type": "integer", "description": "The age of the dog in years."},
+        "num_legs": {
+            "description": "Number of legs for this animal.",
+            "type": "integer",
+        },
     }
 
 
@@ -121,8 +125,39 @@ def test_snake(http, app, open_api_documentation):
     assert snake_schema["properties"] == {
         "name": {"type": "string", "description": "The name of the animal."},
         "age": {"type": "integer", "description": "The age of the animal in years."},
-        "length": {
-            "type": "integer",
-            "description": "Length of the snake in centimeters.",
+        "length": {"type": "integer"},
+    }
+
+
+def test_python(http, app, open_api_documentation):
+    """Test schema with double inheritance."""
+
+    @app.put("/python")
+    @add_documentation(response=Python)
+    def put():
+        return jsonify({})
+
+    app.try_trigger_before_first_request_functions()
+
+    configuration = open_api_documentation.get_specification()
+    response = configuration["paths"]["/python"]["put"]["responses"]["200"]
+    assert response["description"] == ""
+    assert response["content"] == {
+        "application/json": {"schema": {"$ref": "#/components/schemas/Python"}}
+    }
+
+    snake_schema = configuration["components"]["schemas"]["Python"]
+    assert (
+        snake_schema["description"] == "Python schema for testing double inheritance."
+    )
+    assert snake_schema["type"] == "object"
+    assert snake_schema["required"] == ["name", "age", "length", "is_dangerous"]
+    assert snake_schema["properties"] == {
+        "name": {"type": "string", "description": "The name of the animal."},
+        "age": {"type": "integer", "description": "The age of the animal in years."},
+        "length": {"type": "integer"},
+        "is_dangerous": {
+            "type": "boolean",
+            "description": "Whether this Python is dangerous.",
         },
     }

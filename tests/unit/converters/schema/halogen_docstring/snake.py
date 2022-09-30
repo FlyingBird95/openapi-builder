@@ -15,5 +15,12 @@ class Animal(halogen.Schema):
 class Snake(Animal):
     """Snake schema."""
 
-    length = halogen.Attr(halogen.types.Int())
-    """Length of the snake in centimeters."""
+    length = halogen.Attr(halogen.types.Int())  # Length of the snake in centimeters.
+    # The comments should be ignored.
+
+
+class Python(Snake):
+    """Python schema for testing double inheritance."""
+
+    is_dangerous = halogen.Attr(halogen.types.Boolean())
+    """Whether this Python is dangerous."""
