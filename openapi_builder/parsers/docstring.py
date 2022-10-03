@@ -1,4 +1,5 @@
 import ast
+import functools
 import inspect
 import os
 from typing import Optional
@@ -39,11 +40,13 @@ class DocStringParser:
         self.result = {}
 
     @classmethod
+    @functools.lru_cache(maxsize=64)
     def from_class(cls, class_to_process, prefix=None):
         filename = inspect.getfile(class_to_process)
         return cls.from_file(filename=filename, prefix=prefix)
 
     @classmethod
+    @functools.lru_cache(maxsize=64)
     def from_file(cls, filename, prefix=None):
         filename = os.path.splitext(filename)[0] + ".py"  # convert .pyc to .py
         with open(filename, "r") as f:
@@ -76,6 +79,8 @@ class DocStringParser:
                 self._process_class_definition(node=node)
             elif isinstance(node, ast.Assign) and isinstance(next_node, ast.Expr):
                 self._process_docstring_from_assignment(node=node, next_node=next_node)
+            elif isinstance(node, ast.FunctionDef):
+                self._process_function_def(node=node)
 
     def _process_import_from(self, node: ast.ImportFrom):
         """Processes 'from package import class' statements."""
@@ -90,6 +95,9 @@ class DocStringParser:
             self.import_names[import_name] = name.name
 
     def __get_class_name(self, base: ast.Expr) -> Optional[str]:
+        if hasattr(base, "id") and base.id == "object":
+            return None
+
         if isinstance(base, ast.Name):
             try:
                 return self.import_names[base.id]
@@ -170,3 +178,16 @@ class DocStringParser:
                 raise  # don't know how to handle this situation
 
         self.result[self.get_name(node.targets[0])] = get_docstring(next_node)
+
+    def _process_function_def(self, node: ast.FunctionDef):
+        """Processes the following lines.
+
+        >>> import halogen
+        >>>
+        >>>
+        >>> @halogen.Attr(halogen.types.String())
+        >>> def name():
+        >>>    '''This is the docstring.'''
+        >>>    return "ginger".
+        """
+        self.result[self.get_name(node)] = ast.get_docstring(node)

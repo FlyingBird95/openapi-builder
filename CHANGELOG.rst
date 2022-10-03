@@ -14,7 +14,7 @@ Unreleased
 ----------
 Release date:
 
-Version `0.2.11 <https://github.com/FlyingBird95/openapi-builder/tree/v0.2.11>`__
+Version `0.3.0 <https://github.com/FlyingBird95/openapi-builder/tree/v0.3.0>`__
 --------------------------------------------------------------------------------
 Release date:
 

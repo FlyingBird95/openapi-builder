@@ -65,7 +65,7 @@ def test_cat(http, app, open_api_documentation):
     assert cat_schema["type"] == "object"
     assert cat_schema["required"] == ["name", "age"]
     assert cat_schema["properties"] == {
-        "name": {"type": "string"},
+        "name": {"type": "string", "description": "The name of the cat."},
         "age": {"type": "integer", "description": "The age of the cat in years."},
     }
 
