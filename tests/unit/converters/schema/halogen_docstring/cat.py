@@ -8,7 +8,7 @@ class Cat(hal.Schema):
     @hal.Attr(hal.types.String())
     def name(self):
         """The name of the cat."""
-        return "Ginger"  # note: docstring above is currently not possible to parse.
+        return "Ginger"
 
     age = hal.Attr(hal.types.Int())
     """The age of the cat in years."""
