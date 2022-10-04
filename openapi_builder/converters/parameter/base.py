@@ -1,5 +1,5 @@
 import typing
-from abc import ABC
+from abc import ABC, abstractmethod
 
 from openapi_builder.specification import Schema
 
@@ -21,5 +21,6 @@ class ParameterConverter(ABC):
         return isinstance(value, self.converts_class)
 
     @property
+    @abstractmethod
     def schema(self) -> Schema:
         raise NotImplementedError()

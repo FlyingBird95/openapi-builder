@@ -1,3 +1,4 @@
+import marshmallow
 import pytest
 from flask import jsonify
 
@@ -10,15 +11,19 @@ def route_with_parameter():
 
 
 @pytest.fixture
-def get_with_route_validator(
-    app, marshmallow_schema, marshmallow_example_object, route_with_parameter
-):
+def get_with_route_validator(app, route_with_parameter):
+    marshmallow_schema = marshmallow.Schema.from_dict(
+        {
+            "field": marshmallow.fields.String(),
+        }
+    )
+
     @app.route(route_with_parameter, methods=["GET"])
     @add_documentation(response=marshmallow_schema())
-    def get_with_marshmallow_schema_func(route):
-        return jsonify(marshmallow_schema().dump(marshmallow_example_object))
+    def get(route):
+        return jsonify(marshmallow_schema().dump({"field": "value"}))
 
-    return get_with_marshmallow_schema_func
+    return get
 
 
 @pytest.mark.parametrize(

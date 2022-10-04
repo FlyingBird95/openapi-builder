@@ -1,16 +1,29 @@
 from http import HTTPStatus
 
-import pytest
+import marshmallow
+from flask import jsonify
+
+from openapi_builder import add_documentation
 
 
-@pytest.mark.usefixtures("get_with_marshmallow_schema")
-def test_get_marshmallow_string_schema(http, open_api_documentation):
-    response = http.get("/get_with_marshmallow_schema")
+def test_get_marshmallow_string_schema(http, app, open_api_documentation):
+    marshmallow_schema = marshmallow.Schema.from_dict(
+        {
+            "field": marshmallow.fields.String(),
+        },
+    )
+
+    @app.route("/get")
+    @add_documentation(response=marshmallow_schema())
+    def get():
+        return jsonify(marshmallow_schema().dump({"field": "value"}))
+
+    response = http.get("/get")
     assert response.status_code == HTTPStatus.OK
     assert response.parsed_data == {"field": "value"}
 
     configuration = open_api_documentation.get_specification()
-    path = configuration["paths"]["/get_with_marshmallow_schema"]
+    path = configuration["paths"]["/get"]
     operation = path["get"]["responses"]["200"]
     assert operation["description"] == ""
     ref = operation["content"]["application/json"]["schema"]
