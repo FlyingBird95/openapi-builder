@@ -186,14 +186,14 @@ class OpenAPIBuilder:
             for key, schema in self.config.response.items():
                 reference = self.schema_manager.process(schema, name=key)
                 values[key] = Response(
-                    description=self.config.description or "",
+                    description="",
                     content={
                         self.options.response_content_type: MediaType(schema=reference)
                     },
                 )
 
             operation = Operation(
-                summary=self.config.summary,
+                summary=endpoint_name,
                 description=self.config.description,
                 responses=Responses(values=values),
                 tags=self.config.tags,

@@ -19,4 +19,8 @@ def test_set_resource_options(http, app, user_blueprint, open_api_documentation)
 
     configuration = open_api_documentation.get_specification()
     path = configuration["paths"]["/users/get_user"]
-    assert path["get"] == {"tags": ["user-tag"], "responses": {}}
+    assert path["get"] == {
+        "tags": ["user-tag"],
+        "responses": {},
+        "summary": "/users/get_user",
+    }
